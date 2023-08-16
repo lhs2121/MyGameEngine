@@ -1,98 +1,97 @@
-﻿#include <windows.h>
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
-#include <MyBase/헤더.h>
+﻿#include "MyWindow.h"
 
-HINSTANCE hInst;                            
+MyWindow* MyWindow::Inst;
 
-ATOM                MyRegisterClass(HINSTANCE hInstance);
-BOOL                InitInstance(HINSTANCE, int);
-LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-    _In_opt_ HINSTANCE hPrevInstance,
-    _In_ LPWSTR    lpCmdLine,
-    _In_ int       nCmdShow)
+void MyWindow::OpenWindow()
 {
-    MyRegisterClass(hInstance);
-
-
-    if (!InitInstance(hInstance, nCmdShow))
-    {
-        return FALSE;
-    }
-
-    MSG msg;
-
-    // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-
+	MyRegisterClass();
+	InitInstance();
 }
 
-ATOM MyRegisterClass(HINSTANCE hInstance)
+void MyWindow::MyRegisterClass()
 {
-    WNDCLASSEXA wcex;
+	WNDCLASSEXA wcex;
 
-    wcex.cbSize = sizeof(WNDCLASSEXA);
-    wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = WndProc;
-    wcex.cbClsExtra = 0;
-    wcex.cbWndExtra = 0;
-    wcex.hInstance = hInstance;
-    wcex.hIcon = nullptr;
-    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = "asdsad";
-    wcex.lpszClassName = "asfsfda";
-    wcex.hIconSm = nullptr;
+	wcex.cbSize = sizeof(WNDCLASSEXA);
+	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc = MyWindow::WndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = hInst;
+	wcex.hIcon = nullptr;
+	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wcex.lpszMenuName = "MyGame";
+	wcex.lpszClassName = "MyGameEngine";
+	wcex.hIconSm = nullptr;
 
-    return RegisterClassExA(&wcex);
+	RegisterClassExA(&wcex);
 }
 
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
+void MyWindow::InitInstance()
 {
-    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
+	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
-    HWND hWnd = CreateWindowA("asfsfda", "asdsad", WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
-        CW_USEDEFAULT, 1080/2, 500, 500, nullptr, nullptr, hInstance, nullptr);
+	// 창 크기 및 위치 설정
+	int windowWidth = screenWidth;
+	int windowHeight = screenHeight;
+	int windowX = (screenWidth - windowWidth) / 2;
+	int windowY = (screenHeight - windowHeight) / 2;
 
-    if (!hWnd)
-    {
-        return FALSE;
-    }
 
-    ShowWindow(hWnd, nCmdShow);
-    UpdateWindow(hWnd);
+	hwnd = CreateWindowA("MyGameEngine", "MyGame", WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
+		windowX, windowY, windowWidth, windowHeight, nullptr, nullptr, hInst, nullptr);
 
-    return TRUE;
+	if (!hwnd)
+	{
+		return;
+	}
+
+	ShowWindow(hwnd, SW_SHOW);
+	UpdateWindow(hwnd);
+
+	return;
 }
 
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK MyWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-    case WM_PAINT:
-    {
-        PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hWnd, &ps);
-        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-        EndPaint(hWnd, &ps);
-    }
-    break;
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
+	switch (message)
+	{
+	case WM_PAINT:
+	{
+		PAINTSTRUCT ps;
+		HDC hdc = BeginPaint(hWnd, &ps);
+		// TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+		EndPaint(hWnd, &ps);
+	}
+	break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	return 0;
 }
+void MyWindow::MessageLoop()
+{
+	MSG msg;
 
+	while (1)
+	{
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+			{
+				break;
+			}
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+			continue;
+		}
+	}
+}
