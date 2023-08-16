@@ -8,10 +8,7 @@
 class MyWindow
 {
 public:
-	MyWindow() 
-	{
-		Inst = this;
-	}
+	MyWindow() { Inst = this; }
 	~MyWindow() {};
 	MyWindow(const MyWindow& _Other) = delete;
 	MyWindow(MyWindow&& _Other) noexcept = delete;

@@ -1,5 +1,6 @@
 ﻿#include "MyWindow.h"
 
+
 MyWindow* MyWindow::Inst;
 
 
@@ -42,7 +43,7 @@ void MyWindow::InitInstance()
 
 
 	hwnd = CreateWindowA("MyGameEngine", "MyGame", WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
-		windowX, windowY, windowWidth, windowHeight, nullptr, nullptr, hInst, nullptr);
+		windowX, windowY, 800, 600, nullptr, nullptr, hInst, nullptr);
 
 	if (!hwnd)
 	{
@@ -78,20 +79,20 @@ LRESULT CALLBACK MyWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 }
 void MyWindow::MessageLoop()
 {
-	MSG msg;
+	MSG msg = {};
 
-	while (1)
+	while (WM_QUIT != msg.message)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			if (msg.message == WM_QUIT)
-			{
-				break;
-			}
-
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			continue;
 		}
+		else
+		{
+			
+		}
+
+		return;
 	}
 }

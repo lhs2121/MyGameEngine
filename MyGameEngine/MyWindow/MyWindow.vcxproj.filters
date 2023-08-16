@@ -3,5 +3,7 @@
   <ItemGroup>
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="MyWindow.h" />
+    <ClCompile Include="MyRenderer.cpp" />
+    <ClCompile Include="MyRenderer.h" />
   </ItemGroup>
 </Project>

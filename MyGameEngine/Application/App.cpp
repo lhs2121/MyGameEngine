@@ -1,8 +1,8 @@
-#pragma comment(lib, "MyWindow")
-//#pragma comment(lib, "MyWindow")
+#pragma comment(lib, "MyWindow.lib")
+#pragma comment(lib, "MyBase.lib")
 
 #include <MyWindow/MyWindow.h>
-#include <MyBase/Math.h>
+#include <MyWindow/MyRenderer.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -13,5 +13,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MyWindow::Inst->SetHinstance(hInstance);
 	MyWindow::Inst->OpenWindow();
 	MyWindow::Inst->MessageLoop();
+
+	new MyRenderer();
+	MyRenderer::Inst->Init();
+	MyRenderer::Inst->Render();
 }
 

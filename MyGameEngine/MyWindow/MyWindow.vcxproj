@@ -24,6 +24,7 @@
     <ProjectGuid>{0311c6a4-438a-43e4-872f-ffdd7acaaa03}</ProjectGuid>
     <RootNamespace>MyWindow</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <ProjectName>MyWindow</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -155,6 +156,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MyRenderer.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MyRenderer.cpp" />
     <ClCompile Include="MyWindow.h">
       <SubType>
       </SubType>
