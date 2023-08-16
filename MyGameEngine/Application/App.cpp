@@ -1,7 +1,8 @@
 #pragma comment(lib, "MyWindow")
+//#pragma comment(lib, "MyWindow")
 
 #include <MyWindow/MyWindow.h>
-
+#include <MyBase/Math.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
