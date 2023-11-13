@@ -70,3 +70,4 @@ void MyRenderer::Render()
 	deviceContext->OMSetRenderTargets(1, &renderTargetViews[0], nullptr);
 	swapChain->Present(0, 0);
 }
+// branch000 push
