@@ -166,6 +166,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MyWindow.cpp" />
+    <ClCompile Include="s000.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
