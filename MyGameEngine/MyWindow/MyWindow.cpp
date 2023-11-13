@@ -45,10 +45,6 @@ void MyWindow::InitInstance()
 	hwnd = CreateWindowA("MyGameEngine", "MyGame", WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
 		windowX, windowY, 800, 600, nullptr, nullptr, hInst, nullptr);
 
-	if (!hwnd)
-	{
-		return;
-	}
 
 	ShowWindow(hwnd, SW_SHOW);
 	UpdateWindow(hwnd);
