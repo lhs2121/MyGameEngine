@@ -5,6 +5,11 @@
     <ClCompile Include="MyWindow.h" />
     <ClCompile Include="MyRenderer.cpp" />
     <ClCompile Include="MyRenderer.h" />
-    <ClCompile Include="s001.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VS.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl" />
   </ItemGroup>
 </Project>

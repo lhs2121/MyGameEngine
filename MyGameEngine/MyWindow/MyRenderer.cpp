@@ -1,10 +1,14 @@
 #include <d3d11.h>
 #include <dxgi.h>
+#include <D3Dcompiler.h>
+#include <MyBase\Math.h>
+
 #include "MyRenderer.h"
 #include "MyWindow.h"
 
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "dxgi")
+#pragma comment(lib, "D3DCompiler")
 
 MyRenderer* MyRenderer::Inst;
 
@@ -33,7 +37,6 @@ void MyRenderer::Init()
 	);
 
 	DXGI_SWAP_CHAIN_DESC scDesc = { 0 };
-
 	scDesc.BufferDesc.Width = 800;
 	scDesc.BufferDesc.Height = 600;
 	scDesc.BufferDesc.RefreshRate.Numerator = 60;
@@ -51,7 +54,6 @@ void MyRenderer::Init()
 	scDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 	pFact->CreateSwapChain(device, &scDesc, &swapChain);
-
 	pFact->Release();
 	pAdap->Release();
 
@@ -62,13 +64,91 @@ void MyRenderer::Init()
 	renderTargetViews.push_back(renderTargetView);
 }
 
+void MyRenderer::CreateVertexBuffer()
+{
+	struct SimpleVertex
+	{
+		float3 Pos;
+	};
+
+	SimpleVertex vertices[]
+	{
+		float3(-0.5f,0.5f),
+		float3(0.5f, 0.5f),
+		float3(0.5f, -0.5f),
+		float3(-0.5f, -0.5f),
+	};
+
+	D3D11_BUFFER_DESC VBDesc = { 0 };
+	VBDesc.ByteWidth = 16;
+	VBDesc.Usage = D3D11_USAGE_DEFAULT;
+	VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	VBDesc.CPUAccessFlags = 0;
+	VBDesc.MiscFlags = 0;
+	VBDesc.StructureByteStride = 4;
+
+	D3D11_SUBRESOURCE_DATA VBSubData = { 0 };
+	VBSubData.pSysMem = vertices;
+	VBSubData.SysMemPitch = 0;
+	VBSubData.SysMemSlicePitch = 0;
+
+	ID3D11Buffer* VB;
+	device->CreateBuffer(&VBDesc, &VBSubData, &VB);
+
+	UINT stride = 12;
+	UINT offset = 0;
+
+	deviceContext->IASetVertexBuffers(0, 1, &VB, &stride, &offset);
+}
+
+void MyRenderer::CreateIndexBuffer()
+{
+	UINT indices[]
+	{
+		0,1,2,
+		2,3,0
+	};
+
+	D3D11_BUFFER_DESC IBDesc = { 0 };
+	IBDesc.ByteWidth = 24;
+	IBDesc.Usage = D3D11_USAGE_DEFAULT;
+	IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	IBDesc.CPUAccessFlags = 0;
+	IBDesc.MiscFlags = 0;
+	IBDesc.StructureByteStride = 4;
+
+	D3D11_SUBRESOURCE_DATA IBSubData = { 0 };
+	IBSubData.pSysMem = indices;
+	IBSubData.SysMemPitch = 0;
+	IBSubData.SysMemSlicePitch = 0;
+
+	ID3D11Buffer* IB;
+	device->CreateBuffer(&IBDesc, &IBSubData, &IB);
+	deviceContext->IASetIndexBuffer(IB, DXGI_FORMAT_R32_UINT, 0);
+}
+
+void MyRenderer::CreateVertexShader()
+{
+	ID3DBlob* shaderBlob;
+	ID3DBlob* errorBlob;
+	HRESULT hr = D3DCompileFromFile(L"VertexShader.hlsl", 0, 0, "main", "vs_5_0", 0, 0, &shaderBlob, &errorBlob);
+
+	ID3D11VertexShader* Shader;
+	device->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, &Shader);
+	deviceContext->VSSetShader(Shader, nullptr, 0);
+}
+
 void MyRenderer::Render()
 {
-	float clearColor[4] = { 0.0f, 1.0f, 1.0f, 1.0f };
+	float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-	deviceContext->ClearRenderTargetView(renderTargetViews[0], clearColor);
+	CreateVertexBuffer();
+	CreateIndexBuffer();
+	CreateVertexShader();
+
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	deviceContext->OMSetRenderTargets(1, &renderTargetViews[0], nullptr);
+	deviceContext->ClearRenderTargetView(renderTargetViews[0], clearColor);
+	deviceContext->DrawIndexed(6,0,0);
 	swapChain->Present(0, 0);
 }
-// branch000 push
-// push2

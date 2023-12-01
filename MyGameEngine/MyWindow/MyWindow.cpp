@@ -92,7 +92,5 @@ void MyWindow::MessageLoop()
 		{
 			
 		}
-
-		return;
 	}
 }

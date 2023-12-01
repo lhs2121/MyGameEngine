@@ -1,9 +1,21 @@
 #pragma once
 
-class vec4
+class float3
 {
 public:
-	vec4(float _x = 0, float _y = 0, float _z = 0, float _w = 1) : x(_x), y(_y), z(_z), w(_w)
+	float3(float _x = 0, float _y = 0, float _z = 0) : x(_x), y(_y), z(_z)
+	{
+
+	}
+	float x;
+	float y;
+	float z;
+};
+
+class float4
+{
+public:
+	float4(float _x = 0, float _y = 0, float _z = 0, float _w = 1) : x(_x), y(_y), z(_z), w(_w)
 	{
 
 	}

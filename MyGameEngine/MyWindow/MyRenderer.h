@@ -24,6 +24,10 @@ public:
 	void Render();
 	void Init();
 
+	void CreateMesh();
+	void CreateVertexBuffer();
+	void CreateIndexBuffer();
+	void CreateVertexShader();
 private:
 	ID3D11Device* device = nullptr;
 	ID3D11DeviceContext* deviceContext = nullptr;

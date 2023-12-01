@@ -12,10 +12,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	new MyWindow();
 	MyWindow::Inst->SetHinstance(hInstance);
 	MyWindow::Inst->OpenWindow();
-	MyWindow::Inst->MessageLoop();
 
 	new MyRenderer();
 	MyRenderer::Inst->Init();
 	MyRenderer::Inst->Render();
+
+	MyWindow::Inst->MessageLoop();
 }
 
