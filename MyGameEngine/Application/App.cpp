@@ -2,7 +2,7 @@
 #pragma comment(lib, "EnginePlatform.lib")
 
 #include <Windows.h>
-#include <EnginePlatform/EngineCore.h>
+#include <EnginePlatform\EngineCore.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,

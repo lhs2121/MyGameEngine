@@ -1,14 +1,12 @@
 #pragma once
 #include <Windows.h>
-#include <string>
-#include <string_view>
 #include <d3d11_4.h>
 #include <d3dcompiler.h>
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
 
 // 설명 :
-class GameEngineMath
+class EngineMath
 {
 public:
 	static const float PI;
@@ -180,7 +178,7 @@ public:
 	float4 EulerDegToQuaternion()
 	{
 		float4 Return = DirectXVector;
-		Return *= GameEngineMath::D2R;
+		Return *= EngineMath::D2R;
 		Return = DirectX::XMQuaternionRotationRollPitchYawFromVector(Return.DirectXVector);
 		return Return;
 	}
@@ -188,7 +186,7 @@ public:
 	float4 QuaternionToEulerDeg()
 	{
 		// 디그리 각도로 바꿔줍니다.
-		return QuaternionToEulerRad() * GameEngineMath::R2D;
+		return QuaternionToEulerRad() * EngineMath::R2D;
 	}
 
 	// 쿼터니온을 다시 라디안 각도로 변경
@@ -206,11 +204,11 @@ public:
 
 		if (pitchTest < -asinThreshold)
 		{
-			result.X = -(0.5f * GameEngineMath::PI);
+			result.X = -(0.5f * EngineMath::PI);
 		}
 		else if (pitchTest > asinThreshold)
 		{
-			result.X = (0.5f * GameEngineMath::PI);
+			result.X = (0.5f * EngineMath::PI);
 		}
 		else
 		{
@@ -394,7 +392,7 @@ public:
 public:
 	inline float Angle2DDeg()
 	{
-		return Angle2DRad() * GameEngineMath::R2D;
+		return Angle2DRad() * EngineMath::R2D;
 	}
 
 	inline float Angle2DRad()
@@ -410,7 +408,7 @@ public:
 
 		//if (0 >= AngleVector.Y)
 		//{
-		//	Angle = GameEngineMath::PI + GameEngineMath::PI - Angle;
+		//	Angle = EngineMath::PI + EngineMath::PI - Angle;
 		//}
 
 		return Result.X;
@@ -438,7 +436,7 @@ public:
 
 	static float4 VectorRotationToDegX(const float4& _Value, const float _Deg)
 	{
-		return VectorRotationToRadX(_Value, _Deg * GameEngineMath::D2R);
+		return VectorRotationToRadX(_Value, _Deg * EngineMath::D2R);
 	}
 
 	static float4 VectorRotationToRadX(const float4& _Value, const float _Rad);
@@ -451,7 +449,7 @@ public:
 
 	static float4 VectorRotationToDegY(const float4& _Value, const float _Deg)
 	{
-		return VectorRotationToRadY(_Value, _Deg * GameEngineMath::D2R);
+		return VectorRotationToRadY(_Value, _Deg * EngineMath::D2R);
 	}
 
 	static float4 VectorRotationToRadY(const float4& _Value, const float _Rad);
@@ -463,7 +461,7 @@ public:
 
 	static float4 VectorRotationToDegZ(const float4& _Value, const float _Deg)
 	{
-		return VectorRotationToRadZ(_Value, _Deg * GameEngineMath::D2R);
+		return VectorRotationToRadZ(_Value, _Deg * EngineMath::D2R);
 	}
 
 	static float4 VectorRotationToRadZ(const float4& _Value, const float _Rad);
@@ -485,7 +483,7 @@ public:
 	static float4 GetUnitVectorFromDeg(const float _Degree)
 	{
 		// 90 => 1.57
-		return GetUnitVectorFromRad(_Degree * GameEngineMath::D2R);
+		return GetUnitVectorFromRad(_Degree * EngineMath::D2R);
 	}
 	//                                       90.0f
 	static float4 GetUnitVectorFromRad(const float _Rad)
@@ -708,7 +706,7 @@ public:
 
 	void RotationDeg(const float4& _Value)
 	{
-		RotationRad(_Value * GameEngineMath::D2R);
+		RotationRad(_Value * EngineMath::D2R);
 	}
 	
 	void RotationRad(const float4& _Value)
@@ -756,7 +754,7 @@ public:
 
 	void RotationXDeg(const float _Value)
 	{
-		RotationXRad(_Value * GameEngineMath::D2R);
+		RotationXRad(_Value * EngineMath::D2R);
 	}
 
 	void RotationXRad(const float _Value)
@@ -776,7 +774,7 @@ public:
 
 	void RotationYDeg(const float _Value)
 	{
-		RotationYRad(_Value * GameEngineMath::D2R);
+		RotationYRad(_Value * EngineMath::D2R);
 	}
 
 	void RotationYRad(const float _Value)
@@ -796,7 +794,7 @@ public:
 
 	void RotationZDeg(const float _Value)
 	{
-		RotationZRad(_Value * GameEngineMath::D2R);
+		RotationZRad(_Value * EngineMath::D2R);
 	}
 
 	float4x4 InverseReturn() const
@@ -935,7 +933,7 @@ public:
 	// 수직
 	void PerspectiveFovLHDeg(float _FovAngle, float _Width, float _Height, float _Near, float _Far)
 	{
-		PerspectiveFovLHRad(_FovAngle * GameEngineMath::D2R, _Width / _Height, _Near, _Far);
+		PerspectiveFovLHRad(_FovAngle * EngineMath::D2R, _Width / _Height, _Near, _Far);
 	}
 
 	// 수직 시야각 
@@ -948,7 +946,7 @@ public:
 
 		//// DirectX::XMMatrixPerspectiveFovLH()
 
-		//float YFOV = _FovAngle * GameEngineMath::D2R;
+		//float YFOV = _FovAngle * EngineMath::D2R;
 
 		//// 원근 투영행렬에서 특징적인 부분.
 		//Arr2D[2][3] = 1.0f;

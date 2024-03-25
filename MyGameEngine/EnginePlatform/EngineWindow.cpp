@@ -11,11 +11,11 @@ EngineWindow::~EngineWindow()
 
 void EngineWindow::OpenWindow()
 {
-	MyRegisterClass();
-	InitInstance();
+	Register();
+	Create();
 }
 
-void EngineWindow::MyRegisterClass()
+void EngineWindow::Register()
 {
 	WNDCLASSEXA wcex;
 
@@ -28,14 +28,14 @@ void EngineWindow::MyRegisterClass()
 	wcex.hIcon = nullptr;
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wcex.lpszMenuName = "MyGame";
-	wcex.lpszClassName = "MyGameEngine";
+	wcex.lpszMenuName = WindowTitle.c_str();
+	wcex.lpszClassName = WindowTitle.c_str();
 	wcex.hIconSm = nullptr;
 
 	RegisterClassExA(&wcex);
 }
 
-void EngineWindow::InitInstance()
+void EngineWindow::Create()
 {
 	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -47,8 +47,8 @@ void EngineWindow::InitInstance()
 	int windowY = (screenHeight - windowHeight) / 2;
 
 
-	Hwnd = CreateWindowA("MyGameEngine", "MyGame", WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
-		windowX, windowY, 800, 600, nullptr, nullptr, HInst, nullptr);
+	Hwnd = CreateWindowA(WindowTitle.c_str(), WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
+		windowX, windowY, WindowSize.X, WindowSize.Y, nullptr, nullptr, HInst, nullptr);
 
 	if (!Hwnd)
 	{
@@ -95,7 +95,7 @@ void EngineWindow::MessageLoop()
 		}
 		else
 		{
-			
+
 		}
 	}
 }
