@@ -47,11 +47,11 @@ void EngineDevice::Init()
 		&e_DeviceContext
 	);
 
-	float4 Size = EngineCore::GetMainWindow().WindowSize;
+	//float4 Size = EngineCore::GetMainWindow().WindowSize;
 
 	DXGI_SWAP_CHAIN_DESC Desc = { 0 };
-	Desc.BufferDesc.Width = Size.X;
-	Desc.BufferDesc.Height = Size.Y;
+	Desc.BufferDesc.Width = 500;
+	Desc.BufferDesc.Height = 500;
 	Desc.BufferDesc.RefreshRate.Numerator = 60;
 	Desc.BufferDesc.RefreshRate.Denominator = 1;
 	Desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;

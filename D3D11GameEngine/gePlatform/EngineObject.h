@@ -18,4 +18,6 @@ protected:
 	virtual void Start() = 0;
 	virtual void Update(float _Delta) = 0;
 	virtual void Release() = 0;
+
+	std::string a = "asdas";
 };

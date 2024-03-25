@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="EngineObject.h" />
+    <ClInclude Include="EngineRenderer.h" />
+    <ClInclude Include="EngineWindow.h" />
+    <ClInclude Include="Pre.h" />
+    <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineDevice.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EngineRenderer.cpp" />
+    <ClCompile Include="EngineWindow.cpp" />
+    <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineDevice.cpp" />
+    <ClCompile Include="EngineObject.cpp" />
+  </ItemGroup>
+</Project>

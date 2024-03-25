@@ -20,11 +20,16 @@ public:
 	{
 		HInst = _HInst;
 	}
+
+	HINSTANCE GetHinstance() const
+	{
+		return HInst;
+	}
+
 	HINSTANCE HInst;
 	HWND Hwnd;
 
-	float4 WindowSize = { 1366,789 };
-	std::string WindowTitle = "Title";
+	std::string Title = "String";
 
 private:
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

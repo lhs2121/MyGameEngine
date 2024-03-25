@@ -1,7 +1,7 @@
 #pragma once
 
-#include <EngineBase\Pre.h>
-#include <EngineBase\EngineMath.h>
+#include <geBase\Pre.h>
+#include <geBase\EngineMath.h>
 
 #include <vector>
 #include <map>

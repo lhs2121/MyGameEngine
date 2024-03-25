@@ -1,8 +1,10 @@
-#pragma comment(lib, "EngineBase.lib")
-#pragma comment(lib, "EnginePlatform.lib")
+#pragma comment(lib, "geBase.lib")
+#pragma comment(lib, "gePlatform.lib")
 
+#include <iostream>
 #include <Windows.h>
-#include <EnginePlatform\EngineCore.h>
+#include <memory>
+#include <gePlatform\EngineCore.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,

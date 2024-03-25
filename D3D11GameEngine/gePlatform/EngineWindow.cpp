@@ -28,11 +28,11 @@ void EngineWindow::Register()
 	wcex.hIcon = nullptr;
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wcex.lpszMenuName = WindowTitle.c_str();
-	wcex.lpszClassName = WindowTitle.c_str();
+	wcex.lpszMenuName = nullptr;
+	wcex.lpszClassName = "myClass";
 	wcex.hIconSm = nullptr;
 
-	RegisterClassExA(&wcex);
+	ATOM A = RegisterClassExA(&wcex);
 }
 
 void EngineWindow::Create()
@@ -46,12 +46,13 @@ void EngineWindow::Create()
 	int windowX = (screenWidth - windowWidth) / 2;
 	int windowY = (screenHeight - windowHeight) / 2;
 
-
-	Hwnd = CreateWindowA(WindowTitle.c_str(), WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
-		windowX, windowY, WindowSize.X, WindowSize.Y, nullptr, nullptr, HInst, nullptr);
+	Hwnd = CreateWindowA("myClass", Title.c_str(), WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, HInst, nullptr);
 
 	if (!Hwnd)
 	{
+		DWORD errorCode = GetLastError();
+		MessageBoxA(nullptr, "EngineWindow::Create() 실패", "Error", MB_OK);
 		return;
 	}
 
@@ -65,14 +66,6 @@ LRESULT CALLBACK EngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, L
 {
 	switch (message)
 	{
-	case WM_PAINT:
-	{
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
-		// TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-		EndPaint(hWnd, &ps);
-	}
-	break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
