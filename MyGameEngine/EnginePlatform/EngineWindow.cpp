@@ -1,25 +1,30 @@
-﻿#include "MyWindow.h"
+﻿#include "Pre.h"
+#include "EngineWindow.h"
 
+EngineWindow::EngineWindow()
+{
+}
 
-MyWindow* MyWindow::Inst;
+EngineWindow::~EngineWindow()
+{
+}
 
-
-void MyWindow::OpenWindow()
+void EngineWindow::OpenWindow()
 {
 	MyRegisterClass();
 	InitInstance();
 }
 
-void MyWindow::MyRegisterClass()
+void EngineWindow::MyRegisterClass()
 {
 	WNDCLASSEXA wcex;
 
 	wcex.cbSize = sizeof(WNDCLASSEXA);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
-	wcex.lpfnWndProc = MyWindow::WndProc;
+	wcex.lpfnWndProc = EngineWindow::WndProc;
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
-	wcex.hInstance = hInst;
+	wcex.hInstance = HInst;
 	wcex.hIcon = nullptr;
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
@@ -30,7 +35,7 @@ void MyWindow::MyRegisterClass()
 	RegisterClassExA(&wcex);
 }
 
-void MyWindow::InitInstance()
+void EngineWindow::InitInstance()
 {
 	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -42,22 +47,21 @@ void MyWindow::InitInstance()
 	int windowY = (screenHeight - windowHeight) / 2;
 
 
-	hwnd = CreateWindowA("MyGameEngine", "MyGame", WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
-		windowX, windowY, 800, 600, nullptr, nullptr, hInst, nullptr);
+	Hwnd = CreateWindowA("MyGameEngine", "MyGame", WS_OVERLAPPEDWINDOW | WS_SIZEBOX,
+		windowX, windowY, 800, 600, nullptr, nullptr, HInst, nullptr);
 
-	if (!hwnd)
+	if (!Hwnd)
 	{
 		return;
 	}
 
-	ShowWindow(hwnd, SW_SHOW);
-	UpdateWindow(hwnd);
+	ShowWindow(Hwnd, SW_SHOW);
+	UpdateWindow(Hwnd);
 
 	return;
 }
 
-
-LRESULT CALLBACK MyWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK EngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -77,7 +81,8 @@ LRESULT CALLBACK MyWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 	}
 	return 0;
 }
-void MyWindow::MessageLoop()
+
+void EngineWindow::MessageLoop()
 {
 	MSG msg = {};
 

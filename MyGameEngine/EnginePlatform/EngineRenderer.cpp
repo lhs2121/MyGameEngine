@@ -1,19 +1,20 @@
 #include <d3d11.h>
 #include <dxgi.h>
 #include <D3Dcompiler.h>
-#include <MyBase\Math.h>
-
-#include "MyRenderer.h"
-#include "MyWindow.h"
+#include "Pre.h"
+#include "EngineRenderer.h"
+#include "EngineCore.h"
 
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "dxgi")
 #pragma comment(lib, "D3DCompiler")
 
-MyRenderer* MyRenderer::Inst;
 
+EngineRenderer::EngineRenderer()
+{
+}
 
-void MyRenderer::Init()
+void EngineRenderer::Init()
 {
 	IDXGIFactory* pFact = nullptr;
 	IDXGIAdapter* pAdap = nullptr;
@@ -48,7 +49,7 @@ void MyRenderer::Init()
 	scDesc.SampleDesc.Quality = 0;
 	scDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	scDesc.BufferCount = 2;
-	scDesc.OutputWindow = MyWindow::Inst->GetHwnd();
+	scDesc.OutputWindow = EngineCore::GetMainWindow().GetHwnd();
 	scDesc.Windowed = true;
 	scDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	scDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
@@ -64,19 +65,23 @@ void MyRenderer::Init()
 	renderTargetViews.push_back(renderTargetView);
 }
 
-void MyRenderer::CreateVertexBuffer()
+void EngineRenderer::CreatMesh()
+{
+}
+
+void EngineRenderer::CreateVertexBuffer()
 {
 	struct SimpleVertex
 	{
-		float3 Pos;
+		float4 Pos;
 	};
 
 	SimpleVertex vertices[]
 	{
-		float3(-0.5f,0.5f),
-		float3(0.5f, 0.5f),
-		float3(0.5f, -0.5f),
-		float3(-0.5f, -0.5f),
+		float4(-0.5f,0.5f),
+		float4(0.5f, 0.5f),
+		float4(0.5f, -0.5f),
+		float4(-0.5f, -0.5f),
 	};
 
 	D3D11_BUFFER_DESC VBDesc = { 0 };
@@ -101,7 +106,7 @@ void MyRenderer::CreateVertexBuffer()
 	deviceContext->IASetVertexBuffers(0, 1, &VB, &stride, &offset);
 }
 
-void MyRenderer::CreateIndexBuffer()
+void EngineRenderer::CreateIndexBuffer()
 {
 	UINT indices[]
 	{
@@ -127,7 +132,7 @@ void MyRenderer::CreateIndexBuffer()
 	deviceContext->IASetIndexBuffer(IB, DXGI_FORMAT_R32_UINT, 0);
 }
 
-void MyRenderer::CreateVertexShader()
+void EngineRenderer::CreateVertexShader()
 {
 	ID3DBlob* shaderBlob;
 	ID3DBlob* errorBlob;
@@ -138,7 +143,7 @@ void MyRenderer::CreateVertexShader()
 	deviceContext->VSSetShader(Shader, nullptr, 0);
 }
 
-void MyRenderer::Render()
+void EngineRenderer::Render()
 {
 	float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 

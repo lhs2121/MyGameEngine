@@ -1,11 +1,12 @@
 #pragma once
 #include <d3d11.h>
 #include <vector>
-class MyRenderer
+
+class EngineRenderer
 {
 public:
-	MyRenderer() { Inst = this; }
-	~MyRenderer() 
+	EngineRenderer();
+	~EngineRenderer() 
 	{
 		device->Release();
 		deviceContext->Release();
@@ -13,18 +14,15 @@ public:
 		renderTargetView->Release();
 		backBufferTexture->Release();
 	};
-	MyRenderer(const MyRenderer& _Other) = delete;
-	MyRenderer(MyRenderer&& _Other) noexcept = delete;
-	MyRenderer& operator=(const MyRenderer& _Other) = delete;
-	MyRenderer& operator=(MyRenderer&& _Other) noexcept = delete;
-
-	static MyRenderer* Inst;
-
+	EngineRenderer(const EngineRenderer& _Other) = delete;
+	EngineRenderer(EngineRenderer&& _Other) noexcept = delete;
+	EngineRenderer& operator=(const EngineRenderer& _Other) = delete;
+	EngineRenderer& operator=(EngineRenderer&& _Other) noexcept = delete;
 
 	void Render();
 	void Init();
 
-	void CreateMesh();
+	void CreatMesh();
 	void CreateVertexBuffer();
 	void CreateIndexBuffer();
 	void CreateVertexShader();
