@@ -4,6 +4,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <memory>
+#include <gePlatform\Pre.h>
 #include <gePlatform\EngineCore.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,

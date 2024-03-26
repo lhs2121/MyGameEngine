@@ -29,7 +29,7 @@ void EngineWindow::Register()
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = nullptr;
-	wcex.lpszClassName = "myClass";
+	wcex.lpszClassName = "Class000";
 	wcex.hIconSm = nullptr;
 
 	ATOM A = RegisterClassExA(&wcex);
@@ -37,17 +37,8 @@ void EngineWindow::Register()
 
 void EngineWindow::Create()
 {
-	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
-
-	// 창 크기 및 위치 설정
-	int windowWidth = screenWidth;
-	int windowHeight = screenHeight;
-	int windowX = (screenWidth - windowWidth) / 2;
-	int windowY = (screenHeight - windowHeight) / 2;
-
-	Hwnd = CreateWindowA("myClass", Title.c_str(), WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, HInst, nullptr);
+	Hwnd = CreateWindowA("Class000", WinTitle.c_str(), WS_OVERLAPPEDWINDOW,
+		WinPos.X, WinPos.Y, WinSize.X, WinSize.Y, nullptr, nullptr, HInst, nullptr);
 
 	if (!Hwnd)
 	{

@@ -1,6 +1,6 @@
- #pragma once
+#pragma once
 
-class EngineWindow 
+class EngineWindow
 {
 public:
 	// constrcuter destructer
@@ -16,7 +16,22 @@ public:
 	void OpenWindow();
 	void MessageLoop();
 
-	void SetHinstance(HINSTANCE _HInst)
+	inline void SetWinPos(const float4 Value)
+	{
+		WinPos = Value;
+	}
+
+	inline void SetWinSize(const float4 Value)
+	{
+		WinSize = Value;
+	}
+
+	inline void SetWinTitle(const std::string Value)
+	{
+		WinTitle = Value;
+	}
+
+	inline void SetHinstance(const HINSTANCE _HInst)
 	{
 		HInst = _HInst;
 	}
@@ -29,7 +44,9 @@ public:
 	HINSTANCE HInst;
 	HWND Hwnd;
 
-	std::string Title = "String";
+	std::string WinTitle;
+	float4 WinSize;
+	float4 WinPos;
 
 private:
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
