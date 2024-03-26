@@ -1,4 +1,5 @@
 ﻿#include "Pre.h"
+#include "EngineCore.h"
 #include "EngineWindow.h"
 
 EngineWindow::EngineWindow()
@@ -79,7 +80,7 @@ void EngineWindow::MessageLoop()
 		}
 		else
 		{
-
+			EngineCore::EngineUpdate();
 		}
 	}
 }

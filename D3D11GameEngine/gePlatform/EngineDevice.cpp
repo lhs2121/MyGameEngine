@@ -9,11 +9,11 @@
 #pragma comment(lib, "dxgi")
 #pragma comment(lib, "D3DCompiler")
 
-ID3D11Device*             EngineDevice::e_Device = nullptr;
-ID3D11DeviceContext*      EngineDevice::e_DeviceContext = nullptr;
-IDXGISwapChain*           EngineDevice::e_SwapChain = nullptr;
-ID3D11RenderTargetView*   EngineDevice::e_RenderTargetView = nullptr;
-ID3D11Texture2D*          EngineDevice::e_BackBufferTexture = nullptr;
+ID3D11Device*             EngineDevice::Device = nullptr;
+ID3D11DeviceContext*      EngineDevice::DeviceContext = nullptr;
+IDXGISwapChain*           EngineDevice::SwapChain = nullptr;
+ID3D11RenderTargetView*   EngineDevice::RenderTargetView = nullptr;
+ID3D11Texture2D*          EngineDevice::BackBufferTexture = nullptr;
 
 EngineDevice::EngineDevice()
 {
@@ -42,9 +42,9 @@ void EngineDevice::Init()
 		nullptr,
 		0,
 		D3D11_SDK_VERSION,
-		&e_Device,
+		&Device,
 		&Level,
-		&e_DeviceContext
+		&DeviceContext
 	);
 
 	//float4 Size = EngineCore::GetMainWindow().WindowSize;
@@ -66,11 +66,11 @@ void EngineDevice::Init()
 	Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-	FactoryPtr->CreateSwapChain(e_Device, &Desc, &e_SwapChain);
+	FactoryPtr->CreateSwapChain(Device, &Desc, &SwapChain);
 
-	e_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&e_BackBufferTexture));
+	SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&BackBufferTexture));
 
-	e_Device->CreateRenderTargetView(e_BackBufferTexture, nullptr, &e_RenderTargetView);
+	Device->CreateRenderTargetView(BackBufferTexture, nullptr, &RenderTargetView);
 
 	FactoryPtr->Release();
 	AdapterPtr->Release();

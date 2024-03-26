@@ -16,9 +16,9 @@ public:
 	static void Init();
 
 private:
-	static ID3D11Device* e_Device;
-	static ID3D11DeviceContext* e_DeviceContext;
-	static IDXGISwapChain* e_SwapChain;
-	static ID3D11RenderTargetView* e_RenderTargetView;
-	static ID3D11Texture2D* e_BackBufferTexture;
+	static ID3D11Device* Device;
+	static ID3D11DeviceContext* DeviceContext;
+	static IDXGISwapChain* SwapChain;
+	static ID3D11RenderTargetView* RenderTargetView;
+	static ID3D11Texture2D* BackBufferTexture;
 };
