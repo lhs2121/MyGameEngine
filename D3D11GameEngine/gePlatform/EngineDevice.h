@@ -13,12 +13,19 @@ public:
 	EngineDevice& operator=(const EngineDevice& _Other) = delete;
 	EngineDevice& operator=(EngineDevice&& _Other) noexcept = delete;
 
-	static void Init();
+	void Init();
+	void Clear();
+	void Present();
 
+	/*void SetClearColor(float4 Value)
+	{
+		ClearColor = Value;
+	}*/
 private:
-	static ID3D11Device* Device;
-	static ID3D11DeviceContext* DeviceContext;
-	static IDXGISwapChain* SwapChain;
-	static ID3D11RenderTargetView* RenderTargetView;
-	static ID3D11Texture2D* BackBufferTexture;
+	//float4 ClearColor = { 0,0,0,1 };
+	ID3D11Device*           Device            = nullptr;
+	ID3D11DeviceContext*    Context           = nullptr;
+	IDXGISwapChain*         SwapChain         = nullptr;
+	ID3D11Texture2D*        BackBufferTexture = nullptr;
+	ID3D11RenderTargetView* BackBufferRTV     = nullptr;
 };

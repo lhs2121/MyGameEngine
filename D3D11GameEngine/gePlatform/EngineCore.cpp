@@ -2,6 +2,7 @@
 #include "EngineCore.h"
 
 EngineWindow EngineCore::MainWindow;
+EngineDevice EngineCore::MainDevice;
 
 EngineCore::EngineCore()
 {
@@ -32,10 +33,24 @@ void EngineCore::EngineStart(HINSTANCE inst)
     MainWindow.SetWinTitle(Title);
     MainWindow.SetHinstance(inst);
     MainWindow.OpenWindow();
+
+    EngineCore::CoreStart();
+
     MainWindow.MessageLoop();
 }
 
-void EngineCore::EngineUpdate()
+void EngineCore::CoreStart()
+{
+    MainDevice.Init();
+}
+
+void EngineCore::CoreUpdate()
+{
+    MainDevice.Clear();
+    MainDevice.Present();
+}
+
+void EngineCore::CoreRelease()
 {
 
 }

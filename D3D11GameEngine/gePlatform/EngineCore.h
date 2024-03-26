@@ -1,6 +1,6 @@
 #pragma once
-
 #include "EngineWindow.h"
+#include "EngineDevice.h"
 
 class EngineCore
 {
@@ -17,7 +17,9 @@ public:
 
 	static void EngineStart(HINSTANCE inst);
 
-	static void EngineUpdate();
+	static void CoreStart();
+	static void CoreUpdate();
+	static void CoreRelease();
 
 	static EngineWindow& GetMainWindow()
 	{
@@ -26,4 +28,5 @@ public:
 
 protected:
 	static EngineWindow MainWindow;
+	static EngineDevice MainDevice;
 };
