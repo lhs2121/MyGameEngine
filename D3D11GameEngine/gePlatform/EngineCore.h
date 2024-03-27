@@ -21,12 +21,6 @@ public:
 	static void CoreUpdate();
 	static void CoreRelease();
 
-	static EngineWindow& GetMainWindow()
-	{
-		return MainWindow;
-	}
-
-protected:
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
 };

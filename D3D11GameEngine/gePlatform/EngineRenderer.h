@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d11.h>
+#include "EngineVertexBuffer.h"
 
 class EngineRenderer
 {
@@ -16,5 +17,14 @@ public:
 
 	void Render();
 
+	void SetVertexBuffer();
+	//void SetIndexBuffer();
+	//void SetInputLayOut();
+	//void SetSampler();
+	//void SetRasterizer();
+	//void SetVertexShader();
+	//void SetPixelShader();
+	//void SetConstantBuffer();
+	EngineVertexBuffer* VB;
 };
 

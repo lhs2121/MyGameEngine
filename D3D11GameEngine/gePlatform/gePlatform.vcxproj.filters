@@ -7,6 +7,12 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EngineDevice.h" />
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>D3D11Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectResource.h">
+      <Filter>D3D11Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineRenderer.cpp" />
@@ -15,5 +21,16 @@
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineDevice.cpp" />
     <ClCompile Include="EngineObject.cpp" />
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>D3D11Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectResource.cpp">
+      <Filter>D3D11Resource</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="D3D11Resource">
+      <UniqueIdentifier>{05d36b2f-1cd0-43aa-b5a0-eba2e78080ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

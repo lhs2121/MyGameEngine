@@ -42,6 +42,7 @@ void EngineCore::EngineStart(HINSTANCE inst)
 void EngineCore::CoreStart()
 {
     MainDevice.Init();
+    MainDevice.ResourceInit();
 }
 
 void EngineCore::CoreUpdate()
