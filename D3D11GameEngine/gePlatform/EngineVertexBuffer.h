@@ -18,9 +18,7 @@ public:
 	void IntoPipeLine() override;
 
 private:
-	ID3D11Buffer* VertexBufferPtr;
+	ID3D11Buffer* BufferPtr;
 	UINT Strides;
 	UINT Offsets;
-
-	static std::map<std::string, EngineVertexBuffer*> Resources;
 };

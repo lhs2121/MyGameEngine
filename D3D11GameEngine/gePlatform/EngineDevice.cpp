@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "EngineVertexBuffer.h"
-
+#include "EngineIndexBuffer.h"
 
 #include <dxgi.h>
 #include <D3Dcompiler.h>
@@ -105,15 +105,27 @@ void EngineDevice::Init()
 
 void EngineDevice::ResourceInit()
 {
-	float4 Rect[] =
 	{
-		float4(-1.0f, 1.0f, 0.0f,1.0f),
-		float4(1.0f, 1.0f, 0.0f,1.0f),
-		float4(1.0f, -1.0f, 0.0f,1.0f),
-		float4(-1.0f, -1.0f, 0.0f,1.0f),
-	};
-	EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
-	NewRes->SetResource(Rect, sizeof(float4));
+		float4 Rect[] =
+		{
+			float4(-1.0f, 1.0f),
+			float4(1.0f, 1.0f),
+			float4(1.0f, -1.0f),
+			float4(-1.0f, -1.0f),
+		};
+		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
+		NewRes->SetResource(Rect, sizeof(float4) * 4);
+	}
+
+	{
+		UINT Rect[]
+		{
+			0,1,2,
+			2,3,0
+		};
+		EngineIndexBuffer* NewRes = EngineIndexBuffer::CreateResource("Rect");
+		NewRes->SetResource(Rect, sizeof(UINT) * 6);
+	}
 }
 
 void EngineDevice::Clear()

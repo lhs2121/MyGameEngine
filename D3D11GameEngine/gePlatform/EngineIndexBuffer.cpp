@@ -1,38 +1,41 @@
 #include "Pre.h"
-#include "EngineVertexBuffer.h"
+#include "EngineIndexBuffer.h"
 
 
-EngineVertexBuffer::EngineVertexBuffer()
+EngineIndexBuffer::EngineIndexBuffer()
 {
 }
 
-EngineVertexBuffer::~EngineVertexBuffer()
+EngineIndexBuffer::~EngineIndexBuffer()
 {
+	if (BufferPtr != nullptr)
+	{
+		delete BufferPtr;
+		BufferPtr = nullptr;
+	}
 }
 
-void EngineVertexBuffer::SetResource(float4* Vertices, int VertexSize)
+void EngineIndexBuffer::SetResource(UINT* Indices, int IndexSize)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;
-	ID3D11Buffer* VB;
-
-	Data.pSysMem = Vertices;
+	Data.pSysMem = Indices;
 	Data.SysMemPitch = 0;
 	Data.SysMemSlicePitch = 0;
 
-	Desc.ByteWidth = VertexSize;
+	Desc.ByteWidth = IndexSize;
 	Desc.Usage = D3D11_USAGE_DEFAULT;
-	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	Desc.BindFlags = D3D10_BIND_INDEX_BUFFER;
 	Desc.CPUAccessFlags = 0;
 	Desc.StructureByteStride = 0;
 	Desc.MiscFlags = 0;
 
-	Strides = sizeof(float4);
+	Strides = sizeof(UINT);
 	Offsets = 0;
 	HRESULT Result = EngineCore::GetDevice()->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 
-void EngineVertexBuffer::IntoPipeLine()
+void EngineIndexBuffer::IntoPipeLine()
 {
 	EngineCore::GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
 }

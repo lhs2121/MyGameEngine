@@ -180,6 +180,9 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="DirectResource.h" />
+    <ClInclude Include="EngineIndexBuffer.h" />
+    <ClInclude Include="EngineInputLayout.h" />
+    <ClInclude Include="EngineVertexShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp" />
@@ -195,6 +198,9 @@
     </ClCompile>
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="DirectResource.cpp" />
+    <ClCompile Include="EngineIndexBuffer.cpp" />
+    <ClCompile Include="EngineInputLayout.cpp" />
+    <ClCompile Include="EngineVertexShader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

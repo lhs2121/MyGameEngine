@@ -24,7 +24,8 @@ public:
 	}
 	virtual void IntoPipeLine() = 0;
 
-private:
+
+
 	static std::map<std::string, ResourceType*> Resources;
 };
 
