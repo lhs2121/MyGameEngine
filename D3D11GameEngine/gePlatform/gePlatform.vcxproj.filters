@@ -1,60 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="EngineObject.h" />
-    <ClInclude Include="EngineRenderer.h" />
     <ClInclude Include="EngineWindow.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineCore.h" />
-    <ClInclude Include="EngineDevice.h" />
-    <ClInclude Include="DirectResource.h">
-      <Filter>D3D11Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineVertexBuffer.h">
-      <Filter>D3D11Resource\IA</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineIndexBuffer.h">
-      <Filter>D3D11Resource\IA</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineInputLayout.h">
-      <Filter>D3D11Resource\IA</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineVertexShader.h">
-      <Filter>D3D11Resource\VS</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineRenderer.cpp" />
     <ClCompile Include="EngineWindow.cpp" />
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="EngineCore.cpp" />
-    <ClCompile Include="EngineDevice.cpp" />
-    <ClCompile Include="EngineObject.cpp" />
-    <ClCompile Include="DirectResource.cpp">
-      <Filter>D3D11Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineVertexBuffer.cpp">
-      <Filter>D3D11Resource\IA</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineIndexBuffer.cpp">
-      <Filter>D3D11Resource\IA</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineInputLayout.cpp">
-      <Filter>D3D11Resource\IA</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineVertexShader.cpp">
-      <Filter>D3D11Resource\VS</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="D3D11Resource">
-      <UniqueIdentifier>{05d36b2f-1cd0-43aa-b5a0-eba2e78080ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="D3D11Resource\IA">
-      <UniqueIdentifier>{a083ff0b-b342-4c00-bc82-14f8ae7da010}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="D3D11Resource\VS">
-      <UniqueIdentifier>{11f68074-98fc-4c0a-88f9-d0f1ff7fa59b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>

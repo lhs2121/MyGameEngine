@@ -65,9 +65,8 @@ void EngineDevice::Init()
 		&Context
 	);
 
-
 	{
-		float4 Size = EngineCore::MainWindow.WinSize;
+		float4 Size = EngineCore::GetWindow().WinSize;
 
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
 		Desc.BufferDesc.Width = Size.iX();
@@ -81,7 +80,7 @@ void EngineDevice::Init()
 		Desc.SampleDesc.Quality = 0;
 		Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		Desc.BufferCount = 2;
-		Desc.OutputWindow = EngineCore::MainWindow.Hwnd;
+		Desc.OutputWindow = EngineCore::GetWindow().Hwnd;
 		Desc.Windowed = true;
 		Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;

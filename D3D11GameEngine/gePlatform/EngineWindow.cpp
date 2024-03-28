@@ -1,5 +1,5 @@
 ﻿#include "Pre.h"
-#include "EngineCore.h"
+#include <geCore/EngineCore.h>
 
 EngineWindow::EngineWindow()
 {

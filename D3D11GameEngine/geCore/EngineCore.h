@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineWindow.h"
+#include <gePlatform\EngineWindow.h>
 #include "EngineDevice.h"
 
 class EngineCore
@@ -23,13 +23,17 @@ public:
 	{
 		return MainDevice.GetContext();
 	}
-
+	static EngineWindow& GetWindow()
+	{
+		return MainWindow;
+	}
 	static void EngineStart(HINSTANCE inst);
 
 	static void CoreStart();
 	static void CoreUpdate();
 	static void CoreRelease();
 
+private:
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
 };

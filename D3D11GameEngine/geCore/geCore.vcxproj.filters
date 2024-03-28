@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="D3D11Resource">
+      <UniqueIdentifier>{a3dbc41e-0877-4d12-85ee-bb2add1de998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3D11Resource\IA">
+      <UniqueIdentifier>{83d4c085-c8fb-42cb-8d0b-5cd5e1496135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3D11Resource\VS">
+      <UniqueIdentifier>{dedc1d16-d2b5-4f94-a448-552d368fe87f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EngineObject.cpp" />
+    <ClCompile Include="EngineRenderer.cpp" />
+    <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineDevice.cpp" />
+    <ClCompile Include="DirectResource.cpp">
+      <Filter>D3D11Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <Filter>D3D11Resource\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineInputLayout.cpp">
+      <Filter>D3D11Resource\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>D3D11Resource\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexShader.cpp">
+      <Filter>D3D11Resource\VS</Filter>
+    </ClCompile>
+    <ClCompile Include="Pre.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EngineObject.h" />
+    <ClInclude Include="EngineRenderer.h" />
+    <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineDevice.h" />
+    <ClInclude Include="DirectResource.h">
+      <Filter>D3D11Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineIndexBuffer.h">
+      <Filter>D3D11Resource\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInputLayout.h">
+      <Filter>D3D11Resource\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>D3D11Resource\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexShader.h">
+      <Filter>D3D11Resource\VS</Filter>
+    </ClInclude>
+    <ClInclude Include="Pre.h" />
+  </ItemGroup>
+</Project>
