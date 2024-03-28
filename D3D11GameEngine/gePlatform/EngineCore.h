@@ -15,6 +15,15 @@ public:
 	EngineCore& operator=(const EngineCore& _Other) = delete;
 	EngineCore& operator=(EngineCore&& _Other) noexcept = delete;
 
+	static ID3D11Device* GetDevice()
+	{
+		return MainDevice.GetDevice();
+	}
+	static ID3D11DeviceContext* GetContext()
+	{
+		return MainDevice.GetContext();
+	}
+
 	static void EngineStart(HINSTANCE inst);
 
 	static void CoreStart();

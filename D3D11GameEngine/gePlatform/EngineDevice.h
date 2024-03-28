@@ -29,24 +29,10 @@ public:
 		return Context;
 	}
 
-	template <typename ResourceType>
-	ResourceType* GetResource(std::string Name)
-	{
-		auto Resource = Resources.find(Name);
-		if(Resource != Resources.end())
-		{
-			return dynamic_cast<ResourceType*>(Resources[Name]);
-		}
-		return nullptr;
-	}
-
-
 private:
 	ID3D11Device* Device = nullptr;
 	ID3D11DeviceContext* Context = nullptr;
 	IDXGISwapChain* SwapChain = nullptr;
 	ID3D11Texture2D* BackBufferTexture = nullptr;
 	ID3D11RenderTargetView* BackBufferRTV = nullptr;
-
-	std::map<std::string, DirectResource*> Resources;
 };

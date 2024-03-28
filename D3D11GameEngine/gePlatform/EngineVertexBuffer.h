@@ -1,17 +1,11 @@
 #pragma once
 #include "DirectResource.h"
 
-class EngineVertexBuffer : public DirectResource
+class EngineVertexBuffer : public DirectResource<EngineVertexBuffer>
 {
-	friend class EngineRenderer;
 public:
 	// constrcuter destructer
 	EngineVertexBuffer();
-	EngineVertexBuffer(UINT _StartSlot, UINT _NumBuffers, ID3D11Buffer* _VertexBufferPtr, UINT _Strides, UINT _Offsets) :
-		StartSlot(_StartSlot), NumBuffers(_NumBuffers), VertexBufferPtr(_VertexBufferPtr), Strides(_Strides), Offsets(_Offsets)
-	{
-
-	}
 	~EngineVertexBuffer();
 
 	// delete Function
@@ -20,20 +14,13 @@ public:
 	EngineVertexBuffer& operator=(const EngineVertexBuffer& _Other) = delete;
 	EngineVertexBuffer& operator=(EngineVertexBuffer&& _Other) noexcept = delete;
 
-	void SetResource(UINT _StartSlot, UINT _NumBuffers, ID3D11Buffer* _VertexBufferPtr, UINT _Strides, UINT _Offsets)
-	{
-		StartSlot = _StartSlot;
-		NumBuffers = _NumBuffers;
-		VertexBufferPtr = _VertexBufferPtr;
-		Strides = _Strides;
-		Offsets = _Offsets;
-	}
+	void SetResource(float4* Vertices, int VertexSize);
+	void IntoPipeLine() override;
 
 private:
-	UINT StartSlot;
-	UINT NumBuffers;
 	ID3D11Buffer* VertexBufferPtr;
 	UINT Strides;
 	UINT Offsets;
 
+	static std::map<std::string, EngineVertexBuffer*> Resources;
 };

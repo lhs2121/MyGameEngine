@@ -16,8 +16,6 @@ public:
 	EngineRenderer& operator=(EngineRenderer&& _Other) noexcept = delete;
 
 	void Render();
-
-	void SetVertexBuffer();
 	//void SetIndexBuffer();
 	//void SetInputLayOut();
 	//void SetSampler();
@@ -25,6 +23,5 @@ public:
 	//void SetVertexShader();
 	//void SetPixelShader();
 	//void SetConstantBuffer();
-	EngineVertexBuffer* VB;
 };
 

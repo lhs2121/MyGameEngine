@@ -14,6 +14,31 @@ EngineDevice::EngineDevice()
 
 EngineDevice::~EngineDevice()
 {
+	if (Device != nullptr)
+	{
+		Device->Release();
+		Device = nullptr;
+	}
+	if (Context != nullptr)
+	{
+		Context->Release();
+		Context = nullptr;
+	}
+	if (SwapChain != nullptr)
+	{
+		SwapChain->Release();
+		SwapChain = nullptr;
+	}
+	if (BackBufferTexture != nullptr)
+	{
+		BackBufferTexture->Release();
+		BackBufferTexture = nullptr;
+	}
+	if (BackBufferRTV != nullptr)
+	{
+		BackBufferRTV->Release();
+		BackBufferRTV = nullptr;
+	}
 }
 
 void EngineDevice::Init()
@@ -71,18 +96,15 @@ void EngineDevice::Init()
 		HRESULT Result = Device->CreateRenderTargetView(BackBufferTexture, nullptr, &BackBufferRTV);
 	}
 
-
-
 	FactoryPtr->Release();
+	FactoryPtr = nullptr;
+
 	AdapterPtr->Release();
+	AdapterPtr = nullptr;
 }
 
 void EngineDevice::ResourceInit()
 {
-	D3D11_BUFFER_DESC Desc;
-	D3D11_SUBRESOURCE_DATA Data;
-	ID3D11Buffer* VB;
-
 	float4 Rect[] =
 	{
 		float4(-1.0f, 1.0f, 0.0f,1.0f),
@@ -90,22 +112,8 @@ void EngineDevice::ResourceInit()
 		float4(1.0f, -1.0f, 0.0f,1.0f),
 		float4(-1.0f, -1.0f, 0.0f,1.0f),
 	};
-
-	Data.pSysMem = Rect;
-	Data.SysMemPitch = 0;
-	Data.SysMemSlicePitch = 0;
-
-	Desc.ByteWidth = sizeof(float4) * 4;
-	Desc.Usage = D3D11_USAGE_DEFAULT;
-	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	Desc.CPUAccessFlags = 0;
-	Desc.StructureByteStride = 0;
-	Desc.MiscFlags = 0;
-
-	HRESULT Result = Device->CreateBuffer(&Desc, &Data, &VB);
-	EngineVertexBuffer NewBuffer;
-	NewBuffer.SetResource(0, 1, VB, sizeof(float4), 0);
-	Resources.insert(std::make_pair("Rect", &NewBuffer));
+	EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
+	NewRes->SetResource(Rect, sizeof(float4));
 }
 
 void EngineDevice::Clear()

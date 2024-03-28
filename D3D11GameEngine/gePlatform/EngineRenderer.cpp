@@ -13,10 +13,6 @@ EngineRenderer::~EngineRenderer()
 
 void EngineRenderer::Render()
 {
-	EngineCore::MainDevice.GetContext()->IASetVertexBuffers(VB->StartSlot, VB->NumBuffers, &VB->VertexBufferPtr, &VB->Strides, &VB->Offsets);
+	
 }
 
-void EngineRenderer::SetVertexBuffer()
-{
-	VB = EngineCore::MainDevice.GetResource<EngineVertexBuffer>("Rect");
-}
