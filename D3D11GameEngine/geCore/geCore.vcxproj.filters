@@ -10,7 +10,7 @@
     <Filter Include="D3D11Resource\VS">
       <UniqueIdentifier>{dedc1d16-d2b5-4f94-a448-552d368fe87f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Device">
+    <Filter Include="D3D11Resource\Device">
       <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -35,7 +35,7 @@
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineDevice.cpp">
-      <Filter>Device</Filter>
+      <Filter>D3D11Resource\Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,7 +59,7 @@
     </ClInclude>
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineDevice.h">
-      <Filter>Device</Filter>
+      <Filter>D3D11Resource\Device</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

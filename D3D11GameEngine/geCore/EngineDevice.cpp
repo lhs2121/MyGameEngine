@@ -1,6 +1,7 @@
 #include "Pre.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
+#include "EngineVertexShader.h"
 
 #include <dxgi.h>
 #include <D3Dcompiler.h>
@@ -103,8 +104,17 @@ void EngineDevice::Init()
 void EngineDevice::ResourceInit()
 {
 	EngineDirectory Dir;
-	Dir.ChildDir("Assets");
-	std::vector<std::string> Files = Dir.GetAllFilePath();
+	Dir.ParentDir();
+	Dir.ChildDir("D3D11GameEngine\\geShader");
+	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".hlsl");
+
+	for (EngineFile& ShaderFile: AllShaderFile)
+	{
+		std::string FileName = ShaderFile.GetFileName();
+		EngineVertexShader* NewRes = EngineVertexShader::CreateResource(FileName);
+		NewRes->SetResource();
+	}
+
 	std::string path = Dir.GetStringPath();
 
 	{

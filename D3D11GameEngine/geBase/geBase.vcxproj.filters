@@ -4,10 +4,12 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="EngineDirectory.h" />
+    <ClInclude Include="EngineFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineDirectory.cpp" />
+    <ClCompile Include="EngineFile.cpp" />
   </ItemGroup>
 </Project>

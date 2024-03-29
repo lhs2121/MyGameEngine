@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineFile.h"
 #include <filesystem>
 
 class EngineDirectory
@@ -16,8 +17,11 @@ public:
 
 	void ParentDir();
 	void ChildDir(std::string ChildPath);
+
 	std::string GetStringPath();
-	std::vector<std::string> GetAllFilePath();
+	std::vector<EngineFile> GetAllFile();
+	std::vector<EngineFile> GetAllFile(std::string _Ext);
+
 	std::filesystem::path Path;
 };
 
