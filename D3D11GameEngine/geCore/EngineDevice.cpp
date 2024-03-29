@@ -56,6 +56,7 @@ void EngineDevice::Init()
 		AdapterPtr,
 		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN,
 		nullptr,
+		// xhash internal header
 		D3D11_CREATE_DEVICE_DEBUG,
 		nullptr,
 		0,
@@ -96,14 +97,16 @@ void EngineDevice::Init()
 	}
 
 	FactoryPtr->Release();
-	FactoryPtr = nullptr;
-
 	AdapterPtr->Release();
-	AdapterPtr = nullptr;
 }
 
 void EngineDevice::ResourceInit()
 {
+	EngineDirectory Dir;
+	Dir.ChildDir("Assets");
+	std::vector<std::string> Files = Dir.GetAllFilePath();
+	std::string path = Dir.GetStringPath();
+
 	{
 		float4 Rect[] =
 		{

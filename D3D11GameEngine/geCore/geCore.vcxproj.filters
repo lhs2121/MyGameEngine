@@ -10,12 +10,14 @@
     <Filter Include="D3D11Resource\VS">
       <UniqueIdentifier>{dedc1d16-d2b5-4f94-a448-552d368fe87f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineObject.cpp" />
     <ClCompile Include="EngineRenderer.cpp" />
     <ClCompile Include="EngineCore.cpp" />
-    <ClCompile Include="EngineDevice.cpp" />
     <ClCompile Include="DirectResource.cpp">
       <Filter>D3D11Resource</Filter>
     </ClCompile>
@@ -32,12 +34,14 @@
       <Filter>D3D11Resource\VS</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="EngineDevice.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObject.h" />
     <ClInclude Include="EngineRenderer.h" />
     <ClInclude Include="EngineCore.h" />
-    <ClInclude Include="EngineDevice.h" />
     <ClInclude Include="DirectResource.h">
       <Filter>D3D11Resource</Filter>
     </ClInclude>
@@ -54,5 +58,8 @@
       <Filter>D3D11Resource\VS</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="EngineDevice.h">
+      <Filter>Device</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

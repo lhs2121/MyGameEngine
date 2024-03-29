@@ -14,7 +14,6 @@ void EngineVertexBuffer::SetResource(float4* Vertices, int VertexSize)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;
-	ID3D11Buffer* VB;
 
 	Data.pSysMem = Vertices;
 	Data.SysMemPitch = 0;
