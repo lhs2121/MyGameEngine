@@ -2,6 +2,7 @@
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
 #include "EngineVertexShader.h"
+#include "EnginePixelShader.h"
 
 #include <dxgi.h>
 #include <D3Dcompiler.h>
@@ -111,8 +112,11 @@ void EngineDevice::ResourceInit()
 	for (EngineFile& ShaderFile: AllShaderFile)
 	{
 		std::string FileName = ShaderFile.GetFileName();
-		EngineVertexShader* NewRes = EngineVertexShader::CreateResource(FileName);
-		NewRes->SetResource();
+		EngineVertexShader* NewVS = EngineVertexShader::CreateResource(FileName);
+		EnginePixelShader* NewPS = EnginePixelShader::CreateResource(FileName);
+
+		NewVS->ShaderLoad(FileName,ShaderFile.GetStringPath());
+		NewPS->ShaderLoad(FileName,ShaderFile.GetStringPath());
 	}
 
 	std::string path = Dir.GetStringPath();

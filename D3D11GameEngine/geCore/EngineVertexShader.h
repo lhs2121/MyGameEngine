@@ -14,12 +14,10 @@ public:
 	EngineVertexShader& operator=(const EngineVertexShader& _Other) = delete;
 	EngineVertexShader& operator=(EngineVertexShader&& _Other) noexcept = delete;
 
-	void SetResource();
+	void ShaderLoad(std::string _Name,std::string _Path);
 	void IntoPipeLine() override;
 
 private:
-	void* Bytecode;
-	SIZE_T BytecodeLength;
-	ID3D11ClassLinkage* pClassLinkage;
+	ID3DBlob* ShaderBlob = nullptr;
 	ID3D11VertexShader* ShaderPtr = nullptr;
 };

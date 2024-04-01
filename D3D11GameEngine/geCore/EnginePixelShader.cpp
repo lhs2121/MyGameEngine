@@ -1,16 +1,16 @@
 #include "Pre.h"
-#include "EngineVertexShader.h"
+#include "EnginePixelShader.h"
 #include <fstream>
 #include <iostream>
 #include <d3dcompiler.h> // DirectX Shader Compiler
 
 #pragma comment(lib, "d3dcompiler.lib")
 
-EngineVertexShader::EngineVertexShader()
+EnginePixelShader::EnginePixelShader()
 {
 }
 
-EngineVertexShader::~EngineVertexShader()
+EnginePixelShader::~EnginePixelShader()
 {
 	if (ShaderPtr != nullptr)
 	{
@@ -19,9 +19,9 @@ EngineVertexShader::~EngineVertexShader()
 	}
 }
 
-void EngineVertexShader::ShaderLoad(std::string _Name, std::string _Path)
+void EnginePixelShader::ShaderLoad(std::string _Name, std::string _Path)
 {
-	std::string MainFuncName = _Name + "_VS";
+	std::string MainFuncName = _Name + "_PS";
 	std::fstream shaderFile(_Path);
 
 	shaderFile.seekg(0, std::ios::end);
@@ -36,7 +36,7 @@ void EngineVertexShader::ShaderLoad(std::string _Name, std::string _Path)
 
 	ID3DBlob* ErrorBlob = nullptr;
 
-	HRESULT Result = D3DCompile(shaderData.data(), FileSize, _Path.c_str(), nullptr, nullptr, MainFuncName.c_str(), "vs_5_0", 0, 0, &ShaderBlob, &ErrorBlob);
+	HRESULT Result = D3DCompile(shaderData.data(), FileSize, _Path.c_str(), nullptr, nullptr, MainFuncName.c_str(), "ps_5_0", 0, 0, &ShaderBlob, &ErrorBlob);
 	if (FAILED(Result))
 	{
 		if (ErrorBlob)
@@ -45,12 +45,12 @@ void EngineVertexShader::ShaderLoad(std::string _Name, std::string _Path)
 			ErrorBlob->Release();
 		}
 	}
-	EngineCore::GetDevice()->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
+	EngineCore::GetDevice()->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
 
 	
 }
 
-void EngineVertexShader::IntoPipeLine()
+void EnginePixelShader::IntoPipeLine()
 {
-	EngineCore::GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
+	EngineCore::GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
 }

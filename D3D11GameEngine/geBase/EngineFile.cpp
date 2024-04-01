@@ -16,7 +16,7 @@ EngineFile::~EngineFile()
 
 std::string EngineFile::GetFileName()
 {
-	return Path.filename().string();
+	return Path.filename().replace_extension("").string();
 }
 
 std::string EngineFile::GetStringPath()

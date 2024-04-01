@@ -4,14 +4,17 @@
     <Filter Include="D3D11Resource">
       <UniqueIdentifier>{a3dbc41e-0877-4d12-85ee-bb2add1de998}</UniqueIdentifier>
     </Filter>
-    <Filter Include="D3D11Resource\IA">
-      <UniqueIdentifier>{83d4c085-c8fb-42cb-8d0b-5cd5e1496135}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="D3D11Resource\VS">
-      <UniqueIdentifier>{dedc1d16-d2b5-4f94-a448-552d368fe87f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="D3D11Resource\Device">
       <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3D11Resource\0. IA">
+      <UniqueIdentifier>{83d4c085-c8fb-42cb-8d0b-5cd5e1496135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3D11Resource\1. VS">
+      <UniqueIdentifier>{dedc1d16-d2b5-4f94-a448-552d368fe87f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3D11Resource\2. PS">
+      <UniqueIdentifier>{e9381c18-e8bd-470b-811c-15c1fc217433}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -22,20 +25,23 @@
       <Filter>D3D11Resource</Filter>
     </ClCompile>
     <ClCompile Include="EngineIndexBuffer.cpp">
-      <Filter>D3D11Resource\IA</Filter>
+      <Filter>D3D11Resource\0. IA</Filter>
     </ClCompile>
     <ClCompile Include="EngineInputLayout.cpp">
-      <Filter>D3D11Resource\IA</Filter>
+      <Filter>D3D11Resource\0. IA</Filter>
     </ClCompile>
     <ClCompile Include="EngineVertexBuffer.cpp">
-      <Filter>D3D11Resource\IA</Filter>
+      <Filter>D3D11Resource\0. IA</Filter>
     </ClCompile>
     <ClCompile Include="EngineVertexShader.cpp">
-      <Filter>D3D11Resource\VS</Filter>
+      <Filter>D3D11Resource\1. VS</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineDevice.cpp">
       <Filter>D3D11Resource\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="EnginePixelShader.cpp">
+      <Filter>D3D11Resource\2. PS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,20 +52,23 @@
       <Filter>D3D11Resource</Filter>
     </ClInclude>
     <ClInclude Include="EngineIndexBuffer.h">
-      <Filter>D3D11Resource\IA</Filter>
+      <Filter>D3D11Resource\0. IA</Filter>
     </ClInclude>
     <ClInclude Include="EngineInputLayout.h">
-      <Filter>D3D11Resource\IA</Filter>
+      <Filter>D3D11Resource\0. IA</Filter>
     </ClInclude>
     <ClInclude Include="EngineVertexBuffer.h">
-      <Filter>D3D11Resource\IA</Filter>
+      <Filter>D3D11Resource\0. IA</Filter>
     </ClInclude>
     <ClInclude Include="EngineVertexShader.h">
-      <Filter>D3D11Resource\VS</Filter>
+      <Filter>D3D11Resource\1. VS</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineDevice.h">
       <Filter>D3D11Resource\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePixelShader.h">
+      <Filter>D3D11Resource\2. PS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

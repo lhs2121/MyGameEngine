@@ -34,6 +34,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="EnginePixelShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectResource.h" />
@@ -46,6 +47,7 @@
     <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="EnginePixelShader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
