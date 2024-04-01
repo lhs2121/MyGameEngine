@@ -70,7 +70,7 @@ void EngineDevice::Init()
 	);
 
 	{
-		float4 Size = EngineCore::GetWindow().WinSize;
+		float4 Size = EngineCore::GetMainWindow().GetWindowSize();
 
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
 		Desc.BufferDesc.Width = Size.iX();
@@ -84,7 +84,7 @@ void EngineDevice::Init()
 		Desc.SampleDesc.Quality = 0;
 		Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		Desc.BufferCount = 2;
-		Desc.OutputWindow = EngineCore::GetWindow().Hwnd;
+		Desc.OutputWindow = EngineCore::GetMainWindow().GetHwnd();
 		Desc.Windowed = true;
 		Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
@@ -110,14 +110,14 @@ void EngineDevice::ResourceInit()
 	Dir.ChildDir("D3D11GameEngine\\geShader");
 	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".hlsl");
 
-	for (EngineFile& ShaderFile: AllShaderFile)
+	for (EngineFile& ShaderFile : AllShaderFile)
 	{
 		std::string FileName = ShaderFile.GetFileName();
 		EngineVertexShader* NewVS = EngineVertexShader::CreateResource(FileName);
 		EnginePixelShader* NewPS = EnginePixelShader::CreateResource(FileName);
 
-		NewVS->ShaderLoad(FileName,ShaderFile.GetStringPath());
-		NewPS->ShaderLoad(FileName,ShaderFile.GetStringPath());
+		NewVS->ShaderLoad(FileName, ShaderFile.GetStringPath());
+		NewPS->ShaderLoad(FileName, ShaderFile.GetStringPath());
 
 		D3D11_INPUT_ELEMENT_DESC Layouts[] =
 		{
@@ -154,8 +154,8 @@ void EngineDevice::ResourceInit()
 
 	{
 		D3D11_VIEWPORT Desc;
-		Desc.Width = EngineCore::GetWindow().WinSize.X;
-		Desc.Height = EngineCore::GetWindow().WinSize.Y;
+		Desc.Width = EngineCore::GetMainWindow().GetWindowSize().X;
+		Desc.Height = EngineCore::GetMainWindow().GetWindowSize().Y;
 		Desc.MaxDepth = 1;
 		Desc.MinDepth = 0;
 		Desc.TopLeftX = 0;

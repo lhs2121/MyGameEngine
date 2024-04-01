@@ -24,7 +24,7 @@ public:
 	{
 		return MainDevice.GetContext();
 	}
-	static EngineWindow& GetWindow()
+	static EngineWindow& GetMainWindow()
 	{
 		return MainWindow;
 	}

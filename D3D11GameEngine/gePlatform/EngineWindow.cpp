@@ -24,7 +24,7 @@ void EngineWindow::Register()
 	wcex.lpfnWndProc = EngineWindow::WndProc;
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
-	wcex.hInstance = HInst;
+	wcex.hInstance = m_Hinst;
 	wcex.hIcon = nullptr;
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
@@ -37,18 +37,18 @@ void EngineWindow::Register()
 
 void EngineWindow::Create()
 {
-	Hwnd = CreateWindowA("Class000", WinTitle.c_str(), WS_OVERLAPPEDWINDOW,
-		WinPos.iX(), WinPos.iY(), WinSize.iX(), WinSize.iY(), nullptr, nullptr, HInst, nullptr);
+	m_Hwnd = CreateWindowA("Class000", m_WinTitle.c_str(), WS_OVERLAPPEDWINDOW,
+		m_WinPos.iX(), m_WinPos.iY(), m_WinSize.iX(), m_WinSize.iY(), nullptr, nullptr, m_Hinst, nullptr);
 
-	if (!Hwnd)
+	if (!m_Hwnd)
 	{
 		DWORD errorCode = GetLastError();
 		MessageBoxA(nullptr, "EngineWindow::Create() 실패", "Error", MB_OK);
 		return;
 	}
 
-	ShowWindow(Hwnd, SW_SHOW);
-	UpdateWindow(Hwnd);
+	ShowWindow(m_Hwnd, SW_SHOW);
+	UpdateWindow(m_Hwnd);
 
 	return;
 }

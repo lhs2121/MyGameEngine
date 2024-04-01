@@ -18,37 +18,55 @@ public:
 
 	inline void SetWinPos(const float4 Value)
 	{
-		WinPos = Value;
+		m_WinPos = Value;
 	}
 
 	inline void SetWinSize(const float4 Value)
 	{
-		WinSize = Value;
+		m_WinSize = Value;
 	}
 
 	inline void SetWinTitle(const std::string Value)
 	{
-		WinTitle = Value;
+		m_WinTitle = Value;
 	}
 
-	inline void SetHinstance(const HINSTANCE _HInst)
+	inline void SetHinstance(const HINSTANCE _Hinst)
 	{
-		HInst = _HInst;
+		m_Hinst = _Hinst;
 	}
 
 	HINSTANCE GetHinstance() const
 	{
-		return HInst;
+		return m_Hinst;
 	}
 
-	HINSTANCE HInst;
-	HWND Hwnd;
+	HWND& GetHwnd()
+	{
+		return m_Hwnd;
+	}
+	float4 GetWindowSize()
+	{
+		return m_WinSize;
+	}
 
-	std::string WinTitle;
-	float4 WinSize;
-	float4 WinPos;
+	float4 GetWindowPos()
+	{
+		return m_WinPos;
+	}
+
+	std::string GetWindowTitle()
+	{
+		return m_WinTitle;
+	}
 
 private:
+	HINSTANCE m_Hinst;
+	HWND m_Hwnd;
+
+	std::string m_WinTitle;
+	float4 m_WinSize;
+	float4 m_WinPos;
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	void Register();
 	void Create();
