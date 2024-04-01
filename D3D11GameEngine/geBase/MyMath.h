@@ -25,6 +25,7 @@ public:
 			float b;
 			float a;
 		};
+
 	};
 
 	float hx() const
@@ -112,4 +113,73 @@ public:
 		return { x / other ,y / other ,z / other ,w };
 	}
 
+	void operator+=(const float4& other)
+	{
+		x += other.x;
+		y += other.y;
+		z += other.z;
+	}
+
+	void operator+=(const float4&& other)
+	{
+		x += other.x;
+		y += other.y;
+		z += other.z;
+	}
+
+	void operator-=(const float4& other)
+	{
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+	}
+
+	void operator-=(const float4&& other)
+	{
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+	}
+
+	void operator*=(const float4& other)
+	{
+		x *= other.x;
+		y *= other.y;
+		z *= other.z;
+	}
+
+	void operator*=(const float4&& other)
+	{
+		x *= other.x;
+		y *= other.y;
+		z *= other.z;
+	}
+
+	void operator*=(const float other)
+	{
+		x *= other;
+		y *= other;
+		z *= other;
+	}
+
+	void operator/=(const float4& other)
+	{
+		x /= other.x;
+		y /= other.y;
+		z /= other.z;
+	}
+
+	void operator/=(const float4&& other)
+	{
+		x /= other.x;
+		y /= other.y;
+		z /= other.z;
+	}
+
+	void operator/=(const float other)
+	{
+		x /= other;
+		y /= other;
+		z /= other;
+	}
 };
