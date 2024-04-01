@@ -22,9 +22,13 @@ public:
 		Resources.insert(std::make_pair(Name, NewResource));
 		return NewResource;
 	}
+
+	static ResourceType* Find(std::string Name)
+	{
+		return Resources[Name];
+	}
+
 	virtual void IntoPipeLine() = 0;
-
-
 
 	static std::map<std::string, ResourceType*> Resources;
 };

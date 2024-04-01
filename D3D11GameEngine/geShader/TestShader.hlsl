@@ -19,5 +19,5 @@ PSInput TestShader_VS(VSInput _Input)
 
 float4 TestShader_PS(PSInput _Input) : SV_TARGET
 {
-	return float4(0.7f, 0.2f, 0.34f, 1.0f);
+	return float4(1.0f, 1.0f, 1.0f, 1.0f);
 }

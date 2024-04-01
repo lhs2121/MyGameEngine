@@ -25,7 +25,7 @@ void EngineIndexBuffer::SetResource(UINT* Indices, int IndexSize)
 
 	Desc.ByteWidth = IndexSize;
 	Desc.Usage = D3D11_USAGE_DEFAULT;
-	Desc.BindFlags = D3D10_BIND_INDEX_BUFFER;
+	Desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	Desc.CPUAccessFlags = 0;
 	Desc.StructureByteStride = 0;
 	Desc.MiscFlags = 0;
@@ -37,5 +37,5 @@ void EngineIndexBuffer::SetResource(UINT* Indices, int IndexSize)
 
 void EngineIndexBuffer::IntoPipeLine()
 {
-	EngineCore::GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
+	EngineCore::GetContext()->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
 }

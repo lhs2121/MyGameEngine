@@ -17,6 +17,8 @@ public:
 	void ShaderLoad(std::string _Name,std::string _Path);
 	void IntoPipeLine() override;
 
+	void* GetShaderByteCode();
+	SIZE_T GetShaderByteLength();
 private:
 	ID3DBlob* ShaderBlob = nullptr;
 	ID3D11VertexShader* ShaderPtr = nullptr;

@@ -4,9 +4,6 @@
     <Filter Include="D3D11Resource">
       <UniqueIdentifier>{a3dbc41e-0877-4d12-85ee-bb2add1de998}</UniqueIdentifier>
     </Filter>
-    <Filter Include="D3D11Resource\Device">
-      <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="D3D11Resource\0. IA">
       <UniqueIdentifier>{83d4c085-c8fb-42cb-8d0b-5cd5e1496135}</UniqueIdentifier>
     </Filter>
@@ -15,6 +12,9 @@
     </Filter>
     <Filter Include="D3D11Resource\2. PS">
       <UniqueIdentifier>{e9381c18-e8bd-470b-811c-15c1fc217433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,7 +38,7 @@
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineDevice.cpp">
-      <Filter>D3D11Resource\Device</Filter>
+      <Filter>Device</Filter>
     </ClCompile>
     <ClCompile Include="EnginePixelShader.cpp">
       <Filter>D3D11Resource\2. PS</Filter>
@@ -65,7 +65,7 @@
     </ClInclude>
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineDevice.h">
-      <Filter>D3D11Resource\Device</Filter>
+      <Filter>Device</Filter>
     </ClInclude>
     <ClInclude Include="EnginePixelShader.h">
       <Filter>D3D11Resource\2. PS</Filter>

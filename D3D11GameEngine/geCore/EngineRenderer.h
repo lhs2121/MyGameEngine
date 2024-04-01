@@ -1,6 +1,10 @@
 #pragma once
 #include <d3d11.h>
 #include "EngineVertexBuffer.h"
+#include "EngineIndexBuffer.h"
+#include "EngineInputLayout.h"
+#include "EngineVertexShader.h"
+#include "EnginePixelShader.h"
 
 class EngineRenderer
 {
@@ -15,13 +19,15 @@ public:
 	EngineRenderer& operator=(const EngineRenderer& _Other) = delete;
 	EngineRenderer& operator=(EngineRenderer&& _Other) noexcept = delete;
 
+	void Start();
 	void Render();
-	//void SetIndexBuffer();
-	//void SetInputLayOut();
-	//void SetSampler();
-	//void SetRasterizer();
-	//void SetVertexShader();
-	//void SetPixelShader();
-	//void SetConstantBuffer();
-};
+	
+	EngineVertexBuffer* VB = nullptr;
+	EngineIndexBuffer* IB = nullptr;
+	EngineInputLayout* IA = nullptr;
+
+	EngineVertexShader* VS = nullptr;
+	EnginePixelShader* PS = nullptr;
+};	
+
 

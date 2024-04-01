@@ -1,6 +1,7 @@
 #pragma once
 #include <gePlatform\EngineWindow.h>
 #include "EngineDevice.h"
+#include "EngineRenderer.h"
 
 class EngineCore
 {
@@ -34,6 +35,7 @@ public:
 	static void CoreRelease();
 
 private:
+	static EngineRenderer TestRenderer;
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
 };

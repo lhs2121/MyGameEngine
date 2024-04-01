@@ -54,3 +54,13 @@ void EngineVertexShader::IntoPipeLine()
 {
 	EngineCore::GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
 }
+
+void* EngineVertexShader::GetShaderByteCode()
+{
+	return ShaderBlob->GetBufferPointer();
+}
+
+SIZE_T EngineVertexShader::GetShaderByteLength()
+{
+	return ShaderBlob->GetBufferSize();
+}

@@ -1,6 +1,7 @@
 #include "Pre.h"
 #include "EngineCore.h"
 
+EngineRenderer EngineCore::TestRenderer;
 EngineWindow EngineCore::MainWindow;
 EngineDevice EngineCore::MainDevice;
 
@@ -43,11 +44,13 @@ void EngineCore::CoreStart()
 {
     MainDevice.Init();
     MainDevice.ResourceInit();
+    TestRenderer.Start();
 }
 
 void EngineCore::CoreUpdate()
 {
     MainDevice.Clear();
+    TestRenderer.Render();
     MainDevice.Present();
 }
 

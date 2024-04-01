@@ -1,6 +1,7 @@
 #include "Pre.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
+#include "EngineInputLayout.h"
 #include "EngineVertexShader.h"
 #include "EnginePixelShader.h"
 
@@ -117,6 +118,14 @@ void EngineDevice::ResourceInit()
 
 		NewVS->ShaderLoad(FileName,ShaderFile.GetStringPath());
 		NewPS->ShaderLoad(FileName,ShaderFile.GetStringPath());
+
+		D3D11_INPUT_ELEMENT_DESC Layouts[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+		EngineInputLayout* NewRes = EngineInputLayout::CreateResource("Pos");
+
+		NewRes->SetResource(Layouts, 1, NewVS->GetShaderByteCode(), NewVS->GetShaderByteLength());
 	}
 
 	std::string path = Dir.GetStringPath();
@@ -124,10 +133,10 @@ void EngineDevice::ResourceInit()
 	{
 		float4 Rect[] =
 		{
-			float4(-1.0f, 1.0f),
-			float4(1.0f, 1.0f),
-			float4(1.0f, -1.0f),
-			float4(-1.0f, -1.0f),
+			float4(-0.5f, 0.5f),
+			float4(0.5f, 0.5f),
+			float4(0.5f, -0.5f),
+			float4(-0.5f, -0.5f),
 		};
 		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
 		NewRes->SetResource(Rect, sizeof(float4) * 4);
@@ -142,12 +151,24 @@ void EngineDevice::ResourceInit()
 		EngineIndexBuffer* NewRes = EngineIndexBuffer::CreateResource("Rect");
 		NewRes->SetResource(Rect, sizeof(UINT) * 6);
 	}
+
+	{
+		D3D11_VIEWPORT Desc;
+		Desc.Width = EngineCore::GetWindow().WinSize.X;
+		Desc.Height = EngineCore::GetWindow().WinSize.Y;
+		Desc.MaxDepth = 1;
+		Desc.MinDepth = 0;
+		Desc.TopLeftX = 0;
+		Desc.TopLeftY = 0;
+		Context->RSSetViewports(1, &Desc);
+	}
 }
 
 void EngineDevice::Clear()
 {
-	const FLOAT ClearColor[4] = { 0.5f, 0.5f, 0.5f, 1 };
+	const FLOAT ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	Context->ClearRenderTargetView(BackBufferRTV, ClearColor);
+	Context->OMSetRenderTargets(1, &BackBufferRTV, nullptr);
 }
 
 void EngineDevice::Present()
