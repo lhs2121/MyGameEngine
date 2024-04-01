@@ -99,6 +99,20 @@ void EngineDevice::Init()
 		HRESULT Result = Device->CreateRenderTargetView(BackBufferTexture, nullptr, &BackBufferRTV);
 	}
 
+	{
+		D3D11_VIEWPORT Desc;
+		Desc.Width = EngineCore::GetMainWindow().GetWindowSize().X;
+		Desc.Height = EngineCore::GetMainWindow().GetWindowSize().Y;
+		Desc.MaxDepth = 1;
+		Desc.MinDepth = 0;
+		Desc.TopLeftX = 0;
+		Desc.TopLeftY = 0;
+		Context->RSSetViewports(1, &Desc);
+
+		Context->OMSetRenderTargets(1, &BackBufferRTV, nullptr);
+		//ÀÏ´Ü µð¹ÙÀÌ½º ÃÊ±âÈ­ ÇÒ¶§ ºäÆ÷Æ®¶û ·»´õÅ¸°Ù ¼¼ÆÃÇØÁÜ
+	}
+
 	FactoryPtr->Release();
 	AdapterPtr->Release();
 }
@@ -133,10 +147,10 @@ void EngineDevice::ResourceInit()
 	{
 		float4 Rect[] =
 		{
-			float4(-0.5f, 0.5f),
-			float4(0.5f, 0.5f),
-			float4(0.5f, -0.5f),
-			float4(-0.5f, -0.5f),
+			float4(-0.1f, 0.1f),
+			float4(0.1f, 0.1f),
+			float4(0.1f, -0.1f),
+			float4(-0.1f, -0.1f),
 		};
 		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
 		NewRes->SetResource(Rect, sizeof(float4) * 4);
@@ -151,24 +165,12 @@ void EngineDevice::ResourceInit()
 		EngineIndexBuffer* NewRes = EngineIndexBuffer::CreateResource("Rect");
 		NewRes->SetResource(Rect, sizeof(UINT) * 6);
 	}
-
-	{
-		D3D11_VIEWPORT Desc;
-		Desc.Width = EngineCore::GetMainWindow().GetWindowSize().X;
-		Desc.Height = EngineCore::GetMainWindow().GetWindowSize().Y;
-		Desc.MaxDepth = 1;
-		Desc.MinDepth = 0;
-		Desc.TopLeftX = 0;
-		Desc.TopLeftY = 0;
-		Context->RSSetViewports(1, &Desc);
-	}
 }
 
 void EngineDevice::Clear()
 {
 	const FLOAT ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	Context->ClearRenderTargetView(BackBufferRTV, ClearColor);
-	Context->OMSetRenderTargets(1, &BackBufferRTV, nullptr);
 }
 
 void EngineDevice::Present()

@@ -173,6 +173,7 @@
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineDirectory.h" />
+    <ClInclude Include="MyMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineFile.cpp" />
