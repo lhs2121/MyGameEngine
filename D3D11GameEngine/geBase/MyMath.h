@@ -1,5 +1,33 @@
 #pragma once
 
+class float4x4
+{
+public:
+	float4x4()
+	{
+
+	}
+
+	float4x4(const float4x4& _Other)
+	{
+
+	}
+
+	union
+	{
+		float matrix[4][4] =
+		{
+			{ 1.0f, 0.0f, 0.0f, 0.0f},
+			{ 0.0f, 1.0f, 0.0f, 0.0f},
+			{ 0.0f, 0.0f, 1.0f, 0.0f},
+			{ 0.0f, 0.0f, 0.0f, 1.0f}
+		};
+	};
+
+	void Identity();
+	void Zero();
+	void TransPose();
+};
 class float4
 {
 public:

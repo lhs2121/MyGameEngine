@@ -12,5 +12,6 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineDirectory.cpp" />
     <ClCompile Include="EngineFile.cpp" />
+    <ClCompile Include="MyMath.cpp" />
   </ItemGroup>
 </Project>
