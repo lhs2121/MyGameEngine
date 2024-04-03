@@ -24,6 +24,10 @@ public:
 		};
 	};
 
+	void Position(const float4& other);
+	void Scale(const float4& other);
+	void Rotation(const float4& other);
+	
 	void Identity();
 	void Zero();
 	void TransPose();
@@ -210,4 +214,7 @@ public:
 		y /= other;
 		z /= other;
 	}
+
+	void operator*=(const float4x4& other);
+	float4 operator*(const float4x4& other);
 };
