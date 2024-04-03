@@ -1,5 +1,5 @@
-#include "Pre.h"
-#include "MyMath.h"
+#include <math.h>
+#include "mymath.h"
 
 void float4x4::Identity()
 {
@@ -49,6 +49,7 @@ void float4x4::Position(const float4& other)
 	matrix[3][3] = other.w;
 }
 
+
 void float4x4::Scale(const float4& other)
 {
 	matrix[0][0] = other.x;
@@ -57,8 +58,13 @@ void float4x4::Scale(const float4& other)
 	matrix[3][3] = other.w;
 }
 
-void float4x4::Rotation(const float4& other)
+void float4x4::Rotation(const float Radian)
 {
+	matrix[0][0] = cos(Radian);
+	matrix[1][0] = -sin(Radian);
+
+	matrix[0][1] = sin(Radian);
+	matrix[1][1] = cos(Radian);
 }
 
 void float4::operator*=(const float4x4& other)

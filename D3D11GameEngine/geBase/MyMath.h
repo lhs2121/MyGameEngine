@@ -1,37 +1,7 @@
 #pragma once
+constexpr float PI = 3.141592582;
 
-class float4x4
-{
-public:
-	float4x4()
-	{
-
-	}
-
-	float4x4(const float4x4& _Other)
-	{
-
-	}
-
-	union
-	{
-		float matrix[4][4] =
-		{
-			{ 1.0f, 0.0f, 0.0f, 0.0f},
-			{ 0.0f, 1.0f, 0.0f, 0.0f},
-			{ 0.0f, 0.0f, 1.0f, 0.0f},
-			{ 0.0f, 0.0f, 0.0f, 1.0f}
-		};
-	};
-
-	void Position(const float4& other);
-	void Scale(const float4& other);
-	void Rotation(const float4& other);
-	
-	void Identity();
-	void Zero();
-	void TransPose();
-};
+class float4x4;
 class float4
 {
 public:
@@ -217,4 +187,37 @@ public:
 
 	void operator*=(const float4x4& other);
 	float4 operator*(const float4x4& other);
+};
+
+class float4x4
+{
+public:
+	float4x4()
+	{
+
+	}
+
+	float4x4(const float4x4& _Other)
+	{
+
+	}
+
+	union
+	{
+		float matrix[4][4] =
+		{
+			{ 1.0f, 0.0f, 0.0f, 0.0f},
+			{ 0.0f, 1.0f, 0.0f, 0.0f},
+			{ 0.0f, 0.0f, 1.0f, 0.0f},
+			{ 0.0f, 0.0f, 0.0f, 1.0f}
+		};
+	};
+
+	void Position(const float4& other);
+	void Scale(const float4& other);
+	void Rotation(const float Radian);
+
+	void Identity();
+	void Zero();
+	void TransPose();
 };
