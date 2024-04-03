@@ -1,5 +1,7 @@
 #pragma once
-
+#include <geBase\EngineMath.h>
+#include <string>
+#include <Windows.h>
 class EngineWindow
 {
 public:

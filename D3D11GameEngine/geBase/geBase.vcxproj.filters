@@ -5,13 +5,11 @@
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="EngineDirectory.h" />
     <ClInclude Include="EngineFile.h" />
-    <ClInclude Include="MyMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineDirectory.cpp" />
     <ClCompile Include="EngineFile.cpp" />
-    <ClCompile Include="MyMath.cpp" />
   </ItemGroup>
 </Project>

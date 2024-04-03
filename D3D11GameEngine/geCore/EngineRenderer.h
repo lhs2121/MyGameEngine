@@ -28,6 +28,9 @@ public:
 
 	EngineVertexShader* VS = nullptr;
 	EnginePixelShader* PS = nullptr;
+
+	float4 a = { 2,3 };
+	float4x4 mat;
 };	
 
 

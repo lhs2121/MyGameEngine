@@ -38,7 +38,7 @@ void EngineWindow::Register()
 void EngineWindow::Create()
 {
 	m_Hwnd = CreateWindowA("Class000", m_WinTitle.c_str(), WS_OVERLAPPEDWINDOW,
-		m_WinPos.iX(), m_WinPos.iY(), m_WinSize.iX(), m_WinSize.iY(), nullptr, nullptr, m_Hinst, nullptr);
+		m_WinPos.ix(), m_WinPos.iy(), m_WinSize.ix(), m_WinSize.iy(), nullptr, nullptr, m_Hinst, nullptr);
 
 	if (!m_Hwnd)
 	{

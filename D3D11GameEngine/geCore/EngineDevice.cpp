@@ -73,8 +73,8 @@ void EngineDevice::Init()
 		float4 Size = EngineCore::GetMainWindow().GetWindowSize();
 
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
-		Desc.BufferDesc.Width = Size.iX();
-		Desc.BufferDesc.Height = Size.iY();
+		Desc.BufferDesc.Width = Size.ix();
+		Desc.BufferDesc.Height = Size.iy();
 		Desc.BufferDesc.RefreshRate.Numerator = 60;
 		Desc.BufferDesc.RefreshRate.Denominator = 1;
 		Desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -101,16 +101,14 @@ void EngineDevice::Init()
 
 	{
 		D3D11_VIEWPORT Desc;
-		Desc.Width = EngineCore::GetMainWindow().GetWindowSize().X;
-		Desc.Height = EngineCore::GetMainWindow().GetWindowSize().Y;
+		Desc.Width = EngineCore::GetMainWindow().GetWindowSize().x;
+		Desc.Height = EngineCore::GetMainWindow().GetWindowSize().y;
 		Desc.MaxDepth = 1;
 		Desc.MinDepth = 0;
 		Desc.TopLeftX = 0;
 		Desc.TopLeftY = 0;
 		Context->RSSetViewports(1, &Desc);
-
-		Context->OMSetRenderTargets(1, &BackBufferRTV, nullptr);
-		//일단 디바이스 초기화 할때 뷰포트랑 렌더타겟 세팅해줌
+		//일단 디바이스 초기화 할때 뷰포트 세팅해줌
 	}
 
 	FactoryPtr->Release();
@@ -147,10 +145,10 @@ void EngineDevice::ResourceInit()
 	{
 		float4 Rect[] =
 		{
-			float4(-0.1f, 0.1f),
-			float4(0.1f, 0.1f),
-			float4(0.1f, -0.1f),
-			float4(-0.1f, -0.1f),
+			float4(-0.5f, 0.5f),
+			float4(0.5f, 0.5f),
+			float4(0.5f, -0.5f),
+			float4(-0.5f, -0.5f),
 		};
 		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
 		NewRes->SetResource(Rect, sizeof(float4) * 4);
@@ -171,6 +169,7 @@ void EngineDevice::Clear()
 {
 	const FLOAT ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	Context->ClearRenderTargetView(BackBufferRTV, ClearColor);
+	Context->OMSetRenderTargets(1, &BackBufferRTV, nullptr);
 }
 
 void EngineDevice::Present()
