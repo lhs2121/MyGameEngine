@@ -45,9 +45,8 @@ void EnginePixelShader::ShaderLoad(std::string _Name, std::string _Path)
 			ErrorBlob->Release();
 		}
 	}
-	EngineCore::GetDevice()->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
 
-	
+	EngineCore::GetDevice()->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
 }
 
 void EnginePixelShader::IntoPipeLine()

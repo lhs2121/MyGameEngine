@@ -45,9 +45,8 @@ void EngineVertexShader::ShaderLoad(std::string _Name, std::string _Path)
 			ErrorBlob->Release();
 		}
 	}
-	EngineCore::GetDevice()->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
 
-	
+	EngineCore::GetDevice()->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
 }
 
 void EngineVertexShader::IntoPipeLine()
