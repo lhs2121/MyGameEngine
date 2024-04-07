@@ -5,8 +5,10 @@
 #include "EngineInputLayout.h"
 #include "EngineVertexShader.h"
 #include "EnginePixelShader.h"
+#include "EngineTransform.h"
+#include "EngineObject.h"
 
-class EngineRenderer
+class EngineRenderer : public EngineObject
 {
 public:
 	// constrcuter destructer
@@ -19,18 +21,16 @@ public:
 	EngineRenderer& operator=(const EngineRenderer& _Other) = delete;
 	EngineRenderer& operator=(EngineRenderer&& _Other) noexcept = delete;
 
-	void Start();
+	void Start() override;
 	void Render();
 	
 	EngineVertexBuffer* VB = nullptr;
 	EngineIndexBuffer* IB = nullptr;
 	EngineInputLayout* IA = nullptr;
-
 	EngineVertexShader* VS = nullptr;
 	EnginePixelShader* PS = nullptr;
 
-	float4 a = { 2,3 };
-	float4x4 mat;
+	EngineTransform* Transform = nullptr;
 };	
 
 

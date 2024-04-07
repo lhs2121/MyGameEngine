@@ -13,6 +13,15 @@ public:
 	EngineTransform& operator=(const EngineTransform& _Other) = delete;
 	EngineTransform& operator=(EngineTransform&& _Other) noexcept = delete;
 
+
+	void SetPos(float4 Value);
+	void SetScale(float4 Value);
+	void SetRotation(float4 Value);
+
+	void AddPos(float4 Value);
+	void AddScale(float4 Value);
+	void AddRotation(float4 Value);
+
 	void TransformUpdate();
 private:
 	float4 Position;
@@ -22,7 +31,5 @@ private:
 	float4x4 PositionMat;
 	float4x4 ScaleMat;
 	float4x4 RotationMat;
-
-	EngineTransform* ParentTransform = nullptr;
-	EngineTransform* ChildTransform = nullptr;
+	float4x4 WorldMat;
 };

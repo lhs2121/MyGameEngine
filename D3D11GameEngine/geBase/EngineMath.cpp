@@ -104,24 +104,51 @@ void float4x4::Scale(const float4& other)
 	matrix[3][3] = other.w;
 }
 
-void float4x4::Rotation(const float4& other)
+void float4x4::Rotation(const float4& Radian)
 {
 	Identity();
 
-	float DegreeX = other.x;
-	float DegreeY = other.y;
-	float DegreeZ = other.z;
+	float DegreeX = Radian.x;
+	float DegreeY = Radian.y;
+	float DegreeZ = Radian.z;
 
 	float DegreeToRadian = PI / 180;
 	float RadianX = DegreeX * DegreeToRadian;
 	float RadianY = DegreeY * DegreeToRadian;
 	float RadianZ = DegreeZ * DegreeToRadian;
 
-	float4x4 XRot;
-	float4x4 YRot;
 	float4x4 ZRot;
+	ZRot.RotationZ(RadianZ);
+	float4x4 YRot;
+	YRot.RotationY(RadianY);
+	float4x4 XRot;
+	XRot.RotationX(RadianX);
 
 	*this = ZRot * YRot * XRot;
+}
+
+void float4x4::RotationX(const float Radian)
+{
+	matrix[1][1] = cosf(Radian);
+	matrix[1][2] = sinf(Radian);
+	matrix[2][1] = -sinf(Radian);
+	matrix[2][2] = cosf(Radian);
+}
+
+void float4x4::RotationY(const float Radian)
+{
+	matrix[0][0] = cosf(Radian);
+	matrix[0][2] = -sinf(Radian);
+	matrix[2][0] = sinf(Radian);
+	matrix[2][2] = cosf(Radian);
+}
+
+void float4x4::RotationZ(const float Radian)
+{
+	matrix[0][0] = cosf(Radian);
+	matrix[0][1] = sinf(Radian);
+	matrix[1][0] = -sinf(Radian);
+	matrix[1][1] = cosf(Radian);
 }
 
 void float4::operator*=(const float4x4& other)

@@ -221,7 +221,11 @@ public:
 	float4x4 operator*(const float4x4& other);
 	void Position(const float4& other);
 	void Scale(const float4& other);
-	void Rotation(const float4& other);
+	void Rotation(const float4& Radian);
+
+	void RotationX(const float Radian);
+	void RotationY(const float Radian);
+	void RotationZ(const float Radian);
 
 	void Identity();
 	void Zero();

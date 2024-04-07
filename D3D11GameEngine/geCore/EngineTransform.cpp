@@ -14,8 +14,35 @@ void EngineTransform::TransformUpdate()
 	ScaleMat.Scale(Scale);
 	RotationMat.Rotation(Rotation);
 	PositionMat.Position(Position);
-	if (ChildTransform != nullptr)
-	{
+	WorldMat = ScaleMat * RotationMat * PositionMat;
+}
 
-	}
+void EngineTransform::SetPos(float4 Value)
+{
+	Position = Value;
+}
+
+void EngineTransform::SetScale(float4 Value)
+{
+	Scale = Value;
+}
+
+void EngineTransform::SetRotation(float4 Value)
+{
+	Rotation = Value;
+}
+
+void EngineTransform::AddPos(float4 Value)
+{
+	Position += Value;
+}
+
+void EngineTransform::AddScale(float4 Value)
+{
+	Scale += Value;
+}
+
+void EngineTransform::AddRotation(float4 Value)
+{
+	Rotation += Value;
 }

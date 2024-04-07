@@ -1,11 +1,11 @@
 #pragma comment(lib, "geBase.lib")
 #pragma comment(lib, "gePlatform.lib")
 #pragma comment(lib, "geCore.lib")
+#pragma comment(lib, "geContents.lib")
 
 #include <iostream>
 #include <Windows.h>
-#include <geCore\Pre.h>
-#include <geCore\EngineCore.h>
+#include <geContents\Pre.h>
 
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,

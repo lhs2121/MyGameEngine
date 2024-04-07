@@ -1,14 +1,18 @@
 #include "Pre.h"
-#include "EngineCore.h"
 #include "EngineRenderer.h"
-#include "EngineDevice.h"
 
 EngineRenderer::EngineRenderer()
 {
+	Transform = new EngineTransform();
 }
 
 EngineRenderer::~EngineRenderer()
 {
+	if (Transform != nullptr)
+	{
+		delete Transform;
+		Transform = nullptr;
+	}
 }
 
 void EngineRenderer::Start()

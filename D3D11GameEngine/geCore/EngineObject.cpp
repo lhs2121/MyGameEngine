@@ -9,3 +9,14 @@ EngineObject::~EngineObject()
 {
 }
 
+void EngineObject::Start()
+{
+}
+
+void EngineObject::Update(float _Delta)
+{
+}
+
+void EngineObject::Release()
+{
+}

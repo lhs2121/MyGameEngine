@@ -6,7 +6,7 @@ class EngineObject
 public:
 	// constrcuter destructer
 	EngineObject();
-	~EngineObject();
+	virtual ~EngineObject();
 
 	// delete Function
 	EngineObject(const EngineObject& _Other) = delete;
@@ -14,10 +14,15 @@ public:
 	EngineObject& operator=(const EngineObject& _Other) = delete;
 	EngineObject& operator=(EngineObject&& _Other) noexcept = delete;
 
+	void SetName(std::string _Name)
+	{
+		Name = _Name;
+	}
 protected:
-	virtual void Start() = 0;
-	virtual void Update(float _Delta) = 0;
-	virtual void Release() = 0;
+	virtual void Start();
+	virtual void Update(float _Delta);
+	virtual void Release();
 
-	std::string a = "asdas";
+private:
+	std::string Name;
 };

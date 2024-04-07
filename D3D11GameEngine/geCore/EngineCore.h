@@ -38,4 +38,5 @@ private:
 	static EngineRenderer TestRenderer;
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
+	//static std::map<EngineLevel>
 };
