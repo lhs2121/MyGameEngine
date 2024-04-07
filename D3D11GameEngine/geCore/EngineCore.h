@@ -3,6 +3,7 @@
 #include "EngineDevice.h"
 #include "EngineRenderer.h"
 
+class ContentsCore;
 class EngineCore
 {
 public:
@@ -34,6 +35,11 @@ public:
 	static void CoreUpdate();
 	static void CoreRelease();
 
+	static void SetCoreObject(ContentsCore* Object)
+	{
+		CoreObj = Object;
+	}
+	static ContentsCore* CoreObj;
 private:
 	static EngineRenderer TestRenderer;
 	static EngineWindow MainWindow;

@@ -1,9 +1,11 @@
 #include "Pre.h"
 #include "EngineCore.h"
+#include <geContents\ContentsCore.h>
 
 EngineRenderer EngineCore::TestRenderer;
 EngineWindow EngineCore::MainWindow;
 EngineDevice EngineCore::MainDevice;
+ContentsCore* EngineCore::CoreObj = nullptr;
 
 EngineCore::EngineCore()
 {
@@ -15,6 +17,8 @@ EngineCore::~EngineCore()
 
 void EngineCore::EngineStart(HINSTANCE inst)
 {
+    CoreObj->Start();
+
     std::string Title;
 
 #ifdef _DEBUG

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <geContents\Pre.h>
+#include <geContents\ContentsCore.h>
 
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -13,6 +14,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
+	ContentsCore CoreObject;
+	EngineCore::SetCoreObject(&CoreObject);
 	EngineCore::EngineStart(hInstance);
 }
 
