@@ -201,10 +201,9 @@ public:
 
 	}
 
-	float4x4(const float4x4& _Other)
-	{
-
-	}
+	float4x4(const float4x4& other);
+	float4x4(const std::vector<std::vector<float>> _matrix);
+	float4x4(const std::vector<float> _matrix);
 
 	union
 	{
@@ -215,11 +214,14 @@ public:
 			{ 0.0f, 0.0f, 1.0f, 0.0f},
 			{ 0.0f, 0.0f, 0.0f, 1.0f}
 		};
+
+		float matrix1D[16];
 	};
 
+	float4x4 operator*(const float4x4& other);
 	void Position(const float4& other);
 	void Scale(const float4& other);
-	void Rotation(const float Radian);
+	void Rotation(const float4& other);
 
 	void Identity();
 	void Zero();

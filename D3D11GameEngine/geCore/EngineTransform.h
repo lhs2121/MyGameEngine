@@ -13,13 +13,16 @@ public:
 	EngineTransform& operator=(const EngineTransform& _Other) = delete;
 	EngineTransform& operator=(EngineTransform&& _Other) noexcept = delete;
 
-
+	void TransformUpdate();
 private:
 	float4 Position;
 	float4 Scale;
 	float4 Rotation;
 
-	float4x4 PosMat;
-	float4x4 ScaMat;
-	float4x4 RotMat;
+	float4x4 PositionMat;
+	float4x4 ScaleMat;
+	float4x4 RotationMat;
+
+	EngineTransform* ParentTransform = nullptr;
+	EngineTransform* ChildTransform = nullptr;
 };

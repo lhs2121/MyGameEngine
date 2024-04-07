@@ -2,6 +2,30 @@
 #include "EngineMath.h"
 #include <math.h>
 
+float4x4::float4x4(const float4x4& other)
+{
+	for (int x = 0; x < 16; x++)
+	{
+		matrix1D[x] = other.matrix1D[x];
+	}
+}
+float4x4::float4x4(const std::vector<std::vector<float>> _matrix)
+{
+	for (int x = 0; x < 4; x++)
+	{
+		for (int y = 0; y < 4; y++)
+		{
+			matrix[x][y] = _matrix[x][y];
+		}
+	}
+}
+float4x4::float4x4(const std::vector<float> _matrix)
+{
+	for (int x = 0; x < 16; x++)
+	{
+		matrix1D[x] = _matrix[x];
+	}
+}
 void float4x4::Identity()
 {
 	for (int x = 0; x < 4; x++)
@@ -42,8 +66,28 @@ void float4x4::TransPose()
 	}
 }
 
+float4x4 float4x4::operator*(const float4x4& R)
+{
+	float4x4 res;
+	res.Zero();
+
+	for (size_t r = 0; r < 4; r++)
+	{
+		for (size_t j = 0; j < 4; j++)
+		{
+			for (size_t i = 0; i < 4; i++)
+			{
+				res.matrix[r][j] += matrix[r][i] * R.matrix[i][j];
+			}
+		}
+	}
+
+	return res;
+}
+
 void float4x4::Position(const float4& other)
 {
+	Identity();
 	matrix[3][0] = other.x;
 	matrix[3][1] = other.y;
 	matrix[3][2] = other.z;
@@ -53,19 +97,31 @@ void float4x4::Position(const float4& other)
 
 void float4x4::Scale(const float4& other)
 {
+	Identity();
 	matrix[0][0] = other.x;
 	matrix[1][1] = other.y;
 	matrix[2][2] = other.z;
 	matrix[3][3] = other.w;
 }
 
-void float4x4::Rotation(const float Radian)
+void float4x4::Rotation(const float4& other)
 {
-	matrix[0][0] = cos(Radian);
-	matrix[1][0] = -sin(Radian);
+	Identity();
 
-	matrix[0][1] = sin(Radian);
-	matrix[1][1] = cos(Radian);
+	float DegreeX = other.x;
+	float DegreeY = other.y;
+	float DegreeZ = other.z;
+
+	float DegreeToRadian = PI / 180;
+	float RadianX = DegreeX * DegreeToRadian;
+	float RadianY = DegreeY * DegreeToRadian;
+	float RadianZ = DegreeZ * DegreeToRadian;
+
+	float4x4 XRot;
+	float4x4 YRot;
+	float4x4 ZRot;
+
+	*this = ZRot * YRot * XRot;
 }
 
 void float4::operator*=(const float4x4& other)
