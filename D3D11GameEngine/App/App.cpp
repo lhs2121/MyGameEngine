@@ -1,12 +1,12 @@
-#pragma comment(lib, "geBase.lib")
-#pragma comment(lib, "gePlatform.lib")
-#pragma comment(lib, "geCore.lib")
-#pragma comment(lib, "geContents.lib")
+#pragma comment(lib, "EngineBase.lib")
+#pragma comment(lib, "EngineWindow.lib")
+#pragma comment(lib, "EngineCore.lib")
+#pragma comment(lib, "EngineContents.lib")
 
 #include <iostream>
 #include <Windows.h>
-#include <geContents\Pre.h>
-#include <geContents\ContentsCore.h>
+#include <EngineContents\Pre.h>
+#include <EngineContents\ContentsCore.h>
 
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -15,7 +15,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	ContentsCore CoreObject;
-	EngineCore::SetCoreObject(&CoreObject);
-	EngineCore::EngineStart(hInstance);
+	EngineCore::EngineStart(hInstance, { 50, 50 }, { 1366,789 }, "Cilent", &CoreObject);
 }
 

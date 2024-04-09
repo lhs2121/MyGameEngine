@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Device">
+      <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{7f50b067-3cf3-4a5d-a182-5f79d810996e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Camera">
+      <UniqueIdentifier>{ed38a90b-0a31-4299-8ac5-cf5dc5dba969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Transform">
+      <UniqueIdentifier>{8700cce3-a05f-4ecd-a894-46d9d5027b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Level">
+      <UniqueIdentifier>{b65735ac-144b-4dec-bd46-7024a2d6838f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Renderer">
+      <UniqueIdentifier>{d0f613ec-6e6a-461b-8552-9f9b328486f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Object">
+      <UniqueIdentifier>{5af2df52-f83e-4010-9e41-627babc5a82f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3DResource">
+      <UniqueIdentifier>{a3dbc41e-0877-4d12-85ee-bb2add1de998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3DResource\0. IA">
+      <UniqueIdentifier>{83d4c085-c8fb-42cb-8d0b-5cd5e1496135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3DResource\1. VS">
+      <UniqueIdentifier>{dedc1d16-d2b5-4f94-a448-552d368fe87f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3DResource\2. PS">
+      <UniqueIdentifier>{e9381c18-e8bd-470b-811c-15c1fc217433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pre">
+      <UniqueIdentifier>{dcb8c89d-059b-4d9e-8dc7-40b990845ea1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineD3DResource.cpp">
+      <Filter>D3DResource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <Filter>D3DResource\0. IA</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineInputLayout.cpp">
+      <Filter>D3DResource\0. IA</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>D3DResource\0. IA</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexShader.cpp">
+      <Filter>D3DResource\1. VS</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDevice.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="EnginePixelShader.cpp">
+      <Filter>D3DResource\2. PS</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineCamera.cpp">
+      <Filter>Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTransform.cpp">
+      <Filter>Object\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLevel.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineRenderer.cpp">
+      <Filter>Object\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineObject.cpp">
+      <Filter>Object\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Pre.cpp">
+      <Filter>Pre</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineD3DResource.h">
+      <Filter>D3DResource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineIndexBuffer.h">
+      <Filter>D3DResource\0. IA</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInputLayout.h">
+      <Filter>D3DResource\0. IA</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>D3DResource\0. IA</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexShader.h">
+      <Filter>D3DResource\1. VS</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDevice.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePixelShader.h">
+      <Filter>D3DResource\2. PS</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineCamera.h">
+      <Filter>Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTransform.h">
+      <Filter>Object\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLevel.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineRenderer.h">
+      <Filter>Object\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineObject.h">
+      <Filter>Object\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Pre.h">
+      <Filter>Pre</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

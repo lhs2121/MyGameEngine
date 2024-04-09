@@ -1,0 +1,53 @@
+#pragma once
+#include <EngineWindow\EngineWindow.h>
+#include "EngineDevice.h"
+#include "EngineRenderer.h"
+#include "EngineLevel.h"
+
+class EngineCore
+{
+public:
+	// constrcuter destructer
+	EngineCore();
+	~EngineCore();
+
+	// delete Function
+	EngineCore(const EngineCore& _Other) = delete;
+	EngineCore(EngineCore&& _Other) noexcept = delete;
+	EngineCore& operator=(const EngineCore& _Other) = delete;
+	EngineCore& operator=(EngineCore&& _Other) noexcept = delete;
+
+	static ID3D11Device* GetDevice()
+	{
+		return MainDevice.GetDevice();
+	}
+	static ID3D11DeviceContext* GetContext()
+	{
+		return MainDevice.GetContext();
+	}
+	static EngineWindow& GetMainWindow()
+	{
+		return MainWindow;
+	}
+
+	template<typename LevelType>
+	static EngineLevel* CreateLevel(std::string LevelName)
+	{
+		EngineLevel* NewLevel = new LevelType();
+		NewLevel->SetName(LevelName);
+		NewLevel->Start();
+
+		AllLevel.insert(std::make_pair(LevelName, NewLevel));
+		return NewLevel;
+	}
+
+	static void EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _WindowSize, std::string _WindowTitle, EngineObject* _CoreObject);
+	static void EngineUpdate();
+
+private:
+	static EngineObject* CoreObject;
+	static EngineRenderer TestRenderer;
+	static EngineWindow MainWindow;
+	static EngineDevice MainDevice;
+	static std::map<std::string, EngineLevel*> AllLevel;
+};
