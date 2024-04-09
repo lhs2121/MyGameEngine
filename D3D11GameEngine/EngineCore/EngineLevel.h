@@ -22,6 +22,7 @@ public:
 	EngineActor* CreateActor()
 	{
 		EngineActor* NewActor = new ActorType();
+		NewActor->Start();
 		AllActor.push_back(NewActor);
 
 		return NewActor;

@@ -15,6 +15,7 @@ public:
 	EngineComponent& operator=(const EngineComponent& _Other) = delete;
 	EngineComponent& operator=(EngineComponent&& _Other) noexcept = delete;
 
+	void GetLevel();
 private:
 
 };
