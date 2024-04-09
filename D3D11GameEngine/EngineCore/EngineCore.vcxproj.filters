@@ -44,19 +44,25 @@
       <Filter>D3DResource\2. PS</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="EngineCamera.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="EngineLevel.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="EngineObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="EngineActor.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineComponent.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
     <ClCompile Include="EngineRenderer.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="EngineTransform.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineCamera.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,19 +90,25 @@
       <Filter>D3DResource\2. PS</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineCamera.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="EngineLevel.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="EngineObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="EngineActor.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineComponent.h">
+      <Filter>Object</Filter>
+    </ClInclude>
     <ClInclude Include="EngineRenderer.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="EngineTransform.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineCamera.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,8 +22,22 @@ public:
 	void AddScale(float4 Value);
 	void AddRotation(float4 Value);
 
+	void SetParent(EngineTransform* _Parent)
+	{
+		Parent = _Parent;
+	}
+
+	void SetChild(EngineTransform* _Child)
+	{
+		Child = _Child;
+		Child->SetParent(this);
+	}
+
 	void TransformUpdate();
 private:
+	EngineTransform* Parent = nullptr;
+	EngineTransform* Child = nullptr;
+
 	float4 Position;
 	float4 Scale;
 	float4 Rotation;

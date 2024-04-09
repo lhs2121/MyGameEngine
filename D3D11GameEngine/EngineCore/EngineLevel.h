@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineActor.h"
 
 // Ό³Έν :
 class EngineLevel : public EngineObject
@@ -17,8 +18,16 @@ public:
 	void Start() override;
 	void Update(float _Delta) override;
 
+	template<typename ActorType>
+	EngineActor* CreateActor()
+	{
+		EngineActor* NewActor = new ActorType();
+		AllActor.push_back(NewActor);
+
+		return NewActor;
+	}
 protected:
-	std::list<EngineObject*> AllObject;
+	std::list<EngineActor*> AllActor;
 	
 }; 
 

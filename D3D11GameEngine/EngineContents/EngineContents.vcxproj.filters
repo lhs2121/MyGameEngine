@@ -6,12 +6,18 @@
     <ClInclude Include="TestLevel.h">
       <Filter>ContentsLevel</Filter>
     </ClInclude>
+    <ClInclude Include="TestActor.h">
+      <Filter>ContentsActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="TestLevel.cpp">
       <Filter>ContentsLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TestActor.cpp">
+      <Filter>ContentsActor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

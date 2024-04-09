@@ -3,16 +3,10 @@
 
 EngineRenderer::EngineRenderer()
 {
-	Transform = new EngineTransform();
 }
 
 EngineRenderer::~EngineRenderer()
 {
-	if (Transform != nullptr)
-	{
-		delete Transform;
-		Transform = nullptr;
-	}
 }
 
 void EngineRenderer::Start()

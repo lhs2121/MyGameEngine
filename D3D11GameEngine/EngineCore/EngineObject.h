@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineTransform.h"
 
 // Ό³Έν :
 class EngineObject
@@ -19,10 +20,27 @@ public:
 		Name = _Name;
 	}
 
+	void SetParent(EngineObject* _Parent)
+	{
+		Parent = _Parent;
+	}
+
+	void SetChild(EngineObject* _Child)
+	{
+		Child = _Child;
+		Child->SetParent(this);
+
+		Transform.SetChild(&Child->Transform);
+	}
+
 	virtual void Start();
 	virtual void Update(float _Delta);
 	virtual void Release();
 
 private:
+	EngineObject* Parent = nullptr;
+	EngineObject* Child = nullptr;
+
+	EngineTransform Transform;
 	std::string Name;
 };

@@ -38,6 +38,8 @@
     <ClCompile Include="EngineCamera.cpp" />
     <ClCompile Include="EngineTransform.cpp" />
     <ClCompile Include="EngineLevel.cpp" />
+    <ClCompile Include="EngineActor.cpp" />
+    <ClCompile Include="EngineComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineD3DResource.h" />
@@ -54,6 +56,8 @@
     <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EnginePixelShader.h" />
+    <ClInclude Include="EngineActor.h" />
+    <ClInclude Include="EngineComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

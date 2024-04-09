@@ -181,6 +181,7 @@
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="TestLevel.h" />
+    <ClInclude Include="TestActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -199,6 +200,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="TestLevel.cpp" />
+    <ClCompile Include="TestActor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

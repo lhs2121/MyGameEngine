@@ -6,9 +6,9 @@
 #include "EngineVertexShader.h"
 #include "EnginePixelShader.h"
 #include "EngineTransform.h"
-#include "EngineObject.h"
+#include "EngineComponent.h"
 
-class EngineRenderer : public EngineObject
+class EngineRenderer : public EngineComponent
 {
 public:
 	// constrcuter destructer
@@ -29,8 +29,6 @@ public:
 	EngineInputLayout* IA = nullptr;
 	EngineVertexShader* VS = nullptr;
 	EnginePixelShader* PS = nullptr;
-
-	EngineTransform* Transform = nullptr;
 };	
 
 
