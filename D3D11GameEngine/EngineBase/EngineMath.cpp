@@ -2,11 +2,11 @@
 #include "EngineMath.h"
 #include <math.h>
 
-float4x4::float4x4(const float4x4& other)
+float4x4::float4x4(const float4x4& Other)
 {
 	for (int x = 0; x < 16; x++)
 	{
-		matrix1D[x] = other.matrix1D[x];
+		matrix1D[x] = Other.matrix1D[x];
 	}
 }
 float4x4::float4x4(const std::vector<std::vector<float>> _matrix)
@@ -85,23 +85,23 @@ float4x4 float4x4::operator*(const float4x4& R)
 	return res;
 }
 
-void float4x4::Position(const float4& other)
+void float4x4::Position(const float4& Other)
 {
 	Identity();
-	matrix[3][0] = other.x;
-	matrix[3][1] = other.y;
-	matrix[3][2] = other.z;
-	matrix[3][3] = other.w;
+	matrix[3][0] = Other.x;
+	matrix[3][1] = Other.y;
+	matrix[3][2] = Other.z;
+	matrix[3][3] = Other.w;
 }
 
 
-void float4x4::Scale(const float4& other)
+void float4x4::Scale(const float4& Other)
 {
 	Identity();
-	matrix[0][0] = other.x;
-	matrix[1][1] = other.y;
-	matrix[2][2] = other.z;
-	matrix[3][3] = other.w;
+	matrix[0][0] = Other.x;
+	matrix[1][1] = Other.y;
+	matrix[2][2] = Other.z;
+	matrix[3][3] = Other.w;
 }
 
 void float4x4::Rotation(const float4& Radian)
@@ -151,21 +151,21 @@ void float4x4::RotationZ(const float Radian)
 	matrix[1][1] = cosf(Radian);
 }
 
-void float4::operator*=(const float4x4& other)
+void float4::operator*=(const float4x4& Other)
 {
-	x = (x * other.matrix[0][0]) + (y * other.matrix[1][0]) + (z * other.matrix[2][0]) + (w * other.matrix[3][0]);
-	y = (x * other.matrix[0][1]) + (y * other.matrix[1][1]) + (z * other.matrix[2][1]) + (w * other.matrix[3][1]);
-	z = (x * other.matrix[0][2]) + (y * other.matrix[1][2]) + (z * other.matrix[2][2]) + (w * other.matrix[3][2]);
-	w = (x * other.matrix[0][3]) + (y * other.matrix[1][3]) + (z * other.matrix[2][3]) + (w * other.matrix[3][3]);
+	x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
+	y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
+	z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
+	w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
 }
 
-float4 float4::operator*(const float4x4& other)
+float4 float4::operator*(const float4x4& Other)
 {
 	float4 result;
-	result.x = (x * other.matrix[0][0]) + (y * other.matrix[1][0]) + (z * other.matrix[2][0]) + (w * other.matrix[3][0]);
-	result.y = (x * other.matrix[0][1]) + (y * other.matrix[1][1]) + (z * other.matrix[2][1]) + (w * other.matrix[3][1]);
-	result.z = (x * other.matrix[0][2]) + (y * other.matrix[1][2]) + (z * other.matrix[2][2]) + (w * other.matrix[3][2]);
-	result.w = (x * other.matrix[0][3]) + (y * other.matrix[1][3]) + (z * other.matrix[2][3]) + (w * other.matrix[3][3]);
+	result.x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
+	result.y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
+	result.z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
+	result.w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
 
 	return result;
 }

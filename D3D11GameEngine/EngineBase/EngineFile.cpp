@@ -19,7 +19,3 @@ std::string EngineFile::GetFileName()
 	return Path.filename().replace_extension("").string();
 }
 
-std::string EngineFile::GetStringPath()
-{
-	return Path.string();
-}

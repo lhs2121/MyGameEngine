@@ -32,12 +32,6 @@ void EngineDirectory::ChildDir(std::string ChildPath)
 	}
 }
 
-std::string EngineDirectory::GetStringPath()
-{
-	std::string StringPath = Path.string();
-	return StringPath;
-}
-
 std::vector<EngineFile> EngineDirectory::GetAllFile()
 {
 	std::vector<EngineFile> AllFile;

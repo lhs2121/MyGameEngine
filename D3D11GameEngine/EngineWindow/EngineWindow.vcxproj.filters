@@ -2,19 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="EngineWindow.h" />
-    <ClInclude Include="Pre.h">
-      <Filter>Pre</Filter>
-    </ClInclude>
+    <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineWindow.cpp" />
-    <ClCompile Include="Pre.cpp">
-      <Filter>Pre</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Pre">
-      <UniqueIdentifier>{76c74e1b-0d2a-42bc-87d8-892223a7e93c}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Pre.cpp" />
   </ItemGroup>
 </Project>

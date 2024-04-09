@@ -12,4 +12,5 @@ ContentsCore::~ContentsCore()
 void ContentsCore::Start()
 {
 	EngineCore::CreateLevel<TestLevel>("TestLevel");
+	EngineCore::ChangeLevel("TestLevel");
 }

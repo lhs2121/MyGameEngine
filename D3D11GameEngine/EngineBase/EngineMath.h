@@ -64,24 +64,24 @@ public:
 		return static_cast<int>(y / 2);
 	}
 
-	float4 operator+(const float4& other) const
+	float4 operator+(const float4& Other) const
 	{
-		return { x + other.x ,y + other.y ,z + other.z ,w };
+		return { x + Other.x ,y + Other.y ,z + Other.z ,w };
 	}
 
-	float4 operator+(const float4&& other) const
+	float4 operator+(const float4&& Other) const
 	{
-		return { x + other.x ,y + other.y ,z + other.z ,w };
+		return { x + Other.x ,y + Other.y ,z + Other.z ,w };
 	}
 
-	float4 operator-(const float4& other) const
+	float4 operator-(const float4& Other) const
 	{
-		return { x - other.x ,y - other.y ,z - other.z ,w };
+		return { x - Other.x ,y - Other.y ,z - Other.z ,w };
 	}
 
-	float4 operator-(const float4&& other) const
+	float4 operator-(const float4&& Other) const
 	{
-		return { x - other.x ,y - other.y ,z - other.z ,w };
+		return { x - Other.x ,y - Other.y ,z - Other.z ,w };
 	}
 
 	float4 operator-() const
@@ -89,108 +89,108 @@ public:
 		return { -x,-y,-z ,w };
 	}
 
-	float4 operator*(const float4& other) const
+	float4 operator*(const float4& Other) const
 	{
-		return { x * other.x ,y * other.y ,z * other.z ,w };
+		return { x * Other.x ,y * Other.y ,z * Other.z ,w };
 	}
 
-	float4 operator*(const float4&& other) const
+	float4 operator*(const float4&& Other) const
 	{
-		return { x * other.x ,y * other.y ,z * other.z ,w };
+		return { x * Other.x ,y * Other.y ,z * Other.z ,w };
 	}
 
-	float4 operator*(const float other) const
+	float4 operator*(const float Other) const
 	{
-		return { x * other,y * other,z * other,w };
+		return { x * Other,y * Other,z * Other,w };
 	}
 
-	float4 operator/(const float4& other) const
+	float4 operator/(const float4& Other) const
 	{
-		return { x / other.x ,y / other.y ,z / other.z ,w };
+		return { x / Other.x ,y / Other.y ,z / Other.z ,w };
 	}
 
-	float4 operator/(const float4&& other) const
+	float4 operator/(const float4&& Other) const
 	{
-		return { x / other.x ,y / other.y ,z / other.z ,w };
+		return { x / Other.x ,y / Other.y ,z / Other.z ,w };
 	}
 
-	float4 operator/(float other) const
+	float4 operator/(float Other) const
 	{
-		return { x / other ,y / other ,z / other ,w };
+		return { x / Other ,y / Other ,z / Other ,w };
 	}
 
-	void operator+=(const float4& other)
+	void operator+=(const float4& Other)
 	{
-		x += other.x;
-		y += other.y;
-		z += other.z;
+		x += Other.x;
+		y += Other.y;
+		z += Other.z;
 	}
 
-	void operator+=(const float4&& other)
+	void operator+=(const float4&& Other)
 	{
-		x += other.x;
-		y += other.y;
-		z += other.z;
+		x += Other.x;
+		y += Other.y;
+		z += Other.z;
 	}
 
-	void operator-=(const float4& other)
+	void operator-=(const float4& Other)
 	{
-		x -= other.x;
-		y -= other.y;
-		z -= other.z;
+		x -= Other.x;
+		y -= Other.y;
+		z -= Other.z;
 	}
 
-	void operator-=(const float4&& other)
+	void operator-=(const float4&& Other)
 	{
-		x -= other.x;
-		y -= other.y;
-		z -= other.z;
+		x -= Other.x;
+		y -= Other.y;
+		z -= Other.z;
 	}
 
-	void operator*=(const float4& other)
+	void operator*=(const float4& Other)
 	{
-		x *= other.x;
-		y *= other.y;
-		z *= other.z;
+		x *= Other.x;
+		y *= Other.y;
+		z *= Other.z;
 	}
 
-	void operator*=(const float4&& other)
+	void operator*=(const float4&& Other)
 	{
-		x *= other.x;
-		y *= other.y;
-		z *= other.z;
+		x *= Other.x;
+		y *= Other.y;
+		z *= Other.z;
 	}
 
-	void operator*=(const float other)
+	void operator*=(const float Other)
 	{
-		x *= other;
-		y *= other;
-		z *= other;
+		x *= Other;
+		y *= Other;
+		z *= Other;
 	}
 
-	void operator/=(const float4& other)
+	void operator/=(const float4& Other)
 	{
-		x /= other.x;
-		y /= other.y;
-		z /= other.z;
+		x /= Other.x;
+		y /= Other.y;
+		z /= Other.z;
 	}
 
-	void operator/=(const float4&& other)
+	void operator/=(const float4&& Other)
 	{
-		x /= other.x;
-		y /= other.y;
-		z /= other.z;
+		x /= Other.x;
+		y /= Other.y;
+		z /= Other.z;
 	}
 
-	void operator/=(const float other)
+	void operator/=(const float Other)
 	{
-		x /= other;
-		y /= other;
-		z /= other;
+		x /= Other;
+		y /= Other;
+		z /= Other;
 	}
 
-	void operator*=(const float4x4& other);
-	float4 operator*(const float4x4& other);
+	void operator*=(const float4x4& Other);
+	float4 operator*(const float4x4& Other);
 };
 
 class float4x4
@@ -201,7 +201,7 @@ public:
 
 	}
 
-	float4x4(const float4x4& other);
+	float4x4(const float4x4& Other);
 	float4x4(const std::vector<std::vector<float>> _matrix);
 	float4x4(const std::vector<float> _matrix);
 
@@ -218,9 +218,9 @@ public:
 		float matrix1D[16];
 	};
 
-	float4x4 operator*(const float4x4& other);
-	void Position(const float4& other);
-	void Scale(const float4& other);
+	float4x4 operator*(const float4x4& Other);
+	void Position(const float4& Other);
+	void Scale(const float4& Other);
 	void Rotation(const float4& Radian);
 
 	void RotationX(const float Radian);

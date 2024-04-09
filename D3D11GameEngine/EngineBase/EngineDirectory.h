@@ -1,8 +1,8 @@
 #pragma once
-#include "EngineFile.h"
-#include <filesystem>
+#include "EnginePath.h"
 
-class EngineDirectory
+class EngineFile;
+class EngineDirectory : public EnginePath
 {
 public:
 	// constrcuter destructer
@@ -18,10 +18,7 @@ public:
 	void ParentDir();
 	void ChildDir(std::string ChildPath);
 
-	std::string GetStringPath();
 	std::vector<EngineFile> GetAllFile();
 	std::vector<EngineFile> GetAllFile(std::string _Ext);
-
-	std::filesystem::path Path;
 };
 

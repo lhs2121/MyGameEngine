@@ -1,7 +1,7 @@
 #pragma once
-#include <filesystem>
+#include "EnginePath.h"
 
-class EngineFile
+class EngineFile : public EnginePath
 {
 public:
 	// constrcuter destructer
@@ -16,8 +16,5 @@ public:
 	//EngineFile& operator=(EngineFile&& _Other) noexcept = delete;
 
 	std::string GetFileName();
-	std::string GetStringPath();
-
-	std::filesystem::path Path;
 };
 

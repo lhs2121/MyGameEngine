@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineBase\EngineTime.h>
 #include <EngineWindow\EngineWindow.h>
 #include "EngineDevice.h"
 #include "EngineRenderer.h"
@@ -41,13 +42,25 @@ public:
 		return NewLevel;
 	}
 
+	static void ChangeLevel(std::string LevelName)
+	{
+		if(AllLevel.end() != AllLevel.find(LevelName))
+		{
+			CurLevel = AllLevel[LevelName];
+		}
+	}
+
 	static void EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _WindowSize, std::string _WindowTitle, EngineObject* _CoreObject);
 	static void EngineUpdate();
 
 private:
 	static EngineObject* CoreObject;
+	static EngineLevel* CurLevel;
 	static EngineRenderer TestRenderer;
+
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
+	static EngineTime MainTimer;
+
 	static std::map<std::string, EngineLevel*> AllLevel;
 };

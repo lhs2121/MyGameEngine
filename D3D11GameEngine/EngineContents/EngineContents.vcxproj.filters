@@ -2,21 +2,24 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
-    <ClInclude Include="TestLevel.h" />
-    <ClInclude Include="Pre.h">
-      <Filter>Pre</Filter>
+    <ClInclude Include="Pre.h" />
+    <ClInclude Include="TestLevel.h">
+      <Filter>ContentsLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
-    <ClCompile Include="TestLevel.cpp" />
-    <ClCompile Include="Pre.cpp">
-      <Filter>Pre</Filter>
+    <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="TestLevel.cpp">
+      <Filter>ContentsLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Pre">
-      <UniqueIdentifier>{4aa7160f-80ab-44be-ac22-32f39f804ff8}</UniqueIdentifier>
+    <Filter Include="ContentsActor">
+      <UniqueIdentifier>{2fbd92d9-7ce9-47e1-9328-94e47acaeb9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsLevel">
+      <UniqueIdentifier>{9cfd1cf7-e304-442b-b411-9aa2e4ebb786}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
