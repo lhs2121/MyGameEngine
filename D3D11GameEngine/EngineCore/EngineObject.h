@@ -22,24 +22,40 @@ public:
 
 	void SetParent(EngineObject* _Parent)
 	{
-		Parent = _Parent;
+		_Parent->PushChild(this);
 	}
 
-	void SetChild(EngineObject* _Child)
+	void PushChild(EngineObject* _Child)
 	{
-		Child = _Child;
-		Child->SetParent(this);
-
-		Transform.SetChild(&Child->Transform);
+		ChildList.push_back(_Child);
+		_Child->Parent = this;
 	}
 
+	EngineObject* GetChild(int Order = 0)
+	{
+		std::list<EngineObject*>::iterator Start = ChildList.begin();
+		std::list<EngineObject*>::iterator End = ChildList.end();
+
+		EngineObject* Result = nullptr;
+		for (int i = 0; i <= Order; i++)
+		{
+			if (i == Order)
+			{
+				Result = (*Start);
+				return Result;
+			}
+			Start++;
+		}
+
+		return Result;
+	}
 	virtual void Start();
 	virtual void Update(float _Delta);
 	virtual void Release();
 
 private:
 	EngineObject* Parent = nullptr;
-	EngineObject* Child = nullptr;
+	std::list<EngineObject*> ChildList;
 
 	EngineTransform Transform;
 	std::string Name;

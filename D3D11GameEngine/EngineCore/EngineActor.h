@@ -20,7 +20,7 @@ public:
 	{
 		EngineComponent* NewComponent = new ComponentType();
 		NewComponent->Start();
-		SetChild(NewComponent);
+		NewComponent->SetParent(this);
 		return;
 	}
 
