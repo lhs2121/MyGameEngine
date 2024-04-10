@@ -26,12 +26,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	EngineObject* ChildOBJ5 = new EngineObject();
 	ChildOBJ5->SetName("Ronaldo5");
 
-	ParentOBJ->PushChild(ChildOBJ);
-	ParentOBJ->PushChild(ChildOBJ2);
-	ParentOBJ->PushChild(ChildOBJ3);
-	ParentOBJ->PushChild(ChildOBJ4);
-	ParentOBJ->PushChild(ChildOBJ5);
-	EngineObject* a = ParentOBJ->GetChild(5);
+	ParentOBJ->SetChild(ChildOBJ);
+	ParentOBJ->SetChild(ChildOBJ2);
+	ParentOBJ->SetChild(ChildOBJ3);
+	ParentOBJ->SetChild(ChildOBJ4);
+	ParentOBJ->SetChild(ChildOBJ5);
+	EngineObject* a = ParentOBJ->GetChild(4);
+
+	ChildOBJ2->DetachParent();
+	EngineObject* a2 = ParentOBJ->GetChild(4);
+	EngineObject* a3 = ParentOBJ->GetChild(3);
+
+	ChildOBJ2->SetParent(ChildOBJ5);
 
 	ContentsCore CoreObject;
 	EngineCore::EngineStart(hInstance, { 50, 50 }, { 1366,789 }, "Cilent", &CoreObject);

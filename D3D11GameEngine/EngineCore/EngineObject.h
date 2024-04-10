@@ -22,13 +22,50 @@ public:
 
 	void SetParent(EngineObject* _Parent)
 	{
-		_Parent->PushChild(this);
+		_Parent->SetChild(this);
 	}
 
-	void PushChild(EngineObject* _Child)
+	void DetachParent()
 	{
+		Parent->DetachChild(this);
+	}
+
+	void SetChild(EngineObject* _Child)
+	{
+		// 이미 내 자식이라면 리턴
+		for (EngineObject* Ptr : ChildList)
+		{
+			if (Ptr == _Child)
+			{
+				return;
+			}
+		}
+
+		// 자식의 부모가 있다면 먼저 떼어놓기
+		if (_Child->Parent != nullptr)
+		{
+			_Child->Parent->DetachChild(_Child);
+		}
 		ChildList.push_back(_Child);
 		_Child->Parent = this;
+	}
+
+	void DetachChild(EngineObject* _Child)
+	{
+		std::list<EngineObject*>::iterator Start = ChildList.begin();
+		std::list<EngineObject*>::iterator End = ChildList.end();
+
+		for (; Start != End;)
+		{
+			if ((*Start) == _Child)
+			{
+				ChildList.erase(Start);
+				_Child->Parent = nullptr;
+				return;
+			}
+
+			Start++;
+		}
 	}
 
 	EngineObject* GetChild(int Order = 0)
@@ -52,6 +89,7 @@ public:
 
 		return Result;
 	}
+
 	virtual void Start();
 	virtual void Update(float _Delta);
 	virtual void Release();
