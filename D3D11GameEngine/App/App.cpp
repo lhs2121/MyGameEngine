@@ -31,7 +31,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	ParentOBJ->PushChild(ChildOBJ3);
 	ParentOBJ->PushChild(ChildOBJ4);
 	ParentOBJ->PushChild(ChildOBJ5);
-	EngineObject* a = ParentOBJ->GetChild(4);
+	EngineObject* a = ParentOBJ->GetChild(5);
 
 	ContentsCore CoreObject;
 	EngineCore::EngineStart(hInstance, { 50, 50 }, { 1366,789 }, "Cilent", &CoreObject);

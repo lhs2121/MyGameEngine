@@ -37,14 +37,17 @@ public:
 		std::list<EngineObject*>::iterator End = ChildList.end();
 
 		EngineObject* Result = nullptr;
-		for (int i = 0; i <= Order; i++)
+		int index = 0;
+		for (;Start!=End;)
 		{
-			if (i == Order)
+			if (index == Order)
 			{
 				Result = (*Start);
 				return Result;
 			}
+			
 			Start++;
+			index++;
 		}
 
 		return Result;
