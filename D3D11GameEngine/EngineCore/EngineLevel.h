@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineActor.h"
+#include "EngineObject.h"
 
 // 설명 :
 class EngineLevel : public EngineObject
@@ -21,9 +21,9 @@ public:
 	template<typename ActorType>
 	ActorType* CreateActor()
 	{
-		EngineActor* NewActor = new ActorType();
+		EngineObject* NewActor = new ActorType();
+		NewActor->SetParent(this); //parent를 하고 start를 걸어야함
 		NewActor->Start();
-		NewActor->SetParent(this);
 		return dynamic_cast<ActorType*>(NewActor);
 	}
 protected:
