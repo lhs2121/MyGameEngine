@@ -56,11 +56,9 @@ public:
 private:
 	static EngineObject* CoreObject;
 	static EngineLevel* CurLevel;
-	static EngineRenderer TestRenderer;
-
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
-	static EngineTime MainTimer;
+	static EngineTime MainTime;
 
 	static std::map<std::string, EngineLevel*> AllLevel;
 };

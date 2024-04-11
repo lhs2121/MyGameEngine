@@ -1,10 +1,9 @@
 #include "Pre.h"
 #include "EngineCore.h"
 
-EngineRenderer EngineCore::TestRenderer;
 EngineWindow EngineCore::MainWindow;
 EngineDevice EngineCore::MainDevice;
-EngineTime EngineCore::MainTimer;
+EngineTime EngineCore::MainTime;
 EngineLevel* EngineCore::CurLevel;
 EngineObject* EngineCore::CoreObject = nullptr;
 
@@ -26,28 +25,29 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
     MainWindow.SetHinstance(_hInstance);
     MainWindow.OpenWindow();
 
-    CoreObject = _CoreObject;
-    CoreObject->Start();
-
     MainDevice.Init();
     MainDevice.ResourceInit();
 
-    MainTimer.Init();
-    MainTimer.CountStart();
+    CoreObject = _CoreObject;
+    CoreObject->Start();
 
-    TestRenderer.Start();
+    MainTime.Init();
+    MainTime.CountStart();
+
 
     MainWindow.MessageLoop();
 }
 void EngineCore::EngineUpdate()
 {
-    float Delta = MainTimer.CountEnd();
-    MainTimer.CountStart();
+    float Delta = MainTime.CountEnd();
+    MainTime.CountStart();
 
     CurLevel->Update(Delta);
 
     MainDevice.Clear();
-    TestRenderer.Render();
+
+    CurLevel->Render();
+
     MainDevice.Present();
 
 }

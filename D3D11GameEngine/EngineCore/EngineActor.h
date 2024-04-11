@@ -19,8 +19,8 @@ public:
 	ComponentType* CreateComponent()
 	{
 		EngineComponent* NewComponent = new ComponentType();
-		NewComponent->Start();
 		NewComponent->SetParent(this);
+		NewComponent->Start();
 		return dynamic_cast<ComponentType*>(NewComponent);
 	}
 

@@ -20,3 +20,11 @@ void EngineLevel::Update(float _Delta)
 		Object->Update(_Delta);
 	}
 }
+
+void EngineLevel::Render()
+{
+	for (EngineRenderer* Renderer : RendererList)
+	{
+		Renderer->Render();
+	}
+}

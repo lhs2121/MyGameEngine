@@ -2,6 +2,7 @@
 #include "EngineObject.h"
 
 // Ό³Έν :
+class EngineRenderer;
 class EngineLevel : public EngineObject
 {
 public:
@@ -17,6 +18,12 @@ public:
 
 	void Start() override;
 	void Update(float _Delta) override;
+	void Render();
+
+	void PushRenderer(EngineRenderer* Renderer)
+	{
+		RendererList.push_back(Renderer);
+	}
 
 	template<typename ActorType>
 	ActorType* CreateActor()
@@ -26,7 +33,9 @@ public:
 		NewActor->Start();
 		return dynamic_cast<ActorType*>(NewActor);
 	}
-protected:
+
+private:
+	std::list<EngineRenderer*> RendererList;
 	
 }; 
 
