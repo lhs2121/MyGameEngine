@@ -2,6 +2,25 @@
 #include "EngineMath.h"
 #include <math.h>
 
+void float4::operator*=(const float4x4& Other)
+{
+	x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
+	y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
+	z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
+	w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
+}
+
+float4 float4::operator*(const float4x4& Other)
+{
+	float4 result;
+	result.x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
+	result.y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
+	result.z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
+	result.w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
+
+	return result;
+}
+
 float4x4::float4x4(const float4x4& Other)
 {
 	for (int x = 0; x < 16; x++)
@@ -151,21 +170,22 @@ void float4x4::RotationZ(const float Radian)
 	matrix[1][1] = cosf(Radian);
 }
 
-void float4::operator*=(const float4x4& Other)
+void float4x4::View()
 {
-	x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
-	y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
-	z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
-	w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
+	//Identity();
+	//matrix[0][0]
+	//
+}
+void float4x4::Projection()
+{
+
 }
 
-float4 float4::operator*(const float4x4& Other)
+float4 float4::Cross(float4 & Other)
 {
-	float4 result;
-	result.x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
-	result.y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
-	result.z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
-	result.w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
+	float X = y * Other.z - z * Other.y;
+	float Y = z * Other.x - x * Other.z;
+	float Z = x * Other.y - y * Other.x;
 
-	return result;
+	return { X,Y,Z,1 };
 }

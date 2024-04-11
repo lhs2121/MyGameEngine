@@ -28,11 +28,9 @@ public:
 			float b;
 			float a;
 		};
-
-		DirectX::XMVECTOR DXvec;
-		DirectX::XMFLOAT4 DXfloat3;
-		DirectX::XMFLOAT3 DXfloat4;
 	};
+
+	float4 Cross(float4& Other);
 
 	float hx() const
 	{
@@ -219,6 +217,11 @@ public:
 	};
 
 	float4x4 operator*(const float4x4& Other);
+
+	void Identity();
+	void Zero();
+	void TransPose();
+
 	void Position(const float4& Other);
 	void Scale(const float4& Other);
 	void Rotation(const float4& Radian);
@@ -227,7 +230,6 @@ public:
 	void RotationY(const float Radian);
 	void RotationZ(const float Radian);
 
-	void Identity();
-	void Zero();
-	void TransPose();
+	void View();
+	void Projection();           
 };

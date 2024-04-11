@@ -1,6 +1,6 @@
 #pragma once
 #include "EngineLevelObject.h"
-class EngineCamera : EngineLevelObject
+class EngineCamera : public EngineLevelObject
 {
 public:
 	// constrcuter destructer
@@ -18,5 +18,7 @@ public:
 	void Render();
 private:
 	std::list<EngineRenderer*> RendererList;
-
+	float4 EyePos = { 0.0f,0.0f,-500.0f };
+	float4 LookAtPoint = { 0.0f,0.0f,0.0f };
+	float4 UpDirection = { 0.0f,1.0f,0.0f };
 };

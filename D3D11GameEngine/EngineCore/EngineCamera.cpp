@@ -16,7 +16,7 @@ void EngineCamera::PushRenderer(EngineRenderer* Renderer)
 
 void EngineCamera::Update(float _Delta)
 {
-	Transform.view
+
 }
 
 void EngineCamera::Render()

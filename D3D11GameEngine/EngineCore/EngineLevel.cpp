@@ -4,6 +4,8 @@
 
 EngineLevel::EngineLevel()
 {
+	EngineCamera* NewCamera = CreateActor<EngineCamera>();
+	CameraList.push_back(NewCamera);
 }
 
 EngineLevel::~EngineLevel()
@@ -12,8 +14,6 @@ EngineLevel::~EngineLevel()
 
 void EngineLevel::Start()
 {
-    EngineCamera* NewCamera = CreateActor<EngineCamera>();
-	CameraList.push_back(NewCamera);
 }
 
 void EngineLevel::Update(float _Delta)

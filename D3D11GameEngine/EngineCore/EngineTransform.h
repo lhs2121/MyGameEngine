@@ -45,5 +45,10 @@ private:
 	float4x4 PositionMat;
 	float4x4 ScaleMat;
 	float4x4 RotationMat;
+
 	float4x4 WorldMat;
+	float4x4 ViewMat;
+	float4x4 ProjectionMat;
+
+	float4x4 WorldViewProjectionMat;
 };
