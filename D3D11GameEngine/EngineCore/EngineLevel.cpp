@@ -15,7 +15,7 @@ void EngineLevel::Start()
 
 void EngineLevel::Update(float _Delta)
 {
-	for (EngineObject* Object : AllActor)
+	for (EngineObject* Object : ChildList)
 	{
 		Object->Update(_Delta);
 	}

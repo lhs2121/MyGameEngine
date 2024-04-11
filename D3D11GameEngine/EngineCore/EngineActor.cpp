@@ -8,7 +8,3 @@ EngineActor::EngineActor()
 EngineActor::~EngineActor()
 {
 }
-
-void EngineActor::GetLevel()
-{
-}

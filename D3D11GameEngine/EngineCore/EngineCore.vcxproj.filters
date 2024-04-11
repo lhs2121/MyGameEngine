@@ -59,12 +59,11 @@
     <ClCompile Include="EngineRenderer.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="EngineTransform.cpp">
+    <ClCompile Include="EngineLevelObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="EngineCamera.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
+    <ClCompile Include="EngineCamera.cpp" />
+    <ClCompile Include="EngineTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -105,11 +104,10 @@
     <ClInclude Include="EngineRenderer.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="EngineTransform.h">
+    <ClInclude Include="EngineLevelObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCamera.h">
-      <Filter>Object</Filter>
-    </ClInclude>
+    <ClInclude Include="EngineCamera.h" />
+    <ClInclude Include="EngineTransform.h" />
   </ItemGroup>
 </Project>

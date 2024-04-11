@@ -1,7 +1,8 @@
 #pragma once
-#include "EngineObject.h"
+#include "EngineLevelObject.h"
+#include "EngineComponent.h"
 
-class EngineActor : public EngineObject
+class EngineActor : public EngineLevelObject
 {
 public:
 	// constrcuter destructer
@@ -14,14 +15,13 @@ public:
 	EngineActor& operator=(const EngineActor& _Other) = delete;
 	EngineActor& operator=(EngineActor&& _Other) noexcept = delete;
 
-	void GetLevel();
 	template<typename ComponentType>
-	void CreateComponent()
+	ComponentType* CreateComponent()
 	{
 		EngineComponent* NewComponent = new ComponentType();
 		NewComponent->Start();
 		NewComponent->SetParent(this);
-		return;
+		return dynamic_cast<ComponentType*>(NewComponent);
 	}
 
 private:

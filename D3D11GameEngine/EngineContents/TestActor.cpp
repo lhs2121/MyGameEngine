@@ -11,7 +11,8 @@ TestActor::~TestActor()
 
 void TestActor::Start()
 {
-	CreateComponent<EngineRenderer>();
+	EngineRenderer* Renderer = CreateComponent<EngineRenderer>();
+	EngineLevel* a = Renderer->GetLevel();
 }
 
 void TestActor::Update(float _Delta)

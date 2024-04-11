@@ -1,6 +1,5 @@
 #pragma once
 #include "EngineTransform.h"
-
 // Ό³Έν :
 class EngineObject
 {
@@ -90,11 +89,23 @@ public:
 		return Result;
 	}
 
+	EngineObject* GetTopParent()
+	{
+		if (Parent != nullptr)
+		{
+			return Parent->GetTopParent();
+		}
+		else
+		{
+			return this;
+		}
+	}
+
 	virtual void Start();
 	virtual void Update(float _Delta);
 	virtual void Release();
 
-private:
+protected:
 	EngineObject* Parent = nullptr;
 	std::list<EngineObject*> ChildList;
 

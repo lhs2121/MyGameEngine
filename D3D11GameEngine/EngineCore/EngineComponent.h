@@ -1,8 +1,8 @@
 #pragma once
-#include "EngineObject.h"
+#include "EngineLevelObject.h"
 
 // Ό³Έν :
-class EngineComponent : public EngineObject
+class EngineComponent : public EngineLevelObject
 {
 public:
 	// constrcuter destructer
@@ -15,7 +15,6 @@ public:
 	EngineComponent& operator=(const EngineComponent& _Other) = delete;
 	EngineComponent& operator=(EngineComponent&& _Other) noexcept = delete;
 
-	void GetLevel();
 private:
 
 };

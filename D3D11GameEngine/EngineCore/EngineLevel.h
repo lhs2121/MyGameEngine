@@ -19,16 +19,14 @@ public:
 	void Update(float _Delta) override;
 
 	template<typename ActorType>
-	EngineActor* CreateActor()
+	ActorType* CreateActor()
 	{
 		EngineActor* NewActor = new ActorType();
 		NewActor->Start();
-		AllActor.push_back(NewActor);
-
-		return NewActor;
+		NewActor->SetParent(this);
+		return dynamic_cast<ActorType*>(NewActor);
 	}
 protected:
-	std::list<EngineActor*> AllActor;
 	
 }; 
 
