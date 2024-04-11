@@ -3,6 +3,7 @@
 
 // Ό³Έν :
 class EngineRenderer;
+class EngineCamera;
 class EngineLevel : public EngineObject
 {
 public:
@@ -20,10 +21,7 @@ public:
 	void Update(float _Delta) override;
 	void Render();
 
-	void PushRenderer(EngineRenderer* Renderer)
-	{
-		RendererList.push_back(Renderer);
-	}
+	void PushRenderer(EngineRenderer* Renderer);
 
 	template<typename ActorType>
 	ActorType* CreateActor()
@@ -34,8 +32,13 @@ public:
 		return dynamic_cast<ActorType*>(NewActor);
 	}
 
+	EngineCamera* GetMainCamera()
+	{
+		return (*CameraList.begin());
+	}
+
 private:
 	std::list<EngineRenderer*> RendererList;
-	
+	std::list<EngineCamera*> CameraList;
 }; 
 

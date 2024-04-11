@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineLevel.h"
+#include "EngineCamera.h"
 
 EngineLevel::EngineLevel()
 {
@@ -11,6 +12,8 @@ EngineLevel::~EngineLevel()
 
 void EngineLevel::Start()
 {
+    EngineCamera* NewCamera = CreateActor<EngineCamera>();
+	CameraList.push_back(NewCamera);
 }
 
 void EngineLevel::Update(float _Delta)
@@ -23,8 +26,13 @@ void EngineLevel::Update(float _Delta)
 
 void EngineLevel::Render()
 {
-	for (EngineRenderer* Renderer : RendererList)
+	for (EngineCamera* Camera : CameraList)
 	{
-		Renderer->Render();
+		Camera->Render();
 	}
+}
+
+void EngineLevel::PushRenderer(EngineRenderer* Renderer)
+{
+	GetMainCamera()->PushRenderer(Renderer);
 }
