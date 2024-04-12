@@ -16,12 +16,16 @@ void EngineLevel::Start()
 {
 }
 
-void EngineLevel::Update(float _Delta)
+void EngineLevel::ActorUpdate(float _Delta)
 {
 	for (EngineObject* Object : ChildList)
 	{
 		Object->Update(_Delta);
 	}
+}
+
+void EngineLevel::Update(float _Delta)
+{
 }
 
 void EngineLevel::Render()

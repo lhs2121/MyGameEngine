@@ -13,12 +13,13 @@ public:
 	EngineCamera& operator=(const EngineCamera& _Other) = delete;
 	EngineCamera& operator=(EngineCamera&& _Other) noexcept = delete;
 
-	void PushRenderer(EngineRenderer* Renderer);
+	void Start() override;
 	void Update(float _Delta) override;
+	void PushRenderer(EngineRenderer* Renderer);
 	void Render();
 private:
 	std::list<EngineRenderer*> RendererList;
 	float4 EyePos = { 0.0f,0.0f,-500.0f };
-	float4 LookAtPoint = { 0.0f,0.0f,0.0f };
-	float4 UpDirection = { 0.0f,1.0f,0.0f };
+	float4 EyeDir = { 0.0f,0.0f,1.0f };
+	float4 EyeUp = { 0.0f,1.0f,0.0f };
 };

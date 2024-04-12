@@ -42,6 +42,7 @@ void EngineCore::EngineUpdate()
     float Delta = MainTime.CountEnd();
     MainTime.CountStart();
 
+    CurLevel->ActorUpdate(Delta);
     CurLevel->Update(Delta);
 
     MainDevice.Clear();

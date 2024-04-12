@@ -110,7 +110,6 @@ void float4x4::Position(const float4& Other)
 	matrix[3][0] = Other.x;
 	matrix[3][1] = Other.y;
 	matrix[3][2] = Other.z;
-	matrix[3][3] = Other.w;
 }
 
 
@@ -170,18 +169,29 @@ void float4x4::RotationZ(const float Radian)
 	matrix[1][1] = cosf(Radian);
 }
 
-void float4x4::View()
+void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 {
-	//Identity();
-	//matrix[0][0]
-	//
+	float4 EyeRight = EyeDir.Cross(EyeUp);
+	matrix[0][0] = EyeRight.x;
+	matrix[0][1] = EyeRight.y;
+	matrix[0][2] = EyeRight.z;
+
+	matrix[1][0] = EyeUp.x;
+	matrix[1][1] = EyeUp.y;
+	matrix[1][2] = EyeUp.z;
+
+	matrix[2][0] = EyeDir.x;
+	matrix[2][1] = EyeDir.y;
+	matrix[2][2] = EyeDir.z;
+
+	TransPose();
 }
 void float4x4::Projection()
 {
 
 }
 
-float4 float4::Cross(float4 & Other)
+float4 float4::Cross(float4& Other)
 {
 	float X = y * Other.z - z * Other.y;
 	float Y = z * Other.x - x * Other.z;

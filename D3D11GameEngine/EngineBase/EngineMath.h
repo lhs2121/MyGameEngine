@@ -230,6 +230,6 @@ public:
 	void RotationY(const float Radian);
 	void RotationZ(const float Radian);
 
-	void View();
-	void Projection();           
+	void View(float4& EyePos, float4& EyeDir, float4& EyeUp);
+	void Projection();
 };

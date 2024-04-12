@@ -13,6 +13,7 @@ public:
 	EngineTransform& operator=(const EngineTransform& _Other) = delete;
 	EngineTransform& operator=(EngineTransform&& _Other) noexcept = delete;
 
+	void View(float4& EyePos, float4& EyeDir, float4& EyeUp);
 
 	void SetPos(float4 Value);
 	void SetScale(float4 Value);
@@ -34,9 +35,6 @@ public:
 	}
 
 	void TransformUpdate();
-private:
-	EngineTransform* Parent = nullptr;
-	EngineTransform* Child = nullptr;
 
 	float4 Position;
 	float4 Scale;
@@ -51,4 +49,8 @@ private:
 	float4x4 ProjectionMat;
 
 	float4x4 WorldViewProjectionMat;
+
+private:
+	EngineTransform* Parent = nullptr;
+	EngineTransform* Child = nullptr;
 };
