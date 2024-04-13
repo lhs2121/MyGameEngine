@@ -52,6 +52,7 @@ public:
 
 	static void EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _WindowSize, std::string _WindowTitle, EngineObject* _CoreObject);
 	static void EngineUpdate();
+	static void EngineRelease();
 
 private:
 	static EngineObject* CoreObject;

@@ -35,3 +35,8 @@ void EngineVertexBuffer::IntoPipeLine()
 {
 	EngineCore::GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
 }
+
+void EngineVertexBuffer::Release()
+{
+	BufferPtr->Release();
+}

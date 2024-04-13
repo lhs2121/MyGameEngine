@@ -4,10 +4,13 @@
 
 void float4::operator*=(const float4x4& Other)
 {
-	x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
-	y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
-	z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
-	w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
+	float4 result;
+	result.x = (x * Other.matrix[0][0]) + (y * Other.matrix[1][0]) + (z * Other.matrix[2][0]) + (w * Other.matrix[3][0]);
+	result.y = (x * Other.matrix[0][1]) + (y * Other.matrix[1][1]) + (z * Other.matrix[2][1]) + (w * Other.matrix[3][1]);
+	result.z = (x * Other.matrix[0][2]) + (y * Other.matrix[1][2]) + (z * Other.matrix[2][2]) + (w * Other.matrix[3][2]);
+	result.w = (x * Other.matrix[0][3]) + (y * Other.matrix[1][3]) + (z * Other.matrix[2][3]) + (w * Other.matrix[3][3]);
+
+	*this = result;
 }
 
 float4 float4::operator*(const float4x4& Other)
@@ -122,13 +125,13 @@ void float4x4::Scale(const float4& Other)
 	matrix[3][3] = Other.w;
 }
 
-void float4x4::Rotation(const float4& Radian)
+void float4x4::Rotation(const float4& Degree)
 {
 	Identity();
 
-	float DegreeX = Radian.x;
-	float DegreeY = Radian.y;
-	float DegreeZ = Radian.z;
+	float DegreeX = Degree.x;
+	float DegreeY = Degree.y;
+	float DegreeZ = Degree.z;
 
 	float DegreeToRadian = PI / 180;
 	float RadianX = DegreeX * DegreeToRadian;

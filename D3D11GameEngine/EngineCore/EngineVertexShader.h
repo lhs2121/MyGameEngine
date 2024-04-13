@@ -16,7 +16,7 @@ public:
 
 	void ShaderLoad(std::string _Name,std::string _Path);
 	void IntoPipeLine() override;
-
+	void Release() override;
 	void* GetShaderByteCode();
 	SIZE_T GetShaderByteLength();
 private:

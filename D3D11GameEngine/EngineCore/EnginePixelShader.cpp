@@ -12,11 +12,6 @@ EnginePixelShader::EnginePixelShader()
 
 EnginePixelShader::~EnginePixelShader()
 {
-	if (ShaderPtr != nullptr)
-	{
-		delete ShaderPtr;
-		ShaderPtr = nullptr;
-	}
 }
 
 void EnginePixelShader::ShaderLoad(std::string _Name, std::string _Path)
@@ -52,4 +47,9 @@ void EnginePixelShader::ShaderLoad(std::string _Name, std::string _Path)
 void EnginePixelShader::IntoPipeLine()
 {
 	EngineCore::GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
+}
+
+void EnginePixelShader::Release()
+{
+	ShaderPtr->Release();
 }

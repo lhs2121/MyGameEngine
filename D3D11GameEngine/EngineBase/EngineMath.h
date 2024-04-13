@@ -224,7 +224,7 @@ public:
 
 	void Position(const float4& Other);
 	void Scale(const float4& Other);
-	void Rotation(const float4& Radian);
+	void Rotation(const float4& Degree);
 
 	void RotationX(const float Radian);
 	void RotationY(const float Radian);

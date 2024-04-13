@@ -12,11 +12,6 @@ EngineVertexShader::EngineVertexShader()
 
 EngineVertexShader::~EngineVertexShader()
 {
-	if (ShaderPtr != nullptr)
-	{
-		delete ShaderPtr;
-		ShaderPtr = nullptr;
-	}
 }
 
 void EngineVertexShader::ShaderLoad(std::string _Name, std::string _Path)
@@ -54,6 +49,7 @@ void EngineVertexShader::IntoPipeLine()
 	EngineCore::GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
 }
 
+
 void* EngineVertexShader::GetShaderByteCode()
 {
 	return ShaderBlob->GetBufferPointer();
@@ -62,4 +58,9 @@ void* EngineVertexShader::GetShaderByteCode()
 SIZE_T EngineVertexShader::GetShaderByteLength()
 {
 	return ShaderBlob->GetBufferSize();
+}
+
+void EngineVertexShader::Release()
+{
+	ShaderPtr->Release();
 }

@@ -28,6 +28,8 @@ public:
 		return Resources[Name];
 	}
 
+	virtual void Release() = 0;
+	static void AllRelease();
 	virtual void IntoPipeLine() = 0;
 
 	static std::map<std::string, ResourceType*> Resources;
@@ -35,3 +37,15 @@ public:
 
 template<typename ResourceType>
 std::map<std::string, ResourceType*> EngineD3DResource<ResourceType>::Resources;
+
+template<typename ResourceType>
+void EngineD3DResource<ResourceType>::AllRelease()
+{
+	for (const auto& pair : Resources)
+	{
+		EngineD3DResource* Resource = pair.second;
+		Resource->Release();
+		delete Resource;
+		Resource = nullptr;
+	}
+}

@@ -82,4 +82,6 @@ void EngineWindow::MessageLoop()
 			EngineCore::EngineUpdate();
 		}
 	}
+
+	EngineCore::EngineRelease();
 }

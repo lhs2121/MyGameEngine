@@ -8,11 +8,6 @@ EngineIndexBuffer::EngineIndexBuffer()
 
 EngineIndexBuffer::~EngineIndexBuffer()
 {
-	if (BufferPtr != nullptr)
-	{
-		delete BufferPtr;
-		BufferPtr = nullptr;
-	}
 }
 
 void EngineIndexBuffer::SetResource(UINT* Indices, int IndexSize)
@@ -38,4 +33,9 @@ void EngineIndexBuffer::SetResource(UINT* Indices, int IndexSize)
 void EngineIndexBuffer::IntoPipeLine()
 {
 	EngineCore::GetContext()->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
+}
+
+void EngineIndexBuffer::Release()
+{
+	BufferPtr->Release();
 }

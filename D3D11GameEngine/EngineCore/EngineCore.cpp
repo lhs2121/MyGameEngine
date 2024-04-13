@@ -39,9 +39,13 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
 }
 void EngineCore::EngineUpdate()
 {
+    if (CurLevel == nullptr)
+    {
+        return;
+    }
+
     float Delta = MainTime.CountEnd();
     MainTime.CountStart();
-
     CurLevel->ActorUpdate(Delta);
     CurLevel->Update(Delta);
 
@@ -50,7 +54,15 @@ void EngineCore::EngineUpdate()
     CurLevel->Render();
 
     MainDevice.Present();
+}
 
+void EngineCore::EngineRelease()
+{
+    EngineVertexBuffer::AllRelease();
+    EngineIndexBuffer::AllRelease(); 
+    EngineInputLayout::AllRelease();
+    EngineVertexShader::AllRelease();
+    EnginePixelShader::AllRelease();
 }
 
 

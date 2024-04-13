@@ -16,7 +16,7 @@ public:
 
 	void SetResource(float4* Vertices, int VertexSize);
 	void IntoPipeLine() override;
-
+	void Release() override;
 private:
 	ID3D11Buffer* BufferPtr;
 	UINT Strides;
