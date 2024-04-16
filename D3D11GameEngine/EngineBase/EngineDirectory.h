@@ -15,8 +15,8 @@ public:
 	EngineDirectory& operator=(const EngineDirectory& _Other) = delete;
 	EngineDirectory& operator=(EngineDirectory&& _Other) noexcept = delete;
 
-	void ParentDir();
-	void ChildDir(std::string ChildPath);
+	void GoParent();
+	void GoChild(std::string ChildPath);
 
 	std::vector<EngineFile> GetAllFile();
 	std::vector<EngineFile> GetAllFile(std::string _Ext);

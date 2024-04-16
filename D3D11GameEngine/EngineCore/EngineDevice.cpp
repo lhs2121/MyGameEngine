@@ -118,8 +118,8 @@ void EngineDevice::Init()
 void EngineDevice::ResourceInit()
 {
 	EngineDirectory Dir;
-	Dir.ParentDir();
-	Dir.ChildDir("D3D11GameEngine\\EngineShader");
+	Dir.GoParent();
+	Dir.GoChild("EngineShader");
 	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".hlsl");
 
 	for (EngineFile& ShaderFile : AllShaderFile)

@@ -12,7 +12,7 @@ EngineRenderer::~EngineRenderer()
 void EngineRenderer::Start()
 {
 	GetLevel()->PushRenderer(this);
-	VB = EngineVertexBuffer::Find("Rect");
+ 	VB = EngineVertexBuffer::Find("Rect");
 	IB = EngineIndexBuffer::Find("Rect");
 	IA = EngineInputLayout::Find("Pos");
 	VS = EngineVertexShader::Find("TestShader");

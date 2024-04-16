@@ -12,7 +12,7 @@ EngineDirectory::~EngineDirectory()
 {
 }
 
-void EngineDirectory::ParentDir()
+void EngineDirectory::GoParent()
 {	
 	std::filesystem::path ParentPath;
 	if (true == std::filesystem::exists(Path.parent_path()))
@@ -21,7 +21,7 @@ void EngineDirectory::ParentDir()
 	}
 }
 
-void EngineDirectory::ChildDir(std::string ChildPath)
+void EngineDirectory::GoChild(std::string ChildPath)
 {
 	std::filesystem::path TestPath = Path;
 	TestPath /= ChildPath;
