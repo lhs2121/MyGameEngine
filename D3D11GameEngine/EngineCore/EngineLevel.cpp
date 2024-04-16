@@ -36,7 +36,3 @@ void EngineLevel::Render()
 	}
 }
 
-void EngineLevel::PushRenderer(EngineRenderer* Renderer)
-{
-	GetMainCamera()->PushRenderer(Renderer);
-}

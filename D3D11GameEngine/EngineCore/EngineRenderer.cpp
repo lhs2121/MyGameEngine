@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineRenderer.h"
+#include "EngineCamera.h"
 
 EngineRenderer::EngineRenderer()
 {
@@ -11,7 +12,7 @@ EngineRenderer::~EngineRenderer()
 
 void EngineRenderer::Start()
 {
-	GetLevel()->PushRenderer(this);
+	GetLevel()->GetMainCamera()->PushRenderer(this);
  	VB = EngineVertexBuffer::Find("Rect");
 	IB = EngineIndexBuffer::Find("Rect");
 	IA = EngineInputLayout::Find("Pos");

@@ -21,14 +21,13 @@ public:
 	void ActorUpdate(float _Delta);
 	void Update(float _Delta) override;
 	void Render();
-
-	void PushRenderer(EngineRenderer* Renderer);
-
 	template<typename ActorType>
 	ActorType* CreateActor()
 	{
 		EngineObject* NewActor = new ActorType();
-		NewActor->SetParent(this); //parent를 하고 start를 걸어야함
+
+		//Start()안에서 Level을 참조할수도있으니 SetParent를 걸고 Start를 호출하자
+		NewActor->SetParent(this); 
 		NewActor->Start();
 		return dynamic_cast<ActorType*>(NewActor);
 	}

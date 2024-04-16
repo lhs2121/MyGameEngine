@@ -74,14 +74,14 @@ public:
 
 		EngineObject* Result = nullptr;
 		int index = 0;
-		for (;Start!=End;)
+		for (; Start != End;)
 		{
 			if (index == Order)
 			{
 				Result = (*Start);
 				return Result;
 			}
-			
+
 			Start++;
 			index++;
 		}
@@ -101,6 +101,16 @@ public:
 		}
 	}
 
+	bool Destroy()
+	{
+		Death = true;
+	}
+
+	bool IsDeath()
+	{
+		return Death;
+	}
+
 	virtual void Start();
 	virtual void Update(float _Delta);
 	virtual void Release();
@@ -110,4 +120,5 @@ protected:
 	EngineObject* Parent = nullptr;
 	std::list<EngineObject*> ChildList;
 	std::string Name;
+	bool Death = false;
 };
