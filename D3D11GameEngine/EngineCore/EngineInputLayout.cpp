@@ -8,6 +8,7 @@ EngineInputLayout::EngineInputLayout()
 
 EngineInputLayout::~EngineInputLayout()
 {
+	LayoutPtr->Release();
 }
 
 D3D11_INPUT_ELEMENT_DESC* EngineInputLayout::GetLayoutDesc()
@@ -27,7 +28,3 @@ void EngineInputLayout::IntoPipeLine()
 	EngineCore::GetContext()->IASetInputLayout(LayoutPtr);
 }
 
-void EngineInputLayout::Release()
-{
-	LayoutPtr->Release();
-}

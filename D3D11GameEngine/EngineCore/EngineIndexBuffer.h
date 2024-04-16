@@ -16,7 +16,7 @@ public:
 
 	void SetResource(UINT* Indices, int IndexSize);
 	void IntoPipeLine() override;
-	void Release() override;
+
 private:
 	ID3D11Buffer* BufferPtr;
 	UINT Strides;

@@ -7,6 +7,14 @@ EngineObject::EngineObject()
 
 EngineObject::~EngineObject()
 {
+	for (EngineObject* Child : ChildList)
+	{
+		if (Child != nullptr)
+		{
+			delete Child;
+			Child = nullptr;
+		}
+	}
 }
 
 void EngineObject::Start()

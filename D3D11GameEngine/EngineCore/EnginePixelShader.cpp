@@ -12,6 +12,7 @@ EnginePixelShader::EnginePixelShader()
 
 EnginePixelShader::~EnginePixelShader()
 {
+	ShaderPtr->Release();
 }
 
 void EnginePixelShader::ShaderLoad(std::string _Name, std::string _Path)
@@ -49,7 +50,3 @@ void EnginePixelShader::IntoPipeLine()
 	EngineCore::GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
 }
 
-void EnginePixelShader::Release()
-{
-	ShaderPtr->Release();
-}

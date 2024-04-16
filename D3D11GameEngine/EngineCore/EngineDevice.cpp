@@ -118,7 +118,7 @@ void EngineDevice::Init()
 void EngineDevice::ResourceInit()
 {
 	EngineDirectory Dir;
-	Dir.GoParent();
+	//Dir.GoParent();
 	Dir.GoChild("EngineShader");
 	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".hlsl");
 

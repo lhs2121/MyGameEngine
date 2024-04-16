@@ -8,6 +8,7 @@ EngineIndexBuffer::EngineIndexBuffer()
 
 EngineIndexBuffer::~EngineIndexBuffer()
 {
+	BufferPtr->Release();
 }
 
 void EngineIndexBuffer::SetResource(UINT* Indices, int IndexSize)
@@ -35,7 +36,3 @@ void EngineIndexBuffer::IntoPipeLine()
 	EngineCore::GetContext()->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
 }
 
-void EngineIndexBuffer::Release()
-{
-	BufferPtr->Release();
-}

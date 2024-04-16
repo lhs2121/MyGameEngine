@@ -42,6 +42,20 @@ public:
 		return NewLevel;
 	}
 
+	static void DeleteAllLevel()
+	{
+		for (std::pair<std::string, EngineLevel*> pair : AllLevel)
+		{
+			EngineLevel* LevelPtr = pair.second;
+			if (LevelPtr != nullptr)
+			{
+				delete LevelPtr;
+				LevelPtr = nullptr;
+			}
+		}
+		AllLevel.clear();
+	}
+
 	static void ChangeLevel(std::string LevelName)
 	{
 		if(AllLevel.end() != AllLevel.find(LevelName))

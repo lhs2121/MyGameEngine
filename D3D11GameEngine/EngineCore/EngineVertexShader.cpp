@@ -12,6 +12,7 @@ EngineVertexShader::EngineVertexShader()
 
 EngineVertexShader::~EngineVertexShader()
 {
+	ShaderPtr->Release();
 }
 
 void EngineVertexShader::ShaderLoad(std::string _Name, std::string _Path)
@@ -60,7 +61,3 @@ SIZE_T EngineVertexShader::GetShaderByteLength()
 	return ShaderBlob->GetBufferSize();
 }
 
-void EngineVertexShader::Release()
-{
-	ShaderPtr->Release();
-}

@@ -28,8 +28,7 @@ public:
 		return Resources[Name];
 	}
 
-	virtual void Release() = 0;
-	static void AllRelease();
+	static void DeleteResource();
 	virtual void IntoPipeLine() = 0;
 
 	static std::map<std::string, ResourceType*> Resources;
@@ -39,13 +38,17 @@ template<typename ResourceType>
 std::map<std::string, ResourceType*> EngineD3DResource<ResourceType>::Resources;
 
 template<typename ResourceType>
-void EngineD3DResource<ResourceType>::AllRelease()
+void EngineD3DResource<ResourceType>::DeleteResource()
 {
-	for (const auto& pair : Resources)
+	for (std::pair<std::string, ResourceType*> pair : Resources)
 	{
-		EngineD3DResource* Resource = pair.second;
-		Resource->Release();
-		delete Resource;
-		Resource = nullptr;
+		EngineD3DResource* ResourcePtr = pair.second;
+
+		if (ResourcePtr != nullptr)
+		{
+			delete ResourcePtr;
+			ResourcePtr = nullptr;
+		}
 	}
+	Resources.clear();
 }

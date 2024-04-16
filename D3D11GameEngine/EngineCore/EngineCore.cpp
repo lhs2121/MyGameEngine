@@ -58,11 +58,12 @@ void EngineCore::EngineUpdate()
 
 void EngineCore::EngineRelease()
 {
-    EngineVertexBuffer::AllRelease();
-    EngineIndexBuffer::AllRelease(); 
-    EngineInputLayout::AllRelease();
-    EngineVertexShader::AllRelease();
-    EnginePixelShader::AllRelease();
+    EngineCore::DeleteAllLevel();
+    EngineVertexBuffer::DeleteResource();
+    EngineIndexBuffer::DeleteResource();
+    EngineInputLayout::DeleteResource();
+    EngineVertexShader::DeleteResource();
+    EnginePixelShader::DeleteResource();
 }
 
 

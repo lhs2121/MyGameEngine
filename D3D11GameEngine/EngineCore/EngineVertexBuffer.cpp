@@ -8,6 +8,7 @@ EngineVertexBuffer::EngineVertexBuffer()
 
 EngineVertexBuffer::~EngineVertexBuffer()
 {
+	BufferPtr->Release();
 }
 
 void EngineVertexBuffer::SetResource(float4* Vertices, int VertexSize)
@@ -36,7 +37,3 @@ void EngineVertexBuffer::IntoPipeLine()
 	EngineCore::GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
 }
 
-void EngineVertexBuffer::Release()
-{
-	BufferPtr->Release();
-}
