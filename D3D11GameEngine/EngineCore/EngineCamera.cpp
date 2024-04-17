@@ -27,14 +27,14 @@ void EngineCamera::Update(float _Delta)
 void EngineCamera::Render()
 {
 	Transform.View(EyePos, EyeDir, EyeUp);
-	float4x4 View = Transform.ViewMat;
-	float4x4 Projection;
-	Projection.Projection(WindowSize.x, WindowSize.y, Near, Far);
+
 
 	for (EngineRenderer* Renderer : RendererList)
 	{
 		float4x4 World = Renderer->Transform.WorldMat;
-
+		float4x4 View = Transform.ViewMat; 
+		float4x4 Projection;
+		Projection.Projection(WindowSize.x, WindowSize.y, Near, Far);
 		Renderer->Transform.WorldViewProjectionMat = World * View * Projection;
 		Renderer->Render();
 	}

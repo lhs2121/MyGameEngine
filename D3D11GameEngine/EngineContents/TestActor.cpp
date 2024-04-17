@@ -12,10 +12,10 @@ TestActor::~TestActor()
 void TestActor::Start()
 {
 	Renderer = CreateComponent<EngineRenderer>();
+	Renderer->Transform.SetScale({ 100,100,1 });
 }
 
 void TestActor::Update(float _Delta)
 {
-	Renderer;
 	Renderer->Transform.AddPos({ 50 * _Delta,0 });
 }

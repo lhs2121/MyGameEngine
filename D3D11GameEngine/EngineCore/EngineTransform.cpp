@@ -56,8 +56,6 @@ void EngineTransform::AddRotation(float4 Value)
 void EngineTransform::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 {
 	float4x4 RotMat;
-	RotMat.View(EyePos, EyeDir, EyeUp);
-
 	float4x4 PosMat;
 	PosMat.Position(-EyePos);
 	ViewMat = RotMat * PosMat;
