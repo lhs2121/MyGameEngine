@@ -142,7 +142,7 @@ void float4x4::Rotation(const float4& Degree)
 	ZRot.RotationZ(RadianZ);
 	float4x4 YRot;
 	YRot.RotationY(RadianY);
-	float4x4 XRot;
+    float4x4 XRot;
 	XRot.RotationX(RadianX);
 
 	*this = ZRot * YRot * XRot;
@@ -151,8 +151,8 @@ void float4x4::Rotation(const float4& Degree)
 void float4x4::RotationX(const float Radian)
 {
 	matrix[1][1] = cosf(Radian);
-	matrix[1][2] = sinf(Radian);
-	matrix[2][1] = -sinf(Radian);
+	matrix[1][2] = -sinf(Radian);
+	matrix[2][1] = sinf(Radian);
 	matrix[2][2] = cosf(Radian);
 }
 
@@ -162,10 +162,10 @@ void float4x4::RotationY(const float Radian)
 	matrix[0][2] = -sinf(Radian);
 	matrix[2][0] = sinf(Radian);
 	matrix[2][2] = cosf(Radian);
-}
+ }
 
 void float4x4::RotationZ(const float Radian)
-{
+ {
 	matrix[0][0] = cosf(Radian);
 	matrix[0][1] = sinf(Radian);
 	matrix[1][0] = -sinf(Radian);
