@@ -231,5 +231,5 @@ public:
 	void RotationZ(const float Radian);
 
 	void View(float4& EyePos, float4& EyeDir, float4& EyeUp);
-	void Projection();
+	void Projection(float Width,float Height,float Near,float Far);
 };

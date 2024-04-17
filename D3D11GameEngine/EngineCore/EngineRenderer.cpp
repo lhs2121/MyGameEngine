@@ -18,9 +18,27 @@ void EngineRenderer::Start()
 	IA = EngineInputLayout::Find("Pos");
 	VS = EngineVertexShader::Find("TestShader");
 	PS = EnginePixelShader::Find("TestShader");
+
+
+	D3D11_BUFFER_DESC cbDesc;
+	cbDesc.Usage = D3D11_USAGE_DYNAMIC;
+	cbDesc.ByteWidth = sizeof(float4x4);
+	cbDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cbDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	cbDesc.MiscFlags = 0;
+	cbDesc.StructureByteStride = 0;
+
+	EngineCore::GetDevice()->CreateBuffer(&cbDesc, nullptr, &constantBuffer);
 }
 void EngineRenderer::Render()
 {
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	EngineCore::GetContext()->Map(constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	float4x4* dataPtr = (float4x4*)mappedResource.pData;
+	*dataPtr = Transform.WorldViewProjectionMat;
+	EngineCore::GetContext()->Unmap(constantBuffer, 0);
+	EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &constantBuffer);
+
 	VB->IntoPipeLine();
 	IB->IntoPipeLine();
 	IA->IntoPipeLine();

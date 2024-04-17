@@ -20,31 +20,37 @@ void EngineTransform::TransformUpdate()
 void EngineTransform::SetPos(float4 Value)
 {
 	Position = Value;
+	TransformUpdate();
 }
 
 void EngineTransform::SetScale(float4 Value)
 {
 	Scale = Value;
+	TransformUpdate();
 }
 
 void EngineTransform::SetRotation(float4 Value)
 {
 	Rotation = Value;
+	TransformUpdate();
 }
 
 void EngineTransform::AddPos(float4 Value)
 {
 	Position += Value;
+	TransformUpdate();
 }
 
 void EngineTransform::AddScale(float4 Value)
 {
 	Scale += Value;
+	TransformUpdate();
 }
 
 void EngineTransform::AddRotation(float4 Value)
 {
 	Rotation += Value;
+	TransformUpdate();
 }
 
 void EngineTransform::View(float4& EyePos, float4& EyeDir, float4& EyeUp)

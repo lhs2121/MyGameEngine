@@ -18,10 +18,10 @@ public:
 	void PushRenderer(EngineRenderer* Renderer);
 	void Render();
 private:
-	float AspectRatio;
-	float FovY;
-	float Near;
-	float Far;
+	float4 WindowSize;
+	float Near = 10;
+	float Far = 10000;
+
 	std::list<EngineRenderer*> RendererList;
 	float4 EyePos = { 0.0f,0.0f,-500.0f };
 	float4 EyeDir = { 0.0f,0.0f,1.0f };

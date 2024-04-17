@@ -11,7 +11,7 @@ EngineCamera::~EngineCamera()
 
 void EngineCamera::Start()
 {
-
+	WindowSize = EngineCore::GetMainWindow().GetWindowSize();
 }
 
 void EngineCamera::PushRenderer(EngineRenderer* Renderer)
@@ -21,20 +21,21 @@ void EngineCamera::PushRenderer(EngineRenderer* Renderer)
 
 void EngineCamera::Update(float _Delta)
 {
-	Transform.View(EyePos, EyeDir, EyeUp);
 
-	for (EngineRenderer* Renderer : RendererList)
-	{
-		float4x4 World = Renderer->Transform.WorldMat;
-		float4x4 View = Transform.ViewMat;
-		Renderer->Transform.WorldViewProjectionMat = World * View;
-	}
 }
 
 void EngineCamera::Render()
 {
+	Transform.View(EyePos, EyeDir, EyeUp);
+	float4x4 View = Transform.ViewMat;
+	float4x4 Projection;
+	Projection.Projection(WindowSize.x, WindowSize.y, Near, Far);
+
 	for (EngineRenderer* Renderer : RendererList)
 	{
+		float4x4 World = Renderer->Transform.WorldMat;
+
+		Renderer->Transform.WorldViewProjectionMat = World * View * Projection;
 		Renderer->Render();
 	}
 }

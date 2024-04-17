@@ -37,7 +37,7 @@ public:
 	void TransformUpdate();
 
 	float4 Position;
-	float4 Scale;
+	float4 Scale = { 1,1,1,1 };
 	float4 Rotation;
 
 	float4x4 PositionMat;

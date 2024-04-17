@@ -189,9 +189,13 @@ void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 
 	TransPose();
 }
-void float4x4::Projection()
+void float4x4::Projection(float Width, float Height, float Near, float Far)
 {
-
+	Identity();
+	matrix[0][0] = 2 / Width;
+	matrix[1][1] = 2 / Height;
+	matrix[2][2] = 1 / Far - Near;
+	matrix[3][2] = Near / Near - Far;
 }
 
 float4 float4::Cross(float4& Other)
