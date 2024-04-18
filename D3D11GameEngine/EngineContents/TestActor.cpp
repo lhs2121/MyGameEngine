@@ -19,7 +19,7 @@ void TestActor::Start()
 
 void TestActor::Update(float _Delta)
 {
-	Renderer->Transform.AddPos({ 1,0 });
+	Renderer->Transform.AddPos({ 0,1 });
 	float4x4 wvp = Renderer->Transform.WorldViewProjectionMat;
 	int a = 0;
 }
