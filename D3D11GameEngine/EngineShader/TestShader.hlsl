@@ -16,7 +16,7 @@ struct PSInput
 
 PSInput TestShader_VS(VSInput _Input)
 {
-    PSInput Output;
+    PSInput Output = (PSInput)0;
     Output.pos = mul(_Input.pos, WorldViewProjection);
     
     return Output;

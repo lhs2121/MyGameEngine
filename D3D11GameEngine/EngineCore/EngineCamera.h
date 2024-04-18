@@ -23,7 +23,7 @@ private:
 	float Far = 1000;
 
 	std::list<EngineRenderer*> RendererList;
-	float4 EyePos = { 0.0f,0.0f,-500.0f };
-	float4 EyeDir = { 0.0f,0.0f,1.0f };
-	float4 EyeUp = { 0.0f,1.0f,0.0f };
+	float4 EyePos = { 0.0f, 0.0f, -500.0f, 1.0f };
+	float4 EyeDir = { 0.0f, 0.0f, 1.0f, 1.0f };
+	float4 EyeUp = { 0.0f, 1.0f, 0.0f, 1.0f };
 };

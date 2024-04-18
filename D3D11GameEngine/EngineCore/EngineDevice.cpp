@@ -145,10 +145,10 @@ void EngineDevice::ResourceInit()
 	{
 		float4 Rect[] =
 		{
-			float4(-0.5f, 0.5f),
-			float4(0.5f, 0.5f),
-			float4(0.5f, -0.5f),
-			float4(-0.5f, -0.5f),
+			float4(-0.5f, 0.5f, 0.0f, 1.0f),
+			float4(0.5f, 0.5f, 0.0f, 1.0f),
+			float4(0.5f, -0.5f, 0.0f, 1.0f),
+			float4(-0.5f, -0.5f, 0.0f, 1.0f)
 		};
 		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
 		NewRes->SetResource(Rect, sizeof(float4) * 4);
@@ -158,7 +158,7 @@ void EngineDevice::ResourceInit()
 		UINT Rect[]
 		{
 			0,1,2,
-			2,3,0
+			0,2,3
 		};
 		EngineIndexBuffer* NewRes = EngineIndexBuffer::CreateResource("Rect");
 		NewRes->SetResource(Rect, sizeof(UINT) * 6);

@@ -33,9 +33,10 @@ void EngineRenderer::Start()
 void EngineRenderer::Render()
 {
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	Transform.WorldViewProjectionMat.matrix[3][2] = 0;
 	EngineCore::GetContext()->Map(constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	float4x4* dataPtr = (float4x4*)mappedResource.pData;
-	*dataPtr = Transform.WorldViewProjectionMat;
+	void* dataPtr = mappedResource.pData;
+	memcpy_s(dataPtr, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
 	EngineCore::GetContext()->Unmap(constantBuffer, 0);
 	EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &constantBuffer);
 
