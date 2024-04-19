@@ -8,21 +8,21 @@ struct VSInput
     float4 pos : POSITION;
 };
 
-struct PSInput
+struct VSOutput
 {
     float4 pos : SV_POSITION;
 };
 
 
-PSInput TestShader_VS(VSInput _Input)
+VSOutput TestShader_VS(VSInput _Input)
 {
-    PSInput Output = (PSInput)0;
+    VSOutput Output = (VSOutput)0;
     Output.pos = mul(_Input.pos, WorldViewProjection);
     
     return Output;
 }
 
-float4 TestShader_PS(PSInput _Input) : SV_TARGET
+float4 TestShader_PS(VSOutput _Input) : SV_TARGET
 {
-    return float4(0.25f, 0.5f, 0.69f, 1.0f);
+    return float4(1,1,1,1);
 }

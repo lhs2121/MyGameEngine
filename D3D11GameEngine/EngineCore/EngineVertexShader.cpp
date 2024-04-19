@@ -15,7 +15,7 @@ EngineVertexShader::~EngineVertexShader()
 	ShaderPtr->Release();
 }
 
-void EngineVertexShader::ShaderLoad(std::string _Name, std::string _Path)
+void EngineVertexShader::CreateResourceWithDevice(std::string _Name, std::string _Path)
 {
 	std::string MainFuncName = _Name + "_VS";
 	std::fstream shaderFile(_Path);

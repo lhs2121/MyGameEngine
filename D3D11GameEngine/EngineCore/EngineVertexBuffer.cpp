@@ -11,7 +11,7 @@ EngineVertexBuffer::~EngineVertexBuffer()
 	BufferPtr->Release();
 }
 
-void EngineVertexBuffer::SetResource(float4* Vertices, int VertexSize)
+void EngineVertexBuffer::CreateResourceWithDevice(float4* Vertices, int VertexSize)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;

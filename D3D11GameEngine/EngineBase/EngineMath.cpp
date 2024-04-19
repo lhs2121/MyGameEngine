@@ -2,6 +2,40 @@
 #include "EngineMath.h"
 #include <math.h>
 
+float4 float4::Cross(float4& Left, float4& Right)
+{
+	float x = Left.y * Right.z - Left.z * Right.y;
+	float y = Left.z * Right.x - Left.x * Right.z;
+	float z = Left.x * Right.y - Left.y * Right.x;
+
+	return { x,y,z,1 };
+}
+
+float float4::Dot(float4& Left, float4& Right)
+{
+	return Left.x * Right.x + Left.y * Right.y + Left.z * Right.z;
+}
+
+float4 float4::Normalize(float4& Other)
+{
+	float4 result;
+	result = Other;
+	float length = sqrt(Other.x * Other.x + Other.y * Other.y + Other.z * Other.z);
+
+	result.x /= length;
+	result.y /= length;
+	result.z /= length;
+	return result;
+}
+
+void float4::Normalize()
+{
+	float length = sqrt(x * x + y * y + z * z);
+	x /= length;
+	y /= length;
+	z /= length;
+}
+
 void float4::operator*=(const float4x4& Other)
 {
 	float4 result;
@@ -141,7 +175,7 @@ void float4x4::Rotation(const float4& Degree)
 	ZRot.RotationZ(RadianZ);
 	float4x4 YRot;
 	YRot.RotationY(RadianY);
-    float4x4 XRot;
+	float4x4 XRot;
 	XRot.RotationX(RadianX);
 
 	*this = ZRot * YRot * XRot;
@@ -161,10 +195,10 @@ void float4x4::RotationY(const float Radian)
 	matrix[0][2] = -sinf(Radian);
 	matrix[2][0] = sinf(Radian);
 	matrix[2][2] = cosf(Radian);
- }
+}
 
 void float4x4::RotationZ(const float Radian)
- {
+{
 	matrix[0][0] = cosf(Radian);
 	matrix[0][1] = sinf(Radian);
 	matrix[1][0] = -sinf(Radian);
@@ -173,7 +207,7 @@ void float4x4::RotationZ(const float Radian)
 
 void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 {
-	float4 EyeRight = EyeDir.Cross(EyeUp);
+	float4 EyeRight = float4::Cross(EyeDir, EyeUp);
 	matrix[0][0] = EyeRight.x;
 	matrix[0][1] = EyeRight.y;
 	matrix[0][2] = EyeRight.z;
@@ -197,11 +231,3 @@ void float4x4::Projection(float Width, float Height, float Near, float Far)
 	matrix[3][2] = Near / (Near - Far);
 }
 
-float4 float4::Cross(float4& Other)
-{
-	float X = y * Other.z - z * Other.y;
-	float Y = z * Other.x - x * Other.z;
-	float Z = x * Other.y - y * Other.x;
-
-	return { X,Y,Z,1 };
-}

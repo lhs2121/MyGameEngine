@@ -22,13 +22,13 @@ public:
 		Resources.insert(std::make_pair(Name, NewResource));
 		return NewResource;
 	}
+	static void DeleteResource();
 
 	static ResourceType* Find(std::string Name)
 	{
 		return Resources[Name];
 	}
 
-	static void DeleteResource();
 	virtual void IntoPipeLine() = 0;
 
 	static std::map<std::string, ResourceType*> Resources;

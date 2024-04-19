@@ -30,7 +30,10 @@ public:
 		};
 	};
 
-	float4 Cross(float4& Other);
+	static float4 Cross(float4& Left, float4& Right);
+	static float Dot(float4& Left, float4& Right);
+	static float4 Normalize(float4& Other);
+	void Normalize();
 
 	float hx() const
 	{

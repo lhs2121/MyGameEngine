@@ -36,6 +36,7 @@ void EngineCamera::Render()
 		float4x4 Projection;
 		Projection.Projection(WindowSize.x, WindowSize.y, Near, Far);
 		Renderer->Transform.WorldViewProjectionMat = World * View * Projection;
+		float4x4 WVP = Renderer->Transform.WorldViewProjectionMat;
 		Renderer->Render();
 	}
 }

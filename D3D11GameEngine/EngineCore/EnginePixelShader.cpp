@@ -15,7 +15,7 @@ EnginePixelShader::~EnginePixelShader()
 	ShaderPtr->Release();
 }
 
-void EnginePixelShader::ShaderLoad(std::string _Name, std::string _Path)
+void EnginePixelShader::CreateResourceWithDevice(std::string _Name, std::string _Path)
 {
 	std::string MainFuncName = _Name + "_PS";
 	std::fstream shaderFile(_Path);

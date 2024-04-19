@@ -16,7 +16,7 @@ D3D11_INPUT_ELEMENT_DESC* EngineInputLayout::GetLayoutDesc()
 	return DescPtr;
 }
 
-void EngineInputLayout::SetResource(D3D11_INPUT_ELEMENT_DESC* Layouts, UINT LayoutNum, void* ShaderBytecode, SIZE_T BytecodeLength)
+void EngineInputLayout::CreateResourceWithDevice(D3D11_INPUT_ELEMENT_DESC* Layouts, UINT LayoutNum, void* ShaderBytecode, SIZE_T BytecodeLength)
 {
 	DescPtr = Layouts;
 	EngineCore::GetDevice()->CreateInputLayout(Layouts, LayoutNum, ShaderBytecode, BytecodeLength, &LayoutPtr);

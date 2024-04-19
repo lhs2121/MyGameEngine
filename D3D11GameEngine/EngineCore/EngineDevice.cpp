@@ -120,7 +120,7 @@ void EngineDevice::ResourceInit()
 	EngineDirectory Dir;
 	//Dir.GoParent();
 	Dir.GoChild("EngineShader");
-	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".hlsl");
+	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".fx");
 
 	for (EngineFile& ShaderFile : AllShaderFile)
 	{
@@ -128,8 +128,8 @@ void EngineDevice::ResourceInit()
 		EngineVertexShader* NewVS = EngineVertexShader::CreateResource(FileName);
 		EnginePixelShader* NewPS = EnginePixelShader::CreateResource(FileName);
 
-		NewVS->ShaderLoad(FileName, ShaderFile.GetStringPath());
-		NewPS->ShaderLoad(FileName, ShaderFile.GetStringPath());
+		NewVS->CreateResourceWithDevice(FileName, ShaderFile.GetStringPath());
+		NewPS->CreateResourceWithDevice(FileName, ShaderFile.GetStringPath());
 
 		D3D11_INPUT_ELEMENT_DESC Layouts[] =
 		{
@@ -137,7 +137,7 @@ void EngineDevice::ResourceInit()
 		};
 		EngineInputLayout* NewRes = EngineInputLayout::CreateResource("Pos");
 
-		NewRes->SetResource(Layouts, 1, NewVS->GetShaderByteCode(), NewVS->GetShaderByteLength());
+		NewRes->CreateResourceWithDevice(Layouts, 1, NewVS->GetShaderByteCode(), NewVS->GetShaderByteLength());
 	}
 
 	std::string path = Dir.GetStringPath();
@@ -151,7 +151,7 @@ void EngineDevice::ResourceInit()
 			float4(-0.5f, -0.5f, 0.0f, 1.0f)
 		};
 		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
-		NewRes->SetResource(Rect, sizeof(float4) * 4);
+		NewRes->CreateResourceWithDevice(Rect, sizeof(Rect));
 	}
 
 	{
@@ -161,7 +161,7 @@ void EngineDevice::ResourceInit()
 			0,2,3
 		};
 		EngineIndexBuffer* NewRes = EngineIndexBuffer::CreateResource("Rect");
-		NewRes->SetResource(Rect, sizeof(UINT) * 6);
+		NewRes->CreateResourceWithDevice(Rect, sizeof(Rect));
 	}
 }
 

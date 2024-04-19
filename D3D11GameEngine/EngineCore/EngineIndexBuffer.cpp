@@ -11,7 +11,7 @@ EngineIndexBuffer::~EngineIndexBuffer()
 	BufferPtr->Release();
 }
 
-void EngineIndexBuffer::SetResource(UINT* Indices, int IndexSize)
+void EngineIndexBuffer::CreateResourceWithDevice(UINT* Indices, int IndexSize)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;
