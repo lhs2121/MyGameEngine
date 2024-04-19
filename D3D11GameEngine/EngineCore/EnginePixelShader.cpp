@@ -17,22 +17,17 @@ EnginePixelShader::~EnginePixelShader()
 
 void EnginePixelShader::CreateResourceWithDevice(std::string _Name, std::string _Path)
 {
+	int Flag;
+#ifdef _DEBUG
+	Flag = D3DCOMPILE_DEBUG;
+#endif
+	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
+
 	std::string MainFuncName = _Name + "_PS";
-	std::fstream shaderFile(_Path);
-
-	shaderFile.seekg(0, std::ios::end);
-	unsigned long long FileSize = shaderFile.tellg();
-	shaderFile.seekg(0, std::ios::beg);
-
-
-	std::vector<char> shaderData;
-	shaderData.resize(FileSize);
-
-	shaderFile.read(shaderData.data(), FileSize);
-
 	ID3DBlob* ErrorBlob = nullptr;
+	HRESULT Result = D3DCompileFromFile(L"F:\\MyGameEngine\\D3D11GameEngine\\EngineShader\\TestShader.fx",
+		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "ps_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
 
-	HRESULT Result = D3DCompile(shaderData.data(), FileSize, _Path.c_str(), nullptr, nullptr, MainFuncName.c_str(), "ps_5_0", 0, 0, &ShaderBlob, &ErrorBlob);
 	if (FAILED(Result))
 	{
 		if (ErrorBlob)

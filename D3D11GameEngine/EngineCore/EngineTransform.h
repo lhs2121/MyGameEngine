@@ -13,8 +13,6 @@ public:
 	EngineTransform& operator=(const EngineTransform& _Other) = delete;
 	EngineTransform& operator=(EngineTransform&& _Other) noexcept = delete;
 
-	void View(float4& EyePos, float4& EyeDir, float4& EyeUp);
-
 	void SetPos(float4 Value);
 	void SetScale(float4 Value);
 	void SetRotation(float4 Value);

@@ -1,10 +1,4 @@
 #include "Pre.h"
-#include "EngineVertexBuffer.h"
-#include "EngineIndexBuffer.h"
-#include "EngineInputLayout.h"
-#include "EngineVertexShader.h"
-#include "EnginePixelShader.h"
-
 #include <dxgi.h>
 #include <D3Dcompiler.h>
 #pragma comment(lib, "d3d11")
@@ -82,7 +76,7 @@ void EngineDevice::Init()
 		Desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 		Desc.SampleDesc.Count = 1;
 		Desc.SampleDesc.Quality = 0;
-		Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+		Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 		Desc.BufferCount = 2;
 		Desc.OutputWindow = EngineCore::GetMainWindow().GetHwnd();
 		Desc.Windowed = true;
@@ -113,56 +107,6 @@ void EngineDevice::Init()
 
 	FactoryPtr->Release();
 	AdapterPtr->Release();
-}
-
-void EngineDevice::ResourceInit()
-{
-	EngineDirectory Dir;
-	//Dir.GoParent();
-	Dir.GoChild("EngineShader");
-	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".fx");
-
-	for (EngineFile& ShaderFile : AllShaderFile)
-	{
-		std::string FileName = ShaderFile.GetFileName();
-		EngineVertexShader* NewVS = EngineVertexShader::CreateResource(FileName);
-		EnginePixelShader* NewPS = EnginePixelShader::CreateResource(FileName);
-
-		NewVS->CreateResourceWithDevice(FileName, ShaderFile.GetStringPath());
-		NewPS->CreateResourceWithDevice(FileName, ShaderFile.GetStringPath());
-
-		D3D11_INPUT_ELEMENT_DESC Layouts[] =
-		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		};
-		EngineInputLayout* NewRes = EngineInputLayout::CreateResource("Pos");
-
-		NewRes->CreateResourceWithDevice(Layouts, 1, NewVS->GetShaderByteCode(), NewVS->GetShaderByteLength());
-	}
-
-	std::string path = Dir.GetStringPath();
-
-	{
-		float4 Rect[] =
-		{
-			float4(-0.5f, 0.5f, 0.0f, 1.0f),
-			float4(0.5f, 0.5f, 0.0f, 1.0f),
-			float4(0.5f, -0.5f, 0.0f, 1.0f),
-			float4(-0.5f, -0.5f, 0.0f, 1.0f)
-		};
-		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
-		NewRes->CreateResourceWithDevice(Rect, sizeof(Rect));
-	}
-
-	{
-		UINT Rect[]
-		{
-			0,1,2,
-			0,2,3
-		};
-		EngineIndexBuffer* NewRes = EngineIndexBuffer::CreateResource("Rect");
-		NewRes->CreateResourceWithDevice(Rect, sizeof(Rect));
-	}
 }
 
 void EngineDevice::Clear()

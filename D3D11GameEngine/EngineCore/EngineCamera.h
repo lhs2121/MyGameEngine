@@ -19,8 +19,8 @@ public:
 	void Render();
 private:
 	float4 WindowSize;
-	float Near = 10;
-	float Far = 1000;
+	float Near = -10.0;
+	float Far = 10000.0;
 
 	std::list<EngineRenderer*> RendererList;
 	float4 EyePos = { 0.0f, 0.0f, -500.0f, 1.0f };

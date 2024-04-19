@@ -13,11 +13,11 @@
     <Filter Include="D3DResource\2. PS">
       <UniqueIdentifier>{e9381c18-e8bd-470b-811c-15c1fc217433}</UniqueIdentifier>
     </Filter>
-    <Filter Include="D3DResource\Device">
-      <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{08acdff9-c2d4-4997-b79a-dc5cd32d201a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{06df2fff-5298-4259-90d1-8405c8798dc9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,7 +38,7 @@
       <Filter>D3DResource\1. VS</Filter>
     </ClCompile>
     <ClCompile Include="EngineDevice.cpp">
-      <Filter>D3DResource\Device</Filter>
+      <Filter>Device</Filter>
     </ClCompile>
     <ClCompile Include="EnginePixelShader.cpp">
       <Filter>D3DResource\2. PS</Filter>
@@ -56,14 +56,15 @@
     <ClCompile Include="EngineComponent.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="EngineRenderer.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="EngineLevelObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="EngineCamera.cpp" />
     <ClCompile Include="EngineTransform.cpp" />
+    <ClCompile Include="EngineRenderer.cpp" />
+    <ClCompile Include="EngineDevice_ResourceInit.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -83,7 +84,7 @@
       <Filter>D3DResource\1. VS</Filter>
     </ClInclude>
     <ClInclude Include="EngineDevice.h">
-      <Filter>D3DResource\Device</Filter>
+      <Filter>Device</Filter>
     </ClInclude>
     <ClInclude Include="EnginePixelShader.h">
       <Filter>D3DResource\2. PS</Filter>
@@ -101,13 +102,11 @@
     <ClInclude Include="EngineComponent.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="EngineRenderer.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="EngineLevelObject.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="EngineCamera.h" />
     <ClInclude Include="EngineTransform.h" />
+    <ClInclude Include="EngineRenderer.h" />
   </ItemGroup>
 </Project>

@@ -1,28 +1,26 @@
-cbuffer Transform : register(b0)
+cbuffer ConstantBuffer : register(b0)
 {
-    float4x4 WorldViewProjection;
+    float4x4 WorldViewProjection; 
 };
 
-struct VSInput
+struct VS_INPUT
 {
     float4 pos : POSITION;
 };
 
-struct VSOutput
+struct VS_OUTPUT
 {
-    float4 pos : SV_POSITION;
+    float4 pos : SV_POSITION; 
 };
 
-
-VSOutput TestShader_VS(VSInput _Input)
+VS_OUTPUT TestShader_VS(VS_INPUT Input)
 {
-    VSOutput Output = (VSOutput)0;
-    Output.pos = mul(_Input.pos, WorldViewProjection);
-    
+    VS_OUTPUT Output;
+    Output.pos = mul(Input.pos, WorldViewProjection);
     return Output;
 }
 
-float4 TestShader_PS(VSOutput _Input) : SV_TARGET
+float4 TestShader_PS(VS_OUTPUT Input) : SV_Target
 {
-    return float4(1,1,1,1);
+    return float4(1, 1, 1, 1);
 }

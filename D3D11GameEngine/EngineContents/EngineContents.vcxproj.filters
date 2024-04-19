@@ -4,27 +4,27 @@
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="TestLevel.h">
-      <Filter>ContentsLevel</Filter>
+      <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="TestActor.h">
-      <Filter>ContentsActor</Filter>
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="TestLevel.cpp">
-      <Filter>ContentsLevel</Filter>
+      <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="TestActor.cpp">
-      <Filter>ContentsActor</Filter>
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="ContentsActor">
+    <Filter Include="Actor">
       <UniqueIdentifier>{2fbd92d9-7ce9-47e1-9328-94e47acaeb9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ContentsLevel">
+    <Filter Include="Level">
       <UniqueIdentifier>{9cfd1cf7-e304-442b-b411-9aa2e4ebb786}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

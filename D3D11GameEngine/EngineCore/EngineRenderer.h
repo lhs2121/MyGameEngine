@@ -23,12 +23,13 @@ public:
 
 	void Start() override;
 	void Render();
-	
+	void UpdateConstantBuffer();
 	EngineVertexBuffer* VB = nullptr;
 	EngineIndexBuffer* IB = nullptr;
 	EngineInputLayout* IA = nullptr;
 	EngineVertexShader* VS = nullptr;
 	EnginePixelShader* PS = nullptr;
+	
 	ID3D11Buffer* constantBuffer;
 };	
 

@@ -207,7 +207,13 @@ void float4x4::RotationZ(const float Radian)
 
 void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 {
-	float4 EyeRight = float4::Cross(EyeDir, EyeUp);
+	Identity();
+
+	EyeDir.Normalize();
+	EyeUp.Normalize();
+
+	float4 EyeRight = float4::Cross(EyeUp, EyeDir);
+
 	matrix[0][0] = EyeRight.x;
 	matrix[0][1] = EyeRight.y;
 	matrix[0][2] = EyeRight.z;
@@ -221,10 +227,16 @@ void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 	matrix[2][2] = EyeDir.z;
 
 	TransPose();
+
+	float4 Pos = -EyePos;
+	matrix[3][0] = float4::Dot(EyeRight, Pos);
+	matrix[3][1] = float4::Dot(EyeUp, Pos);
+	matrix[3][2] = float4::Dot(EyeDir, Pos);
 }
 void float4x4::Projection(float Width, float Height, float Near, float Far)
 {
 	Identity();
+
 	matrix[0][0] = 2 / Width;
 	matrix[1][1] = 2 / Height;
 	matrix[2][2] = 1 / (Far - Near);

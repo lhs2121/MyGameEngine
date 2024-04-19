@@ -11,9 +11,12 @@ EngineTransform::~EngineTransform()
 
 void EngineTransform::TransformUpdate()
 {
+	WorldMat.Identity();
+
 	ScaleMat.Scale(Scale);
 	RotationMat.Rotation(Rotation);
 	PositionMat.Position(Position);
+
 	WorldMat = ScaleMat * RotationMat * PositionMat;
 }
 
@@ -53,10 +56,3 @@ void EngineTransform::AddRotation(float4 Value)
 	TransformUpdate();
 }
 
-void EngineTransform::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
-{
-	float4x4 RotMat;
-	float4x4 PosMat;
-	PosMat.Position(-EyePos);
-	ViewMat = RotMat * PosMat;
-}

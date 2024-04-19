@@ -13,12 +13,11 @@ EngineRenderer::~EngineRenderer()
 void EngineRenderer::Start()
 {
 	GetLevel()->GetMainCamera()->PushRenderer(this);
- 	VB = EngineVertexBuffer::Find("Rect");
+	VB = EngineVertexBuffer::Find("Rect");
 	IB = EngineIndexBuffer::Find("Rect");
-	IA = EngineInputLayout::Find("Pos");
+	IA = EngineInputLayout::Find("POSITION");
 	VS = EngineVertexShader::Find("TestShader");
 	PS = EnginePixelShader::Find("TestShader");
-
 
 	D3D11_BUFFER_DESC cbDesc;
 	cbDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -28,23 +27,30 @@ void EngineRenderer::Start()
 	cbDesc.MiscFlags = 0;
 	cbDesc.StructureByteStride = 0;
 
-	EngineCore::GetDevice()->CreateBuffer(&cbDesc, nullptr, &constantBuffer);
+	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&cbDesc, nullptr, &constantBuffer);
+
 }
 void EngineRenderer::Render()
 {
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	EngineCore::GetContext()->Map(constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	void* dataPtr = mappedResource.pData;
-	memcpy_s(dataPtr, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
-	EngineCore::GetContext()->Unmap(constantBuffer, 0);
-	EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &constantBuffer);
-
+	UpdateConstantBuffer();
 	VB->IntoPipeLine();
 	IB->IntoPipeLine();
 	IA->IntoPipeLine();
 	VS->IntoPipeLine();
 	PS->IntoPipeLine();
+	EngineCore::GetContext()->DrawIndexed(6, 0, 0);
+}
 
-	EngineCore::GetContext()->DrawIndexed(6,0,0);
+void EngineRenderer::UpdateConstantBuffer()
+{
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+
+	EngineCore::GetContext()->Map(constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+
+	void* dataPtr = mappedResource.pData;
+	memcpy_s(dataPtr, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
+
+	EngineCore::GetContext()->Unmap(constantBuffer, 0);
+	EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &constantBuffer);
 }
 

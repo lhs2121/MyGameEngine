@@ -14,11 +14,10 @@ public:
 	EngineInputLayout& operator=(const EngineInputLayout& _Other) = delete;
 	EngineInputLayout& operator=(EngineInputLayout&& _Other) noexcept = delete;
 
-	D3D11_INPUT_ELEMENT_DESC* GetLayoutDesc();
-	void CreateResourceWithDevice(D3D11_INPUT_ELEMENT_DESC* Layouts, UINT LayoutNum, void* ShaderBytecode, SIZE_T BytecodeLength);
+	void CreateResourceWithDevice(D3D11_INPUT_ELEMENT_DESC Layouts, UINT LayoutNum, void* ShaderBytecode, SIZE_T BytecodeLength);
 	void IntoPipeLine() override;
 
 private:
-	D3D11_INPUT_ELEMENT_DESC* DescPtr;
+	D3D11_INPUT_ELEMENT_DESC LayoutDesc;
 	ID3D11InputLayout* LayoutPtr;
 };

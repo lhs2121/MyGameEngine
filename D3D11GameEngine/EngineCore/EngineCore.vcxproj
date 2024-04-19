@@ -41,6 +41,7 @@
     <ClCompile Include="EngineActor.cpp" />
     <ClCompile Include="EngineComponent.cpp" />
     <ClCompile Include="EngineLevelObject.cpp" />
+    <ClCompile Include="EngineDevice_ResourceInit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineD3DResource.h" />
