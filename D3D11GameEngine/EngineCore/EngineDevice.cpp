@@ -1,6 +1,7 @@
 #include "Pre.h"
 #include <dxgi.h>
 #include <D3Dcompiler.h>
+
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "dxgi")
 #pragma comment(lib, "D3DCompiler")
@@ -31,19 +32,10 @@ EngineDevice::~EngineDevice()
 		BackBufferRTV->Release();
 		BackBufferRTV = nullptr;
 	}
-
-#if defined(DEBUG) || defined(_DEBUG)
-	ID3D11Debug* dxgiDebug;
-
-	if (SUCCEEDED(EngineCore::GetDevice()->QueryInterface(IID_PPV_ARGS(&dxgiDebug))))
-	{
-		dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
-		dxgiDebug = nullptr;
-	}
-#endif
-
 	if (Device != nullptr)
 	{
+
+
 		Device->Release();
 		Device = nullptr;
 	}

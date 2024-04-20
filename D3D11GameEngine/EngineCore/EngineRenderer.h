@@ -31,7 +31,7 @@ public:
 	EngineVertexShader* VS = nullptr;
 	EnginePixelShader* PS = nullptr;
 	
-	ID3D11Buffer* constantBuffer;
+	ID3D11Buffer* ConstantBuffer;
 };	
 
 

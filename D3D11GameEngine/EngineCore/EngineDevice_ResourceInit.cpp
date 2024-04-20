@@ -22,13 +22,14 @@ void EngineDevice::ResourceInit()
 
 			EnginePixelShader* NewPixelShader = EnginePixelShader::RegisterResource(FileName);
 			NewPixelShader->CreateResource(FileName, ShaderFile.GetStringPath());
-		}
-	}
 
-	{
-		D3D11_INPUT_ELEMENT_DESC Desc = { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
-		EngineInputLayout* NewInputLayout = EngineInputLayout::RegisterResource("POSITION");
-		NewInputLayout->SetDesc(Desc);
+			{
+				D3D11_INPUT_ELEMENT_DESC Desc = { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+				EngineInputLayout* NewInputLayout = EngineInputLayout::RegisterResource("POSITION");
+				NewInputLayout->SetDesc(Desc);
+				NewInputLayout->CreateResource(NewVertexShader->GetShaderByteCode(), NewVertexShader->GetShaderByteLength());
+			}
+		}
 	}
 
 	{
