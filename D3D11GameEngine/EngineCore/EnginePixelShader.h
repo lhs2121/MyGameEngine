@@ -14,7 +14,7 @@ public:
 	EnginePixelShader& operator=(const EnginePixelShader& _Other) = delete;
 	EnginePixelShader& operator=(EnginePixelShader&& _Other) noexcept = delete;
 
-	void CreateResourceWithDevice(std::string _Name, std::string _Path);
+	void CreateResource(std::string _Name, std::string _Path);
 	void IntoPipeLine() override;
 
 private:

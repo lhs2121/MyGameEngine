@@ -14,7 +14,7 @@ public:
 	EngineIndexBuffer& operator=(const EngineIndexBuffer& _Other) = delete;
 	EngineIndexBuffer& operator=(EngineIndexBuffer&& _Other) noexcept = delete;
 
-	void CreateResourceWithDevice(UINT* Indices, int IndexSize);
+	void CreateResource(UINT* Indices, int IndexSize);
 	void IntoPipeLine() override;
 
 private:

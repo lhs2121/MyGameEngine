@@ -13,16 +13,26 @@ EngineVertexShader::EngineVertexShader()
 
 EngineVertexShader::~EngineVertexShader()
 {
-	ShaderPtr->Release();
+	if (ShaderBlob != nullptr)
+	{
+		ShaderBlob->Release();
+		ShaderBlob = nullptr;
+	}
+
+	if (ShaderPtr != nullptr)
+	{
+		ShaderPtr->Release();
+		ShaderPtr = nullptr;
+	}
 }
 
-void EngineVertexShader::CreateResourceWithDevice(std::string _Name, std::string _Path)
+void EngineVertexShader::CreateResource(std::string _Name, std::string _Path)
 {
 	int Flag;
 #ifdef _DEBUG
 	// 11버전이 없다.
 	// 에러 
-	Flag = D3D10_SHADER_DEBUG;
+	Flag = D3DCOMPILE_DEBUG;
 #endif
 
 	//std::string Include =

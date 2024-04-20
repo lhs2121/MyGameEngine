@@ -8,13 +8,21 @@ EngineInputLayout::EngineInputLayout()
 
 EngineInputLayout::~EngineInputLayout()
 {
-	LayoutPtr->Release();
+	if (LayoutPtr != nullptr)
+	{
+		LayoutPtr->Release();
+		LayoutPtr = nullptr;
+	}
 }
 
-void EngineInputLayout::CreateResourceWithDevice(D3D11_INPUT_ELEMENT_DESC Layouts, UINT LayoutNum, void* ShaderBytecode, SIZE_T BytecodeLength)
+void EngineInputLayout::CreateResource(void* ShaderBytecode, SIZE_T BytecodeLength)
 {
-	LayoutDesc = Layouts;
-	EngineCore::GetDevice()->CreateInputLayout(&Layouts, LayoutNum, ShaderBytecode, BytecodeLength, &LayoutPtr);
+	EngineCore::GetDevice()->CreateInputLayout(&LayoutDesc, 1, ShaderBytecode, BytecodeLength, &LayoutPtr);
+}
+
+void EngineInputLayout::SetDesc(D3D11_INPUT_ELEMENT_DESC _Desc)
+{
+	LayoutDesc = _Desc;
 }
 
 void EngineInputLayout::IntoPipeLine()

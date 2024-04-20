@@ -16,7 +16,7 @@ public:
 	EngineD3DResource& operator=(const EngineD3DResource& _Other) = delete;
 	EngineD3DResource& operator=(EngineD3DResource&& _Other) noexcept = delete;
 
-	static ResourceType* CreateResource(std::string Name)
+	static ResourceType* RegisterResource(std::string Name)
 	{
 		ResourceType* NewResource = new ResourceType();
 		Resources.insert(std::make_pair(Name, NewResource));

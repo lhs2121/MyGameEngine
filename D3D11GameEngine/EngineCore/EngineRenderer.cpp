@@ -8,6 +8,15 @@ EngineRenderer::EngineRenderer()
 
 EngineRenderer::~EngineRenderer()
 {
+	VB = nullptr;
+	IB = nullptr;
+	IA = nullptr;
+	VS = nullptr;
+	PS = nullptr;
+
+
+	constantBuffer->Release();
+	constantBuffer = nullptr;
 }
 
 void EngineRenderer::Start()
@@ -15,9 +24,11 @@ void EngineRenderer::Start()
 	GetLevel()->GetMainCamera()->PushRenderer(this);
 	VB = EngineVertexBuffer::Find("Rect");
 	IB = EngineIndexBuffer::Find("Rect");
-	IA = EngineInputLayout::Find("POSITION");
 	VS = EngineVertexShader::Find("TestShader");
 	PS = EnginePixelShader::Find("TestShader");
+	IA = EngineInputLayout::Find("POSITION");
+
+	IA->CreateResource(VS->GetShaderByteCode(), VS->GetShaderByteLength());
 
 	D3D11_BUFFER_DESC cbDesc;
 	cbDesc.Usage = D3D11_USAGE_DYNAMIC;

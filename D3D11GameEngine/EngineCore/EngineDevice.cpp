@@ -11,11 +11,6 @@ EngineDevice::EngineDevice()
 
 EngineDevice::~EngineDevice()
 {
-	if (Device != nullptr)
-	{
-		Device->Release();
-		Device = nullptr;
-	}
 	if (Context != nullptr)
 	{
 		Context->Release();
@@ -35,6 +30,22 @@ EngineDevice::~EngineDevice()
 	{
 		BackBufferRTV->Release();
 		BackBufferRTV = nullptr;
+	}
+
+#if defined(DEBUG) || defined(_DEBUG)
+	ID3D11Debug* dxgiDebug;
+
+	if (SUCCEEDED(EngineCore::GetDevice()->QueryInterface(IID_PPV_ARGS(&dxgiDebug))))
+	{
+		dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+		dxgiDebug = nullptr;
+	}
+#endif
+
+	if (Device != nullptr)
+	{
+		Device->Release();
+		Device = nullptr;
 	}
 }
 
@@ -120,3 +131,5 @@ void EngineDevice::Present()
 {
 	SwapChain->Present(0, 0);
 }
+
+

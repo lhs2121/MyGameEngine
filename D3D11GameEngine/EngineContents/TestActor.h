@@ -19,6 +19,7 @@ public:
 	void Update(float _Delta) override;
 protected:
 	EngineRenderer* Renderer;
+	EngineRenderer* Renderer2;
 
 };
 

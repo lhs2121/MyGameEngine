@@ -8,29 +8,28 @@
 
 void EngineDevice::ResourceInit()
 {
-	EngineDirectory Dir;
-	Dir.GoChild("EngineShader");
-	std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".fx");
-
-	for (EngineFile& ShaderFile : AllShaderFile)
 	{
-		std::string FileName = ShaderFile.GetFileName();
+		EngineDirectory Dir;
+		Dir.GoChild("EngineShader");
+		std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".fx");
 
-		EngineVertexShader* NewVertexShader = EngineVertexShader::CreateResource(FileName);
-		NewVertexShader->CreateResourceWithDevice(FileName, ShaderFile.GetStringPath());
-
-		EnginePixelShader* NewPixelShader = EnginePixelShader::CreateResource(FileName);
-		NewPixelShader->CreateResourceWithDevice(FileName, ShaderFile.GetStringPath());
-
-		D3D11_INPUT_ELEMENT_DESC Layouts[] =
+		for (EngineFile& ShaderFile : AllShaderFile)
 		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		};
-		EngineInputLayout* NewInputLayout = EngineInputLayout::CreateResource("POSITION");
-		NewInputLayout->CreateResourceWithDevice(Layouts[0], 1, NewVertexShader->GetShaderByteCode(), NewVertexShader->GetShaderByteLength());
+			std::string FileName = ShaderFile.GetFileName();
+
+			EngineVertexShader* NewVertexShader = EngineVertexShader::RegisterResource(FileName);
+			NewVertexShader->CreateResource(FileName, ShaderFile.GetStringPath());
+
+			EnginePixelShader* NewPixelShader = EnginePixelShader::RegisterResource(FileName);
+			NewPixelShader->CreateResource(FileName, ShaderFile.GetStringPath());
+		}
 	}
 
-	std::string path = Dir.GetStringPath();
+	{
+		D3D11_INPUT_ELEMENT_DESC Desc = { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+		EngineInputLayout* NewInputLayout = EngineInputLayout::RegisterResource("POSITION");
+		NewInputLayout->SetDesc(Desc);
+	}
 
 	{
 		float4 Rect[] =
@@ -40,8 +39,8 @@ void EngineDevice::ResourceInit()
 			float4(0.5f, -0.5f, 0.0f, 1.0f),
 			float4(-0.5f, -0.5f, 0.0f, 1.0f)
 		};
-		EngineVertexBuffer* NewRes = EngineVertexBuffer::CreateResource("Rect");
-		NewRes->CreateResourceWithDevice(Rect, sizeof(Rect));
+		EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Rect");
+		NewVertexBuffer->CreateResource(Rect, sizeof(Rect));
 	}
 
 	{
@@ -50,7 +49,7 @@ void EngineDevice::ResourceInit()
 			0,1,2,
 			0,2,3
 		};
-		EngineIndexBuffer* NewRes = EngineIndexBuffer::CreateResource("Rect");
-		NewRes->CreateResourceWithDevice(Rect, sizeof(Rect));
+		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Rect");
+		NewIndexBuffer->CreateResource(Rect, sizeof(Rect));
 	}
 }

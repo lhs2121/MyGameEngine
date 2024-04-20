@@ -12,10 +12,20 @@ EnginePixelShader::EnginePixelShader()
 
 EnginePixelShader::~EnginePixelShader()
 {
-	ShaderPtr->Release();
+	if (ShaderBlob != nullptr)
+	{
+		ShaderBlob->Release();
+		ShaderBlob = nullptr;
+	}
+
+	if (ShaderPtr != nullptr)
+	{
+		ShaderPtr->Release();
+		ShaderPtr = nullptr;
+	}
 }
 
-void EnginePixelShader::CreateResourceWithDevice(std::string _Name, std::string _Path)
+void EnginePixelShader::CreateResource(std::string _Name, std::string _Path)
 {
 	int Flag;
 #ifdef _DEBUG

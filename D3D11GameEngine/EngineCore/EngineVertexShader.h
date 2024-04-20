@@ -14,7 +14,7 @@ public:
 	EngineVertexShader& operator=(const EngineVertexShader& _Other) = delete;
 	EngineVertexShader& operator=(EngineVertexShader&& _Other) noexcept = delete;
 
-	void CreateResourceWithDevice(std::string _Name,std::string _Path);
+	void CreateResource(std::string _Name,std::string _Path);
 	void IntoPipeLine() override;
 
 	void* GetShaderByteCode();

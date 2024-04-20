@@ -14,7 +14,7 @@ public:
 	EngineVertexBuffer& operator=(const EngineVertexBuffer& _Other) = delete;
 	EngineVertexBuffer& operator=(EngineVertexBuffer&& _Other) noexcept = delete;
 
-	void CreateResourceWithDevice(float4* Vertices, int VertexSize);
+	void CreateResource(float4* Vertices, int VertexSize);
 	void IntoPipeLine() override;
 
 private:
