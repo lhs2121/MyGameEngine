@@ -24,8 +24,8 @@ EngineRenderer::~EngineRenderer()
 void EngineRenderer::Start()
 {
 	GetLevel()->GetMainCamera()->PushRenderer(this);
-	VB = EngineVertexBuffer::Find("Rect");
-	IB = EngineIndexBuffer::Find("Rect");
+	VB = EngineVertexBuffer::Find("Box3D");
+	IB = EngineIndexBuffer::Find("Box3D");
 	VS = EngineVertexShader::Find("TestShader");
 	PS = EnginePixelShader::Find("TestShader");
 	IA = EngineInputLayout::Find("POSITION");
@@ -49,7 +49,7 @@ void EngineRenderer::Render()
 	IA->IntoPipeLine();
 	VS->IntoPipeLine();
 	PS->IntoPipeLine();
-	EngineCore::GetContext()->DrawIndexed(6, 0, 0);
+	EngineCore::GetContext()->DrawIndexed(24, 0, 0);
 }
 
 void EngineRenderer::UpdateConstantBuffer()

@@ -32,13 +32,14 @@ void EngineDevice::ResourceInit()
 		}
 	}
 
+	//Box2D
 	{
 		float4 Rect[] =
 		{
-			float4(-0.5f, 0.5f, 0.0f, 1.0f),
-			float4(0.5f, 0.5f, 0.0f, 1.0f),
-			float4(0.5f, -0.5f, 0.0f, 1.0f),
-			float4(-0.5f, -0.5f, 0.0f, 1.0f)
+			float4(-0.5f, 0.5f, -0.5f, 0.5f),
+			float4(0.5f, 0.5f, -0.5f, 0.5f),
+			float4(0.5f, -0.5f, -0.5f, 0.5f),
+			float4(-0.5f, -0.5f, -0.5f, 0.5f)
 		};
 		EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Rect");
 		NewVertexBuffer->CreateResource(Rect, sizeof(Rect));
@@ -52,5 +53,81 @@ void EngineDevice::ResourceInit()
 		};
 		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Rect");
 		NewIndexBuffer->CreateResource(Rect, sizeof(Rect));
+	}
+
+	//Box3D
+	{
+		float4 Box3D[] =
+		{
+			//¾Õ¸é
+			float4(-0.5f, -0.5f, -0.5f),
+			float4(0.5f, -0.5f, -0.5f),
+			float4(0.5f, 0.5f, -0.5f),
+			float4(-0.5f, 0.5f, -0.5f),
+
+			//µÞ¸é
+			float4(-0.5f, 0.5f, 0.5f),
+			float4(0.5f, 0.5f, 0.5f),
+			float4(0.5f, -0.5f, 0.5f),
+			float4(-0.5f, -0.5f, 0.5f),
+
+
+	        //¿ÞÂÊ
+	        float4(-0.5f, 0.5f, -0.5f),
+	        float4(-0.5f, 0.5f, 0.5f),
+	        float4(-0.5f, -0.5f, 0.5f),
+	        float4(-0.5f, -0.5f, -0.5f),
+
+			//¿À¸¥ÂÊ
+	        float4(0.5f, 0.5f, -0.5f),
+	        float4(0.5f, 0.5f, 0.5f),
+	        float4(0.5f, -0.5f, 0.5f),
+	        float4(0.5f, -0.5f, -0.5f),
+	        
+			//À­¸é
+			float4(-0.5f, 0.5f, -0.5f),
+			float4(-0.5f, 0.5f, 0.5f),
+			float4(0.5f, 0.5f, 0.5f),
+			float4(0.5f, 0.5f, -0.5f),
+
+			//¾Æ·§¸é
+			float4(-0.5f, -0.5f, -0.5f),
+			float4(-0.5f, -0.5f, 0.5f),
+			float4(0.5f, -0.5f, 0.5f),
+			float4(0.5f, -0.5f, -0.5f)
+		};
+		EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Box3D");
+		NewVertexBuffer->CreateResource(Box3D, sizeof(Box3D));
+	}
+
+	{
+		UINT Box3D[]
+		{
+			//¾Õ¸é
+			0,1,2,
+			0,2,3,
+
+			//µÞ¸é
+			4,5,6,
+			4,6,7,
+
+			//À§ÂÊ¸é
+			8,9,10,
+			8,10,11,
+
+			//¾Æ·¡ÂÊ¸é
+			12,13,14,
+			12,14,15,
+
+			//¿ÞÂÊ¸é
+			16,17,18,
+			16,18,19,
+
+			//¿À¸¥ÂÊ¸é
+			20,21,22,
+			20,22,23
+		};
+		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Box3D");
+		NewIndexBuffer->CreateResource(Box3D, sizeof(Box3D));
 	}
 }
