@@ -7,6 +7,7 @@ EngineRasterizer::EngineRasterizer()
 
 EngineRasterizer::~EngineRasterizer()
 {
+	RasterizePtr->Release();
 }
 
 void EngineRasterizer::CreateResource(D3D11_RASTERIZER_DESC _Desc)

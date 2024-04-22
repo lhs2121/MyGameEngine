@@ -34,7 +34,15 @@ EngineDevice::~EngineDevice()
 	}
 	if (Device != nullptr)
 	{
-
+//#if defined(DEBUG) || defined(_DEBUG)
+//		ID3D11Debug* dxgiDebug;
+//
+//		if (SUCCEEDED(EngineCore::GetDevice()->QueryInterface(IID_PPV_ARGS(&dxgiDebug))))
+//		{
+//			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+//			dxgiDebug = nullptr;
+//		}
+//#endif
 
 		Device->Release();
 		Device = nullptr;

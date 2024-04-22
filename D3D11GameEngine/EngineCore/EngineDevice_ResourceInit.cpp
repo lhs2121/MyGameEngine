@@ -128,6 +128,7 @@ void EngineDevice::ResourceInit()
 			20,21,22,
 			20,22,23
 		};
+
 		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Box3D");
 		NewIndexBuffer->CreateResource(Box3D, sizeof(Box3D));
 	}
