@@ -5,6 +5,7 @@
 #include "EngineInputLayout.h"
 #include "EngineVertexShader.h"
 #include "EnginePixelShader.h"
+#include "EngineRasterizer.h"
 
 void EngineDevice::ResourceInit()
 {
@@ -60,10 +61,10 @@ void EngineDevice::ResourceInit()
 		float4 Box3D[] =
 		{
 			//¾Õ¸é
-			float4(-0.5f, -0.5f, -0.5f),
-			float4(0.5f, -0.5f, -0.5f),
-			float4(0.5f, 0.5f, -0.5f),
 			float4(-0.5f, 0.5f, -0.5f),
+			float4(0.5f, 0.5f, -0.5f),
+			float4(0.5f, -0.5f, -0.5f),
+			float4(-0.5f, -0.5f, -0.5f),
 
 			//µÞ¸é
 			float4(-0.5f, 0.5f, 0.5f),
@@ -105,7 +106,7 @@ void EngineDevice::ResourceInit()
 		{
 			//¾Õ¸é
 			0,1,2,
-			0,2,3,
+			2,3,4,
 
 			//µÞ¸é
 			4,5,6,
@@ -130,4 +131,26 @@ void EngineDevice::ResourceInit()
 		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Box3D");
 		NewIndexBuffer->CreateResource(Box3D, sizeof(Box3D));
 	}
+
+	{
+		D3D11_RASTERIZER_DESC Desc;
+
+		Desc.FillMode = D3D11_FILL_WIREFRAME;
+		Desc.CullMode = D3D11_CULL_NONE;
+		Desc.FrontCounterClockwise = false;
+		Desc.DepthBias = 0;
+		Desc.DepthBiasClamp = 0;
+		Desc.SlopeScaledDepthBias = 0;
+		Desc.DepthClipEnable = false;
+		Desc.ScissorEnable = false;
+		Desc.MultisampleEnable = false;
+		Desc.AntialiasedLineEnable = false;
+
+		EngineRasterizer* NewRasterizer = EngineRasterizer::RegisterResource("Default");
+		NewRasterizer->CreateResource(Desc);
+	}
+
+	
+
+
 }

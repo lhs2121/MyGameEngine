@@ -42,6 +42,7 @@
     <ClCompile Include="EngineComponent.cpp" />
     <ClCompile Include="EngineLevelObject.cpp" />
     <ClCompile Include="EngineDevice_ResourceInit.cpp" />
+    <ClCompile Include="EngineRasterizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineD3DResource.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="EngineActor.h" />
     <ClInclude Include="EngineComponent.h" />
     <ClInclude Include="EngineLevelObject.h" />
+    <ClInclude Include="EngineRasterizer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

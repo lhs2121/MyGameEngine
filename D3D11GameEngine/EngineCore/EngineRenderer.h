@@ -5,6 +5,7 @@
 #include "EngineInputLayout.h"
 #include "EngineVertexShader.h"
 #include "EnginePixelShader.h"
+#include "EngineRasterizer.h"
 #include "EngineTransform.h"
 #include "EngineComponent.h"
 
@@ -29,6 +30,7 @@ public:
 	EngineIndexBuffer* IB = nullptr;
 	EngineInputLayout* IA = nullptr;
 	EngineVertexShader* VS = nullptr;
+	EngineRasterizer* RS = nullptr;
 	EnginePixelShader* PS = nullptr;
 	
 	ID3D11Buffer* ConstantBuffer;

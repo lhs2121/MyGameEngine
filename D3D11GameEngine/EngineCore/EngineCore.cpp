@@ -63,6 +63,7 @@ void EngineCore::EngineRelease()
     EngineIndexBuffer::DeleteResource();
     EngineInputLayout::DeleteResource();
     EngineVertexShader::DeleteResource();
+    EngineRasterizer::DeleteResource();
     EnginePixelShader::DeleteResource();
 }
 
