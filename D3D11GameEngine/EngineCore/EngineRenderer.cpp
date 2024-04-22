@@ -25,12 +25,6 @@ EngineRenderer::~EngineRenderer()
 void EngineRenderer::Start()
 {
 	GetLevel()->GetMainCamera()->PushRenderer(this);
-	VB = EngineVertexBuffer::Find("Box3D");
-	IB = EngineIndexBuffer::Find("Box3D");
-	IA = EngineInputLayout::Find("POSITION");
-	VS = EngineVertexShader::Find("TestShader");
-	RS = EngineRasterizer::Find("Default");
-	PS = EnginePixelShader::Find("TestShader");
 
 	D3D11_BUFFER_DESC Desc = { 0 };
 	Desc.Usage = D3D11_USAGE_DYNAMIC;
@@ -42,6 +36,14 @@ void EngineRenderer::Start()
 
 	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
 
+	VB = EngineVertexBuffer::Find("Box3D");
+	IB = EngineIndexBuffer::Find("Box3D");
+	IA = EngineInputLayout::Find("POSITION");
+	VS = EngineVertexShader::Find("TestShader");
+	RS = EngineRasterizer::Find("Default");
+	PS = EnginePixelShader::Find("TestShader");
+
+	IndexCount = IB->GetIndexCount();
 }
 void EngineRenderer::Render()
 {
@@ -52,7 +54,7 @@ void EngineRenderer::Render()
 	VS->IntoPipeLine();
 	RS->IntoPipeLine();
 	PS->IntoPipeLine();
-	EngineCore::GetContext()->DrawIndexed(24, 0, 0);
+	EngineCore::GetContext()->DrawIndexed(IndexCount, 0, 0);
 }
 
 void EngineRenderer::UpdateConstantBuffer()

@@ -106,27 +106,27 @@ void EngineDevice::ResourceInit()
 		{
 			//앞면
 			0,1,2,
-			2,3,4,
+			2,3,0,
 
 			//뒷면
 			4,5,6,
-			4,6,7,
+			6,7,4,
 
-			//위쪽면
+			//왼쪽
 			8,9,10,
-			8,10,11,
+			10,11,8,
 
-			//아래쪽면
+			//오른쪽
 			12,13,14,
-			12,14,15,
+			14,15,12,
 
-			//왼쪽면
+			//위쪽
 			16,17,18,
-			16,18,19,
+			18,19,16,
 
 			//오른쪽면
 			20,21,22,
-			20,22,23
+			22,23,20
 		};
 
 		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Box3D");
@@ -136,7 +136,7 @@ void EngineDevice::ResourceInit()
 	{
 		D3D11_RASTERIZER_DESC Desc;
 
-		Desc.FillMode = D3D11_FILL_WIREFRAME;
+		Desc.FillMode = D3D11_FILL_SOLID;
 		Desc.CullMode = D3D11_CULL_NONE;
 		Desc.FrontCounterClockwise = false;
 		Desc.DepthBias = 0;

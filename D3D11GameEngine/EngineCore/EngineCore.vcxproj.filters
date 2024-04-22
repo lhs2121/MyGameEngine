@@ -4,9 +4,6 @@
     <Filter Include="D3DResource">
       <UniqueIdentifier>{a3dbc41e-0877-4d12-85ee-bb2add1de998}</UniqueIdentifier>
     </Filter>
-    <Filter Include="D3DResource\0. IA">
-      <UniqueIdentifier>{83d4c085-c8fb-42cb-8d0b-5cd5e1496135}</UniqueIdentifier>
-    </Filter>
     <Filter Include="D3DResource\1. VS">
       <UniqueIdentifier>{dedc1d16-d2b5-4f94-a448-552d368fe87f}</UniqueIdentifier>
     </Filter>
@@ -19,11 +16,14 @@
     <Filter Include="D3DResource\3. PS">
       <UniqueIdentifier>{e9381c18-e8bd-470b-811c-15c1fc217433}</UniqueIdentifier>
     </Filter>
-    <Filter Include="D3DResource\2.RS">
-      <UniqueIdentifier>{97bb2b28-bd17-4e47-b931-c5826a2379ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Rendering">
       <UniqueIdentifier>{26546cd8-14ec-4428-a7f8-ea846e6d108d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3DResource\0. IA">
+      <UniqueIdentifier>{83d4c085-c8fb-42cb-8d0b-5cd5e1496135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3DResource\2. RS">
+      <UniqueIdentifier>{97bb2b28-bd17-4e47-b931-c5826a2379ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,7 +69,7 @@
       <Filter>Device</Filter>
     </ClCompile>
     <ClCompile Include="EngineRasterizer.cpp">
-      <Filter>D3DResource\2.RS</Filter>
+      <Filter>D3DResource\2. RS</Filter>
     </ClCompile>
     <ClCompile Include="EngineCamera.cpp">
       <Filter>Rendering</Filter>
@@ -121,7 +121,7 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="EngineRasterizer.h">
-      <Filter>D3DResource\2.RS</Filter>
+      <Filter>D3DResource\2. RS</Filter>
     </ClInclude>
     <ClInclude Include="EngineCamera.h">
       <Filter>Rendering</Filter>

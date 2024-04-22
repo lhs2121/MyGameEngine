@@ -32,6 +32,8 @@ void EngineIndexBuffer::CreateResource(UINT* Indices, int IndexSize)
 
 	Strides = sizeof(UINT);
 	Offsets = 0;
+
+	IndexCount = IndexSize / sizeof(UINT);
 	HRESULT Result = EngineCore::GetDevice()->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 

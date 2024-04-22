@@ -33,6 +33,7 @@ public:
 	EngineRasterizer* RS = nullptr;
 	EnginePixelShader* PS = nullptr;
 	
+	UINT IndexCount;
 	ID3D11Buffer* ConstantBuffer;
 };	
 

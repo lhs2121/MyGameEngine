@@ -14,11 +14,16 @@ public:
 	EngineIndexBuffer& operator=(const EngineIndexBuffer& _Other) = delete;
 	EngineIndexBuffer& operator=(EngineIndexBuffer&& _Other) noexcept = delete;
 
+	UINT GetIndexCount() const
+	{
+		return IndexCount;
+	};
 	void CreateResource(UINT* Indices, int IndexSize);
 	void IntoPipeLine() override;
 
 private:
 	ID3D11Buffer* BufferPtr;
+	UINT IndexCount;
 	UINT Strides;
 	UINT Offsets;
 };
