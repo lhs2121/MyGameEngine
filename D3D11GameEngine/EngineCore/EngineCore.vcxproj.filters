@@ -25,6 +25,9 @@
     <Filter Include="D3DResource\2. RS">
       <UniqueIdentifier>{97bb2b28-bd17-4e47-b931-c5826a2379ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="D3DResource\4. OM">
+      <UniqueIdentifier>{ddfae6c5-d954-4413-b88c-e2edb95dafcd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp" />
@@ -80,6 +83,9 @@
     <ClCompile Include="EngineTransform.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="EngineDepthStencil.cpp">
+      <Filter>D3DResource\4. OM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -131,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="EngineTransform.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDepthStencil.h">
+      <Filter>D3DResource\4. OM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

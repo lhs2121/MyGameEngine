@@ -4,6 +4,7 @@
 
 EngineInputLayout::EngineInputLayout()
 {
+	
 }
 
 EngineInputLayout::~EngineInputLayout()
@@ -17,11 +18,12 @@ EngineInputLayout::~EngineInputLayout()
 
 void EngineInputLayout::CreateResource(void* ShaderBytecode, SIZE_T BytecodeLength)
 {
-	EngineCore::GetDevice()->CreateInputLayout(&LayoutDesc, 1, ShaderBytecode, BytecodeLength, &LayoutPtr);
+	EngineCore::GetDevice()->CreateInputLayout(LayoutDesc, ElementNum, ShaderBytecode, BytecodeLength, &LayoutPtr);
 }
 
-void EngineInputLayout::SetDesc(D3D11_INPUT_ELEMENT_DESC _Desc)
+void EngineInputLayout::SetDesc(UINT _ElementNum,D3D11_INPUT_ELEMENT_DESC* _Desc)
 {
+	ElementNum = _ElementNum;
 	LayoutDesc = _Desc;
 }
 

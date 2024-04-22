@@ -12,7 +12,7 @@ TestActor::~TestActor()
 void TestActor::Start()
 {
 	Renderer = CreateComponent<EngineRenderer>();
-	Renderer->Transform.SetScale({ 500,500,500 });
+	Renderer->Transform.SetScale({ 200,200,200 });
 	Renderer->Transform.SetPos({ 0,0,0 });
 	Renderer->Transform.SetRotation({ 0,0,0 });
 }

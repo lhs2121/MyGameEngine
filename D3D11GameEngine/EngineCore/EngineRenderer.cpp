@@ -38,10 +38,11 @@ void EngineRenderer::Start()
 
 	VB = EngineVertexBuffer::Find("Box3D");
 	IB = EngineIndexBuffer::Find("Box3D");
-	IA = EngineInputLayout::Find("POSITION");
+	IA = EngineInputLayout::Find("POS_COLOR");
 	VS = EngineVertexShader::Find("TestShader");
 	RS = EngineRasterizer::Find("Default");
 	PS = EnginePixelShader::Find("TestShader");
+	DS = EngineDepthStencil::Find("Default");
 
 	IndexCount = IB->GetIndexCount();
 }
@@ -54,6 +55,8 @@ void EngineRenderer::Render()
 	VS->IntoPipeLine();
 	RS->IntoPipeLine();
 	PS->IntoPipeLine();
+	DS->IntoPipeLine();
+	EngineCore::GetContext()->ClearDepthStencilView(DS->GetResource(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 	EngineCore::GetContext()->DrawIndexed(IndexCount, 0, 0);
 }
 

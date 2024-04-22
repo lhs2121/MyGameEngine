@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineLevelObject.h"
+
 class EngineCamera : public EngineLevelObject
 {
 public:

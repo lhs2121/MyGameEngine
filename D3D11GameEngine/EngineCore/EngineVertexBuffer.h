@@ -1,6 +1,22 @@
 #pragma once
 #include "EngineD3DResource.h"
 
+struct VERTEX_POS
+{
+	float4 Pos;
+};
+
+struct VERTEX_POS_COLOR
+{
+	float4 Pos;
+	float4 Color;
+};
+struct VERTEX_POSTEXCOORD
+{
+	float4 Pos;
+	float4 TexCoord;
+};
+
 class EngineVertexBuffer : public EngineD3DResource<EngineVertexBuffer>
 {
 public:
@@ -15,6 +31,7 @@ public:
 	EngineVertexBuffer& operator=(EngineVertexBuffer&& _Other) noexcept = delete;
 
 	void CreateResource(float4* Vertices, int VertexSize);
+	void CreateResource(VERTEX_POS_COLOR* Vertices, int VertexSize);
 	void IntoPipeLine() override;
 
 private:

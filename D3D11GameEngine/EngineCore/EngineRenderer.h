@@ -6,6 +6,7 @@
 #include "EngineVertexShader.h"
 #include "EnginePixelShader.h"
 #include "EngineRasterizer.h"
+#include "EngineDepthStencil.h"
 #include "EngineTransform.h"
 #include "EngineComponent.h"
 
@@ -32,7 +33,8 @@ public:
 	EngineVertexShader* VS = nullptr;
 	EngineRasterizer* RS = nullptr;
 	EnginePixelShader* PS = nullptr;
-	
+	EngineDepthStencil* DS = nullptr;
+
 	UINT IndexCount;
 	ID3D11Buffer* ConstantBuffer;
 };	
