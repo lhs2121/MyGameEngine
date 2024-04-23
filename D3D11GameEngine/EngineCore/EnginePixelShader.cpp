@@ -35,7 +35,7 @@ void EnginePixelShader::CreateResource(std::string _Name, std::string _Path)
 
 	std::string MainFuncName = _Name + "_PS";
 	ID3DBlob* ErrorBlob = nullptr;
-	HRESULT Result = D3DCompileFromFile(L"C:\\MyGameEngine\\D3D11GameEngine\\EngineShader\\TestShader.fx",
+	HRESULT Result = D3DCompileFromFile(L"F:\\MyGameEngine\\D3D11GameEngine\\EngineShader\\TestShader.fx",
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "ps_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
 
 	if (FAILED(Result))

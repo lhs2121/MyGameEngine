@@ -19,5 +19,5 @@ void TestActor::Start()
 
 void TestActor::Update(float _Delta)
 {
-	Renderer->Transform.AddRotation({100* _Delta,100* _Delta,100* _Delta });
+	
 }

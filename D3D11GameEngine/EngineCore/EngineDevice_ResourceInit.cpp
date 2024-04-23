@@ -71,40 +71,40 @@ void EngineDevice::ResourceInit()
 		VERTEX_POS_COLOR Box3D[] =
 		{
 			//¾Õ¸é
-			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },   // »¡°­
-			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(0.0f, 0.0f, 1.0f, 1.0f) },   // ÆÄ¶û
-			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(0.0f, 1.0f, 0.0f, 1.0f) },   // ÃÊ·Ï
-			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(1.0f, 1.0f, 0.0f, 1.0f) },   // ³ë¶û
+			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },   //»¡°­
+			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(1.0f, 0.0f, 0.0f, 1.0f) },   //»¡°­
+			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },   //»¡°­
+			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(1.0f, 0.0f, 0.0f, 1.0f) },   //»¡°­
 
 			//µÞ¸é
-			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 0.0f, 0.0f, 1.0f) },   // °ËÁ¤
-			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
-			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
-			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
+			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 0.0f, 1.0f) },   //ÆÄ¶û
+			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(0.0f, 1.0f, 0.0f, 1.0f) },   //ÆÄ¶û
+			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 0.0f, 1.0f) },   //ÆÄ¶û
+			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(0.0f, 1.0f, 0.0f, 1.0f) },   //ÆÄ¶û
 
-			//¿ÞÂÊ
-			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },   // »¡°­
-			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 0.0f, 1.0f, 1.0f) },   // ÆÄ¶û
-			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(0.0f, 1.0f, 0.0f, 1.0f) },   // ÃÊ·Ï
-			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(1.0f, 1.0f, 0.0f, 1.0f) },   // ³ë¶û
+			////¿ÞÂÊ
+			//{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(0.0f, 0.0f, 1.0f, 1.0f) },   //ÃÊ·Ï
+			//{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 0.0f, 1.0f, 1.0f) },   //ÃÊ·Ï
+			//{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(0.0f, 0.0f, 1.0f, 1.0f) },   //ÃÊ·Ï
+			//{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(0.0f, 0.0f, 1.0f, 1.0f) },   //ÃÊ·Ï
 
-			//¿À¸¥ÂÊ
-			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(1.0f, 0.0f, 0.0f, 1.0f) },   // »¡°­
-			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(0.0f, 0.0f, 1.0f, 1.0f) },   // ÆÄ¶û
-			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 0.0f, 1.0f) },   // ÃÊ·Ï
-			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 1.0f, 0.0f, 1.0f) },   // ³ë¶û
+			////¿À¸¥ÂÊ
+			//{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(1.0f, 0.0f, 1.0f, 1.0f) },   //¸¶Á¨Å¸
+			//{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(1.0f, 0.0f, 1.0f, 1.0f) },   //¸¶Á¨Å¸
+			//{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 0.0f, 1.0f, 1.0f) },   //¸¶Á¨Å¸
+			//{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 1.0f, 1.0f) },   //¸¶Á¨Å¸
 
-			//À­¸é
-			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(0.0f, 0.0f, 0.0f, 1.0f) },   // °ËÁ¤
-			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
-			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
-			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
+			////À­¸é
+			//{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(0.0f, 1.0f, 1.0f, 1.0f) },   //ÇÏ´Ã
+			//{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 1.0f, 1.0f) },   //ÇÏ´Ã
+			//{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(0.0f, 1.0f, 1.0f, 1.0f) },   //ÇÏ´Ã
+			//{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(0.0f, 1.0f, 1.0f, 1.0f) },   //ÇÏ´Ã
 
-			//¾Æ·§¸é
-			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(0.0f, 0.0f, 0.0f, 1.0f) },   // °ËÁ¤
-			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
-			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },   // Èò»ö
-			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) }    // Èò»ö
+			////¾Æ·§¸é
+			//{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(1.0f, 1.0f, 1.0f, 1.0f) },   //Èò»ö
+			//{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) },   //Èò»ö
+			//{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },   //Èò»ö
+			//{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) } ,  //Èò»ö
 		};
 		EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Box3D");
 		NewVertexBuffer->CreateResource(Box3D, sizeof(Box3D));
@@ -121,21 +121,21 @@ void EngineDevice::ResourceInit()
 			4,5,6,
 			6,7,4,
 
-			//¿ÞÂÊ
-			8,9,10,
-			10,11,8,
+			////¿ÞÂÊ
+			//8,9,10,
+			//10,11,8,
 
-			//¿À¸¥ÂÊ
-			12,13,14,
-			14,15,12,
+			////¿À¸¥ÂÊ
+			//12,13,14,
+			//14,15,12,
 
-			//À§ÂÊ
-			16,17,18,
-			18,19,16,
+			////À§ÂÊ
+			//16,17,18,
+			//18,19,16,
 
-			//¾Æ·¡ÂÊ
-			20,21,22,
-			22,23,20
+			////¾Æ·¡ÂÊ
+			//20,21,22,
+			//22,23,20
 		};
 
 		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Box3D");
@@ -160,26 +160,15 @@ void EngineDevice::ResourceInit()
 		NewRasterizer->CreateResource(Desc);
 	}
 
-	D3D11_DEPTH_STENCIL_DESC Desc;
-	Desc.DepthEnable = true;
-	Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	Desc.DepthFunc = D3D11_COMPARISON_LESS;
+	{
+		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
+		Desc.DepthEnable = true;
+		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		Desc.DepthFunc = D3D11_COMPARISON_LESS;
+		Desc.StencilEnable = false;
 
-	Desc.StencilEnable = false;
-	Desc.StencilReadMask = D3D11_DEFAULT_STENCIL_READ_MASK;
-	Desc.StencilWriteMask = D3D11_DEFAULT_STENCIL_WRITE_MASK;
-
-	Desc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	Desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
-	Desc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	Desc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
-	Desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	Desc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
-	Desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	Desc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-	EngineDepthStencil* NewDeathStencil = EngineDepthStencil::RegisterResource("Default");
-    NewDeathStencil->CreateResource(Desc);
-
+		EngineDepthStencil* NewDeathStencil = EngineDepthStencil::RegisterResource("Default");
+		NewDeathStencil->CreateResource(Desc);
+	}
 
 }

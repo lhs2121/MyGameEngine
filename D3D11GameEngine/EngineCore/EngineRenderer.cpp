@@ -56,7 +56,7 @@ void EngineRenderer::Render()
 	RS->IntoPipeLine();
 	PS->IntoPipeLine();
 	DS->IntoPipeLine();
-	EngineCore::GetContext()->ClearDepthStencilView(DS->GetResource(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+	
 	EngineCore::GetContext()->DrawIndexed(IndexCount, 0, 0);
 }
 

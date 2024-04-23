@@ -22,27 +22,37 @@ EngineDevice::~EngineDevice()
 		SwapChain->Release();
 		SwapChain = nullptr;
 	}
-	if (BackBufferTexture != nullptr)
+	if (BackTexture != nullptr)
 	{
-		BackBufferTexture->Release();
-		BackBufferTexture = nullptr;
+		BackTexture->Release();
+		BackTexture = nullptr;
 	}
-	if (BackBufferRTV != nullptr)
+	if (BackRenderTargetView != nullptr)
 	{
-		BackBufferRTV->Release();
-		BackBufferRTV = nullptr;
+		BackRenderTargetView->Release();
+		BackRenderTargetView = nullptr;
+	}
+	if (DepthView != nullptr)
+	{
+		DepthView->Release();
+		DepthView = nullptr;
+	}
+	if (DepthTexture != nullptr)
+	{
+		DepthTexture->Release();
+		DepthTexture = nullptr;
 	}
 	if (Device != nullptr)
 	{
-//#if defined(DEBUG) || defined(_DEBUG)
-//		ID3D11Debug* dxgiDebug;
-//
-//		if (SUCCEEDED(EngineCore::GetDevice()->QueryInterface(IID_PPV_ARGS(&dxgiDebug))))
-//		{
-//			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
-//			dxgiDebug = nullptr;
-//		}
-//#endif
+		//#if defined(DEBUG) || defined(_DEBUG)
+		//		ID3D11Debug* dxgiDebug;
+		//
+		//		if (SUCCEEDED(EngineCore::GetDevice()->QueryInterface(IID_PPV_ARGS(&dxgiDebug))))
+		//		{
+		//			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+		//			dxgiDebug = nullptr;
+		//		}
+		//#endif
 
 		Device->Release();
 		Device = nullptr;
@@ -96,20 +106,51 @@ void EngineDevice::Init()
 
 		HRESULT Result = FactoryPtr->CreateSwapChain(Device, &Desc, &SwapChain);
 
-		SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&BackBufferTexture));
+		SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&BackTexture));
 	}
 
 
 	{
-		HRESULT Result = Device->CreateRenderTargetView(BackBufferTexture, nullptr, &BackBufferRTV);
+		HRESULT Result = Device->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView);
+	}
+
+	{
+		float4 Size = EngineCore::GetMainWindow().GetWindowSize();
+
+		D3D11_TEXTURE2D_DESC Desc;
+		Desc.Width = Size.ix();
+		Desc.Height = Size.iy();
+		Desc.MipLevels = 1;
+		Desc.ArraySize = 1;
+		Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		Desc.SampleDesc.Count = 1;
+		Desc.SampleDesc.Quality = 0;
+		Desc.Usage = D3D11_USAGE_DEFAULT;
+		Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		Desc.CPUAccessFlags = 0;
+		Desc.MiscFlags = 0;
+
+		HRESULT Result = Device->CreateTexture2D(&Desc, nullptr, &DepthTexture);
+
+		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
+		ZeroMemory(&descDSV, sizeof(descDSV));
+		descDSV.Format = Desc.Format;
+		descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		descDSV.Texture2D.MipSlice = 0;
+
+		// ±íÀÌ ½ºÅÙ½Ç ºä »ý¼º
+		if (S_OK != Device->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
+		{
+			
+		}
 	}
 
 	{
 		D3D11_VIEWPORT Desc;
 		Desc.Width = EngineCore::GetMainWindow().GetWindowSize().x;
 		Desc.Height = EngineCore::GetMainWindow().GetWindowSize().y;
-		Desc.MaxDepth = 1;
 		Desc.MinDepth = 0;
+		Desc.MaxDepth = 1;
 		Desc.TopLeftX = 0;
 		Desc.TopLeftY = 0;
 		Context->RSSetViewports(1, &Desc);
@@ -123,8 +164,9 @@ void EngineDevice::Init()
 void EngineDevice::Clear()
 {
 	const FLOAT ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	Context->ClearRenderTargetView(BackBufferRTV, ClearColor);
-	Context->OMSetRenderTargets(1, &BackBufferRTV, nullptr);
+	Context->ClearRenderTargetView(BackRenderTargetView, ClearColor);
+	Context->ClearDepthStencilView(DepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	Context->OMSetRenderTargets(1, &BackRenderTargetView, DepthView);
 }
 
 void EngineDevice::Present()

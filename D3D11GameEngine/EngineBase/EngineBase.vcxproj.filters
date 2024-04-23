@@ -7,6 +7,7 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EnginePath.h" />
     <ClInclude Include="EngineTime.h" />
+    <ClInclude Include="EngineDebug.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineMath.cpp" />
@@ -15,5 +16,6 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EnginePath.cpp" />
     <ClCompile Include="EngineTime.cpp" />
+    <ClCompile Include="EngineDebug.cpp" />
   </ItemGroup>
 </Project>

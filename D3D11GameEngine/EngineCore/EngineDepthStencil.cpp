@@ -7,6 +7,10 @@ EngineDepthStencil::EngineDepthStencil()
 
 EngineDepthStencil::~EngineDepthStencil()
 {
+	if (DepthStencilPtr != nullptr)
+	{
+		DepthStencilPtr->Release();
+	}
 }
 
 void EngineDepthStencil::CreateResource(D3D11_DEPTH_STENCIL_DESC _Desc)
