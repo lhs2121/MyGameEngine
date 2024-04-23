@@ -176,6 +176,7 @@
     <ClInclude Include="EnginePath.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="EngineDebug.h" />
+    <ClInclude Include="EngineString.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineFile.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="EngineDirectory.cpp" />
     <ClCompile Include="EnginePath.cpp" />
     <ClCompile Include="EngineDebug.cpp" />
+    <ClCompile Include="EngineString.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

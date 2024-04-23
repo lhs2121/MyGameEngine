@@ -43,7 +43,7 @@ void EngineVertexShader::CreateResource(std::string _Name, std::string _Path)
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 	std::string MainFuncName = _Name + "_VS";
 	ID3DBlob* ErrorBlob = nullptr;
-	HRESULT Result = D3DCompileFromFile(L"F:\\MyGameEngine\\D3D11GameEngine\\EngineShader\\TestShader.fx",
+	HRESULT Result = D3DCompileFromFile(L"C:\\MyGameEngine\\D3D11GameEngine\\EngineShader\\TestShader.fx",
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "vs_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
 
 	if (FAILED(Result))
