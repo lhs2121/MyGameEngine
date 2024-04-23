@@ -178,7 +178,7 @@ void float4x4::Rotation(const float4& Degree)
 	float4x4 XRot;
 	XRot.RotationX(RadianX);
 
-	*this = ZRot * YRot * XRot;
+	*this = ZRot * XRot * YRot;
 }
 
 void float4x4::RotationX(const float Radian)
