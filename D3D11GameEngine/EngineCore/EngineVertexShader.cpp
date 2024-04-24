@@ -41,9 +41,13 @@ void EngineVertexShader::CreateResource(std::string _Name, std::string _Path)
 
 	// 추후 상수버퍼 공부하면서 꼭 물어보세요
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
-	std::string MainFuncName = _Name + "_VS";
 	ID3DBlob* ErrorBlob = nullptr;
-	HRESULT Result = D3DCompileFromFile(L"F:\\MyGameEngine\\D3D11GameEngine\\EngineShader\\TestShader.fx",
+
+	std::wstring Path = EngineString::ToWideByteString(_Path);
+
+	std::string MainFuncName = _Name + "_VS";
+
+	HRESULT Result = D3DCompileFromFile(Path.c_str(),
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "vs_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
 
 	if (FAILED(Result))

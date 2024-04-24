@@ -5,5 +5,6 @@
 #include <EngineBase\EngineDirectory.h>
 #include <EngineBase\EngineFile.h>
 #include <EngineBase\EngineDebug.h>
+#include <EngineBase\EngineString.h>
 
 #include "EngineWindow.h"
