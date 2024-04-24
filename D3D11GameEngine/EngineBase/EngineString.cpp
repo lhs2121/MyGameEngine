@@ -13,9 +13,11 @@ EngineString::~EngineString()
 
 std::wstring EngineString::ToWideByteString(std::string& _String)
 {
-	wchar_t strUnicode[256] = { 0, };
-	char strMultibyte[256] = { 0, };
-	wcscpy_s(strUnicode, 256, L"유니코드");
-	int len = WideCharToMultiByte(CP_ACP, 0, strUnicode, -1, NULL, 0, NULL, NULL);
-	WideCharToMultiByte(CP_ACP, 0, strUnicode, -1, strMultibyte, len, NULL, NULL);
+	wchar_t WideChar[256];
+
+	MultiByteToWideChar(CP_ACP, 0, _String.c_str(), -1, WideChar, 256);
+	
+	std::wstring ResultString = WideChar;
+	return ResultString;
+
 }
