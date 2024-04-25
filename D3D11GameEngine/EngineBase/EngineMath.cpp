@@ -2,40 +2,6 @@
 #include "EngineMath.h"
 #include <math.h>
 
-float4 float4::Cross(float4& Left, float4& Right)
-{
-	float x = Left.y * Right.z - Left.z * Right.y;
-	float y = Left.z * Right.x - Left.x * Right.z;
-	float z = Left.x * Right.y - Left.y * Right.x;
-
-	return { x,y,z,1 };
-}
-
-float float4::Dot(float4& Left, float4& Right)
-{
-	return Left.x * Right.x + Left.y * Right.y + Left.z * Right.z;
-}
-
-float4 float4::Normalize(float4& Other)
-{
-	float4 result;
-	result = Other;
-	float length = sqrt(Other.x * Other.x + Other.y * Other.y + Other.z * Other.z);
-
-	result.x /= length;
-	result.y /= length;
-	result.z /= length;
-	return result;
-}
-
-void float4::Normalize()
-{
-	float length = sqrt(x * x + y * y + z * z);
-	x /= length;
-	y /= length;
-	z /= length;
-}
-
 void float4::operator*=(const float4x4& Other)
 {
 	float4 result;
@@ -58,54 +24,81 @@ float4 float4::operator*(const float4x4& Other)
 	return result;
 }
 
+float4 float4::Normalize(float4& Other)
+{
+	float4 result;
+	result = Other;
+	float length = sqrt(Other.x * Other.x + Other.y * Other.y + Other.z * Other.z);
+
+	result.x /= length;
+	result.y /= length;
+	result.z /= length;
+	return result;
+}
+
+void float4::Normalize()
+{
+	float length = sqrt(x * x + y * y + z * z);
+	x /= length;
+	y /= length;
+	z /= length;
+}
+
+float float4::Dot(float4& Left, float4& Right)
+{
+	return Left.x * Right.x + Left.y * Right.y + Left.z * Right.z;
+}
+
+float4 float4::Cross(float4& Left, float4& Right)
+{
+	float x = Left.y * Right.z - Left.z * Right.y;
+	float y = Left.z * Right.x - Left.x * Right.z;
+	float z = Left.x * Right.y - Left.y * Right.x;
+
+	return { x,y,z,1 };
+}
+
 float4x4::float4x4(const float4x4& Other)
 {
-	for (int x = 0; x < 16; x++)
+	for (int i = 0; i < 16; i++)
 	{
-		matrix1D[x] = Other.matrix1D[x];
+		matrix1D[i] = Other.matrix1D[i];
 	}
 }
-float4x4::float4x4(const std::vector<std::vector<float>> _matrix)
+
+float4x4 float4x4::operator*(const float4x4& Other)
 {
-	for (int x = 0; x < 4; x++)
+	float4x4 Result;
+	Result.Zero();
+
+	for (size_t r = 0; r < 4; r++)
 	{
-		for (int y = 0; y < 4; y++)
+		for (size_t j = 0; j < 4; j++)
 		{
-			matrix[x][y] = _matrix[x][y];
+			for (size_t i = 0; i < 4; i++)
+			{
+				Result.matrix[r][j] += matrix[r][i] * Other.matrix[i][j];
+			}
 		}
 	}
+
+	return Result;
 }
-float4x4::float4x4(const std::vector<float> _matrix)
-{
-	for (int x = 0; x < 16; x++)
-	{
-		matrix1D[x] = _matrix[x];
-	}
-}
+
 void float4x4::Identity()
 {
-	for (int x = 0; x < 4; x++)
-	{
-		for (int y = 0; y < 4; y++)
-		{
-			if (x == y)
-			{
-				matrix[x][y] = 1.0f;
-				continue;
-			}
-			matrix[x][y] = 0.0f;
-		}
-	}
+	Zero();
+	matrix[0][0] = 1.0f;
+	matrix[1][1] = 1.0f;
+	matrix[2][2] = 1.0f;
+	matrix[3][3] = 1.0f;
 }
 
 void float4x4::Zero()
 {
-	for (int x = 0; x < 4; x++)
+	for (int i = 0; i < 16; i++)
 	{
-		for (int y = 0; y < 4; y++)
-		{
-			matrix[x][y] = 0.0f;
-		}
+		matrix1D[i] = 0.0f;
 	}
 }
 
@@ -122,24 +115,6 @@ void float4x4::TransPose()
 	}
 }
 
-float4x4 float4x4::operator*(const float4x4& R)
-{
-	float4x4 res;
-	res.Zero();
-
-	for (size_t r = 0; r < 4; r++)
-	{
-		for (size_t j = 0; j < 4; j++)
-		{
-			for (size_t i = 0; i < 4; i++)
-			{
-				res.matrix[r][j] += matrix[r][i] * R.matrix[i][j];
-			}
-		}
-	}
-
-	return res;
-}
 
 void float4x4::Position(const float4& Other)
 {
@@ -162,14 +137,9 @@ void float4x4::Rotation(const float4& Degree)
 {
 	Identity();
 
-	float DegreeX = Degree.x;
-	float DegreeY = Degree.y;
-	float DegreeZ = Degree.z;
-
-	float DegreeToRadian = PI / 180;
-	float RadianX = DegreeX * DegreeToRadian;
-	float RadianY = DegreeY * DegreeToRadian;
-	float RadianZ = DegreeZ * DegreeToRadian;
+	float RadianX = Degree.x * DegToRad;
+	float RadianY = Degree.y * DegToRad;
+	float RadianZ = Degree.z * DegToRad;
 
 	float4x4 ZRot;
 	ZRot.RotationZ(RadianZ);
@@ -181,28 +151,28 @@ void float4x4::Rotation(const float4& Degree)
 	*this = ZRot * XRot * YRot;
 }
 
-void float4x4::RotationX(const float Radian)
+void float4x4::RotationX(const float Rad)
 {
-	matrix[1][1] = cosf(Radian);
-	matrix[1][2] = -sinf(Radian);
-	matrix[2][1] = sinf(Radian);
-	matrix[2][2] = cosf(Radian);
+	matrix[1][1] = cosf(Rad);
+	matrix[1][2] = -sinf(Rad);
+	matrix[2][1] = sinf(Rad);
+	matrix[2][2] = cosf(Rad);
 }
 
-void float4x4::RotationY(const float Radian)
+void float4x4::RotationY(const float Rad)
 {
-	matrix[0][0] = cosf(Radian);
-	matrix[0][2] = -sinf(Radian);
-	matrix[2][0] = sinf(Radian);
-	matrix[2][2] = cosf(Radian);
+	matrix[0][0] = cosf(Rad);
+	matrix[0][2] = -sinf(Rad);
+	matrix[2][0] = sinf(Rad);
+	matrix[2][2] = cosf(Rad);
 }
 
-void float4x4::RotationZ(const float Radian)
+void float4x4::RotationZ(const float Rad)
 {
-	matrix[0][0] = cosf(Radian);
-	matrix[0][1] = sinf(Radian);
-	matrix[1][0] = -sinf(Radian);
-	matrix[1][1] = cosf(Radian);
+	matrix[0][0] = cosf(Rad);
+	matrix[0][1] = sinf(Rad);
+	matrix[1][0] = -sinf(Rad);
+	matrix[1][1] = cosf(Rad);
 }
 
 void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
@@ -233,19 +203,18 @@ void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 	matrix[3][1] = float4::Dot(EyeUp, Pos);
 	matrix[3][2] = float4::Dot(EyeDir, Pos);
 }
-void float4x4::Perspective(float FovYDegree, float Width, float Height, float Near, float Far)
+void float4x4::Perspective(float FovYDeg, float Width, float Height, float Near, float Far)
 {
 	Identity();
 
-	float DegreeToRadian = PI / 180;
-	float FovY = FovYDegree * DegreeToRadian;
-	float d = 1 / tanf(FovY /2);
-	float aspect = Width / Height;
+	float FovYRad = FovYDeg * DegToRad;
+	float d = 1 / tanf(FovYRad / 2);
+	float InverseAspect = Height / Width;
 
-	matrix[0][0] = d * 1/aspect;
+	matrix[0][0] = d * InverseAspect;
 	matrix[1][1] = d;
 	matrix[2][2] = Far / (Far - Near);
-	matrix[3][2] = (-1 * Far * Near) / (Far - Near);
+	matrix[3][2] = (Far * Near) / (Near - Far);
 	matrix[2][3] = 1;
 	matrix[3][3] = 0;
 }
@@ -257,12 +226,4 @@ void float4x4::Orthographic(float Width, float Height, float Near, float Far)
 	matrix[1][1] = 2 / Height;
 	matrix[2][2] = 1 / (Far - Near);
 	matrix[3][2] = Near / (Near - Far);
-}
-
-void float4x4::DevideW()
-{
-	float W = matrix[3][3];
-	matrix[0][0] /= W;
-	matrix[1][1] /= W;
-	matrix[3][3] /= W;
 }

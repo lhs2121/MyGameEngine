@@ -1,6 +1,6 @@
 #pragma once
-#include <DirectXMath.h>
-constexpr auto PI = 3.14159265358979323846264338327950288419716939937510f;
+constexpr float PI = 3.141592653f;
+constexpr float DegToRad = 3.141592653f / 180.0f;
 
 class float4x4;
 class float4
@@ -30,10 +30,17 @@ public:
 		};
 	};
 
-	static float4 Cross(float4& Left, float4& Right);
-	static float Dot(float4& Left, float4& Right);
-	static float4 Normalize(float4& Other);
 	void Normalize();
+
+	static float4 Normalize(float4& Other);
+
+	static float Dot(float4& Left, float4& Right);
+
+	static float4 Cross(float4& Left, float4& Right);
+
+	void operator*=(const float4x4& Other);
+
+	float4 operator*(const float4x4& Other);
 
 	float hx() const
 	{
@@ -190,8 +197,6 @@ public:
 		z /= Other;
 	}
 
-	void operator*=(const float4x4& Other);
-	float4 operator*(const float4x4& Other);
 };
 
 class float4x4
@@ -203,8 +208,6 @@ public:
 	}
 
 	float4x4(const float4x4& Other);
-	float4x4(const std::vector<std::vector<float>> _matrix);
-	float4x4(const std::vector<float> _matrix);
 
 	union
 	{
@@ -227,14 +230,13 @@ public:
 
 	void Position(const float4& Other);
 	void Scale(const float4& Other);
-	void Rotation(const float4& Degree);
+	void Rotation(const float4& Deg);
 
-	void RotationX(const float Radian);
-	void RotationY(const float Radian);
-	void RotationZ(const float Radian);
+	void RotationX(const float Rad);
+	void RotationY(const float Rad);
+	void RotationZ(const float Rad);
 
 	void View(float4& EyePos, float4& EyeDir, float4& EyeUp);
-	void Perspective(float FovYDegree, float Width, float Height, float Near, float Far);
+	void Perspective(float FovYDeg, float Width, float Height, float Near, float Far);
 	void Orthographic(float Width,float Height,float Near,float Far);
-	void DevideW();
 };
