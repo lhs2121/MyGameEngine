@@ -233,17 +233,19 @@ void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 	matrix[3][1] = float4::Dot(EyeUp, Pos);
 	matrix[3][2] = float4::Dot(EyeDir, Pos);
 }
-void float4x4::Perspective(float FovY, float Width, float Height, float Near, float Far)
+void float4x4::Perspective(float FovYDegree, float Width, float Height, float Near, float Far)
 {
 	Identity();
 
-	float d = 1 / tanf(FovY/2);
+	float DegreeToRadian = PI / 180;
+	float FovY = FovYDegree * DegreeToRadian;
+	float d = 1 / tanf(FovY /2);
 	float aspect = Width / Height;
 
-	matrix[0][0] = d / aspect;
+	matrix[0][0] = d * 1/aspect;
 	matrix[1][1] = d;
-	matrix[2][2] = Far / Far - Near;
-	matrix[3][2] = (-1 * Far * Near) / Far - Near;
+	matrix[2][2] = Far / (Far - Near);
+	matrix[3][2] = (-1 * Far * Near) / (Far - Near);
 	matrix[2][3] = 1;
 	matrix[3][3] = 0;
 }

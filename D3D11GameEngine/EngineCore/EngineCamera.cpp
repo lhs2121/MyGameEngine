@@ -21,7 +21,7 @@ void EngineCamera::PushRenderer(EngineRenderer* Renderer)
 
 void EngineCamera::Update(float _Delta)
 {
-
+	
 }
 
 void EngineCamera::Render()
@@ -42,7 +42,6 @@ void EngineCamera::Render()
 	{
 		float4x4 World = Renderer->Transform.WorldMat;
 		Renderer->Transform.WorldViewProjectionMat = World * Transform.ViewMat * Transform.ProjectionMat;
-		Renderer->Transform.WorldViewProjectionMat.DevideW();
 		Renderer->Render();
 	}
 }

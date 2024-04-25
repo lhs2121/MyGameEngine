@@ -161,7 +161,7 @@ void EngineDevice::ResourceInit()
 		Desc.ScissorEnable = false;
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
-
+		
 		EngineRasterizer* NewRasterizer = EngineRasterizer::RegisterResource("Default");
 		NewRasterizer->CreateResource(Desc);
 	}

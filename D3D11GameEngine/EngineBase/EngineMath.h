@@ -234,7 +234,7 @@ public:
 	void RotationZ(const float Radian);
 
 	void View(float4& EyePos, float4& EyeDir, float4& EyeUp);
-	void Perspective(float FovY, float Width, float Height, float Near, float Far);
+	void Perspective(float FovYDegree, float Width, float Height, float Near, float Far);
 	void Orthographic(float Width,float Height,float Near,float Far);
 	void DevideW();
 };
