@@ -43,7 +43,7 @@ void EngineVertexShader::CreateResource(std::string _Name, std::string _Path)
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 	ID3DBlob* ErrorBlob = nullptr;
 
-	std::wstring Path = EngineString::ToWideByteString(_Path);
+	std::wstring Path = EngineString::GetWideString(_Path);
 
 	std::string MainFuncName = _Name + "_VS";
 

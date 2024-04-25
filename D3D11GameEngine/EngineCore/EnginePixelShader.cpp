@@ -34,7 +34,7 @@ void EnginePixelShader::CreateResource(std::string _Name, std::string _Path)
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 
 	std::string MainFuncName = _Name + "_PS";
-	std::wstring Path = EngineString::ToWideByteString(_Path);
+	std::wstring Path = EngineString::GetWideString(_Path);
 	ID3DBlob* ErrorBlob = nullptr;
 	HRESULT Result = D3DCompileFromFile(Path.c_str(),
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "ps_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);

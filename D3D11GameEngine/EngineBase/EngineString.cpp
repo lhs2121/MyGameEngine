@@ -11,13 +11,20 @@ EngineString::~EngineString()
 {
 }
 
-std::wstring EngineString::ToWideByteString(std::string& _String)
+std::wstring EngineString::GetWideString(std::string& _String)
 {
-	wchar_t WideChar[256];
+	int Length = MultiByteToWideChar(CP_ACP, 0, _String.c_str(), -1, nullptr, 0);
+	wchar_t* WideChar = new wchar_t[Length];
 
-	MultiByteToWideChar(CP_ACP, 0, _String.c_str(), -1, WideChar, 256);
+	MultiByteToWideChar(CP_ACP, 0, _String.c_str(), -1, WideChar, Length);
 	
 	std::wstring ResultString = WideChar;
-	return ResultString;
 
+	if (WideChar != nullptr)
+	{
+		delete[] WideChar;
+		WideChar = nullptr;
+	}
+	
+	return ResultString;
 }
