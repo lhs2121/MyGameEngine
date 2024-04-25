@@ -20,6 +20,12 @@ void EngineTransform::TransformUpdate()
 	WorldMat = ScaleMat * RotationMat * PositionMat;
 }
 
+void EngineTransform::SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat)
+{
+	WorldViewProjectionMat = WorldMat * ViewMat * ProjectionMat;
+	WorldViewProjectionMat.DevideW();
+}
+
 void EngineTransform::SetPos(float4 Value)
 {
 	Position = Value;

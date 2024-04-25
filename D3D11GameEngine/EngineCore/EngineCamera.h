@@ -1,6 +1,11 @@
 #pragma once
 #include "EngineLevelObject.h"
 
+enum class ProjectionType
+{
+	Perspective,
+	Orthographic
+};
 class EngineCamera : public EngineLevelObject
 {
 public:
@@ -17,9 +22,15 @@ public:
 	void Start() override;
 	void Update(float _Delta) override;
 	void PushRenderer(EngineRenderer* Renderer);
+	void SetProjectionType(ProjectionType _Type)
+	{
+		m_ProjectionType = _Type;
+	}
 	void Render();
 private:
+	ProjectionType m_ProjectionType = ProjectionType::Orthographic;
 	float4 WindowSize;
+	float FovY = 60;
 	float Near = -10.0;
 	float Far = 10000.0;
 
