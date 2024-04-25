@@ -11,19 +11,35 @@ EngineString::~EngineString()
 {
 }
 
-std::wstring EngineString::GetWideString(std::string& _String)
+std::string EngineString::GetMultiString(std::wstring& WideString)
 {
-	int Length = MultiByteToWideChar(CP_ACP, 0, _String.c_str(), -1, nullptr, 0);
-	wchar_t* WideChar = new wchar_t[Length];
+	int Length = WideCharToMultiByte(CP_ACP, 0, WideString.c_str(), -1, nullptr, 0, nullptr, nullptr);
+	char* CharBuffer = new char[Length];
 
-	MultiByteToWideChar(CP_ACP, 0, _String.c_str(), -1, WideChar, Length);
-	
-	std::wstring ResultString = WideChar;
+	WideCharToMultiByte(CP_ACP, 0, WideString.c_str(), -1, CharBuffer, Length, nullptr, nullptr);
 
-	if (WideChar != nullptr)
+	std::string ResultString = CharBuffer;
+	if (CharBuffer != nullptr)
 	{
-		delete[] WideChar;
-		WideChar = nullptr;
+		delete[] CharBuffer;
+		CharBuffer = nullptr;
+	}
+
+	return ResultString;
+}
+
+std::wstring EngineString::GetWideString(std::string& String)
+{
+	int Length = MultiByteToWideChar(CP_ACP, 0, String.c_str(), -1, nullptr, 0);
+	wchar_t* WideCharBuffer = new wchar_t[Length];
+
+	MultiByteToWideChar(CP_ACP, 0, String.c_str(), -1, WideCharBuffer, Length);
+	
+	std::wstring ResultString = WideCharBuffer;
+	if (WideCharBuffer != nullptr)
+	{
+		delete[] WideCharBuffer;
+		WideCharBuffer = nullptr;
 	}
 	
 	return ResultString;

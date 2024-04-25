@@ -7,7 +7,6 @@
 #include <Windows.h>
 #include <EngineContents\Pre.h>
 #include <EngineContents\ContentsCore.h>
-#include <dxgidebug.h>
 
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,

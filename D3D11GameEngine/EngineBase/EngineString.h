@@ -13,6 +13,8 @@ public:
 	EngineString& operator=(const EngineString& _Other) = delete;
 	EngineString& operator=(EngineString&& _Other) noexcept = delete;
 
-	static std::wstring GetWideString(std::string& _String);
+
+	static std::string GetMultiString(std::wstring& WideString);
+	static std::wstring GetWideString(std::string& String);
 };
 
