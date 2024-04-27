@@ -170,6 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EngineFile.h" />
+    <ClInclude Include="EngineInput.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineDirectory.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="EnginePath.cpp" />
     <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="EngineString.cpp" />
+    <ClCompile Include="EngineInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

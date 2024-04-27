@@ -19,5 +19,10 @@ void TestActor::Start()
 
 void TestActor::Update(float _Delta)
 {
-	Renderer->Transform.AddRotation({ 50* _Delta,50* _Delta,50* _Delta });
+	if (EngineCore::GetMainInput().IsUp('a'))
+	{
+	    Renderer->Transform.AddRotation({ 10,10,10});	
+	}
+
+	
 }

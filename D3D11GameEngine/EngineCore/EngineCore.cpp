@@ -4,6 +4,7 @@
 EngineWindow EngineCore::MainWindow;
 EngineDevice EngineCore::MainDevice;
 EngineTime EngineCore::MainTime;
+EngineInput EngineCore::MainInput;
 EngineLevel* EngineCore::CurLevel;
 EngineObject* EngineCore::CoreObject = nullptr;
 
@@ -34,6 +35,7 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
     MainTime.Init();
     MainTime.CountStart();
 
+    MainInput.AllKeyInit();
 
     MainWindow.MessageLoop();
 }
@@ -43,6 +45,8 @@ void EngineCore::EngineUpdate()
     {
         return;
     }
+
+    MainInput.SetAllKeyState();
 
     float Delta = MainTime.CountEnd();
     MainTime.CountStart();

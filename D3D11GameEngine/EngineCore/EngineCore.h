@@ -4,6 +4,7 @@
 #include "EngineDevice.h"
 #include "EngineRenderer.h"
 #include "EngineLevel.h"
+#include <EngineBase\EngineInput.h>
 
 class EngineCore
 {
@@ -29,6 +30,10 @@ public:
 	static EngineWindow& GetMainWindow()
 	{
 		return MainWindow;
+	}
+	static EngineInput& GetMainInput()
+	{
+		return MainInput;
 	}
 
 	template<typename LevelType>
@@ -71,6 +76,7 @@ public:
 private:
 	static EngineObject* CoreObject;
 	static EngineLevel* CurLevel;
+	static EngineInput MainInput;
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
 	static EngineTime MainTime;

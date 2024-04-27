@@ -9,6 +9,7 @@
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="EngineDebug.h" />
     <ClInclude Include="EngineString.h" />
+    <ClInclude Include="EngineInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineMath.cpp" />
@@ -19,5 +20,6 @@
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="EngineString.cpp" />
+    <ClCompile Include="EngineInput.cpp" />
   </ItemGroup>
 </Project>
