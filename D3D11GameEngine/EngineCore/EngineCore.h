@@ -31,10 +31,6 @@ public:
 	{
 		return MainWindow;
 	}
-	static EngineInput& GetMainInput()
-	{
-		return MainInput;
-	}
 
 	template<typename LevelType>
 	static EngineLevel* CreateLevel(std::string LevelName)
@@ -76,7 +72,6 @@ public:
 private:
 	static EngineObject* CoreObject;
 	static EngineLevel* CurLevel;
-	static EngineInput MainInput;
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
 	static EngineTime MainTime;

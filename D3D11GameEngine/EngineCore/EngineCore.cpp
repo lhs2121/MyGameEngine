@@ -4,7 +4,6 @@
 EngineWindow EngineCore::MainWindow;
 EngineDevice EngineCore::MainDevice;
 EngineTime EngineCore::MainTime;
-EngineInput EngineCore::MainInput;
 EngineLevel* EngineCore::CurLevel;
 EngineObject* EngineCore::CoreObject = nullptr;
 
@@ -35,7 +34,7 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
     MainTime.Init();
     MainTime.CountStart();
 
-    MainInput.AllKeyInit();
+    EngineInput::InitAllKey();
 
     MainWindow.MessageLoop();
 }
@@ -46,7 +45,7 @@ void EngineCore::EngineUpdate()
         return;
     }
 
-    MainInput.SetAllKeyState();
+    EngineInput::SetAllKeyState();
 
     float Delta = MainTime.CountEnd();
     MainTime.CountStart();
@@ -63,13 +62,14 @@ void EngineCore::EngineUpdate()
 void EngineCore::EngineRelease()
 {
     EngineCore::DeleteAllLevel();
-    EngineVertexBuffer::DeleteResource();
-    EngineIndexBuffer::DeleteResource();
-    EngineInputLayout::DeleteResource();
-    EngineVertexShader::DeleteResource();
-    EngineRasterizer::DeleteResource();
-    EnginePixelShader::DeleteResource();
-    EngineDepthStencil::DeleteResource();
+    EngineInput::DeleteAllKey();
+    EngineVertexBuffer::DeleteAllResource();
+    EngineIndexBuffer::DeleteAllResource();
+    EngineInputLayout::DeleteAllResource();
+    EngineVertexShader::DeleteAllResource();
+    EngineRasterizer::DeleteAllResource();
+    EnginePixelShader::DeleteAllResource();
+    EngineDepthStencil::DeleteAllResource();
 }
 
 

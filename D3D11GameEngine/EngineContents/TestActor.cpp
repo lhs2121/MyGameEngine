@@ -19,10 +19,35 @@ void TestActor::Start()
 
 void TestActor::Update(float _Delta)
 {
-	if (EngineCore::GetMainInput().IsUp('a'))
+	if (EngineInput::IsPress('Q'))
 	{
-	    Renderer->Transform.AddRotation({ 10,10,10});	
+		Renderer->Transform.AddRotation({ 100 * _Delta,0,0 });
+	}
+	if (EngineInput::IsPress('W'))
+	{
+		Renderer->Transform.AddRotation({ 0,100 * _Delta,0 });
+	}
+	if (EngineInput::IsPress('E'))
+	{
+		Renderer->Transform.AddRotation({ 0,0,100 * _Delta });
 	}
 
-	
+
+	if (EngineInput::IsPress('A'))
+	{
+		Renderer->Transform.AddPos({ 100 * _Delta,0,0 });
+	}
+	if (EngineInput::IsPress('S'))
+	{
+		Renderer->Transform.AddPos({ 0,100 * _Delta,0 });
+	}
+	if (EngineInput::IsPress('D'))
+	{
+		Renderer->Transform.AddPos({ 0,0,100 * _Delta });
+	}
+
+	if (EngineInput::IsDown('R'))
+	{
+		Renderer->Transform.SetPos({ 0,0,0 });
+	}
 }

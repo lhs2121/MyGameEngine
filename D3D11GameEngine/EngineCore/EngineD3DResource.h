@@ -22,7 +22,7 @@ public:
 		Resources.insert(std::make_pair(Name, NewResource));
 		return NewResource;
 	}
-	static void DeleteResource();
+	static void DeleteAllResource();
 
 	static ResourceType* Find(std::string Name)
 	{
@@ -38,7 +38,7 @@ template<typename ResourceType>
 std::map<std::string, ResourceType*> EngineD3DResource<ResourceType>::Resources;
 
 template<typename ResourceType>
-void EngineD3DResource<ResourceType>::DeleteResource()
+void EngineD3DResource<ResourceType>::DeleteAllResource()
 {
 	for (std::pair<std::string, ResourceType*> pair : Resources)
 	{

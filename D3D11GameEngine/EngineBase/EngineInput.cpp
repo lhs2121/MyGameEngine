@@ -1,6 +1,9 @@
 #include "Pre.h"
 #include "EngineInput.h"
 #include <WinUser.h>
+
+std::map<int, EngineKey*> EngineInput::AllKey;
+
 EngineInput::EngineInput()
 {
 }
@@ -9,186 +12,192 @@ EngineInput::~EngineInput()
 {
 }
 
-void EngineInput::AllKeyInit()
+void EngineInput::InitAllKey()
 {
-	AddKey(VK_LBUTTON);
-	AddKey(VK_RBUTTON);
-	AddKey(VK_CANCEL);
-	AddKey(VK_MBUTTON);
-	AddKey(VK_XBUTTON1);
-	AddKey(VK_XBUTTON2);
+	CreateKey(VK_LBUTTON);
+	CreateKey(VK_RBUTTON);
+	CreateKey(VK_CANCEL);
+	CreateKey(VK_MBUTTON);
+	CreateKey(VK_XBUTTON1);
+	CreateKey(VK_XBUTTON2);
 
-	AddKey(VK_BACK);
-	AddKey(VK_TAB);
+	CreateKey(VK_BACK);
+	CreateKey(VK_TAB);
 
-	AddKey(VK_RETURN);
-	AddKey(VK_SHIFT);
-	AddKey(VK_CONTROL);
-	AddKey(VK_MENU);
-	AddKey(VK_PAUSE);
-	AddKey(VK_CAPITAL);
-	AddKey(VK_KANA);
-	AddKey(VK_HANGEUL);
-	AddKey(VK_HANGUL);
+	CreateKey(VK_RETURN);
+	CreateKey(VK_SHIFT);
+	CreateKey(VK_CONTROL);
+	CreateKey(VK_MENU);
+	CreateKey(VK_PAUSE);
+	CreateKey(VK_CAPITAL);
+	CreateKey(VK_HANGEUL);
 
-	AddKey(VK_ESCAPE);
-	AddKey(VK_SPACE);
-	AddKey(VK_PRIOR);
-	AddKey(VK_NEXT);
-	AddKey(VK_END);
-	AddKey(VK_HOME);
-	AddKey(VK_LEFT);
-	AddKey(VK_UP);
-	AddKey(VK_RIGHT);
-	AddKey(VK_DOWN);
-	AddKey(VK_SNAPSHOT);
-	AddKey(VK_INSERT);
-	AddKey(VK_DELETE);
+	CreateKey(VK_ESCAPE);
+	CreateKey(VK_SPACE);
+	CreateKey(VK_PRIOR);
+	CreateKey(VK_NEXT);
+	CreateKey(VK_END);
+	CreateKey(VK_HOME);
+	CreateKey(VK_LEFT);
+	CreateKey(VK_UP);
+	CreateKey(VK_RIGHT);
+	CreateKey(VK_DOWN);
+	CreateKey(VK_SNAPSHOT);
+	CreateKey(VK_INSERT);
+	CreateKey(VK_DELETE);
 
-	AddKey(0x30); // 0 
-	AddKey(0x31); // 1
-	AddKey(0x32); // 2
-	AddKey(0x33); // 3 
-	AddKey(0x34); // 4
-	AddKey(0x35); // 5
-	AddKey(0x36); // 6
-	AddKey(0x37); // 7
-	AddKey(0x38); // 8
-	AddKey(0x39); // 9
+	CreateKey(0x30); // 0 
+	CreateKey(0x31); // 1
+	CreateKey(0x32); // 2
+	CreateKey(0x33); // 3 
+	CreateKey(0x34); // 4
+	CreateKey(0x35); // 5
+	CreateKey(0x36); // 6
+	CreateKey(0x37); // 7
+	CreateKey(0x38); // 8
+	CreateKey(0x39); // 9
 
-	AddKey(0x41); // A
-	AddKey(0x42); // B
-	AddKey(0x43); // C
-	AddKey(0x44); // D
-	AddKey(0x45); // E 
-	AddKey(0x46); // F
-	AddKey(0x47); // G
-	AddKey(0x48); // H
-	AddKey(0x49); // I
-	AddKey(0x4A); // J
-	AddKey(0x4B); // K
-	AddKey(0x4C); // L
-	AddKey(0x4D); // M
-	AddKey(0x4E); // N
-	AddKey(0x4F); // O
-	AddKey(0x50); // P
-	AddKey(0x51); // Q
-	AddKey(0x52); // R 
-	AddKey(0x53); // S
-	AddKey(0x54); // T
-	AddKey(0x55); // U
-	AddKey(0x56); // V
-	AddKey(0x57); // W
-	AddKey(0x58); // X
-	AddKey(0x59); // Y
-	AddKey(0x5A); // Z
+	CreateKey(0x41); // A
+	CreateKey(0x42); // B
+	CreateKey(0x43); // C
+	CreateKey(0x44); // D
+	CreateKey(0x45); // E 
+	CreateKey(0x46); // F
+	CreateKey(0x47); // G
+	CreateKey(0x48); // H
+	CreateKey(0x49); // I
+	CreateKey(0x4A); // J
+	CreateKey(0x4B); // K
+	CreateKey(0x4C); // L
+	CreateKey(0x4D); // M
+	CreateKey(0x4E); // N
+	CreateKey(0x4F); // O
+	CreateKey(0x50); // P
+	CreateKey(0x51); // Q
+	CreateKey(0x52); // R 
+	CreateKey(0x53); // S
+	CreateKey(0x54); // T
+	CreateKey(0x55); // U
+	CreateKey(0x56); // V
+	CreateKey(0x57); // W
+	CreateKey(0x58); // X
+	CreateKey(0x59); // Y
+	CreateKey(0x5A); // Z
 
-	AddKey(VK_LWIN);
-	AddKey(VK_RWIN);
-	AddKey(VK_NUMPAD0);
-	AddKey(VK_NUMPAD1);
-	AddKey(VK_NUMPAD2);
-	AddKey(VK_NUMPAD3);
-	AddKey(VK_NUMPAD4);
-	AddKey(VK_NUMPAD5);
-	AddKey(VK_NUMPAD6);
-	AddKey(VK_NUMPAD7);
-	AddKey(VK_NUMPAD8);
-	AddKey(VK_NUMPAD9);
+	CreateKey(VK_LWIN);
+	CreateKey(VK_RWIN);
+	CreateKey(VK_NUMPAD0);
+	CreateKey(VK_NUMPAD1);
+	CreateKey(VK_NUMPAD2);
+	CreateKey(VK_NUMPAD3);
+	CreateKey(VK_NUMPAD4);
+	CreateKey(VK_NUMPAD5);
+	CreateKey(VK_NUMPAD6);
+	CreateKey(VK_NUMPAD7);
+	CreateKey(VK_NUMPAD8);
+	CreateKey(VK_NUMPAD9);
 
-	AddKey(VK_MULTIPLY);
-	AddKey(VK_ADD);
-	AddKey(VK_SEPARATOR);
-	AddKey(VK_SUBTRACT);
-	AddKey(VK_DECIMAL);
-	AddKey(VK_DIVIDE);
+	CreateKey(VK_MULTIPLY);
+	CreateKey(VK_ADD);
+	CreateKey(VK_SEPARATOR);
+	CreateKey(VK_SUBTRACT);
+	CreateKey(VK_DECIMAL);
+	CreateKey(VK_DIVIDE);
 
-	AddKey(VK_F1);
-	AddKey(VK_F2);
-	AddKey(VK_F3);
-	AddKey(VK_F4);
-	AddKey(VK_F5);
-	AddKey(VK_F6);
-	AddKey(VK_F7);
-	AddKey(VK_F8);
-	AddKey(VK_F9);
-	AddKey(VK_F10);
-	AddKey(VK_F11);
-	AddKey(VK_F12);
+	CreateKey(VK_F1);
+	CreateKey(VK_F2);
+	CreateKey(VK_F3);
+	CreateKey(VK_F4);
+	CreateKey(VK_F5);
+	CreateKey(VK_F6);
+	CreateKey(VK_F7);
+	CreateKey(VK_F8);
+	CreateKey(VK_F9);
+	CreateKey(VK_F10);
+	CreateKey(VK_F11);
+	CreateKey(VK_F12);
 
-	AddKey(VK_NUMLOCK);
-	AddKey(VK_SCROLL);
-	AddKey(VK_LSHIFT);
-	AddKey(VK_RSHIFT);
-	AddKey(VK_LCONTROL);
-	AddKey(VK_RCONTROL);
-	AddKey(VK_LMENU);
-	AddKey(VK_RMENU);
-	AddKey(VK_VOLUME_MUTE);
-	AddKey(VK_VOLUME_DOWN);
-	AddKey(VK_VOLUME_UP);
+	CreateKey(VK_NUMLOCK);
+	CreateKey(VK_SCROLL);
+	CreateKey(VK_LSHIFT);
+	CreateKey(VK_RSHIFT);
+	CreateKey(VK_LCONTROL);
+	CreateKey(VK_RCONTROL);
+	CreateKey(VK_LMENU);
+	CreateKey(VK_RMENU);
+	CreateKey(VK_VOLUME_MUTE);
+	CreateKey(VK_VOLUME_DOWN);
+	CreateKey(VK_VOLUME_UP);
 
-	AddKey(VK_OEM_1);
-	AddKey(VK_OEM_PLUS);
-	AddKey(VK_OEM_COMMA);
-	AddKey(VK_OEM_MINUS);
-	AddKey(VK_OEM_PERIOD);
-	AddKey(VK_OEM_2);
-	AddKey(VK_OEM_3);
-	AddKey(VK_OEM_4);
-	AddKey(VK_OEM_5);
-	AddKey(VK_OEM_6);
-
-	AddKey(VK_VOLUME_UP);
+	CreateKey(VK_OEM_1);
+	CreateKey(VK_OEM_PLUS);
+	CreateKey(VK_OEM_COMMA);
+	CreateKey(VK_OEM_MINUS);
+	CreateKey(VK_OEM_PERIOD);
+	CreateKey(VK_OEM_2);
+	CreateKey(VK_OEM_3);
+	CreateKey(VK_OEM_4);
+	CreateKey(VK_OEM_5);
+	CreateKey(VK_OEM_6);
 }
 
-void EngineInput::AddKey(int KeyCode)
+void EngineInput::CreateKey(int KeyCode)
 {
-	EngineKey NewKey;
-	NewKey.KeyCode = KeyCode;
-	AllKey.push_back(NewKey);
+	EngineKey* NewKey = new EngineKey();
+	NewKey->KeyCode = KeyCode;
+	AllKey.insert(std::make_pair(KeyCode, NewKey));
+}
+
+void EngineInput::DeleteAllKey()
+{
+	for (std::pair<int, EngineKey*> pair : AllKey)
+	{                     
+		delete pair.second;
+	}
+	AllKey.clear();
 }
 
 void EngineInput::SetAllKeyState()
 {
-	for (EngineKey& Key : AllKey)
+	for (std::pair<int,EngineKey*> Element : AllKey)
 	{
-		SHORT State = GetAsyncKeyState(Key.KeyCode);
+		EngineKey* Key = Element.second;
+		SHORT State = GetAsyncKeyState(Key->KeyCode);
 
 		if (State == 0) // 안눌렸을때
 		{
-			if (Key.IsDown || Key.IsPress) // 이전에 눌러져있었다면 Up
-			{
-				Key.IsDown = false;
-				Key.IsPress = false;
-				Key.IsUp = true;
-				Key.IsFree = false;
+			if (Key->IsDown || Key->IsPress) // 이전에 눌러져있었다면 Up
+			{	   
+				Key->IsDown = false;
+				Key->IsPress = false;
+				Key->IsUp = true;
+				Key->IsFree = false;
 				continue;
 			}
 
 			// 아니라면 Free
-			Key.IsDown = false;
-			Key.IsPress = false;
-			Key.IsUp = false;
-			Key.IsFree = true;
+			Key->IsDown = false;
+			Key->IsPress = false;
+			Key->IsUp = false;
+			Key->IsFree = true;
 			continue;
 		}
 		else
 		{
-			if (Key.IsDown || Key.IsPress) // 이전에 눌러져있다면 Press
+			if (Key->IsDown || Key->IsPress) // 이전에 눌러져있다면 Press
 			{
-				Key.IsDown = false;
-				Key.IsPress = true;
-				Key.IsUp = false;
-				Key.IsFree = false;
+				Key->IsDown = false;
+				Key->IsPress = true;
+				Key->IsUp = false;
+				Key->IsFree = false;
 				continue;
 			}
 
 			// 아니라면 Down
-			Key.IsDown = true;
-			Key.IsPress = false;
-			Key.IsUp = false;
-			Key.IsFree = false;
+			Key->IsDown = true;
+			Key->IsPress = false;
+			Key->IsUp = false;
+			Key->IsFree = false;
 			continue;
 		}
 	}
@@ -196,52 +205,36 @@ void EngineInput::SetAllKeyState()
 
 bool EngineInput::IsDown(int KeyCode)
 {
-	for (EngineKey& Key : AllKey)
+	if (AllKey.end() != AllKey.find(KeyCode))
 	{
-		if (KeyCode == Key.KeyCode)
-		{
-			return Key.IsDown;
-		}
+		return AllKey[KeyCode]->IsDown;
 	}
-
 	return false;
 }
 bool EngineInput::IsPress(int KeyCode)
 {
-	for (EngineKey& Key : AllKey)
+	if (AllKey.end() != AllKey.find(KeyCode))
 	{
-		if (KeyCode == Key.KeyCode)
-		{
-			return Key.IsPress;
-		}
+		return AllKey[KeyCode]->IsPress;
 	}
-
 	return false;
 }
 
 bool EngineInput::IsUp(int KeyCode)
 {
-	for (EngineKey& Key : AllKey)
+	if (AllKey.end() != AllKey.find(KeyCode))
 	{
-		if (KeyCode == Key.KeyCode)
-		{
-			return Key.IsUp;
-		}
+		return AllKey[KeyCode]->IsUp;
 	}
-
 	return false;
 }
 
 bool EngineInput::IsFree(int KeyCode)
 {
-	for (EngineKey& Key : AllKey)
+	if (AllKey.end() == AllKey.find(KeyCode))
 	{
-		if (KeyCode == Key.KeyCode)
-		{
-			return Key.IsFree;
-		}
+		return AllKey[KeyCode]->IsFree;
 	}
-
 	return false;
 }
 

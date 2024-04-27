@@ -22,16 +22,19 @@ public:
 	EngineInput& operator=(const EngineInput& _Other) = delete;
 	EngineInput& operator=(EngineInput&& _Other) noexcept = delete;
 
-	void AllKeyInit();
-	void AddKey(int KeyCode);
 
-	void SetAllKeyState();
+	static void CreateKey(int KeyCode);
 
-	bool IsDown(int KeyCode);
-	bool IsPress(int KeyCode);
-	bool IsUp(int KeyCode);
-	bool IsFree(int KeyCode);
+	static void InitAllKey();
+	static void DeleteAllKey();
 
-	std::vector<EngineKey> AllKey;
+	static void SetAllKeyState();
+
+	static bool IsDown(int KeyCode);
+	static bool IsPress(int KeyCode);
+	static bool IsUp(int KeyCode);
+	static bool IsFree(int KeyCode);
+	
+	static std::map<int,EngineKey*> AllKey;
 };
 
