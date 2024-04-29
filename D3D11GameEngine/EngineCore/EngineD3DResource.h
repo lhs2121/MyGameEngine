@@ -28,9 +28,9 @@ public:
 	{
 		return Resources[Name];
 	}
-
+	
 	virtual void IntoPipeLine() = 0;
-
+	
 	static std::map<std::string, ResourceType*> Resources;
 };
 

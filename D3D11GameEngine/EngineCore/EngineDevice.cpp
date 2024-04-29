@@ -2,10 +2,6 @@
 #include <dxgi.h>
 #include <D3Dcompiler.h>
 
-#pragma comment(lib, "d3d11")
-#pragma comment(lib, "dxgi")
-#pragma comment(lib, "D3DCompiler")
-
 EngineDevice::EngineDevice()
 {
 }
