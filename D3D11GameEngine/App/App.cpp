@@ -2,9 +2,9 @@
 #pragma comment(lib, "EngineWindow.lib")
 #pragma comment(lib, "EngineCore.lib")
 #pragma comment(lib, "EngineContents.lib")
-#pragma comment(lib, "d3d11")
-#pragma comment(lib, "dxgi")
-#pragma comment(lib, "D3DCompiler")
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "D3DCompiler.lib")
 #pragma comment(lib, "Input.lib")
 
 #include <iostream>
