@@ -6,6 +6,7 @@ EngineDevice EngineCore::MainDevice;
 EngineTime EngineCore::MainTime;
 EngineLevel* EngineCore::CurLevel;
 EngineObject* EngineCore::CoreObject = nullptr;
+IEngineInput* EngineCore::InputInterface = nullptr;
 
 std::map<std::string, EngineLevel*> EngineCore::AllLevel;
 
@@ -34,7 +35,9 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
     MainTime.Init();
     MainTime.CountStart();
 
-    EngineInput::InitAllKey();
+    CreateInput(&InputInterface);
+    InputInterface->InitAllKey();
+    //EngineInput::InitAllKey();
 
     MainWindow.MessageLoop();
 }
@@ -45,7 +48,8 @@ void EngineCore::EngineUpdate()
         return;
     }
 
-    EngineInput::SetAllKeyState();
+    InputInterface->SetAllKeyState();
+    //EngineInput::SetAllKeyState();
 
     float Delta = MainTime.CountEnd();
     MainTime.CountStart();
@@ -62,7 +66,12 @@ void EngineCore::EngineUpdate()
 void EngineCore::EngineRelease()
 {
     EngineCore::DeleteAllLevel();
-    EngineInput::DeleteAllKey();
+    InputInterface->DeleteAllKey();
+    if (InputInterface != nullptr)
+    {
+        delete InputInterface;
+        InputInterface = nullptr;
+    }
     EngineVertexBuffer::DeleteAllResource();
     EngineIndexBuffer::DeleteAllResource();
     EngineInputLayout::DeleteAllResource();

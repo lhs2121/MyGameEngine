@@ -19,43 +19,43 @@ void TestActor::Start()
 
 void TestActor::Update(float _Delta)
 {
-	if (EngineInput::IsPress('1'))
+	if (KeyIsPress('1'))
 	{
 		Renderer->Transform.AddRotation({ 100 * _Delta,0,0 });
 	}
-	if (EngineInput::IsPress('2'))
+	if (KeyIsPress('2'))
 	{
 		Renderer->Transform.AddRotation({ 0,-100 * _Delta,0 });
 	}
-	if (EngineInput::IsPress('3'))
+	if (KeyIsPress('3'))
 	{
 		Renderer->Transform.AddRotation({ 0,0,100 * _Delta });
 	}
-	if (EngineInput::IsPress('W'))
+	if (KeyIsPress('W'))
 	{
 		Renderer->Transform.AddPos({ 0,100 * _Delta,0 });
 	}
-	if (EngineInput::IsPress('A'))
+	if (KeyIsPress('A'))
 	{
 		Renderer->Transform.AddPos({ -100 * _Delta,0,0 });
 	}
-	if (EngineInput::IsPress('S'))
+	if (KeyIsPress('S'))
 	{
 		Renderer->Transform.AddPos({ 0,-100 * _Delta,0 });
 	}
-	if (EngineInput::IsPress('D'))
+	if (KeyIsPress('D'))
 	{
 		Renderer->Transform.AddPos({ 100 * _Delta,0,0 });
 	}
-	if (EngineInput::IsPress('Q'))
+	if (KeyIsPress('Q'))
 	{
 		Renderer->Transform.AddPos({ 0,0,100 * _Delta });
 	}
-	if (EngineInput::IsPress('E'))
+	if (KeyIsPress('E'))
 	{
 		Renderer->Transform.AddPos({ 0,0,-100 * _Delta });
 	}
-	if (EngineInput::IsDown('R'))
+	if (KeyIsDown('R'))
 	{
 		Renderer->Transform.SetPos({ 0,0,0 });
 	}

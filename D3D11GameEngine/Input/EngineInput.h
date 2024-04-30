@@ -1,15 +1,17 @@
 #pragma once
+#include "IEngineInput.h"
+#include <map>
 
 class EngineKey
 {
 public:
-	float KeyCode = -1;
+	int KeyCode = -1;
 	bool IsDown = false;
 	bool IsPress = false;
 	bool IsUp = false;
 	bool IsFree = false;
 };
-class EngineInput
+class EngineInput : public IEngineInput
 {
 public:
 	// constrcuter destructer
@@ -23,18 +25,18 @@ public:
 	EngineInput& operator=(EngineInput&& _Other) noexcept = delete;
 
 
-	static void CreateKey(int KeyCode);
-	
-	static void InitAllKey();
-	static void DeleteAllKey();
+	void CreateKey(int KeyCode) override;
 
-	static void SetAllKeyState();
+	void InitAllKey() override;
+	void DeleteAllKey() override;
 
-	static bool IsDown(int KeyCode);
-	static bool IsPress(int KeyCode);
-	static bool IsUp(int KeyCode);
-	static bool IsFree(int KeyCode);
-	
+	void SetAllKeyState() override;
+
+	bool IsDown(int KeyCode) override;
+	bool IsPress(int KeyCode) override;
+	bool IsUp(int KeyCode) override;
+	bool IsFree(int KeyCode) override;
+
 	static std::map<int,EngineKey*> AllKey;
 };
 

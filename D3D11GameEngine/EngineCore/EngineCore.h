@@ -1,10 +1,15 @@
 #pragma once
 #include <EngineBase\EngineTime.h>
 #include <EngineWindow\EngineWindow.h>
+#include <Input\IEngineInput.h>
 #include "EngineDevice.h"
 #include "EngineRenderer.h"
 #include "EngineLevel.h"
-#include <EngineBase\EngineInput.h>
+
+#define KeyIsDown(KeyCode) EngineCore::IsDown(KeyCode)
+#define KeyIsPress(KeyCode) EngineCore::IsPress(KeyCode)
+#define KeyIsUp(KeyCode) EngineCore::IsUp(KeyCode)
+#define KeyIsFree(KeyCode) EngineCore::IsFree(KeyCode)
 
 class EngineCore
 {
@@ -69,12 +74,30 @@ public:
 	static void EngineUpdate();
 	static void EngineRelease();
 
+	static bool IsDown(int KeyCode)
+	{
+		return InputInterface->IsDown(KeyCode);
+	}
+	static bool IsPress(int KeyCode)
+	{
+		return InputInterface->IsPress(KeyCode);
+	}
+	static bool IsUp(int KeyCode)
+	{
+		return InputInterface->IsUp(KeyCode);
+	}
+	static bool IsFree(int KeyCode)
+	{
+		return InputInterface->IsFree(KeyCode);
+	}
 private:
+
 	static EngineObject* CoreObject;
 	static EngineLevel* CurLevel;
 	static EngineWindow MainWindow;
 	static EngineDevice MainDevice;
 	static EngineTime MainTime;
+	static IEngineInput* InputInterface;
 
 	static std::map<std::string, EngineLevel*> AllLevel;
 };
