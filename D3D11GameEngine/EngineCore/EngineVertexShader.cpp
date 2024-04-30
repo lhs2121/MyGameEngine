@@ -30,16 +30,8 @@ void EngineVertexShader::CreateResource(std::string _Name, std::string _Path)
 {
 	int Flag;
 #ifdef _DEBUG
-	// 11버전이 없다.
-	// 에러 
 	Flag = D3DCOMPILE_DEBUG;
 #endif
-
-	//std::string Include =
-	//"float4 Value; \
-	// float4 Pos; ";
-
-	// 추후 상수버퍼 공부하면서 꼭 물어보세요
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 	ID3DBlob* ErrorBlob = nullptr;
 
