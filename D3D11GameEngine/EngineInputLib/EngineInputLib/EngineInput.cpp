@@ -9,6 +9,7 @@ EngineInput::EngineInput()
 
 EngineInput::~EngineInput()
 {
+	//asd
 }
 
 void EngineInput::InitAllKey()

@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineBase\EngineTime.h>
 #include <EngineWindow\EngineWindow.h>
-#include <Input\IEngineInput.h>
+#include <EngineInputLib\include\IEngineInput.h>
 #include "EngineDevice.h"
 #include "EngineRenderer.h"
 #include "EngineLevel.h"
