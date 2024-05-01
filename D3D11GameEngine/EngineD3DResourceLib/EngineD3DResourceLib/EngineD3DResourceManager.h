@@ -1,7 +1,7 @@
 #pragma once
 #include "IEngineD3DRes.h"
 
-class EngineD3DResourceManger : public IEngineD3DResourceManger
+class IEngineD3DResourceManager : public IEngineD3DResourceManager
 {
 public:
 	IEngineDevice* CreateDevice() override;

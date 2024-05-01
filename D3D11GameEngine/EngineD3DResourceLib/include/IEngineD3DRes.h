@@ -43,7 +43,7 @@ struct IEngineDepthStencil : public IEngineD3DUnknown
 {
 };
 
-struct IEngineD3DResourceManger
+struct IEngineD3DResourceManager
 {
 	virtual IEngineDevice* CreateDevice() = 0;
 	virtual IEngineVertexBuffer* CreateVertexBuffer(const char* _Name) = 0;
@@ -65,3 +65,5 @@ struct IEngineD3DResourceManger
 
 	virtual void* Find(const char* _Name) = 0;
 };
+
+extern "C" __declspec(dllexport) void CreateResourceManger(IEngineD3DResourceManager** ppManager);

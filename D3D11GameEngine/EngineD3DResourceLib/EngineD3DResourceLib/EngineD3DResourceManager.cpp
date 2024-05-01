@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "EngineD3DResourceManger.h"
+#include "IEngineD3DResourceManager.h"
 #include "EngineDevice.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
@@ -15,7 +15,7 @@
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "EngineBase.lib")
 
-IEngineDevice* EngineD3DResourceManger::CreateDevice()
+IEngineDevice* IEngineD3DResourceManager::CreateDevice()
 {
 	IEngineDevice* NewDevice = new EngineDevice();
 	EngineDevice* ChildPtr = (EngineDevice*)NewDevice;
@@ -24,7 +24,7 @@ IEngineDevice* EngineD3DResourceManger::CreateDevice()
 	return NewDevice;
 }
 
-IEngineVertexBuffer* EngineD3DResourceManger::CreateVertexBuffer(const char* _Name)
+IEngineVertexBuffer* IEngineD3DResourceManager::CreateVertexBuffer(const char* _Name)
 {
 	IEngineVertexBuffer* NewVertexBuffer = new EngineVertexBuffer();
 	EngineVertexBuffer* ChildPtr = (EngineVertexBuffer*)NewVertexBuffer;
@@ -33,7 +33,7 @@ IEngineVertexBuffer* EngineD3DResourceManger::CreateVertexBuffer(const char* _Na
 	return NewVertexBuffer;
 }
 
-IEngineIndexBuffer* EngineD3DResourceManger::CreateIndexBuffer(const char* _Name)
+IEngineIndexBuffer* IEngineD3DResourceManager::CreateIndexBuffer(const char* _Name)
 {
 	IEngineIndexBuffer* NewIndexBuffer = new EngineIndexBuffer();
 	EngineIndexBuffer* ChildPtr = (EngineIndexBuffer*)NewIndexBuffer;
@@ -42,7 +42,7 @@ IEngineIndexBuffer* EngineD3DResourceManger::CreateIndexBuffer(const char* _Name
 	return NewIndexBuffer;
 }
 
-IEngineInputLayout* EngineD3DResourceManger::CreateInputLayout(const char* _Name)
+IEngineInputLayout* IEngineD3DResourceManager::CreateInputLayout(const char* _Name)
 {
 	IEngineInputLayout* NewInputLayout = new EngineInputLayout();
 	EngineInputLayout* ChildPtr = (EngineInputLayout*)NewInputLayout;
@@ -51,7 +51,7 @@ IEngineInputLayout* EngineD3DResourceManger::CreateInputLayout(const char* _Name
 	return NewInputLayout;
 }
 
-IEngineVertexShader* EngineD3DResourceManger::CreateVertexShader(const char* _Name)
+IEngineVertexShader* IEngineD3DResourceManager::CreateVertexShader(const char* _Name)
 {
 	IEngineVertexShader* NewVertexShader = new EngineVertexShader();
 	EngineVertexShader* ChildPtr = (EngineVertexShader*)NewVertexShader;
@@ -60,7 +60,7 @@ IEngineVertexShader* EngineD3DResourceManger::CreateVertexShader(const char* _Na
 	return NewVertexShader;
 }
 
-IEnginePixelShader* EngineD3DResourceManger::CreatePixelShader(const char* _Name)
+IEnginePixelShader* IEngineD3DResourceManager::CreatePixelShader(const char* _Name)
 {
 	IEnginePixelShader* NewPixelShader = new EnginePixelShader();
 	EnginePixelShader* ChildPtr = (EnginePixelShader*)NewPixelShader;
@@ -69,7 +69,7 @@ IEnginePixelShader* EngineD3DResourceManger::CreatePixelShader(const char* _Name
 	return NewPixelShader;
 }
 
-IEngineRasterizer* EngineD3DResourceManger::CreateRasterizer(const char* _Name)
+IEngineRasterizer* IEngineD3DResourceManager::CreateRasterizer(const char* _Name)
 {
 	IEngineRasterizer* NewRasterizer = new EngineRasterizer();
 	EngineRasterizer* ChildPtr = (EngineRasterizer*)NewRasterizer;
@@ -78,7 +78,7 @@ IEngineRasterizer* EngineD3DResourceManger::CreateRasterizer(const char* _Name)
 	return NewRasterizer;
 }
 
-IEngineDepthStencil* EngineD3DResourceManger::CreateDepthStencil(const char* _Name)
+IEngineDepthStencil* IEngineD3DResourceManager::CreateDepthStencil(const char* _Name)
 {
 	IEngineDepthStencil* NewDepthStencil = new EngineDepthStencil();
 	EngineDepthStencil* ChildPtr = (EngineDepthStencil*)NewDepthStencil;
@@ -87,14 +87,14 @@ IEngineDepthStencil* EngineD3DResourceManger::CreateDepthStencil(const char* _Na
 	return NewDepthStencil;
 }
 
-void EngineD3DResourceManger::SettingDevice()
+void IEngineD3DResourceManager::SettingDevice()
 {
 	EngineDevice* ChildPtr = (EngineDevice*)m_pDevice;
 	ChildPtr->Init();
 	ChildPtr->ResourceInit();
 }
 
-void EngineD3DResourceManger::SettingVertexBuffer(IEngineVertexBuffer* pBuffer, VERTEX_POS_COLOR* pVertices, int VertexSize)
+void IEngineD3DResourceManager::SettingVertexBuffer(IEngineVertexBuffer* pBuffer, VERTEX_POS_COLOR* pVertices, int VertexSize)
 {
 	EngineVertexBuffer* ChildPtr = (EngineVertexBuffer*)pBuffer;
 
@@ -117,7 +117,7 @@ void EngineD3DResourceManger::SettingVertexBuffer(IEngineVertexBuffer* pBuffer, 
 	HRESULT Result = m_pDevice->GetDevice()->CreateBuffer(&Desc, &Data, &ChildPtr->BufferPtr);
 }
 
-void EngineD3DResourceManger::SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int IndexSize)
+void IEngineD3DResourceManager::SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int IndexSize)
 {
 	EngineIndexBuffer* ChildPtr = (EngineIndexBuffer*)pBuffer;
 
@@ -141,7 +141,7 @@ void EngineD3DResourceManger::SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UI
 	HRESULT Result = m_pDevice->GetDevice()->CreateBuffer(&Desc, &Data, &ChildPtr->BufferPtr);
 }
 
-void EngineD3DResourceManger::SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum,
+void IEngineD3DResourceManager::SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum,
 	D3D11_INPUT_ELEMENT_DESC* _Desc, void* ShaderBytecode, SIZE_T BytecodeLength)
 {
 	EngineInputLayout* ChildPtr = (EngineInputLayout*)pLayout;
@@ -150,7 +150,7 @@ void EngineD3DResourceManger::SettingInputLayout(IEngineInputLayout* pLayout, UI
 	HRESULT Result = m_pDevice->GetDevice()->CreateInputLayout(ChildPtr->LayoutDesc, ChildPtr->ElementNum, ShaderBytecode, BytecodeLength, &ChildPtr->LayoutPtr);
 }
 
-void EngineD3DResourceManger::SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path)
+void IEngineD3DResourceManager::SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path)
 {
 	EngineVertexShader* ChildPtr = (EngineVertexShader*)pShader;
 
@@ -187,7 +187,7 @@ void EngineD3DResourceManger::SettingVertexShader(IEngineVertexShader* pShader, 
 	m_pDevice->GetDevice()->CreateVertexShader(ChildPtr->ShaderBlob->GetBufferPointer(), ChildPtr->ShaderBlob->GetBufferSize(), nullptr, &ChildPtr->ShaderPtr);
 }
 
-void EngineD3DResourceManger::SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path)
+void IEngineD3DResourceManager::SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path)
 {
 	EnginePixelShader* ChildPtr = (EnginePixelShader*)pShader;
 
@@ -224,7 +224,7 @@ void EngineD3DResourceManger::SettingPixelShader(IEnginePixelShader* pShader, co
 	m_pDevice->GetDevice()->CreatePixelShader(ChildPtr->ShaderBlob->GetBufferPointer(), ChildPtr->ShaderBlob->GetBufferSize(), nullptr, &ChildPtr->ShaderPtr);
 }
 
-void EngineD3DResourceManger::SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc)
+void IEngineD3DResourceManager::SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc)
 {
 	EngineRasterizer* ChildPtr = (EngineRasterizer*)pRasterizer;
 
@@ -232,7 +232,7 @@ void EngineD3DResourceManger::SettingRasterizer(IEngineRasterizer* pRasterizer, 
 	m_pDevice->GetDevice()->CreateRasterizerState(&ChildPtr->Desc, &ChildPtr->RasterizePtr);
 }
 
-void EngineD3DResourceManger::SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc)
+void IEngineD3DResourceManager::SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc)
 {
 	EngineDepthStencil* ChildPtr = (EngineDepthStencil*)pDepthStencil;
 
@@ -240,7 +240,7 @@ void EngineD3DResourceManger::SettingDepthStencil(IEngineDepthStencil* pDepthSte
 	m_pDevice->GetDevice()->CreateDepthStencilState(&ChildPtr->m_Desc, &ChildPtr->m_pDepthStencil);
 }
 
-void* EngineD3DResourceManger::Find(const char* _Name)
+void* IEngineD3DResourceManager::Find(const char* _Name)
 {
 	if (ResourceMap.find(_Name) != ResourceMap.end())
 	{

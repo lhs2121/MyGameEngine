@@ -1,6 +1,6 @@
 #pragma once
 #include "IEngineD3DRes.h"
-#include "EngineD3DResourceManger.h"
+#include "IEngineD3DResourceManager.h"
 #include "d3d11.h"
 
 class EngineDevice : public IEngineDevice
@@ -30,7 +30,7 @@ public:
 		return m_pDeviceContext;
 	}
 
-	void SetManager(EngineD3DResourceManger* pManager)
+	void SetManager(IEngineD3DResourceManager* pManager)
 	{
 		m_pManager = pManager;
 	}
@@ -45,6 +45,6 @@ private:
 	ID3D11RenderTargetView* m_pBackRenderTargetView = nullptr;
 	ID3D11DepthStencilView* m_pDepthView = nullptr;
 
-	EngineD3DResourceManger* m_pManager = nullptr;
+	IEngineD3DResourceManager* m_pManager = nullptr;
 
 };
