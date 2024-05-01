@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineCamera.h"
+#include "EngineCore.h"
 
 EngineCamera::EngineCamera()
 {

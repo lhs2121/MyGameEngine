@@ -10,11 +10,28 @@
 
 void EngineDevice::ResourceInit()
 {
-	ShaderInit();
-	
+	{
+		EngineDirectory Dir;
+		Dir.GoChild("EngineShader");
+		std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".fx");
+
+		for (EngineFile& ShaderFile : AllShaderFile)
+		{
+			std::string FileName = ShaderFile.GetFileName();
+			std::string VSFileName = "vs_" + ShaderFile.GetFileName();
+			std::string PSFileName = "ps_" + ShaderFile.GetFileName();
+
+			IEngineVertexShader* pVertexShader = m_pManager->CreateVertexShader(VSFileName.c_str());
+			m_pManager->SettingVertexShader(pVertexShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
+			
+			IEnginePixelShader* pPixelShader = m_pManager->CreatePixelShader(PSFileName.c_str());
+			m_pManager->SettingPixelShader(pPixelShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
+		}
+	}
+
 	//IA¼³Á¤
 	{
-		EngineVertexShader* TestVertexShader = EngineVertexShader::Find("TestShader");
+		EngineVertexShader* TestVertexShader = (EngineVertexShader*)m_pManager->Find("TestShader");
 		{
 			D3D11_INPUT_ELEMENT_DESC Desc[] =
 			{
@@ -22,34 +39,33 @@ void EngineDevice::ResourceInit()
 				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
 
-			EngineInputLayout* NewInputLayout = EngineInputLayout::RegisterResource("POS_COLOR");
-			NewInputLayout->SetDesc(2, Desc);
-			NewInputLayout->CreateResource(TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+			IEngineInputLayout* pInputLayout = m_pManager->CreateInputLayout("POS_COLOR");
+			m_pManager->SettingInputLayout(pInputLayout, 2, Desc, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
 	}
 
-	//Box2D
-	{
-		float4 Rect[] =
-		{
-			float4(-0.5f, 0.5f, -0.5f, 0.5f),
-			float4(0.5f, 0.5f, -0.5f, 0.5f),
-			float4(0.5f, -0.5f, -0.5f, 0.5f),
-			float4(-0.5f, -0.5f, -0.5f, 0.5f)
-		};
-		EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Rect");
-		NewVertexBuffer->CreateResource(Rect, sizeof(Rect));
-	}
+	////Box2D
+	//{
+	//	float4 Rect[] =
+	//	{
+	//		float4(-0.5f, 0.5f, -0.5f, 0.5f),
+	//		float4(0.5f, 0.5f, -0.5f, 0.5f),
+	//		float4(0.5f, -0.5f, -0.5f, 0.5f),
+	//		float4(-0.5f, -0.5f, -0.5f, 0.5f)
+	//	};
+	//	EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Rect");
+	//	NewVertexBuffer->CreateResource(Rect, sizeof(Rect));
+	//}
 
-	{
-		UINT Rect[]
-		{
-			0,1,2,
-			0,2,3
-		};
-		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Rect");
-		NewIndexBuffer->CreateResource(Rect, sizeof(Rect));
-	}
+	//{
+	//	UINT Rect[]
+	//	{
+	//		0,1,2,
+	//		0,2,3
+	//	};
+	//	EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Rect");
+	//	NewIndexBuffer->CreateResource(Rect, sizeof(Rect));
+	//}
 
 	//Box3D
 	{
@@ -97,8 +113,9 @@ void EngineDevice::ResourceInit()
 			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) } ,
 		};
-		EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Box3D");
-		NewVertexBuffer->CreateResource(Box3D, sizeof(Box3D));
+
+		IEngineVertexBuffer* pVertexBuffer = m_pManager->CreateVertexBuffer("v_Box3D");
+		m_pManager->SettingVertexBuffer(pVertexBuffer, Box3D,sizeof(Box3D));
 	}
 
 	{
@@ -129,8 +146,8 @@ void EngineDevice::ResourceInit()
 			22,23,20
 		};
 
-		EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Box3D");
-		NewIndexBuffer->CreateResource(Box3D, sizeof(Box3D));
+		IEngineIndexBuffer* pIndexBuffer = m_pManager->CreateIndexBuffer("i_Box3D");
+		m_pManager->SettingIndexBuffer(pIndexBuffer, Box3D, sizeof(Box3D));
 	}
 
 	{
@@ -147,8 +164,8 @@ void EngineDevice::ResourceInit()
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
 		
-		EngineRasterizer* NewRasterizer = EngineRasterizer::RegisterResource("Default");
-		NewRasterizer->CreateResource(Desc);
+		IEngineRasterizer* pRasterizer = m_pManager->CreateRasterizer("rs_Default");
+		m_pManager->SettingRasterizer(pRasterizer, Desc);
 	}
 
 	{
@@ -158,8 +175,8 @@ void EngineDevice::ResourceInit()
 		Desc.DepthFunc = D3D11_COMPARISON_LESS;
 		Desc.StencilEnable = false;
 
-		EngineDepthStencil* NewDeathStencil = EngineDepthStencil::RegisterResource("Default");
-		NewDeathStencil->CreateResource(Desc);
+		IEngineDepthStencil* pDepthStencil = m_pManager->CreateDepthStencil("ds_Default");
+		m_pManager->SettingDepthStencil(pDepthStencil, Desc);
 	}
 
 }

@@ -17,6 +17,7 @@ public:
 
 	void Init();
 	void ResourceInit();
+	void ShaderInit();
 	void Clear();
 	void Present();
 

@@ -4,9 +4,6 @@
 #include <iostream>
 #include <d3dcompiler.h> // DirectX Shader Compiler
 
-
-#pragma comment(lib, "d3dcompiler.lib")
-
 EngineVertexShader::EngineVertexShader()
 {
 }

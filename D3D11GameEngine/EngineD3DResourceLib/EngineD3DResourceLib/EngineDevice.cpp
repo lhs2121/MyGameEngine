@@ -1,4 +1,10 @@
 #include "Pre.h"
+#include "EngineDevice.h"
+#include <dxgi.h>
+#include <D3Dcompiler.h>
+
+#pragma comment(lib,"dxgi.lib")
+#pragma comment(lib,"d3d11.lib")
 
 EngineDevice::EngineDevice()
 {
@@ -6,37 +12,37 @@ EngineDevice::EngineDevice()
 
 EngineDevice::~EngineDevice()
 {
-	if (Context != nullptr)
+	if (m_pDeviceContext != nullptr)
 	{
-		Context->Release();
-		Context = nullptr;
+		m_pDeviceContext->Release();
+		m_pDeviceContext = nullptr;
 	}
-	if (SwapChain != nullptr)
+	if (m_pSwapChain != nullptr)
 	{
-		SwapChain->Release();
-		SwapChain = nullptr;
+		m_pSwapChain->Release();
+		m_pSwapChain = nullptr;
 	}
-	if (BackTexture != nullptr)
+	if (m_pBackTexture != nullptr)
 	{
-		BackTexture->Release();
-		BackTexture = nullptr;
+		m_pBackTexture->Release();
+		m_pBackTexture = nullptr;
 	}
-	if (BackRenderTargetView != nullptr)
+	if (m_pBackRenderTargetView != nullptr)
 	{
-		BackRenderTargetView->Release();
-		BackRenderTargetView = nullptr;
+		m_pBackRenderTargetView->Release();
+		m_pBackRenderTargetView = nullptr;
 	}
-	if (DepthView != nullptr)
+	if (m_pDepthView != nullptr)
 	{
-		DepthView->Release();
-		DepthView = nullptr;
+		m_pDepthView->Release();
+		m_pDepthView = nullptr;
 	}
-	if (DepthTexture != nullptr)
+	if (m_pDepthTexture != nullptr)
 	{
-		DepthTexture->Release();
-		DepthTexture = nullptr;
+		m_pDepthTexture->Release();
+		m_pDepthTexture = nullptr;
 	}
-	if (Device != nullptr)
+	if (m_pDevice != nullptr)
 	{
 		//#if defined(DEBUG) || defined(_DEBUG)
 		//		ID3D11Debug* dxgiDebug;
@@ -48,8 +54,8 @@ EngineDevice::~EngineDevice()
 		//		}
 		//#endif
 
-		Device->Release();
-		Device = nullptr;
+		m_pDevice->Release();
+		m_pDevice = nullptr;
 	}
 }
 
@@ -73,17 +79,15 @@ void EngineDevice::Init()
 		nullptr,
 		0,
 		D3D11_SDK_VERSION,
-		&Device,
+		&m_pDevice,
 		&Level,
-		&Context
+		&m_pDeviceContext
 	);
 
 	{
-		float4 Size = EngineCore::GetMainWindow().GetWindowSize();
-
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
-		Desc.BufferDesc.Width = Size.ix();
-		Desc.BufferDesc.Height = Size.iy();
+		Desc.BufferDesc.Width = 1920;
+		Desc.BufferDesc.Height = 1080;
 		Desc.BufferDesc.RefreshRate.Numerator = 60;
 		Desc.BufferDesc.RefreshRate.Denominator = 1;
 		Desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -93,27 +97,25 @@ void EngineDevice::Init()
 		Desc.SampleDesc.Quality = 0;
 		Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 		Desc.BufferCount = 2;
-		Desc.OutputWindow = EngineCore::GetMainWindow().GetHwnd();
+		Desc.OutputWindow = 0;
 		Desc.Windowed = true;
 		Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-		HRESULT Result = FactoryPtr->CreateSwapChain(Device, &Desc, &SwapChain);
+		HRESULT Result = FactoryPtr->CreateSwapChain(m_pDevice, &Desc, &m_pSwapChain);
 
-		SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&BackTexture));
+		m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&m_pBackTexture));
 	}
 
 
 	{
-		HRESULT Result = Device->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView);
+		HRESULT Result = m_pDevice->CreateRenderTargetView(m_pBackTexture, nullptr, &m_pBackRenderTargetView);
 	}
 
 	{
-		float4 Size = EngineCore::GetMainWindow().GetWindowSize();
-
 		D3D11_TEXTURE2D_DESC Desc;
-		Desc.Width = Size.ix();
-		Desc.Height = Size.iy();
+		Desc.Width = 1920;
+		Desc.Height = 1080;
 		Desc.MipLevels = 1;
 		Desc.ArraySize = 1;
 		Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -124,7 +126,7 @@ void EngineDevice::Init()
 		Desc.CPUAccessFlags = 0;
 		Desc.MiscFlags = 0;
 
-		HRESULT Result = Device->CreateTexture2D(&Desc, nullptr, &DepthTexture);
+		HRESULT Result = m_pDevice->CreateTexture2D(&Desc, nullptr, &m_pDepthTexture);
 
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 		ZeroMemory(&descDSV, sizeof(descDSV));
@@ -133,7 +135,7 @@ void EngineDevice::Init()
 		descDSV.Texture2D.MipSlice = 0;
 
 		// ±íÀÌ ½ºÅÙ½Ç ºä »ý¼º
-		if (S_OK != Device->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
+		if (S_OK != m_pDevice->CreateDepthStencilView(m_pDepthTexture, &descDSV, &m_pDepthView))
 		{
 			
 		}
@@ -141,13 +143,13 @@ void EngineDevice::Init()
 
 	{
 		D3D11_VIEWPORT Desc;
-		Desc.Width = EngineCore::GetMainWindow().GetWindowSize().x;
-		Desc.Height = EngineCore::GetMainWindow().GetWindowSize().y;
+		Desc.Width = 1920;
+		Desc.Height = 1080;
 		Desc.MinDepth = 0;
 		Desc.MaxDepth = 1;
 		Desc.TopLeftX = 0;
 		Desc.TopLeftY = 0;
-		Context->RSSetViewports(1, &Desc);
+		m_pDeviceContext->RSSetViewports(1, &Desc);
 		//ÀÏ´Ü µð¹ÙÀÌ½º ÃÊ±âÈ­ ÇÒ¶§ ºäÆ÷Æ® ¼¼ÆÃÇØÁÜ
 	}
 
@@ -158,14 +160,14 @@ void EngineDevice::Init()
 void EngineDevice::Clear()
 {
 	const FLOAT ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	Context->ClearRenderTargetView(BackRenderTargetView, ClearColor);
-	Context->ClearDepthStencilView(DepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	Context->OMSetRenderTargets(1, &BackRenderTargetView, DepthView);
+	m_pDeviceContext->ClearRenderTargetView(m_pBackRenderTargetView, ClearColor);
+	m_pDeviceContext->ClearDepthStencilView(m_pDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	m_pDeviceContext->OMSetRenderTargets(1, &m_pBackRenderTargetView, m_pDepthView);
 }
 
 void EngineDevice::Present()
 {
-	SwapChain->Present(0, 0);
+	m_pSwapChain->Present(0, 0);
 }
 
 

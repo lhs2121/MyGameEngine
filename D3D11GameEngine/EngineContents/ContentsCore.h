@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineCore\EngineObject.h"
 
 class ContentsCore : public EngineObject
 {

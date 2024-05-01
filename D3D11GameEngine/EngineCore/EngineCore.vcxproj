@@ -44,6 +44,7 @@
     <ClCompile Include="EngineDevice_ResourceInit.cpp" />
     <ClCompile Include="EngineRasterizer.cpp" />
     <ClCompile Include="EngineDepthStencil.cpp" />
+    <ClCompile Include="EngineDevice_ShaderInit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineD3DResource.h" />

@@ -16,19 +16,12 @@ public:
 	EngineD3DResource& operator=(const EngineD3DResource& _Other) = delete;
 	EngineD3DResource& operator=(EngineD3DResource&& _Other) noexcept = delete;
 
-	static ResourceType* RegisterResource(std::string Name)
-	{
-		ResourceType* NewResource = new ResourceType();
-		Resources.insert(std::make_pair(Name, NewResource));
-		return NewResource;
-	}
+	static ResourceType* RegisterResource(std::string Name);
+
 	static void DeleteAllResource();
 
-	static ResourceType* Find(std::string Name)
-	{
-		return Resources[Name];
-	}
-	
+	static ResourceType* Find(std::string Name);
+
 	virtual void IntoPipeLine() = 0;
 	
 	static std::map<std::string, ResourceType*> Resources;
@@ -36,6 +29,14 @@ public:
 
 template<typename ResourceType>
 std::map<std::string, ResourceType*> EngineD3DResource<ResourceType>::Resources;
+
+template<typename ResourceType>
+ResourceType* EngineD3DResource<ResourceType>::RegisterResource(std::string Name)
+{
+	ResourceType* NewResource = new ResourceType();
+	Resources.insert(std::make_pair(Name, NewResource));
+	return NewResource;
+}
 
 template<typename ResourceType>
 void EngineD3DResource<ResourceType>::DeleteAllResource()
@@ -52,3 +53,11 @@ void EngineD3DResource<ResourceType>::DeleteAllResource()
 	}
 	Resources.clear();
 }
+
+template<typename ResourceType>
+ResourceType* EngineD3DResource<ResourceType>::Find(std::string Name)
+{
+	return Resources[Name];
+}
+
+
