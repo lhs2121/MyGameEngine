@@ -43,9 +43,9 @@ public:
 		return hInstance;
 	}
 
-	HWND& GetHwnd()
+	HWND* GetHwnd()
 	{
-		return hWnd;
+		return &hWnd;
 	}
 	float4 GetWindowSize()
 	{

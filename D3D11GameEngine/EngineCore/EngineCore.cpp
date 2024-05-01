@@ -2,11 +2,12 @@
 #include "EngineCore.h"
 
 EngineWindow EngineCore::MainWindow;
-EngineDevice EngineCore::MainDevice;
+IEngineDevice* EngineCore::MainDevice = nullptr;
 EngineTime EngineCore::MainTime;
 EngineLevel* EngineCore::CurLevel;
 EngineObject* EngineCore::CoreObject = nullptr;
-IEngineInput* EngineCore::InputInterface = nullptr;
+IEngineInput* EngineCore::MainInput = nullptr;
+IEngineD3DResourceManager* EngineCore::MainResourceManager = nullptr;
 
 std::map<std::string, EngineLevel*> EngineCore::AllLevel;
 
@@ -26,8 +27,10 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
     MainWindow.SetHinstance(_hInstance);
     MainWindow.OpenWindow();
 
-    MainDevice.Init();
-    MainDevice.ResourceInit();
+    CreateD3DResourceManger(&MainResourceManager);    
+    MainDevice = MainResourceManager->CreateDevice();
+    MainDevice->Init(MainWindow.GetHwnd());
+    MainDevice->ResourceInit();
 
     CoreObject = _CoreObject;
     CoreObject->Start();
@@ -35,8 +38,9 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
     MainTime.Init();
     MainTime.CountStart();
 
-    CreateInput(&InputInterface);
-    InputInterface->InitAllKey();
+    CreateInput(&MainInput);
+    MainInput->InitAllKey();
+
     //EngineInput::InitAllKey();
 
     MainWindow.MessageLoop();
@@ -48,37 +52,34 @@ void EngineCore::EngineUpdate()
         return;
     }
 
-    InputInterface->SetAllKeyState();
-    //EngineInput::SetAllKeyState();
+    MainInput->SetAllKeyState();
 
     float Delta = MainTime.CountEnd();
-    MainTime.CountStart();
+    MainTime.CountStart();  
     CurLevel->ActorUpdate(Delta);
     CurLevel->Update(Delta);
 
-    MainDevice.Clear();
+    MainDevice->Clear();
 
     CurLevel->Render();
 
-    MainDevice.Present();
+    MainDevice->Present();
 }
 
 void EngineCore::EngineRelease()
 {
     EngineCore::DeleteAllLevel();
-    InputInterface->DeleteAllKey();
-    if (InputInterface != nullptr)
+    MainInput->DeleteAllKey();
+    if (MainInput != nullptr)
     {
-        delete InputInterface;
-        InputInterface = nullptr;
+        delete MainInput;
+        MainInput = nullptr;
     }
-    EngineVertexBuffer::DeleteAllResource();
-    EngineIndexBuffer::DeleteAllResource();
-    EngineInputLayout::DeleteAllResource();
-    EngineVertexShader::DeleteAllResource();
-    EngineRasterizer::DeleteAllResource();
-    EnginePixelShader::DeleteAllResource();
-    EngineDepthStencil::DeleteAllResource();
+    if (MainDevice != nullptr)
+    {
+        delete MainDevice;
+        MainDevice = nullptr;
+    }
 }
 
 

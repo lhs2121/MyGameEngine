@@ -59,8 +59,9 @@ EngineDevice::~EngineDevice()
 	}
 }
 
-void EngineDevice::Init()
+void EngineDevice::Init(void* pHwnd)
 {
+	HWND* CastPtr = (HWND*)pHwnd;
 	IDXGIFactory* FactoryPtr = nullptr;
 	IDXGIAdapter* AdapterPtr = nullptr;
 
@@ -97,7 +98,7 @@ void EngineDevice::Init()
 		Desc.SampleDesc.Quality = 0;
 		Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 		Desc.BufferCount = 2;
-		Desc.OutputWindow = 0;
+		Desc.OutputWindow = *CastPtr;
 		Desc.Windowed = true;
 		Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;

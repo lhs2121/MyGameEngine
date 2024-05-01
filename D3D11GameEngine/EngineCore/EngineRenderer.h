@@ -1,12 +1,5 @@
 #pragma once
 #include <d3d11.h>
-#include "EngineVertexBuffer.h"
-#include "EngineIndexBuffer.h"
-#include "EngineInputLayout.h"
-#include "EngineVertexShader.h"
-#include "EnginePixelShader.h"
-#include "EngineRasterizer.h"
-#include "EngineDepthStencil.h"
 #include "EngineTransform.h"
 #include "EngineComponent.h"
 
@@ -27,13 +20,13 @@ public:
 	void Render();
 	void UpdateConstantBuffer();
 
-	EngineVertexBuffer* VB = nullptr;
-	EngineIndexBuffer* IB = nullptr;
-	EngineInputLayout* IA = nullptr;
-	EngineVertexShader* VS = nullptr;
-	EngineRasterizer* RS = nullptr;
-	EnginePixelShader* PS = nullptr;
-	EngineDepthStencil* DS = nullptr;
+	IEngineVertexBuffer* VB = nullptr;
+	IEngineIndexBuffer* IB = nullptr;
+	IEngineInputLayout* IA = nullptr;
+	IEngineVertexShader* VS = nullptr;
+	IEngineRasterizer* RS = nullptr;
+	IEnginePixelShader* PS = nullptr;
+	IEngineDepthStencil* DS = nullptr;
 
 	UINT IndexCount;
 	ID3D11Buffer* ConstantBuffer;

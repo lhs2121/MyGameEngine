@@ -19,53 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineD3DResource.cpp" />
     <ClCompile Include="EngineCore.cpp" />
-    <ClCompile Include="EngineDevice.cpp" />
-    <ClCompile Include="EngineIndexBuffer.cpp" />
-    <ClCompile Include="EngineInputLayout.cpp" />
     <ClCompile Include="EngineObject.cpp" />
     <ClCompile Include="EngineRenderer.cpp" />
-    <ClCompile Include="EngineVertexBuffer.cpp" />
-    <ClCompile Include="EngineVertexShader.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="EnginePixelShader.cpp" />
     <ClCompile Include="EngineCamera.cpp" />
     <ClCompile Include="EngineTransform.cpp" />
     <ClCompile Include="EngineLevel.cpp" />
     <ClCompile Include="EngineActor.cpp" />
     <ClCompile Include="EngineComponent.cpp" />
     <ClCompile Include="EngineLevelObject.cpp" />
-    <ClCompile Include="EngineDevice_ResourceInit.cpp" />
-    <ClCompile Include="EngineRasterizer.cpp" />
-    <ClCompile Include="EngineDepthStencil.cpp" />
-    <ClCompile Include="EngineDevice_ShaderInit.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineD3DResource.h" />
     <ClInclude Include="EngineCamera.h" />
     <ClInclude Include="EngineCore.h" />
-    <ClInclude Include="EngineDevice.h" />
-    <ClInclude Include="EngineIndexBuffer.h" />
-    <ClInclude Include="EngineInputLayout.h" />
     <ClInclude Include="EngineLevel.h" />
     <ClInclude Include="EngineObject.h" />
     <ClInclude Include="EngineRenderer.h" />
     <ClInclude Include="EngineTransform.h" />
-    <ClInclude Include="EngineVertexBuffer.h" />
-    <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EnginePixelShader.h" />
     <ClInclude Include="EngineActor.h" />
     <ClInclude Include="EngineComponent.h" />
     <ClInclude Include="EngineLevelObject.h" />
-    <ClInclude Include="EngineRasterizer.h" />
-    <ClInclude Include="EngineDepthStencil.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

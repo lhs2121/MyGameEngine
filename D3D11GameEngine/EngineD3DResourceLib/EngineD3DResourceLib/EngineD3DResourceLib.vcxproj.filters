@@ -12,7 +12,7 @@
     <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="IEngineD3DRes.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineD3DResourceManger.h" />
+    <ClInclude Include="EngineD3DResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDevice.cpp" />
@@ -25,7 +25,8 @@
     <ClCompile Include="EngineVertexFormat.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="EngineD3DResourceManger.cpp" />
+    <ClCompile Include="EngineD3DResourceManager.cpp" />
     <ClCompile Include="EngineDepthStencil.cpp" />
+    <ClCompile Include="IEngineD3DRes.cpp" />
   </ItemGroup>
 </Project>

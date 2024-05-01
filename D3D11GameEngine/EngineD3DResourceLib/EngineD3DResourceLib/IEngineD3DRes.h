@@ -1,9 +1,26 @@
 #pragma once
-#include "EngineVertexFormat.h"
 #include "d3d11.h"
+
+struct VERTEX_POS
+{
+	float4 Pos;
+};
+
+struct VERTEX_POS_COLOR
+{
+	float4 Pos;
+	float4 Color;
+};
+struct VERTEX_POSTEXCOORD
+{
+	float4 Pos;
+	float4 TexCoord;
+};
 
 struct IEngineDevice
 {
+	virtual void Init(void* pHwnd) = 0;
+	virtual void ResourceInit() = 0;
 	virtual void Clear() = 0;
 	virtual void Present() = 0;
 	virtual ID3D11Device* GetDevice() = 0;
@@ -54,7 +71,6 @@ struct IEngineD3DResourceManager
 	virtual IEngineRasterizer* CreateRasterizer(const char* _Name) = 0;
 	virtual IEngineDepthStencil* CreateDepthStencil(const char* _Name) = 0;
 
-	virtual void SettingDevice() = 0;
 	virtual void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, VERTEX_POS_COLOR* pVertices, int VertexSize) = 0;
 	virtual void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) = 0;
 	virtual void SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum, D3D11_INPUT_ELEMENT_DESC* _Desc, void* ShaderBytecode, SIZE_T BytecodeLength) = 0;
@@ -66,4 +82,4 @@ struct IEngineD3DResourceManager
 	virtual void* Find(const char* _Name) = 0;
 };
 
-extern "C" __declspec(dllexport) void CreateResourceManger(IEngineD3DResourceManager** ppManager);
+extern "C" __declspec(dllexport) void CreateD3DResourceManger(IEngineD3DResourceManager** ppManager);

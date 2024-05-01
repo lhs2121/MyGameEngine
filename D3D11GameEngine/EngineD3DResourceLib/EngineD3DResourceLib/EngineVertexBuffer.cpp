@@ -1,8 +1,5 @@
 #include "Pre.h"
 #include "EngineVertexBuffer.h"
-#include "EngineVertexFormat.h"
-
-static std::map<const char*, EngineVertexBuffer*> Resources;
 
 EngineVertexBuffer::EngineVertexBuffer()
 {

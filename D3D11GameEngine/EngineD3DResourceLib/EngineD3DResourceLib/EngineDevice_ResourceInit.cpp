@@ -31,7 +31,7 @@ void EngineDevice::ResourceInit()
 
 	//IA¼³Á¤
 	{
-		EngineVertexShader* TestVertexShader = (EngineVertexShader*)m_pManager->Find("TestShader");
+		EngineVertexShader* TestVertexShader = (EngineVertexShader*)m_pManager->Find("vs_TestShader");
 		{
 			D3D11_INPUT_ELEMENT_DESC Desc[] =
 			{

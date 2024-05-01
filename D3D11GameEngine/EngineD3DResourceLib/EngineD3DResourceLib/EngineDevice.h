@@ -1,6 +1,6 @@
 #pragma once
 #include "IEngineD3DRes.h"
-#include "IEngineD3DResourceManager.h"
+#include "EngineD3DResourceManager.h"
 #include "d3d11.h"
 
 class EngineDevice : public IEngineDevice
@@ -16,8 +16,8 @@ public:
 	EngineDevice& operator=(const EngineDevice& _Other) = delete;
 	EngineDevice& operator=(EngineDevice&& _Other) noexcept = delete;
 
-	void Init();
-	void ResourceInit();
+	void Init(void* pHwnd) override;
+	void ResourceInit() override;
 	void Clear() override;
 	void Present() override;
 

@@ -165,7 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EngineD3DResourceManger.h" />
+    <ClInclude Include="EngineD3DResourceManager.h" />
     <ClInclude Include="EngineDepthStencil.h" />
     <ClInclude Include="EngineDevice.h" />
     <ClInclude Include="EngineIndexBuffer.h" />
@@ -179,7 +179,7 @@
     <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineD3DResourceManger.cpp" />
+    <ClCompile Include="EngineD3DResourceManager.cpp" />
     <ClCompile Include="EngineDepthStencil.cpp" />
     <ClCompile Include="EngineDevice.cpp" />
     <ClCompile Include="EngineDevice_ResourceInit.cpp" />
@@ -190,6 +190,7 @@
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="EngineVertexFormat.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
+    <ClCompile Include="IEngineD3DRes.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

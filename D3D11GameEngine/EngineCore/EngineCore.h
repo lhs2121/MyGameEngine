@@ -2,7 +2,7 @@
 #include <EngineBase\EngineTime.h>
 #include <EngineWindow\EngineWindow.h>
 #include <EngineInputLib\include\IEngineInput.h>
-#include "EngineDevice.h"
+#include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3DRes.h>
 #include "EngineRenderer.h"
 #include "EngineLevel.h"
 
@@ -26,15 +26,19 @@ public:
 
 	static ID3D11Device* GetDevice()
 	{
-		return MainDevice.GetDevice();
+		return MainDevice->GetDevice();
 	}
 	static ID3D11DeviceContext* GetContext()
 	{
-		return MainDevice.GetContext();
+		return MainDevice->GetContext();
 	}
 	static EngineWindow& GetMainWindow()
 	{
 		return MainWindow;
+	}
+	static IEngineD3DResourceManager* GetMainResourceManager()
+	{
+		return MainResourceManager;
 	}
 
 	template<typename LevelType>
@@ -76,28 +80,28 @@ public:
 
 	static bool IsDown(int KeyCode)
 	{
-		return InputInterface->IsDown(KeyCode);
+		return MainInput->IsDown(KeyCode);
 	}
 	static bool IsPress(int KeyCode)
 	{
-		return InputInterface->IsPress(KeyCode);
+		return MainInput->IsPress(KeyCode);
 	}
 	static bool IsUp(int KeyCode)
 	{
-		return InputInterface->IsUp(KeyCode);
+		return MainInput->IsUp(KeyCode);
 	}
 	static bool IsFree(int KeyCode)
 	{
-		return InputInterface->IsFree(KeyCode);
+		return MainInput->IsFree(KeyCode);
 	}
 private:
 
 	static EngineObject* CoreObject;
 	static EngineLevel* CurLevel;
 	static EngineWindow MainWindow;
-	static EngineDevice MainDevice;
+	static IEngineDevice* MainDevice;
 	static EngineTime MainTime;
-	static IEngineInput* InputInterface;
-
+	static IEngineInput* MainInput;
+	static IEngineD3DResourceManager* MainResourceManager;
 	static std::map<std::string, EngineLevel*> AllLevel;
 };

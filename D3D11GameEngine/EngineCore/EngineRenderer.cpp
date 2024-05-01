@@ -35,16 +35,16 @@ void EngineRenderer::Start()
 	Desc.StructureByteStride = 0;
 
 	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
+	IEngineD3DResourceManager* Manager = EngineCore::GetMainResourceManager();
+	VB = (IEngineVertexBuffer*)Manager->Find("v_Box3D");
+	IB = (IEngineIndexBuffer*)Manager->Find("i_Box3D");
+	IA = (IEngineInputLayout*)Manager->Find("POS_COLOR");
+	VS = (IEngineVertexShader*)Manager->Find("ps_TestShader");
+	RS = (IEngineRasterizer*)Manager->Find("rs_Default");
+	PS = (IEnginePixelShader*)Manager->Find("ps_TestShader");
+	DS = (IEngineDepthStencil*)Manager->Find("ds_Default");
 
-	VB = EngineVertexBuffer::Find("Box3D");
-	IB = EngineIndexBuffer::Find("Box3D");
-	IA = EngineInputLayout::Find("POS_COLOR");
-	VS = EngineVertexShader::Find("TestShader");
-	RS = EngineRasterizer::Find("Default");
-	PS = EnginePixelShader::Find("TestShader");
-	DS = EngineDepthStencil::Find("Default");
-
-	IndexCount = IB->GetIndexCount();
+	IndexCount = 36;
 }
 void EngineRenderer::Render()
 {
