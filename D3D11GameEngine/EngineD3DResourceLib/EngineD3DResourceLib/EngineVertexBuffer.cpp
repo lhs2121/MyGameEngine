@@ -16,6 +16,6 @@ EngineVertexBuffer::~EngineVertexBuffer()
 
 void EngineVertexBuffer::IntoPipeLine()
 {
-	m_pDevice->GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
+	Device->GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
 }
 

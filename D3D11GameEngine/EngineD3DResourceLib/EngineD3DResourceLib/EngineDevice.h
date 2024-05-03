@@ -23,11 +23,11 @@ public:
 
 	ID3D11Device* GetDevice() override
 	{
-		return m_pDevice;
+		return Device;
 	}
 	ID3D11DeviceContext* GetContext() override
 	{
-		return m_pDeviceContext;
+		return DeviceContext;
 	}
 
 	void SetManager(IEngineD3DResourceManager* pManager)
@@ -35,15 +35,15 @@ public:
 		m_pManager = pManager;
 	}
 private:
-	ID3D11Device* m_pDevice = nullptr;
-	ID3D11DeviceContext* m_pDeviceContext = nullptr;
-	IDXGISwapChain* m_pSwapChain = nullptr;
+	ID3D11Device* Device = nullptr;
+	ID3D11DeviceContext* DeviceContext = nullptr;
+	IDXGISwapChain* SwapChain = nullptr;
 
-	ID3D11Texture2D* m_pBackTexture = nullptr;
-	ID3D11Texture2D* m_pDepthTexture = nullptr; 
+	ID3D11Texture2D* BackTexture = nullptr;
+	ID3D11Texture2D* DepthTexture = nullptr; 
 
-	ID3D11RenderTargetView* m_pBackRenderTargetView = nullptr;
-	ID3D11DepthStencilView* m_pDepthView = nullptr;
+	ID3D11RenderTargetView* BackRenderTargetView = nullptr;
+	ID3D11DepthStencilView* DepthView = nullptr;
 
 	IEngineD3DResourceManager* m_pManager = nullptr;
 

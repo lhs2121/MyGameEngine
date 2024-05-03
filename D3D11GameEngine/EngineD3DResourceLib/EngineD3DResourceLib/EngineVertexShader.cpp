@@ -26,7 +26,7 @@ EngineVertexShader::~EngineVertexShader()
 
 void EngineVertexShader::IntoPipeLine()
 {
-	m_pDevice->GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
+	Device->GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
 }
 
 void* EngineVertexShader::GetShaderByteCode()

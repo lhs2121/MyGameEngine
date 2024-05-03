@@ -18,6 +18,6 @@ EngineIndexBuffer::~EngineIndexBuffer()
 
 void EngineIndexBuffer::IntoPipeLine()
 {
-	m_pDevice->GetContext()->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
+	Device->GetContext()->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
 }
 

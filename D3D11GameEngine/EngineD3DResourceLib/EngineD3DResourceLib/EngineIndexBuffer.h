@@ -21,9 +21,9 @@ public:
 	void IntoPipeLine() override;
 	void SetDevicePtr(IEngineDevice* pDevice)
 	{
-		m_pDevice = pDevice;
+		Device = pDevice;
 	}
-	IEngineDevice* m_pDevice;
+	IEngineDevice* Device;
 
 	ID3D11Buffer* BufferPtr;
 	UINT IndexCount;

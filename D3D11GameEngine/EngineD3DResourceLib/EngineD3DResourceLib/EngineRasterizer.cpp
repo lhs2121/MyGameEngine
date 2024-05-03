@@ -12,5 +12,5 @@ EngineRasterizer::~EngineRasterizer()
 
 void EngineRasterizer::IntoPipeLine()
 {
-	m_pDevice->GetContext()->RSSetState(RasterizePtr);
+	Device->GetContext()->RSSetState(RasterizePtr);
 }

@@ -31,7 +31,7 @@ public:
 
 	void DeleteAllResource() override;
 private:
-	IEngineDevice* m_pDevice = nullptr;
+	IEngineDevice* Device = nullptr;
 	std::map<std::string, IEngineVertexBuffer*> VBMap;
 	std::map<std::string, IEngineIndexBuffer*> IBMap;
 	std::map<std::string, IEngineInputLayout*> IAMap;

@@ -27,6 +27,6 @@ EnginePixelShader::~EnginePixelShader()
 
 void EnginePixelShader::IntoPipeLine()
 {
-	m_pDevice->GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
+	Device->GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
 }
 

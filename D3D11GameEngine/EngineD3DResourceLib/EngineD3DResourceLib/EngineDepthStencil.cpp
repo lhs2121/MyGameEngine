@@ -15,5 +15,5 @@ EngineDepthStencil::~EngineDepthStencil()
 
 void EngineDepthStencil::IntoPipeLine()
 {
-	m_pDevice->GetContext()->OMSetDepthStencilState(m_pDepthStencil, 1);
+	Device->GetContext()->OMSetDepthStencilState(m_pDepthStencil, 1);
 }

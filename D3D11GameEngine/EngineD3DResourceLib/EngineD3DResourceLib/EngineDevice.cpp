@@ -12,37 +12,37 @@ EngineDevice::EngineDevice()
 
 EngineDevice::~EngineDevice()
 {
-	if (m_pDeviceContext != nullptr)
+	if (DeviceContext != nullptr)
 	{
-		m_pDeviceContext->Release();
-		m_pDeviceContext = nullptr;
+		DeviceContext->Release();
+		DeviceContext = nullptr;
 	}
-	if (m_pSwapChain != nullptr)
+	if (SwapChain != nullptr)
 	{
-		m_pSwapChain->Release();
-		m_pSwapChain = nullptr;
+		SwapChain->Release();
+		SwapChain = nullptr;
 	}
-	if (m_pBackTexture != nullptr)
+	if (BackTexture != nullptr)
 	{
-		m_pBackTexture->Release();
-		m_pBackTexture = nullptr;
+		BackTexture->Release();
+		BackTexture = nullptr;
 	}
-	if (m_pBackRenderTargetView != nullptr)
+	if (BackRenderTargetView != nullptr)
 	{
-		m_pBackRenderTargetView->Release();
-		m_pBackRenderTargetView = nullptr;
+		BackRenderTargetView->Release();
+		BackRenderTargetView = nullptr;
 	}
-	if (m_pDepthView != nullptr)
+	if (DepthView != nullptr)
 	{
-		m_pDepthView->Release();
-		m_pDepthView = nullptr;
+		DepthView->Release();
+		DepthView = nullptr;
 	}
-	if (m_pDepthTexture != nullptr)
+	if (DepthTexture != nullptr)
 	{
-		m_pDepthTexture->Release();
-		m_pDepthTexture = nullptr;
+		DepthTexture->Release();
+		DepthTexture = nullptr;
 	}
-	if (m_pDevice != nullptr)
+	if (Device != nullptr)
 	{
 		//#if defined(DEBUG) || defined(_DEBUG)
 		//		ID3D11Debug* dxgiDebug;
@@ -54,8 +54,8 @@ EngineDevice::~EngineDevice()
 		//		}
 		//#endif
 
-		m_pDevice->Release();
-		m_pDevice = nullptr;
+		Device->Release();
+		Device = nullptr;
 	}
 }
 
@@ -80,9 +80,9 @@ void EngineDevice::Init(void* pHwnd)
 		nullptr,
 		0,
 		D3D11_SDK_VERSION,
-		&m_pDevice,
+		&Device,
 		&Level,
-		&m_pDeviceContext
+		&DeviceContext
 	);
 
 	{
@@ -103,14 +103,14 @@ void EngineDevice::Init(void* pHwnd)
 		Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-		HRESULT Result = FactoryPtr->CreateSwapChain(m_pDevice, &Desc, &m_pSwapChain);
+		HRESULT Result = FactoryPtr->CreateSwapChain(Device, &Desc, &SwapChain);
 
-		m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&m_pBackTexture));
+		SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&BackTexture));
 	}
 
 
 	{
-		HRESULT Result = m_pDevice->CreateRenderTargetView(m_pBackTexture, nullptr, &m_pBackRenderTargetView);
+		HRESULT Result = Device->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView);
 	}
 
 	{
@@ -127,7 +127,7 @@ void EngineDevice::Init(void* pHwnd)
 		Desc.CPUAccessFlags = 0;
 		Desc.MiscFlags = 0;
 
-		HRESULT Result = m_pDevice->CreateTexture2D(&Desc, nullptr, &m_pDepthTexture);
+		HRESULT Result = Device->CreateTexture2D(&Desc, nullptr, &DepthTexture);
 
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 		ZeroMemory(&descDSV, sizeof(descDSV));
@@ -136,7 +136,7 @@ void EngineDevice::Init(void* pHwnd)
 		descDSV.Texture2D.MipSlice = 0;
 
 		// ±íÀÌ ½ºÅÙ½Ç ºä »ý¼º
-		if (S_OK != m_pDevice->CreateDepthStencilView(m_pDepthTexture, &descDSV, &m_pDepthView))
+		if (S_OK != Device->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
 		{
 			
 		}
@@ -150,7 +150,7 @@ void EngineDevice::Init(void* pHwnd)
 		Desc.MaxDepth = 1;
 		Desc.TopLeftX = 0;
 		Desc.TopLeftY = 0;
-		m_pDeviceContext->RSSetViewports(1, &Desc);
+		DeviceContext->RSSetViewports(1, &Desc);
 		//ÀÏ´Ü µð¹ÙÀÌ½º ÃÊ±âÈ­ ÇÒ¶§ ºäÆ÷Æ® ¼¼ÆÃÇØÁÜ
 	}
 
@@ -161,14 +161,14 @@ void EngineDevice::Init(void* pHwnd)
 void EngineDevice::Clear()
 {
 	const FLOAT ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	m_pDeviceContext->ClearRenderTargetView(m_pBackRenderTargetView, ClearColor);
-	m_pDeviceContext->ClearDepthStencilView(m_pDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	m_pDeviceContext->OMSetRenderTargets(1, &m_pBackRenderTargetView, m_pDepthView);
+	DeviceContext->ClearRenderTargetView(BackRenderTargetView, ClearColor);
+	DeviceContext->ClearDepthStencilView(DepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	DeviceContext->OMSetRenderTargets(1, &BackRenderTargetView, DepthView);
 }
 
 void EngineDevice::Present()
 {
-	m_pSwapChain->Present(0, 0);
+	SwapChain->Present(0, 0);
 }
 
 

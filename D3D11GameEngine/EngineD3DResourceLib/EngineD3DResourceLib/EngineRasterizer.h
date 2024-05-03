@@ -17,9 +17,9 @@ public:
 	void IntoPipeLine() override;
 	void SetDevicePtr(IEngineDevice* pDevice)
 	{
-		m_pDevice = pDevice;
+		Device = pDevice;
 	}
-	IEngineDevice* m_pDevice;
+	IEngineDevice* Device;
 	D3D11_RASTERIZER_DESC Desc;
 	ID3D11RasterizerState* RasterizePtr;
 };

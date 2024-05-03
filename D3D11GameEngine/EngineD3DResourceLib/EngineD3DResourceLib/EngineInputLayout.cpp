@@ -18,7 +18,7 @@ EngineInputLayout::~EngineInputLayout()
 
 void EngineInputLayout::IntoPipeLine()
 {
-	m_pDevice->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDevice->GetContext()->IASetInputLayout(LayoutPtr);
+	Device->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	Device->GetContext()->IASetInputLayout(LayoutPtr);
 }
 

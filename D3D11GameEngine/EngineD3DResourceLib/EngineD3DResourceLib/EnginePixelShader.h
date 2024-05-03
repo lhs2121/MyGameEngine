@@ -17,9 +17,9 @@ public:
 	void IntoPipeLine() override;
 	void SetDevicePtr(IEngineDevice* pDevice)
 	{
-		m_pDevice = pDevice;
+		Device = pDevice;
 	}
-	IEngineDevice* m_pDevice;
+	IEngineDevice* Device;
 	ID3DBlob* ShaderBlob = nullptr;
 	ID3D11PixelShader* ShaderPtr = nullptr;
 };

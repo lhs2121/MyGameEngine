@@ -17,9 +17,9 @@ public:
 	void IntoPipeLine() override;
 	void SetDevicePtr(IEngineDevice* pDevice)
 	{
-		m_pDevice = pDevice;
+		Device = pDevice;
 	}
-	IEngineDevice* m_pDevice;
+	IEngineDevice* Device;
 	UINT ElementNum = 0;
 	D3D11_INPUT_ELEMENT_DESC* LayoutDesc;
 	ID3D11InputLayout* LayoutPtr;

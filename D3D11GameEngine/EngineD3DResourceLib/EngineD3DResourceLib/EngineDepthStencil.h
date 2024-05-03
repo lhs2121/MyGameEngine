@@ -21,10 +21,10 @@ public:
 	void IntoPipeLine();
 	void SetDevicePtr(IEngineDevice* pDevice)
 	{
-		m_pDevice = pDevice;
+		Device = pDevice;
 	}
 
-	IEngineDevice* m_pDevice;
+	IEngineDevice* Device;
 	D3D11_DEPTH_STENCIL_DESC m_Desc;
 	ID3D11DepthStencilState* m_pDepthStencil;
 };
