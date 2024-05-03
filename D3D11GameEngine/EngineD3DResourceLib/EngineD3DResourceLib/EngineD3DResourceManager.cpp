@@ -29,7 +29,7 @@ IEngineVertexBuffer* EngineD3DResourceManager::CreateVertexBuffer(const char* _N
 	IEngineVertexBuffer* NewVertexBuffer = new EngineVertexBuffer();
 	EngineVertexBuffer* ChildPtr = (EngineVertexBuffer*)NewVertexBuffer;
 	ChildPtr->SetDevicePtr(m_pDevice);
-	ResourceMap.insert(std::make_pair(_Name, NewVertexBuffer));
+	VBMap.insert(std::make_pair(_Name, NewVertexBuffer));
 	return NewVertexBuffer;
 }
 
@@ -38,7 +38,7 @@ IEngineIndexBuffer* EngineD3DResourceManager::CreateIndexBuffer(const char* _Nam
 	IEngineIndexBuffer* NewIndexBuffer = new EngineIndexBuffer();
 	EngineIndexBuffer* ChildPtr = (EngineIndexBuffer*)NewIndexBuffer;
 	ChildPtr->SetDevicePtr(m_pDevice);
-	ResourceMap.insert(std::make_pair(_Name, NewIndexBuffer));
+	IBMap.insert(std::make_pair(_Name, NewIndexBuffer));
 	return NewIndexBuffer;
 }
 
@@ -47,7 +47,7 @@ IEngineInputLayout* EngineD3DResourceManager::CreateInputLayout(const char* _Nam
 	IEngineInputLayout* NewInputLayout = new EngineInputLayout();
 	EngineInputLayout* ChildPtr = (EngineInputLayout*)NewInputLayout;
 	ChildPtr->SetDevicePtr(m_pDevice);
-	ResourceMap.insert(std::make_pair(_Name, NewInputLayout));
+	IAMap.insert(std::make_pair(_Name, NewInputLayout));
 	return NewInputLayout;
 }
 
@@ -56,7 +56,7 @@ IEngineVertexShader* EngineD3DResourceManager::CreateVertexShader(const char* _N
 	IEngineVertexShader* NewVertexShader = new EngineVertexShader();
 	EngineVertexShader* ChildPtr = (EngineVertexShader*)NewVertexShader;
 	ChildPtr->SetDevicePtr(m_pDevice);
-	ResourceMap.insert(std::make_pair(_Name, NewVertexShader));
+	VSMap.insert(std::make_pair(_Name, NewVertexShader));
 	return NewVertexShader;
 }
 
@@ -65,7 +65,7 @@ IEnginePixelShader* EngineD3DResourceManager::CreatePixelShader(const char* _Nam
 	IEnginePixelShader* NewPixelShader = new EnginePixelShader();
 	EnginePixelShader* ChildPtr = (EnginePixelShader*)NewPixelShader;
 	ChildPtr->SetDevicePtr(m_pDevice);
-	ResourceMap.insert(std::make_pair(_Name, NewPixelShader));
+	PSMap.insert(std::make_pair(_Name, NewPixelShader));
 	return NewPixelShader;
 }
 
@@ -74,7 +74,7 @@ IEngineRasterizer* EngineD3DResourceManager::CreateRasterizer(const char* _Name)
 	IEngineRasterizer* NewRasterizer = new EngineRasterizer();
 	EngineRasterizer* ChildPtr = (EngineRasterizer*)NewRasterizer;
 	ChildPtr->SetDevicePtr(m_pDevice);
-	ResourceMap.insert(std::make_pair(_Name, NewRasterizer));
+	RSMap.insert(std::make_pair(_Name, NewRasterizer));
 	return NewRasterizer;
 }
 
@@ -83,7 +83,7 @@ IEngineDepthStencil* EngineD3DResourceManager::CreateDepthStencil(const char* _N
 	IEngineDepthStencil* NewDepthStencil = new EngineDepthStencil();
 	EngineDepthStencil* ChildPtr = (EngineDepthStencil*)NewDepthStencil;
 	ChildPtr->SetDevicePtr(m_pDevice);
-	ResourceMap.insert(std::make_pair(_Name, NewDepthStencil));
+	DSMap.insert(std::make_pair(_Name, NewDepthStencil));
 	return NewDepthStencil;
 }
 
@@ -177,7 +177,7 @@ void EngineD3DResourceManager::SettingVertexShader(IEngineVertexShader* pShader,
 		}
 	}
 
-	m_pDevice->GetDevice()->CreateVertexShader(ChildPtr->ShaderBlob->GetBufferPointer(), ChildPtr->ShaderBlob->GetBufferSize(), nullptr, &ChildPtr->ShaderPtr);
+	HRESULT R = m_pDevice->GetDevice()->CreateVertexShader(ChildPtr->ShaderBlob->GetBufferPointer(), ChildPtr->ShaderBlob->GetBufferSize(), nullptr, &ChildPtr->ShaderPtr);
 }
 
 void EngineD3DResourceManager::SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path)
@@ -233,11 +233,118 @@ void EngineD3DResourceManager::SettingDepthStencil(IEngineDepthStencil* pDepthSt
 	m_pDevice->GetDevice()->CreateDepthStencilState(&ChildPtr->m_Desc, &ChildPtr->m_pDepthStencil);
 }
 
-void* EngineD3DResourceManager::Find(const char* _Name)
+IEngineVertexBuffer* EngineD3DResourceManager::FindVertexBuffer(const char* _Name)
 {
-	if (ResourceMap.find(_Name) != ResourceMap.end())
+	if (VBMap.find(_Name) != VBMap.end())
 	{
-		return ResourceMap[_Name];
+		return VBMap[_Name];
+	}
+	return nullptr;;
+}
+
+IEngineIndexBuffer* EngineD3DResourceManager::FindIndexBuffer(const char* _Name)
+{
+	if (IBMap.find(_Name) != IBMap.end())
+	{
+		return IBMap[_Name];
 	}
 	return nullptr;
 }
+
+IEngineInputLayout* EngineD3DResourceManager::FindInputLayout(const char* _Name)
+{
+	if (IAMap.find(_Name) != IAMap.end())
+	{
+		return IAMap[_Name];
+	}
+	return nullptr;
+}
+
+IEngineVertexShader* EngineD3DResourceManager::FindVertexShader(const char* _Name)
+{
+	if (VSMap.find(_Name) != VSMap.end())
+	{
+		return VSMap[_Name];
+	}
+	return nullptr;
+}
+
+IEngineRasterizer* EngineD3DResourceManager::FindRasterizer(const char* _Name)
+{
+	if (RSMap.find(_Name) != RSMap.end())
+	{
+		return RSMap[_Name];
+	}
+	return nullptr;
+}
+
+IEnginePixelShader* EngineD3DResourceManager::FindPixelShader(const char* _Name)
+{
+	if (PSMap.find(_Name) != PSMap.end())
+	{
+		return PSMap[_Name];
+	}
+	return nullptr;
+}
+
+IEngineDepthStencil* EngineD3DResourceManager::FindDepthStencil(const char* _Name)
+{
+	if (DSMap.find(_Name) != DSMap.end())
+	{
+		return DSMap[_Name];
+	}
+	return nullptr;
+}
+
+void EngineD3DResourceManager::DeleteAllResource()
+{
+	for (std::pair<std::string, IEngineVertexBuffer*> pair : VBMap)
+	{
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	VBMap.clear();
+
+	for (std::pair<std::string, IEngineIndexBuffer*> pair : IBMap)
+	{
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	IBMap.clear();
+
+	for (std::pair<std::string, IEngineInputLayout*> pair : IAMap)
+	{
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	IAMap.clear();
+
+	for (std::pair<std::string, IEngineVertexShader*> pair : VSMap)
+	{
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	VSMap.clear();
+
+	for (std::pair<std::string, IEngineRasterizer*> pair : RSMap)
+	{
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	RSMap.clear();
+
+	for (std::pair<std::string, IEnginePixelShader*> pair : PSMap)
+	{
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	PSMap.clear();
+
+	for (std::pair<std::string, IEngineDepthStencil*> pair : DSMap)
+	{
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	DSMap.clear();
+}
+

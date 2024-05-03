@@ -21,7 +21,7 @@ public:
 	void IntoPipeLine();
 	void SetDevicePtr(IEngineDevice* pDevice)
 	{
-		pDevice = pDevice;
+		m_pDevice = pDevice;
 	}
 
 	IEngineDevice* m_pDevice;

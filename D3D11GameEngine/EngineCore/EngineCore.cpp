@@ -68,18 +68,25 @@ void EngineCore::EngineUpdate()
 
 void EngineCore::EngineRelease()
 {
-    EngineCore::DeleteAllLevel();
-    MainInput->DeleteAllKey();
-    if (MainInput != nullptr)
-    {
-        delete MainInput;
-        MainInput = nullptr;
-    }
-    if (MainDevice != nullptr)
-    {
-        delete MainDevice;
-        MainDevice = nullptr;
-    }
+	EngineCore::DeleteAllLevel();
+	MainInput->DeleteAllKey();
+	if (MainInput != nullptr)
+	{
+		delete MainInput;
+		MainInput = nullptr;
+	}
+	if (MainDevice != nullptr)
+	{
+		delete MainDevice;
+		MainDevice = nullptr;
+	}
+
+    MainResourceManager->DeleteAllResource();
+	if (MainResourceManager != nullptr)
+	{
+		delete MainResourceManager;
+		MainResourceManager = nullptr;
+	}
 }
 
 

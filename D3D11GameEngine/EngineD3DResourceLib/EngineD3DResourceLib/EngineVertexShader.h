@@ -19,7 +19,7 @@ public:
 	SIZE_T GetShaderByteLength();
 	void SetDevicePtr(IEngineDevice* pDevice)
 	{
-		pDevice = pDevice;
+		m_pDevice = pDevice;
 	}
 	IEngineDevice* m_pDevice;
 	ID3DBlob* ShaderBlob = nullptr;

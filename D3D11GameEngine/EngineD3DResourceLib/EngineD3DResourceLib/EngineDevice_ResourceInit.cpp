@@ -18,20 +18,18 @@ void EngineDevice::ResourceInit()
 		for (EngineFile& ShaderFile : AllShaderFile)
 		{
 			std::string FileName = ShaderFile.GetFileName();
-			std::string VSFileName = "vs_" + ShaderFile.GetFileName();
-			std::string PSFileName = "ps_" + ShaderFile.GetFileName();
 
-			IEngineVertexShader* pVertexShader = m_pManager->CreateVertexShader(VSFileName.c_str());
+			IEngineVertexShader* pVertexShader = m_pManager->CreateVertexShader(FileName.c_str());
 			m_pManager->SettingVertexShader(pVertexShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
 			
-			IEnginePixelShader* pPixelShader = m_pManager->CreatePixelShader(PSFileName.c_str());
+			IEnginePixelShader* pPixelShader = m_pManager->CreatePixelShader(FileName.c_str());
 			m_pManager->SettingPixelShader(pPixelShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
 		}
 	}
 
 	//IA¼³Á¤
 	{
-		EngineVertexShader* TestVertexShader = (EngineVertexShader*)m_pManager->Find("vs_TestShader");
+		EngineVertexShader* TestVertexShader = (EngineVertexShader*)m_pManager->FindVertexShader("TestShader");
 		{
 			D3D11_INPUT_ELEMENT_DESC Desc[] =
 			{
@@ -39,7 +37,7 @@ void EngineDevice::ResourceInit()
 				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
 
-			IEngineInputLayout* pInputLayout = m_pManager->CreateInputLayout("POS_COLOR");
+			IEngineInputLayout* pInputLayout = m_pManager->CreateInputLayout("POSCOLOR");
 			m_pManager->SettingInputLayout(pInputLayout, 2, Desc, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
 	}
@@ -114,7 +112,7 @@ void EngineDevice::ResourceInit()
 			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) } ,
 		};
 
-		IEngineVertexBuffer* pVertexBuffer = m_pManager->CreateVertexBuffer("v_Box3D");
+		IEngineVertexBuffer* pVertexBuffer = m_pManager->CreateVertexBuffer("Box3D");
 		m_pManager->SettingVertexBuffer(pVertexBuffer, Box3D,sizeof(Box3D));
 	}
 
@@ -146,7 +144,7 @@ void EngineDevice::ResourceInit()
 			22,23,20
 		};
 
-		IEngineIndexBuffer* pIndexBuffer = m_pManager->CreateIndexBuffer("i_Box3D");
+		IEngineIndexBuffer* pIndexBuffer = m_pManager->CreateIndexBuffer("Box3D");
 		m_pManager->SettingIndexBuffer(pIndexBuffer, Box3D, sizeof(Box3D));
 	}
 
@@ -164,7 +162,7 @@ void EngineDevice::ResourceInit()
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
 		
-		IEngineRasterizer* pRasterizer = m_pManager->CreateRasterizer("rs_Default");
+		IEngineRasterizer* pRasterizer = m_pManager->CreateRasterizer("Default");
 		m_pManager->SettingRasterizer(pRasterizer, Desc);
 	}
 
@@ -175,7 +173,7 @@ void EngineDevice::ResourceInit()
 		Desc.DepthFunc = D3D11_COMPARISON_LESS;
 		Desc.StencilEnable = false;
 
-		IEngineDepthStencil* pDepthStencil = m_pManager->CreateDepthStencil("ds_Default");
+		IEngineDepthStencil* pDepthStencil = m_pManager->CreateDepthStencil("Default");
 		m_pManager->SettingDepthStencil(pDepthStencil, Desc);
 	}
 

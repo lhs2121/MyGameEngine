@@ -21,8 +21,22 @@ public:
 	void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) override;
 	void SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc) override;
 
-	void* Find(const char* _Name) override;
+	IEngineVertexBuffer* FindVertexBuffer(const char* _Name) override;
+	IEngineIndexBuffer* FindIndexBuffer(const char* _Name) override;
+	IEngineInputLayout* FindInputLayout(const char* _Name) override;
+	IEngineVertexShader* FindVertexShader(const char* _Name) override;
+	IEngineRasterizer* FindRasterizer(const char* _Name) override;
+	IEnginePixelShader* FindPixelShader(const char* _Name) override;
+	IEngineDepthStencil* FindDepthStencil(const char* _Name) override;
+
+	void DeleteAllResource() override;
 private:
 	IEngineDevice* m_pDevice = nullptr;
-	std::map<const char*, IEngineD3DUnknown*> ResourceMap;
+	std::map<std::string, IEngineVertexBuffer*> VBMap;
+	std::map<std::string, IEngineIndexBuffer*> IBMap;
+	std::map<std::string, IEngineInputLayout*> IAMap;
+	std::map<std::string, IEngineVertexShader*> VSMap;
+	std::map<std::string, IEnginePixelShader*> PSMap;
+	std::map<std::string, IEngineRasterizer*> RSMap;
+	std::map<std::string, IEngineDepthStencil*> DSMap;
 };

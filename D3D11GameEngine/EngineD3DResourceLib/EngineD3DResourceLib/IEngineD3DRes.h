@@ -25,6 +25,9 @@ struct IEngineDevice
 	virtual void Present() = 0;
 	virtual ID3D11Device* GetDevice() = 0;
 	virtual ID3D11DeviceContext* GetContext() = 0;
+	virtual ~IEngineDevice()
+	{
+	};
 };
 
 struct IEngineD3DUnknown
@@ -34,30 +37,51 @@ struct IEngineD3DUnknown
 
 struct IEngineVertexBuffer : public IEngineD3DUnknown
 {
+	virtual ~IEngineVertexBuffer()
+	{
+	};
 };
 
 struct IEngineIndexBuffer : public IEngineD3DUnknown
 {
+	virtual ~IEngineIndexBuffer()
+	{
+	};
 };
 
 struct IEngineInputLayout : public IEngineD3DUnknown
 {
+	virtual ~IEngineInputLayout()
+	{
+	};
 };
 
 struct IEngineVertexShader : public IEngineD3DUnknown
 {
+	virtual ~IEngineVertexShader() 
+	{
+	};
 };
 
 struct IEnginePixelShader : public IEngineD3DUnknown
 {
+	virtual ~IEnginePixelShader() 
+	{
+	};
 };
 
 struct IEngineRasterizer : public IEngineD3DUnknown
 {
+	virtual ~IEngineRasterizer() 
+	{
+	};
 };
 
 struct IEngineDepthStencil : public IEngineD3DUnknown
 {
+	virtual ~IEngineDepthStencil() 
+	{
+	};
 };
 
 struct IEngineD3DResourceManager
@@ -79,7 +103,19 @@ struct IEngineD3DResourceManager
 	virtual void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) = 0;
 	virtual void SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc) = 0;
 
-	virtual void* Find(const char* _Name) = 0;
+	virtual IEngineVertexBuffer* FindVertexBuffer(const char* _Name) = 0;
+	virtual IEngineIndexBuffer* FindIndexBuffer(const char* _Name) = 0;
+	virtual IEngineInputLayout* FindInputLayout(const char* _Name) = 0;
+	virtual IEngineVertexShader* FindVertexShader(const char* _Name) = 0;
+	virtual IEngineRasterizer* FindRasterizer(const char* _Name) = 0;
+	virtual IEnginePixelShader* FindPixelShader(const char* _Name) = 0;
+	virtual IEngineDepthStencil* FindDepthStencil(const char* _Name) = 0;
+
+	virtual void DeleteAllResource() = 0;
+
+	virtual ~IEngineD3DResourceManager()
+	{
+	};
 };
 
 extern "C" __declspec(dllexport) void CreateD3DResourceManger(IEngineD3DResourceManager** ppManager);

@@ -35,14 +35,15 @@ void EngineRenderer::Start()
 	Desc.StructureByteStride = 0;
 
 	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
-	IEngineD3DResourceManager* Manager = EngineCore::GetMainResourceManager();
-	VB = (IEngineVertexBuffer*)Manager->Find("v_Box3D");
-	IB = (IEngineIndexBuffer*)Manager->Find("i_Box3D");
-	IA = (IEngineInputLayout*)Manager->Find("POS_COLOR");
-	VS = (IEngineVertexShader*)Manager->Find("ps_TestShader");
-	RS = (IEngineRasterizer*)Manager->Find("rs_Default");
-	PS = (IEnginePixelShader*)Manager->Find("ps_TestShader");
-	DS = (IEngineDepthStencil*)Manager->Find("ds_Default");
+
+	IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+	VB = ResManager->FindVertexBuffer("Box3D");
+	IB = ResManager->FindIndexBuffer("Box3D");
+	IA = ResManager->FindInputLayout("POSCOLOR");
+	VS = ResManager->FindVertexShader("TestShader");
+	RS = ResManager->FindRasterizer("Default");
+	PS = ResManager->FindPixelShader("TestShader");
+	DS = ResManager->FindDepthStencil("Default");
 
 	IndexCount = 36;
 }
@@ -57,7 +58,7 @@ void EngineRenderer::Render()
 	PS->IntoPipeLine();
 	DS->IntoPipeLine();
 	
-	EngineCore::GetContext()->DrawIndexed(IndexCount, 0, 0);
+	EngineCore::GetContext() ->DrawIndexed(IndexCount, 0, 0);
 }
 
 void EngineRenderer::UpdateConstantBuffer()
