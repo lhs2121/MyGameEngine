@@ -29,7 +29,7 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
 
     CreateD3DResourceManger(&MainResourceManager);    
     MainDevice = MainResourceManager->CreateDevice();
-    MainDevice->Init(MainWindow.GetHwnd());
+    MainDevice->Init(MainWindow.GetHwnd(), _WindowSize);
     MainDevice->ResourceInit();
 
     CoreObject = _CoreObject;

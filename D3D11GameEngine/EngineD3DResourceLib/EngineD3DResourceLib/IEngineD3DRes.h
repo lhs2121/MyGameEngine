@@ -19,7 +19,7 @@ struct VERTEX_POSTEXCOORD
 
 struct IEngineDevice
 {
-	virtual void Init(void* pHwnd) = 0;
+	virtual void Init(void* pHwnd,float4 WindowSize) = 0;
 	virtual void ResourceInit() = 0;
 	virtual void Clear() = 0;
 	virtual void Present() = 0;

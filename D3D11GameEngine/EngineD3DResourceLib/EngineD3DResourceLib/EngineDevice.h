@@ -16,7 +16,7 @@ public:
 	EngineDevice& operator=(const EngineDevice& _Other) = delete;
 	EngineDevice& operator=(EngineDevice&& _Other) noexcept = delete;
 
-	void Init(void* pHwnd) override;
+	void Init(void* pHwnd,float4 WindowSize) override;
 	void ResourceInit() override;
 	void Clear() override;
 	void Present() override;

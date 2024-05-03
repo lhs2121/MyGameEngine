@@ -59,7 +59,7 @@ EngineDevice::~EngineDevice()
 	}
 }
 
-void EngineDevice::Init(void* pHwnd)
+void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 {
 	HWND* CastPtr = (HWND*)pHwnd;
 	IDXGIFactory* FactoryPtr = nullptr;
@@ -115,8 +115,8 @@ void EngineDevice::Init(void* pHwnd)
 
 	{
 		D3D11_TEXTURE2D_DESC Desc;
-		Desc.Width = 1920;
-		Desc.Height = 1080;
+		Desc.Width = WindowSize.ix();
+		Desc.Height = WindowSize.iy();
 		Desc.MipLevels = 1;
 		Desc.ArraySize = 1;
 		Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -144,8 +144,8 @@ void EngineDevice::Init(void* pHwnd)
 
 	{
 		D3D11_VIEWPORT Desc;
-		Desc.Width = 1920;
-		Desc.Height = 1080;
+		Desc.Width = WindowSize.x;
+		Desc.Height = WindowSize.y;
 		Desc.MinDepth = 0;
 		Desc.MaxDepth = 1;
 		Desc.TopLeftX = 0;
