@@ -9,6 +9,10 @@ EngineIndexBuffer::EngineIndexBuffer()
 
 EngineIndexBuffer::~EngineIndexBuffer()
 {
+}
+
+void EngineIndexBuffer::Release()
+{
 	if (BufferPtr != nullptr)
 	{
 		BufferPtr->Release();
@@ -18,6 +22,6 @@ EngineIndexBuffer::~EngineIndexBuffer()
 
 void EngineIndexBuffer::IntoPipeLine()
 {
-	Device->GetContext()->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
+	DeviceContext->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
 }
 

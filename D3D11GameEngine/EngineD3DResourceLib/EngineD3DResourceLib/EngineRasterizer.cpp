@@ -7,10 +7,14 @@ EngineRasterizer::EngineRasterizer()
 
 EngineRasterizer::~EngineRasterizer()
 {
+}
+
+void EngineRasterizer::Release()
+{
 	RasterizePtr->Release();
 }
 
 void EngineRasterizer::IntoPipeLine()
 {
-	Device->GetContext()->RSSetState(RasterizePtr);
+	DeviceContext->RSSetState(RasterizePtr);
 }

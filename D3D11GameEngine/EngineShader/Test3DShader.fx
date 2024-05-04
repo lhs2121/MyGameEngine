@@ -15,7 +15,7 @@ struct VS_OUTPUT
     float4 COLOR : COLOR;
 };
 
-VS_OUTPUT TestShader_VS(VS_INPUT Input)
+VS_OUTPUT Test3DShader_VS(VS_INPUT Input)
 {
     VS_OUTPUT Output;
     Output.POS = mul(Input.POS, WorldViewProjection);
@@ -23,7 +23,7 @@ VS_OUTPUT TestShader_VS(VS_INPUT Input)
     return Output;
 }
 
-float4 TestShader_PS(VS_OUTPUT Input) : SV_Target
+float4 Test3DShader_PS(VS_OUTPUT Input) : SV_Target
 {
     return Input.COLOR;
 }

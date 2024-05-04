@@ -32,7 +32,7 @@ public:
 
 	void SetManager(IEngineD3DResourceManager* pManager)
 	{
-		m_pManager = pManager;
+		Manager = pManager;
 	}
 private:
 	ID3D11Device* Device = nullptr;
@@ -45,6 +45,6 @@ private:
 	ID3D11RenderTargetView* BackRenderTargetView = nullptr;
 	ID3D11DepthStencilView* DepthView = nullptr;
 
-	IEngineD3DResourceManager* m_pManager = nullptr;
+	IEngineD3DResourceManager* Manager = nullptr;
 
 };

@@ -19,7 +19,7 @@ struct VERTEX_POSTEXCOORD
 
 struct IEngineDevice
 {
-	virtual void Init(void* pHwnd,float4 WindowSize) = 0;
+	virtual void Init(void* pHwnd, float4 WindowSize) = 0;
 	virtual void ResourceInit() = 0;
 	virtual void Clear() = 0;
 	virtual void Present() = 0;
@@ -33,55 +33,36 @@ struct IEngineDevice
 struct IEngineD3DUnknown
 {
 	virtual void IntoPipeLine() = 0;
+	virtual void Release() = 0;
 };
 
 struct IEngineVertexBuffer : public IEngineD3DUnknown
 {
-	virtual ~IEngineVertexBuffer()
-	{
-	};
 };
 
 struct IEngineIndexBuffer : public IEngineD3DUnknown
 {
-	virtual ~IEngineIndexBuffer()
-	{
-	};
+	virtual UINT GetIndexCount() = 0;
 };
 
 struct IEngineInputLayout : public IEngineD3DUnknown
 {
-	virtual ~IEngineInputLayout()
-	{
-	};
 };
 
 struct IEngineVertexShader : public IEngineD3DUnknown
 {
-	virtual ~IEngineVertexShader() 
-	{
-	};
 };
 
 struct IEnginePixelShader : public IEngineD3DUnknown
 {
-	virtual ~IEnginePixelShader() 
-	{
-	};
 };
 
 struct IEngineRasterizer : public IEngineD3DUnknown
 {
-	virtual ~IEngineRasterizer() 
-	{
-	};
 };
 
 struct IEngineDepthStencil : public IEngineD3DUnknown
 {
-	virtual ~IEngineDepthStencil() 
-	{
-	};
 };
 
 struct IEngineD3DResourceManager
@@ -95,7 +76,7 @@ struct IEngineD3DResourceManager
 	virtual IEngineRasterizer* CreateRasterizer(const char* _Name) = 0;
 	virtual IEngineDepthStencil* CreateDepthStencil(const char* _Name) = 0;
 
-	virtual void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, VERTEX_POS_COLOR* pVertices, int VertexSize) = 0;
+	virtual void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize) = 0;
 	virtual void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) = 0;
 	virtual void SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum, D3D11_INPUT_ELEMENT_DESC* _Desc, void* ShaderBytecode, SIZE_T BytecodeLength) = 0;
 	virtual void SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path) = 0;
@@ -112,10 +93,8 @@ struct IEngineD3DResourceManager
 	virtual IEngineDepthStencil* FindDepthStencil(const char* _Name) = 0;
 
 	virtual void DeleteAllResource() = 0;
-
-	virtual ~IEngineD3DResourceManager()
-	{
-	};
+	virtual ~IEngineD3DResourceManager() {};
 };
+
 
 extern "C" __declspec(dllexport) void CreateD3DResourceManger(IEngineD3DResourceManager** ppManager);

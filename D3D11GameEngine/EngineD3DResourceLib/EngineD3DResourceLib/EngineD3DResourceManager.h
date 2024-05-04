@@ -13,7 +13,7 @@ public:
 	IEngineRasterizer* CreateRasterizer(const char* _Name) override;
 	IEngineDepthStencil* CreateDepthStencil(const char* _Name) override;
 
-	void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, VERTEX_POS_COLOR* pVertices, int VertexSize) override;
+	void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize) override;
 	void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) override;
 	void SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum, D3D11_INPUT_ELEMENT_DESC* _Desc, void* ShaderBytecode, SIZE_T BytecodeLength) override;
 	void SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path) override;

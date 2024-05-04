@@ -28,7 +28,7 @@ IEngineVertexBuffer* EngineD3DResourceManager::CreateVertexBuffer(const char* _N
 {
 	IEngineVertexBuffer* NewVertexBuffer = new EngineVertexBuffer();
 	EngineVertexBuffer* ChildPtr = (EngineVertexBuffer*)NewVertexBuffer;
-	ChildPtr->SetDevicePtr(Device);
+	ChildPtr->SetDevicePtr(Device->GetContext());
 	VBMap.insert(std::make_pair(_Name, NewVertexBuffer));
 	return NewVertexBuffer;
 }
@@ -37,7 +37,7 @@ IEngineIndexBuffer* EngineD3DResourceManager::CreateIndexBuffer(const char* _Nam
 {
 	IEngineIndexBuffer* NewIndexBuffer = new EngineIndexBuffer();
 	EngineIndexBuffer* ChildPtr = (EngineIndexBuffer*)NewIndexBuffer;
-	ChildPtr->SetDevicePtr(Device);
+	ChildPtr->SetDevicePtr(Device->GetContext());
 	IBMap.insert(std::make_pair(_Name, NewIndexBuffer));
 	return NewIndexBuffer;
 }
@@ -46,7 +46,7 @@ IEngineInputLayout* EngineD3DResourceManager::CreateInputLayout(const char* _Nam
 {
 	IEngineInputLayout* NewInputLayout = new EngineInputLayout();
 	EngineInputLayout* ChildPtr = (EngineInputLayout*)NewInputLayout;
-	ChildPtr->SetDevicePtr(Device);
+	ChildPtr->SetDevicePtr(Device->GetContext());
 	IAMap.insert(std::make_pair(_Name, NewInputLayout));
 	return NewInputLayout;
 }
@@ -55,7 +55,7 @@ IEngineVertexShader* EngineD3DResourceManager::CreateVertexShader(const char* _N
 {
 	IEngineVertexShader* NewVertexShader = new EngineVertexShader();
 	EngineVertexShader* ChildPtr = (EngineVertexShader*)NewVertexShader;
-	ChildPtr->SetDevicePtr(Device);
+	ChildPtr->SetDevicePtr(Device->GetContext());
 	VSMap.insert(std::make_pair(_Name, NewVertexShader));
 	return NewVertexShader;
 }
@@ -64,7 +64,7 @@ IEnginePixelShader* EngineD3DResourceManager::CreatePixelShader(const char* _Nam
 {
 	IEnginePixelShader* NewPixelShader = new EnginePixelShader();
 	EnginePixelShader* ChildPtr = (EnginePixelShader*)NewPixelShader;
-	ChildPtr->SetDevicePtr(Device);
+	ChildPtr->SetDevicePtr(Device->GetContext());
 	PSMap.insert(std::make_pair(_Name, NewPixelShader));
 	return NewPixelShader;
 }
@@ -73,7 +73,7 @@ IEngineRasterizer* EngineD3DResourceManager::CreateRasterizer(const char* _Name)
 {
 	IEngineRasterizer* NewRasterizer = new EngineRasterizer();
 	EngineRasterizer* ChildPtr = (EngineRasterizer*)NewRasterizer;
-	ChildPtr->SetDevicePtr(Device);
+	ChildPtr->SetDevicePtr(Device->GetContext());
 	RSMap.insert(std::make_pair(_Name, NewRasterizer));
 	return NewRasterizer;
 }
@@ -82,12 +82,12 @@ IEngineDepthStencil* EngineD3DResourceManager::CreateDepthStencil(const char* _N
 {
 	IEngineDepthStencil* NewDepthStencil = new EngineDepthStencil();
 	EngineDepthStencil* ChildPtr = (EngineDepthStencil*)NewDepthStencil;
-	ChildPtr->SetDevicePtr(Device);
+	ChildPtr->SetDevicePtr(Device->GetContext());
 	DSMap.insert(std::make_pair(_Name, NewDepthStencil));
 	return NewDepthStencil;
 }
 
-void EngineD3DResourceManager::SettingVertexBuffer(IEngineVertexBuffer* pBuffer, VERTEX_POS_COLOR* pVertices, int VertexSize)
+void EngineD3DResourceManager::SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize)
 {
 	EngineVertexBuffer* ChildPtr = (EngineVertexBuffer*)pBuffer;
 
@@ -105,7 +105,7 @@ void EngineD3DResourceManager::SettingVertexBuffer(IEngineVertexBuffer* pBuffer,
 	Desc.StructureByteStride = 0;
 	Desc.MiscFlags = 0;
 
-	ChildPtr->Strides = sizeof(VERTEX_POS_COLOR);
+	ChildPtr->Strides = VertexFormatSize;
 	ChildPtr->Offsets = 0;
 	HRESULT Result = Device->GetDevice()->CreateBuffer(&Desc, &Data, &ChildPtr->BufferPtr);
 }
@@ -229,8 +229,8 @@ void EngineD3DResourceManager::SettingDepthStencil(IEngineDepthStencil* pDepthSt
 {
 	EngineDepthStencil* ChildPtr = (EngineDepthStencil*)pDepthStencil;
 
-	ChildPtr->m_Desc = _Desc;
-	Device->GetDevice()->CreateDepthStencilState(&ChildPtr->m_Desc, &ChildPtr->m_pDepthStencil);
+	ChildPtr->Desc = _Desc;
+	Device->GetDevice()->CreateDepthStencilState(&ChildPtr->Desc, &ChildPtr->DepthStencil);
 }
 
 IEngineVertexBuffer* EngineD3DResourceManager::FindVertexBuffer(const char* _Name)
@@ -300,6 +300,7 @@ void EngineD3DResourceManager::DeleteAllResource()
 {
 	for (std::pair<std::string, IEngineVertexBuffer*> pair : VBMap)
 	{
+		pair.second->Release();
 		delete pair.second;
 		pair.second = nullptr;
 	}
@@ -307,6 +308,7 @@ void EngineD3DResourceManager::DeleteAllResource()
 
 	for (std::pair<std::string, IEngineIndexBuffer*> pair : IBMap)
 	{
+		pair.second->Release();
 		delete pair.second;
 		pair.second = nullptr;
 	}
@@ -314,6 +316,7 @@ void EngineD3DResourceManager::DeleteAllResource()
 
 	for (std::pair<std::string, IEngineInputLayout*> pair : IAMap)
 	{
+		pair.second->Release();
 		delete pair.second;
 		pair.second = nullptr;
 	}
@@ -321,6 +324,7 @@ void EngineD3DResourceManager::DeleteAllResource()
 
 	for (std::pair<std::string, IEngineVertexShader*> pair : VSMap)
 	{
+		pair.second->Release();
 		delete pair.second;
 		pair.second = nullptr;
 	}
@@ -328,6 +332,7 @@ void EngineD3DResourceManager::DeleteAllResource()
 
 	for (std::pair<std::string, IEngineRasterizer*> pair : RSMap)
 	{
+		pair.second->Release();
 		delete pair.second;
 		pair.second = nullptr;
 	}
@@ -335,6 +340,7 @@ void EngineD3DResourceManager::DeleteAllResource()
 
 	for (std::pair<std::string, IEnginePixelShader*> pair : PSMap)
 	{
+		pair.second->Release();
 		delete pair.second;
 		pair.second = nullptr;
 	}
@@ -342,9 +348,9 @@ void EngineD3DResourceManager::DeleteAllResource()
 
 	for (std::pair<std::string, IEngineDepthStencil*> pair : DSMap)
 	{
+		pair.second->Release();
 		delete pair.second;
 		pair.second = nullptr;
 	}
 	DSMap.clear();
 }
-

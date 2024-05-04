@@ -58,5 +58,25 @@ void TestActor::Update(float _Delta)
 	if (KeyIsDown('R'))
 	{
 		Renderer->Transform.SetPos({ 0,0,0 });
+		Renderer->Transform.SetRotation({ 0,0,0 });
+	}
+
+	if (KeyIsDown('C'))
+	{
+		IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+		Renderer->VB = ResManager->FindVertexBuffer("Box3D");
+		Renderer->IB = ResManager->FindIndexBuffer("Box3D");
+		Renderer->VS = ResManager->FindVertexShader("Test3DShader");
+		Renderer->IA = ResManager->FindInputLayout("PosColor");
+		Renderer->PS = ResManager->FindPixelShader("Test3DShader");
+	}
+	if (KeyIsDown('V'))
+	{
+		IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+		Renderer->VB = ResManager->FindVertexBuffer("Box2D");
+		Renderer->IB = ResManager->FindIndexBuffer("Box2D");
+		Renderer->VS = ResManager->FindVertexShader("Test2DShader");
+		Renderer->IA = ResManager->FindInputLayout("Pos");
+		Renderer->PS = ResManager->FindPixelShader("Test2DShader");
 	}
 }

@@ -1,15 +1,15 @@
 #include "Pre.h"
 #include "EngineVertexShader.h"
-#include <fstream>
-#include <iostream>
-#include <d3dcompiler.h> // DirectX Shader Compiler
-#pragma comment(lib, "d3dcompiler.lib")
 
 EngineVertexShader::EngineVertexShader()
 {
 }
 
 EngineVertexShader::~EngineVertexShader()
+{
+}
+
+void EngineVertexShader::Release()
 {
 	if (ShaderBlob != nullptr)
 	{
@@ -26,7 +26,7 @@ EngineVertexShader::~EngineVertexShader()
 
 void EngineVertexShader::IntoPipeLine()
 {
-	Device->GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
+	DeviceContext->VSSetShader(ShaderPtr, nullptr, 0);
 }
 
 void* EngineVertexShader::GetShaderByteCode()

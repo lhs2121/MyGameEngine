@@ -12,6 +12,10 @@ EnginePixelShader::EnginePixelShader()
 
 EnginePixelShader::~EnginePixelShader()
 {
+}
+
+void EnginePixelShader::Release()
+{
 	if (ShaderBlob != nullptr)
 	{
 		ShaderBlob->Release();
@@ -27,6 +31,6 @@ EnginePixelShader::~EnginePixelShader()
 
 void EnginePixelShader::IntoPipeLine()
 {
-	Device->GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
+	DeviceContext->PSSetShader(ShaderPtr, nullptr, 0);
 }
 

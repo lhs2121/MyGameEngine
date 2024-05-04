@@ -17,7 +17,7 @@ public:
 	EngineRenderer& operator=(EngineRenderer&& _Other) noexcept = delete;
 
 	void Start() override;
-	void Render();
+	virtual void Render();
 	void UpdateConstantBuffer();
 
 	IEngineVertexBuffer* VB = nullptr;

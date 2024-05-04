@@ -14,12 +14,13 @@ public:
 	EngineInputLayout& operator=(const EngineInputLayout& _Other) = delete;
 	EngineInputLayout& operator=(EngineInputLayout&& _Other) noexcept = delete;
 
+	void Release() override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(IEngineDevice* pDevice)
+	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
 	{
-		Device = pDevice;
+		DeviceContext = pDeviceContext;
 	}
-	IEngineDevice* Device;
+	ID3D11DeviceContext* DeviceContext;
 	UINT ElementNum = 0;
 	D3D11_INPUT_ELEMENT_DESC* LayoutDesc;
 	ID3D11InputLayout* LayoutPtr;

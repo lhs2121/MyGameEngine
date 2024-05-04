@@ -14,12 +14,13 @@ public:
 	EngineVertexBuffer& operator=(const EngineVertexBuffer& _Other) = delete;
 	EngineVertexBuffer& operator=(EngineVertexBuffer&& _Other) noexcept = delete;
 
+	void Release() override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(IEngineDevice* pDevice)
+	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
 	{
-		Device = pDevice;
+		DeviceContext = pDeviceContext;
 	}
-	IEngineDevice* Device;
+	ID3D11DeviceContext* DeviceContext;
 
 	ID3D11Buffer* BufferPtr;
 	UINT Strides;

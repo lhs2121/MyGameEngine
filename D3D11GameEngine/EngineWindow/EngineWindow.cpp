@@ -29,7 +29,7 @@ void EngineWindow::Register()
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = nullptr;
-	wcex.lpszClassName = "Class000";
+	wcex.lpszClassName = "WindowClass";
 	wcex.hIconSm = nullptr;
 
 	ATOM A = RegisterClassExA(&wcex);
@@ -37,7 +37,7 @@ void EngineWindow::Register()
 
 void EngineWindow::Create()
 {
-	hWnd = CreateWindowA("Class000", WindowTitle.c_str(), WS_OVERLAPPEDWINDOW,
+	hWnd = CreateWindowA("WindowClass", WindowTitle.c_str(), WS_OVERLAPPEDWINDOW,
 		WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), nullptr, nullptr, hInstance, nullptr);
 
 	if (!hWnd)

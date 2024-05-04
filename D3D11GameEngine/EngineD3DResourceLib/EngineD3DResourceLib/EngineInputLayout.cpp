@@ -9,6 +9,10 @@ EngineInputLayout::EngineInputLayout()
 
 EngineInputLayout::~EngineInputLayout()
 {
+}
+
+void EngineInputLayout::Release()
+{
 	if (LayoutPtr != nullptr)
 	{
 		LayoutPtr->Release();
@@ -18,7 +22,7 @@ EngineInputLayout::~EngineInputLayout()
 
 void EngineInputLayout::IntoPipeLine()
 {
-	Device->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	Device->GetContext()->IASetInputLayout(LayoutPtr);
+	DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DeviceContext->IASetInputLayout(LayoutPtr);
 }
 

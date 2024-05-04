@@ -35,6 +35,9 @@
     <ClCompile Include="EngineTransform.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="EngineSpriteRenderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="EngineTransform.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineSpriteRenderer.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

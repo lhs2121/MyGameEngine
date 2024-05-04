@@ -87,8 +87,8 @@ void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 
 	{
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
-		Desc.BufferDesc.Width = 1920;
-		Desc.BufferDesc.Height = 1080;
+		Desc.BufferDesc.Width = WindowSize.ix();
+		Desc.BufferDesc.Height = WindowSize.iy();
 		Desc.BufferDesc.RefreshRate.Numerator = 60;
 		Desc.BufferDesc.RefreshRate.Denominator = 1;
 		Desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -138,7 +138,6 @@ void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 		// ±íÀÌ ½ºÅÙ½Ç ºä »ý¼º
 		if (S_OK != Device->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
 		{
-			
 		}
 	}
 

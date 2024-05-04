@@ -34,6 +34,7 @@
     <ClCompile Include="EngineActor.cpp" />
     <ClCompile Include="EngineComponent.cpp" />
     <ClCompile Include="EngineLevelObject.cpp" />
+    <ClCompile Include="EngineSpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCamera.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="EngineLevel.h" />
     <ClInclude Include="EngineObject.h" />
     <ClInclude Include="EngineRenderer.h" />
+    <ClInclude Include="EngineSpriteRenderer.h" />
     <ClInclude Include="EngineTransform.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineActor.h" />

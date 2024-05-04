@@ -19,51 +19,65 @@ void EngineDevice::ResourceInit()
 		{
 			std::string FileName = ShaderFile.GetFileName();
 
-			IEngineVertexShader* pVertexShader = m_pManager->CreateVertexShader(FileName.c_str());
-			m_pManager->SettingVertexShader(pVertexShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
+			IEngineVertexShader* pVertexShader = Manager->CreateVertexShader(FileName.c_str());
+			Manager->SettingVertexShader(pVertexShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
 			
-			IEnginePixelShader* pPixelShader = m_pManager->CreatePixelShader(FileName.c_str());
-			m_pManager->SettingPixelShader(pPixelShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
+			IEnginePixelShader* pPixelShader = Manager->CreatePixelShader(FileName.c_str());
+			Manager->SettingPixelShader(pPixelShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
 		}
 	}
 
 	//IA¼³Á¤
 	{
-		EngineVertexShader* TestVertexShader = (EngineVertexShader*)m_pManager->FindVertexShader("TestShader");
 		{
+			EngineVertexShader* TestVertexShader = (EngineVertexShader*)Manager->FindVertexShader("Test2DShader");
+
+			D3D11_INPUT_ELEMENT_DESC Desc[] =
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			};
+
+			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("Pos");
+			Manager->SettingInputLayout(pInputLayout, 1, Desc, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+		}
+
+		{
+			EngineVertexShader* TestVertexShader = (EngineVertexShader*)Manager->FindVertexShader("Test3DShader");
+
 			D3D11_INPUT_ELEMENT_DESC Desc[] =
 			{
 				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
 
-			IEngineInputLayout* pInputLayout = m_pManager->CreateInputLayout("POSCOLOR");
-			m_pManager->SettingInputLayout(pInputLayout, 2, Desc, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("PosColor");
+			Manager->SettingInputLayout(pInputLayout, 2, Desc, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
+
 	}
 
-	////Box2D
-	//{
-	//	float4 Rect[] =
-	//	{
-	//		float4(-0.5f, 0.5f, -0.5f, 0.5f),
-	//		float4(0.5f, 0.5f, -0.5f, 0.5f),
-	//		float4(0.5f, -0.5f, -0.5f, 0.5f),
-	//		float4(-0.5f, -0.5f, -0.5f, 0.5f)
-	//	};
-	//	EngineVertexBuffer* NewVertexBuffer = EngineVertexBuffer::RegisterResource("Rect");
-	//	NewVertexBuffer->CreateResource(Rect, sizeof(Rect));
-	//}
+	//Box2D
+	{
+		float4 Box2D[] =
+		{
+			float4(-0.5f, 0.5f),
+			float4(0.5f, 0.5f),
+			float4(0.5f, -0.5f),
+			float4(-0.5f, -0.5f)
+		};
+		IEngineVertexBuffer* pVertexBuffer = Manager->CreateVertexBuffer("Box2D");
+		Manager->SettingVertexBuffer(pVertexBuffer, Box2D, sizeof(float4), sizeof(Box2D));
+	}
 
-	//{
-	//	UINT Rect[]
-	//	{
-	//		0,1,2,
-	//		0,2,3
-	//	};
-	//	EngineIndexBuffer* NewIndexBuffer = EngineIndexBuffer::RegisterResource("Rect");
-	//	NewIndexBuffer->CreateResource(Rect, sizeof(Rect));
-	//}
+	{
+		UINT Box2D[]
+		{
+			0,1,2,
+			0,2,3
+		};
+		IEngineIndexBuffer* pIndexBuffer = Manager->CreateIndexBuffer("Box2D");
+		Manager->SettingIndexBuffer(pIndexBuffer, Box2D, sizeof(Box2D));
+	}
 
 	//Box3D
 	{
@@ -112,8 +126,8 @@ void EngineDevice::ResourceInit()
 			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) } ,
 		};
 
-		IEngineVertexBuffer* pVertexBuffer = m_pManager->CreateVertexBuffer("Box3D");
-		m_pManager->SettingVertexBuffer(pVertexBuffer, Box3D,sizeof(Box3D));
+		IEngineVertexBuffer* pVertexBuffer = Manager->CreateVertexBuffer("Box3D");
+		Manager->SettingVertexBuffer(pVertexBuffer, Box3D, sizeof(VERTEX_POS_COLOR), sizeof(Box3D));
 	}
 
 	{
@@ -144,8 +158,8 @@ void EngineDevice::ResourceInit()
 			22,23,20
 		};
 
-		IEngineIndexBuffer* pIndexBuffer = m_pManager->CreateIndexBuffer("Box3D");
-		m_pManager->SettingIndexBuffer(pIndexBuffer, Box3D, sizeof(Box3D));
+		IEngineIndexBuffer* pIndexBuffer = Manager->CreateIndexBuffer("Box3D");
+		Manager->SettingIndexBuffer(pIndexBuffer, Box3D, sizeof(Box3D));
 	}
 
 	{
@@ -162,8 +176,8 @@ void EngineDevice::ResourceInit()
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
 		
-		IEngineRasterizer* pRasterizer = m_pManager->CreateRasterizer("Default");
-		m_pManager->SettingRasterizer(pRasterizer, Desc);
+		IEngineRasterizer* pRasterizer = Manager->CreateRasterizer("Default");
+		Manager->SettingRasterizer(pRasterizer, Desc);
 	}
 
 	{
@@ -173,8 +187,8 @@ void EngineDevice::ResourceInit()
 		Desc.DepthFunc = D3D11_COMPARISON_LESS;
 		Desc.StencilEnable = false;
 
-		IEngineDepthStencil* pDepthStencil = m_pManager->CreateDepthStencil("Default");
-		m_pManager->SettingDepthStencil(pDepthStencil, Desc);
+		IEngineDepthStencil* pDepthStencil = Manager->CreateDepthStencil("Default");
+		Manager->SettingDepthStencil(pDepthStencil, Desc);
 	}
 
 }

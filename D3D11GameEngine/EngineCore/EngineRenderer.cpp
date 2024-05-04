@@ -37,15 +37,13 @@ void EngineRenderer::Start()
 	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
 
 	IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
-	VB = ResManager->FindVertexBuffer("Box3D");
-	IB = ResManager->FindIndexBuffer("Box3D");
-	IA = ResManager->FindInputLayout("POSCOLOR");
-	VS = ResManager->FindVertexShader("TestShader");
+	VB = ResManager->FindVertexBuffer("Box2D");
+	IB = ResManager->FindIndexBuffer("Box2D");
+	IA = ResManager->FindInputLayout("Pos");
+	VS = ResManager->FindVertexShader("Test2DShader");
+	PS = ResManager->FindPixelShader("Test2DShader");
 	RS = ResManager->FindRasterizer("Default");
-	PS = ResManager->FindPixelShader("TestShader");
 	DS = ResManager->FindDepthStencil("Default");
-
-	IndexCount = 36;
 }
 void EngineRenderer::Render()
 {
@@ -58,7 +56,7 @@ void EngineRenderer::Render()
 	PS->IntoPipeLine();
 	DS->IntoPipeLine();
 	
-	EngineCore::GetContext() ->DrawIndexed(IndexCount, 0, 0);
+	EngineCore::GetContext() ->DrawIndexed(IB->GetIndexCount(), 0, 0);
 }
 
 void EngineRenderer::UpdateConstantBuffer()

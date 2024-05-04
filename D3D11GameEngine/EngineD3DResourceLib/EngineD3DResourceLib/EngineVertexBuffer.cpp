@@ -7,6 +7,10 @@ EngineVertexBuffer::EngineVertexBuffer()
 
 EngineVertexBuffer::~EngineVertexBuffer()
 {
+}
+
+void EngineVertexBuffer::Release()
+{
 	if (BufferPtr != nullptr)
 	{
 		BufferPtr->Release();
@@ -16,6 +20,6 @@ EngineVertexBuffer::~EngineVertexBuffer()
 
 void EngineVertexBuffer::IntoPipeLine()
 {
-	Device->GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
+	DeviceContext->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
 }
 

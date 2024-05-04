@@ -14,16 +14,17 @@ public:
 	EngineIndexBuffer& operator=(const EngineIndexBuffer& _Other) = delete;
 	EngineIndexBuffer& operator=(EngineIndexBuffer&& _Other) noexcept = delete;
 
-	UINT GetIndexCount() const
+	void Release() override;
+	UINT GetIndexCount() override 
 	{
 		return IndexCount;
 	};
 	void IntoPipeLine() override;
-	void SetDevicePtr(IEngineDevice* pDevice)
+	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
 	{
-		Device = pDevice;
+		DeviceContext = pDeviceContext;
 	}
-	IEngineDevice* Device;
+	ID3D11DeviceContext* DeviceContext;
 
 	ID3D11Buffer* BufferPtr;
 	UINT IndexCount;
