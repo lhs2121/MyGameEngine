@@ -22,7 +22,6 @@
     <ClCompile Include="EnginePixelShader.cpp" />
     <ClCompile Include="EngineRasterizer.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
-    <ClCompile Include="EngineVertexFormat.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineD3DResourceManager.cpp" />

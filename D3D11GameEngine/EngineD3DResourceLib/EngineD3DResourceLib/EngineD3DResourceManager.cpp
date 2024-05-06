@@ -134,13 +134,12 @@ void EngineD3DResourceManager::SettingIndexBuffer(IEngineIndexBuffer* pBuffer, U
 	HRESULT Result = Device->GetDevice()->CreateBuffer(&Desc, &Data, &ChildPtr->BufferPtr);
 }
 
-void EngineD3DResourceManager::SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum,
-	D3D11_INPUT_ELEMENT_DESC* _Desc, void* ShaderBytecode, SIZE_T BytecodeLength)
+void EngineD3DResourceManager::SettingInputLayout(IEngineInputLayout* pLayout, D3D11_INPUT_ELEMENT_DESC* _Desc, 
+	UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength)
 {
 	EngineInputLayout* ChildPtr = (EngineInputLayout*)pLayout;
-	ChildPtr->ElementNum = _ElementNum;
-	ChildPtr->LayoutDesc = _Desc;
-	HRESULT Result = Device->GetDevice()->CreateInputLayout(ChildPtr->LayoutDesc, ChildPtr->ElementNum, ShaderBytecode, BytecodeLength, &ChildPtr->LayoutPtr);
+	ChildPtr->Desc = _Desc;
+	HRESULT Result = Device->GetDevice()->CreateInputLayout(ChildPtr->Desc, _ElementNum, ShaderBytecode, BytecodeLength, &ChildPtr->LayoutPtr);
 }
 
 void EngineD3DResourceManager::SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path)

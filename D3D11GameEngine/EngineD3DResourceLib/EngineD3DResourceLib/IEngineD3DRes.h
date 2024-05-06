@@ -1,22 +1,6 @@
 #pragma once
 #include "d3d11.h"
 
-struct VERTEX_POS
-{
-	float4 Pos;
-};
-
-struct VERTEX_POS_COLOR
-{
-	float4 Pos;
-	float4 Color;
-};
-struct VERTEX_POSTEXCOORD
-{
-	float4 Pos;
-	float4 TexCoord;
-};
-
 struct IEngineDevice
 {
 	virtual void Init(void* pHwnd, float4 WindowSize) = 0;
@@ -78,7 +62,8 @@ struct IEngineD3DResourceManager
 
 	virtual void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize) = 0;
 	virtual void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) = 0;
-	virtual void SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum, D3D11_INPUT_ELEMENT_DESC* _Desc, void* ShaderBytecode, SIZE_T BytecodeLength) = 0;
+	virtual void SettingInputLayout(IEngineInputLayout* pLayout, D3D11_INPUT_ELEMENT_DESC* _Desc,
+		UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength) = 0;
 	virtual void SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path) = 0;
 	virtual void SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path) = 0;
 	virtual void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) = 0;

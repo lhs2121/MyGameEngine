@@ -15,7 +15,8 @@ public:
 
 	void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize) override;
 	void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) override;
-	void SettingInputLayout(IEngineInputLayout* pLayout, UINT _ElementNum, D3D11_INPUT_ELEMENT_DESC* _Desc, void* ShaderBytecode, SIZE_T BytecodeLength) override;
+	void SettingInputLayout(IEngineInputLayout* pLayout, D3D11_INPUT_ELEMENT_DESC* _Desc,
+		UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength) override;
 	void SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path) override;
 	void SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path) override;
 	void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) override;

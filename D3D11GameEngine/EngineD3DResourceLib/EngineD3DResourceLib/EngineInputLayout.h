@@ -21,7 +21,6 @@ public:
 		DeviceContext = pDeviceContext;
 	}
 	ID3D11DeviceContext* DeviceContext;
-	UINT ElementNum = 0;
-	D3D11_INPUT_ELEMENT_DESC* LayoutDesc;
+	D3D11_INPUT_ELEMENT_DESC* Desc;
 	ID3D11InputLayout* LayoutPtr;
 };

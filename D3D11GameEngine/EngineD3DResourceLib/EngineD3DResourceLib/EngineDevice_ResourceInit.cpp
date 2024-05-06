@@ -7,6 +7,7 @@
 #include "EnginePixelShader.h"
 #include "EngineRasterizer.h"
 #include "EngineDepthStencil.h"
+#include "EngineVertexFormat.h"
 
 void EngineDevice::ResourceInit()
 {
@@ -38,7 +39,7 @@ void EngineDevice::ResourceInit()
 			};
 
 			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("Pos");
-			Manager->SettingInputLayout(pInputLayout, 1, Desc, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+			Manager->SettingInputLayout(pInputLayout, Desc, 1, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
 
 		{
@@ -51,7 +52,7 @@ void EngineDevice::ResourceInit()
 			};
 
 			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("PosColor");
-			Manager->SettingInputLayout(pInputLayout, 2, Desc, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+			Manager->SettingInputLayout(pInputLayout, Desc, 2, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
 
 	}

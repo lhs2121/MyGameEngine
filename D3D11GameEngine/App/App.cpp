@@ -24,6 +24,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//EngineDebug::CrtSetBreakAlloc(248);
 	EngineDebug::CrtSetDbgFlag();
 	ContentsCore CoreObject;
-	EngineCore::EngineStart(hInstance, { 50, 50 }, { 1920,1080 }, "Cilent", &CoreObject);
+	EngineCore::EngineStart(hInstance, { 50, 50 }, { 1366,789 }, "Cilent", &CoreObject);
 }
 
