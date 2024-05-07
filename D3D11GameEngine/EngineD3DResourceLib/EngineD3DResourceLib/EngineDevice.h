@@ -18,7 +18,7 @@ public:
 	void ResourceInit(void* pManager) override;
 	void Clear() override;
 	void Present() override;
-
+	void Release() override;
 	ID3D11Device* GetDevice() override
 	{
 		return Device;

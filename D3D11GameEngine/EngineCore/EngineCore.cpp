@@ -37,7 +37,7 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
 
     MainTime.Init();
     MainTime.CountStart();
-
+    
     CreateInput(&MainInput);
     MainInput->InitAllKey();
 
@@ -68,22 +68,23 @@ void EngineCore::EngineRelease()
 {
 	EngineCore::DeleteAllLevel();
 
-	MainInput->DeleteAllKey();
 	if (MainInput != nullptr)
 	{
+	    MainInput->DeleteAllKey();
 		delete MainInput;
 		MainInput = nullptr;
 	}
 
-    MainResourceManager->DeleteAllResource();
 	if (MainResourceManager != nullptr)
 	{
+        MainResourceManager->Release();
 		delete MainResourceManager;
 		MainResourceManager = nullptr;
 	}
 
 	if (MainDevice != nullptr)
 	{
+        MainDevice->Release();
 		delete MainDevice;
 		MainDevice = nullptr;
 	}

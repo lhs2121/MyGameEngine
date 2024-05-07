@@ -1,6 +1,6 @@
 #pragma once
 #include "IEngineD3DRes.h"
-#include "DirectXTex.h"
+
 class EngineTexture : public IEngineTexture
 {
 public:
@@ -19,7 +19,7 @@ public:
 	{
 		DevicePtr = _DevicePtr;
 	}
-
+	void Release() override;
 	EngineDevice* DevicePtr;
 	DirectX::ScratchImage ScratchImage;
 	DirectX::TexMetadata MetaData;

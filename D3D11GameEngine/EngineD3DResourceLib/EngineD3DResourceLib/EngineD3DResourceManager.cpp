@@ -161,7 +161,7 @@ IEngineTexture* EngineD3DResourceManager::FindTexture(const char* _Name)
 	return nullptr;
 }
 
-void EngineD3DResourceManager::DeleteAllResource()
+void EngineD3DResourceManager::Release()
 {
 	for (std::pair<std::string, IEngineVertexBuffer*> pair : VBMap)
 	{
@@ -218,4 +218,12 @@ void EngineD3DResourceManager::DeleteAllResource()
 		pair.second = nullptr;
 	}
 	DSMap.clear();
+
+	for (std::pair<std::string, IEngineTexture*> pair : TexMap)
+	{
+		pair.second->Release();
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	TexMap.clear();
 }

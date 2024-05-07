@@ -23,7 +23,7 @@ public:
 	IEngineDepthStencil* FindDepthStencil(const char* _Name) override;
 	IEngineTexture* FindTexture(const char* _Name) override;
 
-	void DeleteAllResource() override;
+	void Release() override;
 private:
 	EngineDevice* Device = nullptr;
 	std::map<std::string, IEngineVertexBuffer*> VBMap;

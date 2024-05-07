@@ -2,6 +2,7 @@
 #include <EngineBase\EngineTime.h>
 #include <EngineWindow\EngineWindow.h>
 #include <EngineInputLib\include\IEngineInput.h>
+#include <d3d11.h>
 #include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3DRes.h>
 #include "EngineRenderer.h"
 #include "EngineLevel.h"

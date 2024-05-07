@@ -1,10 +1,5 @@
 #include "Pre.h"
 #include "EngineDevice.h"
-#include <dxgi.h>
-#include <D3Dcompiler.h>
-
-#pragma comment(lib,"dxgi.lib")
-#pragma comment(lib,"d3d11.lib")
 
 EngineDevice::EngineDevice()
 {
@@ -12,51 +7,6 @@ EngineDevice::EngineDevice()
 
 EngineDevice::~EngineDevice()
 {
-	if (DeviceContext != nullptr)
-	{
-		DeviceContext->Release();
-		DeviceContext = nullptr;
-	}
-	if (SwapChain != nullptr)
-	{
-		SwapChain->Release();
-		SwapChain = nullptr;
-	}
-	if (BackTexture != nullptr)
-	{
-		BackTexture->Release();
-		BackTexture = nullptr;
-	}
-	if (BackRenderTargetView != nullptr)
-	{
-		BackRenderTargetView->Release();
-		BackRenderTargetView = nullptr;
-	}
-	if (DepthView != nullptr)
-	{
-		DepthView->Release();
-		DepthView = nullptr;
-	}
-	if (DepthTexture != nullptr)
-	{
-		DepthTexture->Release();
-		DepthTexture = nullptr;
-	}
-	if (Device != nullptr)
-	{
-		//#if defined(DEBUG) || defined(_DEBUG)
-		//		ID3D11Debug* dxgiDebug;
-		//
-		//		if (SUCCEEDED(EngineCore::GetDevice()->QueryInterface(IID_PPV_ARGS(&dxgiDebug))))
-		//		{
-		//			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
-		//			dxgiDebug = nullptr;
-		//		}
-		//#endif
-
-		Device->Release();
-		Device = nullptr;
-	}
 }
 
 void EngineDevice::Init(void* pHwnd, float4 WindowSize)
@@ -168,6 +118,55 @@ void EngineDevice::Clear()
 void EngineDevice::Present()
 {
 	SwapChain->Present(0, 0);
+}
+
+void EngineDevice::Release()
+{
+	if (DeviceContext != nullptr)
+	{
+		DeviceContext->Release();
+		DeviceContext = nullptr;
+	}
+	if (SwapChain != nullptr)
+	{
+		SwapChain->Release();
+		SwapChain = nullptr;
+	}
+	if (BackTexture != nullptr)
+	{
+		BackTexture->Release();
+		BackTexture = nullptr;
+	}
+	if (BackRenderTargetView != nullptr)
+	{
+		BackRenderTargetView->Release();
+		BackRenderTargetView = nullptr;
+	}
+	if (DepthView != nullptr)
+	{
+		DepthView->Release();
+		DepthView = nullptr;
+	}
+	if (DepthTexture != nullptr)
+	{
+		DepthTexture->Release();
+		DepthTexture = nullptr;
+	}
+	if (Device != nullptr)
+	{
+		//#if defined(DEBUG) || defined(_DEBUG)
+		//		ID3D11Debug* dxgiDebug;
+		//
+		//		if (SUCCEEDED(EngineCore::GetDevice()->QueryInterface(IID_PPV_ARGS(&dxgiDebug))))
+		//		{
+		//			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+		//			dxgiDebug = nullptr;
+		//		}
+		//#endif
+
+		Device->Release();
+		Device = nullptr;
+	}
 }
 
 

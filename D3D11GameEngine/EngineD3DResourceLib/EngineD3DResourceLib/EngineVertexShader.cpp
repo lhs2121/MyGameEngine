@@ -1,10 +1,5 @@
 #include "Pre.h"
 #include "EngineVertexShader.h"
-#include <fstream>
-#include <d3dcompiler.h>
-
-#pragma comment(lib, "d3dcompiler.lib")
-#pragma comment(lib, "EngineBase.lib")
 
 EngineVertexShader::EngineVertexShader()
 {

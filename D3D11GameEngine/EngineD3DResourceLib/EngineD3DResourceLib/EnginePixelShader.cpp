@@ -1,9 +1,5 @@
 #include "Pre.h"
 #include "EnginePixelShader.h"
-#include <fstream>
-#include <d3dcompiler.h> 
-
-#pragma comment(lib, "d3dcompiler.lib")
 
 EnginePixelShader::EnginePixelShader()
 {
