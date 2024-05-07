@@ -22,6 +22,7 @@ public:
 	void SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path) override;
 	void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) override;
 	void SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc) override;
+	void SettingTexture(IEngineTexture* pTexture,const char* _FileName) override;
 
 	IEngineVertexBuffer* FindVertexBuffer(const char* _Name) override;
 	IEngineIndexBuffer* FindIndexBuffer(const char* _Name) override;

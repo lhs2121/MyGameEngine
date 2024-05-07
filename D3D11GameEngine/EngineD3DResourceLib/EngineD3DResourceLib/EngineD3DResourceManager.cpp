@@ -13,8 +13,10 @@
 #include <fstream>
 #include <iostream>
 #include <d3dcompiler.h>
+#include <DirectXTex.h>
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "EngineBase.lib")
+#pragma comment(lib, "DirectXTex.lib")
 
 IEngineDevice* EngineD3DResourceManager::CreateDevice()
 {
@@ -242,11 +244,12 @@ void EngineD3DResourceManager::SettingDepthStencil(IEngineDepthStencil* pDepthSt
 	Device->GetDevice()->CreateDepthStencilState(&ChildPtr->Desc, &ChildPtr->DepthStencil);
 }
 
-void EngineD3DResourceManager::SettingTexture(IEngineTexture* pTexture)
+void EngineD3DResourceManager::SettingTexture(IEngineTexture* pTexture, const char* _FilePath)
 {
 	EngineTexture* ChildPtr = (EngineTexture*)pTexture;
-
-	
+	std::string Path = _FilePath;
+	std::wstring UniPath = EngineString::GetWideString(Path);
+	DirectX::LoadFromWICFile(UniPath.c_str(),DirectX::WIC_FLAGS_FILTER_POINT, &ChildPtr->MetaData, ChildPtr->ScratchImage);
 }
 
 IEngineVertexBuffer* EngineD3DResourceManager::FindVertexBuffer(const char* _Name)

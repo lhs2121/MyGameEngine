@@ -74,7 +74,7 @@ struct IEngineD3DResourceManager
 	virtual void SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path) = 0;
 	virtual void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) = 0;
 	virtual void SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc) = 0;
-	virtual void SettingTexture(IEngineTexture* pTexture) = 0;
+	virtual void SettingTexture(IEngineTexture* pTexture, const char* _FileName) = 0;
 
 	virtual IEngineVertexBuffer* FindVertexBuffer(const char* _Name) = 0;
 	virtual IEngineIndexBuffer* FindIndexBuffer(const char* _Name) = 0;

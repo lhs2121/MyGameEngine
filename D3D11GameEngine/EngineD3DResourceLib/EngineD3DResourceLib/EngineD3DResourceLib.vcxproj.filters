@@ -13,6 +13,7 @@
     <ClInclude Include="IEngineD3DRes.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineD3DResourceManager.h" />
+    <ClInclude Include="EngineTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDevice.cpp" />
@@ -27,5 +28,6 @@
     <ClCompile Include="EngineD3DResourceManager.cpp" />
     <ClCompile Include="EngineDepthStencil.cpp" />
     <ClCompile Include="IEngineD3DRes.cpp" />
+    <ClCompile Include="EngineTexture.cpp" />
   </ItemGroup>
 </Project>
