@@ -14,17 +14,20 @@ public:
 	EngineDepthStencil& operator=(const EngineDepthStencil& _Other) = delete;
 	EngineDepthStencil& operator=(EngineDepthStencil&& _Other) noexcept = delete;
 
+
+	void Setting(D3D11_DEPTH_STENCIL_DESC _Desc) override;
 	void Release() override;
-	ID3D11DepthStencilState* GetResource()
+	void IntoPipeLine();
+	void SetDevicePtr(EngineDevice* _DevicePtr)
+	{
+		DevicePtr = _DevicePtr;
+	}
+	ID3D11DepthStencilState* GetResource() const
 	{
 		return DepthStencil;
 	};
-	void IntoPipeLine();
-	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
-	{
-		DeviceContext = pDeviceContext;
-	}
-	ID3D11DeviceContext* DeviceContext;
+
+	EngineDevice* DevicePtr;
 	D3D11_DEPTH_STENCIL_DESC Desc;
 	ID3D11DepthStencilState* DepthStencil;
 };

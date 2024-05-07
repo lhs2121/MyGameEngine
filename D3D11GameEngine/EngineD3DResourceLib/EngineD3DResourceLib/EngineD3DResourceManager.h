@@ -14,16 +14,6 @@ public:
 	IEngineDepthStencil* CreateDepthStencil(const char* _Name) override;
 	IEngineTexture* CreateTexture(const char* _Name) override;
 
-	void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize) override;
-	void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) override;
-	void SettingInputLayout(IEngineInputLayout* pLayout, D3D11_INPUT_ELEMENT_DESC* _Desc,
-		UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength) override;
-	void SettingVertexShader(IEngineVertexShader* pShader, const char* _Name, const char* _Path) override;
-	void SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path) override;
-	void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) override;
-	void SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc) override;
-	void SettingTexture(IEngineTexture* pTexture,const char* _FileName) override;
-
 	IEngineVertexBuffer* FindVertexBuffer(const char* _Name) override;
 	IEngineIndexBuffer* FindIndexBuffer(const char* _Name) override;
 	IEngineInputLayout* FindInputLayout(const char* _Name) override;
@@ -35,7 +25,7 @@ public:
 
 	void DeleteAllResource() override;
 private:
-	IEngineDevice* Device = nullptr;
+	EngineDevice* Device = nullptr;
 	std::map<std::string, IEngineVertexBuffer*> VBMap;
 	std::map<std::string, IEngineIndexBuffer*> IBMap;
 	std::map<std::string, IEngineInputLayout*> IAMap;

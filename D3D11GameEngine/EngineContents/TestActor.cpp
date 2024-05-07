@@ -12,6 +12,14 @@ TestActor::~TestActor()
 
 void TestActor::Start()
 {
+	EngineDirectory dir;
+	std::vector<EngineFile> ImageFile = dir.GetAllFile(".png");
+	std::string FileStr = ImageFile[0].GetStringPath();
+	IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+	Texture = ResManager->CreateTexture("TestTexture");
+
+	Texture->Setting(FileStr.c_str());
+
 	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 	Renderer = CreateComponent<EngineRenderer>();
 	Renderer->Transform.SetScale({ 100,100,100 });

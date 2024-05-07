@@ -9,6 +9,12 @@ EngineDepthStencil::~EngineDepthStencil()
 {
 }
 
+void EngineDepthStencil::Setting(D3D11_DEPTH_STENCIL_DESC _Desc)
+{
+	Desc = _Desc;
+	DevicePtr->GetDevice()->CreateDepthStencilState(&Desc, &DepthStencil);
+}
+
 void EngineDepthStencil::Release()
 {
 	if (DepthStencil != nullptr)
@@ -19,5 +25,5 @@ void EngineDepthStencil::Release()
 
 void EngineDepthStencil::IntoPipeLine()
 {
-	DeviceContext->OMSetDepthStencilState(DepthStencil, 1);
+	DevicePtr->GetContext()->OMSetDepthStencilState(DepthStencil, 1);
 }

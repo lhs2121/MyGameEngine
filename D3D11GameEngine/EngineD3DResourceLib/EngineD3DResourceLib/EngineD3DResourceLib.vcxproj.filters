@@ -1,33 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="EngineDepthStencil.h" />
     <ClInclude Include="EngineDevice.h" />
-    <ClInclude Include="EngineIndexBuffer.h" />
-    <ClInclude Include="EngineInputLayout.h" />
-    <ClInclude Include="EnginePixelShader.h" />
-    <ClInclude Include="EngineRasterizer.h" />
-    <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="EngineVertexFormat.h" />
-    <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="IEngineD3DRes.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineD3DResourceManager.h" />
-    <ClInclude Include="EngineTexture.h" />
+    <ClInclude Include="..\..\ThirdParty\include\DirectXTex.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDepthStencil.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineIndexBuffer.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInputLayout.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePixelShader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineRasterizer.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTexture.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexShader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDevice.cpp" />
     <ClCompile Include="EngineDevice_ResourceInit.cpp" />
-    <ClCompile Include="EngineIndexBuffer.cpp" />
-    <ClCompile Include="EngineInputLayout.cpp" />
-    <ClCompile Include="EnginePixelShader.cpp" />
-    <ClCompile Include="EngineRasterizer.cpp" />
-    <ClCompile Include="EngineVertexBuffer.cpp" />
-    <ClCompile Include="EngineVertexShader.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineD3DResourceManager.cpp" />
-    <ClCompile Include="EngineDepthStencil.cpp" />
     <ClCompile Include="IEngineD3DRes.cpp" />
-    <ClCompile Include="EngineTexture.cpp" />
+    <ClCompile Include="EngineDepthStencil.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineInputLayout.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EnginePixelShader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineRasterizer.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTexture.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexShader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{32a77a28-8d17-4b5d-8a18-a257baf41c03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{9c97f8de-b791-4d71-af6f-8725aad33bed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\ThirdParty\Debug\DirectXTex.lib">
+      <Filter>ThirdParty</Filter>
+    </Library>
   </ItemGroup>
 </Project>

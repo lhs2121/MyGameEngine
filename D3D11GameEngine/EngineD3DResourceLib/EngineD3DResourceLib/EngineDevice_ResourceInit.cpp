@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "EngineDevice.h"
+#include "EngineD3DResourceManager.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
 #include "EngineInputLayout.h"
@@ -9,8 +9,10 @@
 #include "EngineDepthStencil.h"
 #include "EngineVertexFormat.h"
 
-void EngineDevice::ResourceInit()
-{
+void EngineDevice::ResourceInit(void* pManager)
+{ 
+	EngineD3DResourceManager* Manager = (EngineD3DResourceManager*)pManager;
+
 	{
 		EngineDirectory Dir;
 		Dir.GoChild("EngineShader");
@@ -21,10 +23,10 @@ void EngineDevice::ResourceInit()
 			std::string FileName = ShaderFile.GetFileName();
 
 			IEngineVertexShader* pVertexShader = Manager->CreateVertexShader(FileName.c_str());
-			Manager->SettingVertexShader(pVertexShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
-			
+			pVertexShader->Setting(FileName.c_str(), ShaderFile.GetStringPath().c_str());
+
 			IEnginePixelShader* pPixelShader = Manager->CreatePixelShader(FileName.c_str());
-			Manager->SettingPixelShader(pPixelShader, FileName.c_str(), ShaderFile.GetStringPath().c_str());
+			pPixelShader->Setting(FileName.c_str(), ShaderFile.GetStringPath().c_str());
 		}
 	}
 
@@ -39,7 +41,7 @@ void EngineDevice::ResourceInit()
 			};
 
 			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("Pos");
-			Manager->SettingInputLayout(pInputLayout, Desc, 1, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+			pInputLayout->Setting(Desc, 1, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
 
 		{
@@ -52,7 +54,7 @@ void EngineDevice::ResourceInit()
 			};
 
 			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("PosColor");
-			Manager->SettingInputLayout(pInputLayout, Desc, 2, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+			pInputLayout->Setting(Desc, 2, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
 
 	}
@@ -67,7 +69,7 @@ void EngineDevice::ResourceInit()
 			float4(-0.5f, -0.5f)
 		};
 		IEngineVertexBuffer* pVertexBuffer = Manager->CreateVertexBuffer("Box2D");
-		Manager->SettingVertexBuffer(pVertexBuffer, Box2D, sizeof(float4), sizeof(Box2D));
+		pVertexBuffer->Setting(Box2D, sizeof(float4), sizeof(Box2D));
 	}
 
 	{
@@ -77,7 +79,7 @@ void EngineDevice::ResourceInit()
 			0,2,3
 		};
 		IEngineIndexBuffer* pIndexBuffer = Manager->CreateIndexBuffer("Box2D");
-		Manager->SettingIndexBuffer(pIndexBuffer, Box2D, sizeof(Box2D));
+		pIndexBuffer->Setting(Box2D, sizeof(Box2D));
 	}
 
 	//Box3D
@@ -128,7 +130,7 @@ void EngineDevice::ResourceInit()
 		};
 
 		IEngineVertexBuffer* pVertexBuffer = Manager->CreateVertexBuffer("Box3D");
-		Manager->SettingVertexBuffer(pVertexBuffer, Box3D, sizeof(VERTEX_POS_COLOR), sizeof(Box3D));
+		pVertexBuffer->Setting(Box3D, sizeof(VERTEX_POS_COLOR), sizeof(Box3D));
 	}
 
 	{
@@ -160,7 +162,7 @@ void EngineDevice::ResourceInit()
 		};
 
 		IEngineIndexBuffer* pIndexBuffer = Manager->CreateIndexBuffer("Box3D");
-		Manager->SettingIndexBuffer(pIndexBuffer, Box3D, sizeof(Box3D));
+		pIndexBuffer->Setting(Box3D, sizeof(Box3D));
 	}
 
 	{
@@ -176,9 +178,9 @@ void EngineDevice::ResourceInit()
 		Desc.ScissorEnable = false;
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
-		
+
 		IEngineRasterizer* pRasterizer = Manager->CreateRasterizer("Default");
-		Manager->SettingRasterizer(pRasterizer, Desc);
+		pRasterizer->Setting(Desc);
 	}
 
 	{
@@ -189,7 +191,7 @@ void EngineDevice::ResourceInit()
 		Desc.StencilEnable = false;
 
 		IEngineDepthStencil* pDepthStencil = Manager->CreateDepthStencil("Default");
-		Manager->SettingDepthStencil(pDepthStencil, Desc);
+		pDepthStencil->Setting(Desc);
 	}
 
 }

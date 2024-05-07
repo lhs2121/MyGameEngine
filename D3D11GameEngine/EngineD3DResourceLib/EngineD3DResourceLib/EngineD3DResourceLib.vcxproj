@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\ThirdParty\include\DirectXTex.h" />
     <ClInclude Include="EngineD3DResourceManager.h" />
     <ClInclude Include="EngineDepthStencil.h" />
     <ClInclude Include="EngineDevice.h" />
@@ -198,6 +199,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="EngineTexture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\ThirdParty\Debug\DirectXTex.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

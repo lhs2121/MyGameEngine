@@ -9,6 +9,12 @@ EngineRasterizer::~EngineRasterizer()
 {
 }
 
+void EngineRasterizer::Setting(D3D11_RASTERIZER_DESC _Desc)
+{
+	Desc = _Desc;
+	DevicePtr->GetDevice()->CreateRasterizerState(&Desc, &RasterizePtr);
+}
+
 void EngineRasterizer::Release()
 {
 	RasterizePtr->Release();
@@ -16,5 +22,5 @@ void EngineRasterizer::Release()
 
 void EngineRasterizer::IntoPipeLine()
 {
-	DeviceContext->RSSetState(RasterizePtr);
+	DevicePtr->GetContext()->RSSetState(RasterizePtr);
 }

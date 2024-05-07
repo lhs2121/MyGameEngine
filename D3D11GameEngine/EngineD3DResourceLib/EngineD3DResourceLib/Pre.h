@@ -7,3 +7,4 @@
 #include <EngineBase\EnginePath.h>
 #include <EngineBase\EngineDirectory.h>
 #include <EngineBase\EngineFile.h>
+#include "EngineDevice.h"

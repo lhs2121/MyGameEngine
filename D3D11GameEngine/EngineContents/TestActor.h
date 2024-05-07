@@ -20,6 +20,6 @@ public:
 protected:
 	EngineRenderer* Renderer;
 	EngineRenderer* Renderer2;
-
+	IEngineTexture* Texture;
 };
 

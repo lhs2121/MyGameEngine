@@ -1,7 +1,5 @@
 #pragma once
 #include "IEngineD3DRes.h"
-#include "EngineD3DResourceManager.h"
-#include "d3d11.h"
 
 class EngineDevice : public IEngineDevice
 {
@@ -17,7 +15,7 @@ public:
 	EngineDevice& operator=(EngineDevice&& _Other) noexcept = delete;
 
 	void Init(void* pHwnd,float4 WindowSize) override;
-	void ResourceInit() override;
+	void ResourceInit(void* pManager) override;
 	void Clear() override;
 	void Present() override;
 
@@ -30,10 +28,6 @@ public:
 		return DeviceContext;
 	}
 
-	void SetManager(IEngineD3DResourceManager* pManager)
-	{
-		Manager = pManager;
-	}
 private:
 	ID3D11Device* Device = nullptr;
 	ID3D11DeviceContext* DeviceContext = nullptr;
@@ -44,7 +38,4 @@ private:
 
 	ID3D11RenderTargetView* BackRenderTargetView = nullptr;
 	ID3D11DepthStencilView* DepthView = nullptr;
-
-	IEngineD3DResourceManager* Manager = nullptr;
-
 };

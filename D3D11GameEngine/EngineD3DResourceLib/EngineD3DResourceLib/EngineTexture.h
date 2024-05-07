@@ -13,12 +13,14 @@ public:
 	EngineTexture(EngineTexture&& _Other) noexcept = delete;
 	EngineTexture& operator=(const EngineTexture& _Other) = delete;
 	EngineTexture& operator=(EngineTexture&& _Other) noexcept = delete;
-;
-	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
+
+	void Setting(const char* _FilePath) override;
+	void SetDevicePtr(EngineDevice* _DevicePtr)
 	{
-		DeviceContext = pDeviceContext;
+		DevicePtr = _DevicePtr;
 	}
-	ID3D11DeviceContext* DeviceContext;
+
+	EngineDevice* DevicePtr;
 	DirectX::ScratchImage ScratchImage;
 	DirectX::TexMetadata MetaData;
 };

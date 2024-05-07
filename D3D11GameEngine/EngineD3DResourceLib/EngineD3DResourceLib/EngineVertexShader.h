@@ -14,15 +14,17 @@ public:
 	EngineVertexShader& operator=(const EngineVertexShader& _Other) = delete;
 	EngineVertexShader& operator=(EngineVertexShader&& _Other) noexcept = delete;
 
+	void Setting(const char* _Name, const char* _Path) override;
 	void Release() override;
 	void IntoPipeLine() override;
 	void* GetShaderByteCode();
 	SIZE_T GetShaderByteLength();
-	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
+	void SetDevicePtr(EngineDevice* _DevicePtr)
 	{
-		DeviceContext = pDeviceContext;
+		DevicePtr = _DevicePtr;
 	}
-	ID3D11DeviceContext* DeviceContext;
+
+	EngineDevice* DevicePtr;
 	ID3DBlob* ShaderBlob = nullptr;
 	ID3D11VertexShader* ShaderPtr = nullptr;
 };

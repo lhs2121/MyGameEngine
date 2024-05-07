@@ -14,13 +14,15 @@ public:
 	EngineRasterizer& operator=(const EngineRasterizer& _Other) = delete;
 	EngineRasterizer& operator=(EngineRasterizer&& _Other) noexcept = delete;
 	
+	void Setting(D3D11_RASTERIZER_DESC _Desc) override;
 	void Release() override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
+	void SetDevicePtr(EngineDevice* _DevicePtr)
 	{
-		DeviceContext = pDeviceContext;
+		DevicePtr = _DevicePtr;
 	}
-	ID3D11DeviceContext* DeviceContext;
+
+	EngineDevice* DevicePtr;
 	D3D11_RASTERIZER_DESC Desc;
 	ID3D11RasterizerState* RasterizePtr;
 };

@@ -14,14 +14,15 @@ public:
 	EngineVertexBuffer& operator=(const EngineVertexBuffer& _Other) = delete;
 	EngineVertexBuffer& operator=(EngineVertexBuffer&& _Other) noexcept = delete;
 
+	void Setting(void* pVertices, int VertexFormatSize, int VertexSize) override;
 	void Release() override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(ID3D11DeviceContext* pDeviceContext)
+	void SetDevicePtr(EngineDevice* _DevicePtr)
 	{
-		DeviceContext = pDeviceContext;
+		DevicePtr = _DevicePtr;
 	}
-	ID3D11DeviceContext* DeviceContext;
 
+	EngineDevice* DevicePtr;
 	ID3D11Buffer* BufferPtr;
 	UINT Strides;
 	UINT Offsets;

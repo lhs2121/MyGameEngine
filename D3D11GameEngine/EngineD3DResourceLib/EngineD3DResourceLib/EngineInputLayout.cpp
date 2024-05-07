@@ -11,6 +11,12 @@ EngineInputLayout::~EngineInputLayout()
 {
 }
 
+void EngineInputLayout::Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength)
+{
+	Desc = _Desc;
+	HRESULT Result = DevicePtr->GetDevice()->CreateInputLayout(Desc, _ElementNum, ShaderBytecode, BytecodeLength, &LayoutPtr);
+}
+
 void EngineInputLayout::Release()
 {
 	if (LayoutPtr != nullptr)
@@ -22,7 +28,7 @@ void EngineInputLayout::Release()
 
 void EngineInputLayout::IntoPipeLine()
 {
-	DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	DeviceContext->IASetInputLayout(LayoutPtr);
+	DevicePtr->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DevicePtr->GetContext()->IASetInputLayout(LayoutPtr);
 }
 
