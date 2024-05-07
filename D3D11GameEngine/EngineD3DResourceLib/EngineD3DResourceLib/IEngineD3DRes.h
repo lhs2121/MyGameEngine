@@ -20,6 +20,11 @@ struct IEngineD3DUnknown
 	virtual void Release() = 0;
 };
 
+struct IEngineTexture 
+{
+
+};
+
 struct IEngineVertexBuffer : public IEngineD3DUnknown
 {
 };
@@ -59,6 +64,7 @@ struct IEngineD3DResourceManager
 	virtual IEnginePixelShader* CreatePixelShader(const char* _Name) = 0;
 	virtual IEngineRasterizer* CreateRasterizer(const char* _Name) = 0;
 	virtual IEngineDepthStencil* CreateDepthStencil(const char* _Name) = 0;
+	virtual IEngineTexture* CreateTexture(const char* _Name) = 0;
 
 	virtual void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize) = 0;
 	virtual void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) = 0;
@@ -68,6 +74,7 @@ struct IEngineD3DResourceManager
 	virtual void SettingPixelShader(IEnginePixelShader* pShader, const char* _Name, const char* _Path) = 0;
 	virtual void SettingRasterizer(IEngineRasterizer* pRasterizer, D3D11_RASTERIZER_DESC _Desc) = 0;
 	virtual void SettingDepthStencil(IEngineDepthStencil* pDepthStencil, D3D11_DEPTH_STENCIL_DESC _Desc) = 0;
+	virtual void SettingTexture(IEngineTexture* pTexture) = 0;
 
 	virtual IEngineVertexBuffer* FindVertexBuffer(const char* _Name) = 0;
 	virtual IEngineIndexBuffer* FindIndexBuffer(const char* _Name) = 0;
@@ -76,6 +83,7 @@ struct IEngineD3DResourceManager
 	virtual IEngineRasterizer* FindRasterizer(const char* _Name) = 0;
 	virtual IEnginePixelShader* FindPixelShader(const char* _Name) = 0;
 	virtual IEngineDepthStencil* FindDepthStencil(const char* _Name) = 0;
+	virtual IEngineTexture* FindTexture(const char* _Name) = 0;
 
 	virtual void DeleteAllResource() = 0;
 	virtual ~IEngineD3DResourceManager() {};

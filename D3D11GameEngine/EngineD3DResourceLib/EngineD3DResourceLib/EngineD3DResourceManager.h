@@ -12,6 +12,7 @@ public:
 	IEnginePixelShader* CreatePixelShader(const char* _Name) override;
 	IEngineRasterizer* CreateRasterizer(const char* _Name) override;
 	IEngineDepthStencil* CreateDepthStencil(const char* _Name) override;
+	IEngineTexture* CreateTexture(const char* _Name) override;
 
 	void SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize) override;
 	void SettingIndexBuffer(IEngineIndexBuffer* pBuffer, UINT* Indices, int VertexSize) override;
@@ -29,6 +30,7 @@ public:
 	IEngineRasterizer* FindRasterizer(const char* _Name) override;
 	IEnginePixelShader* FindPixelShader(const char* _Name) override;
 	IEngineDepthStencil* FindDepthStencil(const char* _Name) override;
+	IEngineTexture* FindTexture(const char* _Name) override;
 
 	void DeleteAllResource() override;
 private:
@@ -40,4 +42,6 @@ private:
 	std::map<std::string, IEnginePixelShader*> PSMap;
 	std::map<std::string, IEngineRasterizer*> RSMap;
 	std::map<std::string, IEngineDepthStencil*> DSMap;
+
+	std::map<std::string, IEngineTexture*> TexMap;
 };

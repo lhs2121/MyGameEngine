@@ -9,6 +9,7 @@
 #include "EnginePixelShader.h"
 #include "EngineDepthStencil.h"
 #include "EngineVertexFormat.h"
+#include "EngineTexture.h"
 #include <fstream>
 #include <iostream>
 #include <d3dcompiler.h>
@@ -85,6 +86,15 @@ IEngineDepthStencil* EngineD3DResourceManager::CreateDepthStencil(const char* _N
 	ChildPtr->SetDevicePtr(Device->GetContext());
 	DSMap.insert(std::make_pair(_Name, NewDepthStencil));
 	return NewDepthStencil;
+}
+
+IEngineTexture* EngineD3DResourceManager::CreateTexture(const char* _Name)
+{
+	IEngineTexture* NewTexture = new EngineTexture();
+	EngineTexture* ChildPtr = (EngineTexture*)NewTexture;
+	ChildPtr->SetDevicePtr(Device->GetContext());
+	TexMap.insert(std::make_pair(_Name, NewTexture));
+	return NewTexture;
 }
 
 void EngineD3DResourceManager::SettingVertexBuffer(IEngineVertexBuffer* pBuffer, void* pVertices, int VertexFormatSize, int VertexSize)
@@ -232,6 +242,13 @@ void EngineD3DResourceManager::SettingDepthStencil(IEngineDepthStencil* pDepthSt
 	Device->GetDevice()->CreateDepthStencilState(&ChildPtr->Desc, &ChildPtr->DepthStencil);
 }
 
+void EngineD3DResourceManager::SettingTexture(IEngineTexture* pTexture)
+{
+	EngineTexture* ChildPtr = (EngineTexture*)pTexture;
+
+	
+}
+
 IEngineVertexBuffer* EngineD3DResourceManager::FindVertexBuffer(const char* _Name)
 {
 	if (VBMap.find(_Name) != VBMap.end())
@@ -291,6 +308,15 @@ IEngineDepthStencil* EngineD3DResourceManager::FindDepthStencil(const char* _Nam
 	if (DSMap.find(_Name) != DSMap.end())
 	{
 		return DSMap[_Name];
+	}
+	return nullptr;
+}
+
+IEngineTexture* EngineD3DResourceManager::FindTexture(const char* _Name)
+{
+	if (TexMap.find(_Name) != TexMap.end())
+	{
+		return TexMap[_Name];
 	}
 	return nullptr;
 }
