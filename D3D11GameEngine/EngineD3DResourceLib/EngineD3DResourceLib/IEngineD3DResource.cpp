@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "IEngineD3DRes.h"
+#include "IEngineD3DResource.h"
 #include "EngineD3DResourceManager.h"
 
 void CreateD3DResourceManger(IEngineD3DResourceManager** ppManager)

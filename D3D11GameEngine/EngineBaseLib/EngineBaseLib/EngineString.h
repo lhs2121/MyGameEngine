@@ -1,6 +1,6 @@
 #pragma once
 
-class EngineString
+class __declspec(dllexport) EngineString
 {
 public:
 	// constrcuter destructer

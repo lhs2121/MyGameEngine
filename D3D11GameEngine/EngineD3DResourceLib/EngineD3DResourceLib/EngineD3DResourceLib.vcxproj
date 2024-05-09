@@ -89,7 +89,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\..\;..\..\ThirdParty\include</IncludePath>
+    <LibraryPath>$(SolutionDir)..\ThirdParty\Release;$(SolutionDir)..\Bin\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -106,6 +107,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)IEngineD3DResource.h" "$(SolutionDir)include\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -126,6 +130,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)IEngineD3DResource.h" "$(SolutionDir)include\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -143,6 +150,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)IEngineD3DResource.h" "$(SolutionDir)include\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -163,6 +173,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)IEngineD3DResource.h" "$(SolutionDir)include\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ThirdParty\include\DirectXTex.h" />
@@ -176,7 +189,7 @@
     <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="EngineVertexFormat.h" />
     <ClInclude Include="EngineVertexShader.h" />
-    <ClInclude Include="IEngineD3DRes.h" />
+    <ClInclude Include="IEngineD3DResource.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineTexture.h" />
   </ItemGroup>
@@ -191,7 +204,7 @@
     <ClCompile Include="EngineRasterizer.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
-    <ClCompile Include="IEngineD3DRes.cpp" />
+    <ClCompile Include="IEngineD3DResource.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

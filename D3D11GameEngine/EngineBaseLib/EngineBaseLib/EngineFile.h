@@ -1,7 +1,7 @@
 #pragma once
 #include "EnginePath.h"
 
-class EngineFile : public EnginePath
+class __declspec(dllexport) EngineFile : public EnginePath
 {
 public:
 	// constrcuter destructer

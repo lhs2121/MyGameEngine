@@ -1,6 +1,6 @@
 #pragma once
 
-class EngineDebug
+class __declspec(dllexport) EngineDebug
 {
 public:
 	// constrcuter destructer

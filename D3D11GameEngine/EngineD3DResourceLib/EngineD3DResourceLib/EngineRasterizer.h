@@ -1,5 +1,5 @@
 #pragma once
-#include "IEngineD3DRes.h"
+#include "IEngineD3DResource.h"
 
 class EngineRasterizer : public IEngineRasterizer
 {

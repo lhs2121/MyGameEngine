@@ -1,5 +1,5 @@
 #pragma once
-#include <EngineBase\EngineMath.h>
+#include <EngineBaseLib\EngineBaseLib\EngineMath.h>
 
 struct VERTEX_POS
 {

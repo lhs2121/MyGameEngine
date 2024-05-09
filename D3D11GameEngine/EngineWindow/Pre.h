@@ -1,10 +1,11 @@
 #pragma once
 
-#include <EngineBase\Pre.h>
-#include <EngineBase\EngineMath.h>
-#include <EngineBase\EngineDirectory.h>
-#include <EngineBase\EngineFile.h>
-#include <EngineBase\EngineDebug.h>
-#include <EngineBase\EngineString.h>
-
+#include <EngineBaseLib\EngineBaseLib\Pre.h>
+#include <EngineBaseLib\EngineBaseLib\EngineDebug.h>
+#include <EngineBaseLib\EngineBaseLib\EngineDirectory.h>
+#include <EngineBaseLib\EngineBaseLib\EngineFile.h>
+#include <EngineBaseLib\EngineBaseLib\EngineMath.h>
+#include <EngineBaseLib\EngineBaseLib\EnginePath.h>
+#include <EngineBaseLib\EngineBaseLib\EngineString.h>
+#include <EngineBaseLib\EngineBaseLib\EngineTime.h>
 #include "EngineWindow.h"

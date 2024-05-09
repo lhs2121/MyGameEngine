@@ -1,9 +1,8 @@
 #pragma once
-#include <EngineBase\EngineTime.h>
+#include <d3d11.h>
 #include <EngineWindow\EngineWindow.h>
 #include <EngineInputLib\include\IEngineInput.h>
-#include <d3d11.h>
-#include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3DRes.h>
+#include <EngineD3DResourceLib\include\IEngineD3DResource.h>
 #include "EngineRenderer.h"
 #include "EngineLevel.h"
 

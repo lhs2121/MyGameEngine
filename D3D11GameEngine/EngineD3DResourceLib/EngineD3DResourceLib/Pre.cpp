@@ -5,4 +5,4 @@
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib, "DirectXTex.lib")
 
-#pragma comment(lib, "EngineBase.lib")
+#pragma comment(lib, "EngineBaseLib.lib")

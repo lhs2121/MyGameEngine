@@ -1,4 +1,3 @@
-#pragma comment(lib, "EngineBase.lib")
 #pragma comment(lib, "EngineWindow.lib")
 #pragma comment(lib, "EngineCore.lib")
 #pragma comment(lib, "EngineContents.lib")
@@ -7,6 +6,7 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 
+#pragma comment(lib, "EngineBaseLib.lib")
 #pragma comment(lib, "EngineInputLib.lib")
 #pragma comment(lib, "EngineD3DResourceLib.lib")
 

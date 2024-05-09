@@ -2,7 +2,7 @@
 #include "EnginePath.h"
 
 class EngineFile;
-class EngineDirectory : public EnginePath
+class __declspec(dllexport) EngineDirectory : public EnginePath
 {
 public:
 	// constrcuter destructer

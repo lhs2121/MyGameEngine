@@ -1,6 +1,6 @@
 #pragma once
 
-class EngineTime
+class __declspec(dllexport) EngineTime
 {
 public:
 	// constrcuter destructer

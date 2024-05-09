@@ -3,7 +3,7 @@ constexpr float PI = 3.141592653f;
 constexpr float DegToRad = 3.141592653f / 180.0f;
 
 class float4x4;
-class float4
+class __declspec(dllexport) float4
 {
 public:
 	float4(float _x = 0, float _y = 0, float _z = 0, float _w = 1) : x(_x), y(_y), z(_z), w(_w)
@@ -56,7 +56,7 @@ public:
 	{
 		return static_cast<int>(x);
 	}
-
+	
 	int iy() const
 	{
 		return static_cast<int>(y);
@@ -199,7 +199,7 @@ public:
 
 };
 
-class float4x4
+class __declspec(dllexport) float4x4
 {
 public:
 	float4x4()

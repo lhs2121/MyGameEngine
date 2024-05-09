@@ -1,5 +1,5 @@
 #pragma once
-#include "IEngineD3DRes.h"
+#include "IEngineD3DResource.h"
 
 class EngineTexture : public IEngineTexture
 {
@@ -21,6 +21,7 @@ public:
 	}
 	void Release() override;
 	EngineDevice* DevicePtr;
+	ID3D11ShaderResourceView* SRV;
 	DirectX::ScratchImage ScratchImage;
 	DirectX::TexMetadata MetaData;
 };
