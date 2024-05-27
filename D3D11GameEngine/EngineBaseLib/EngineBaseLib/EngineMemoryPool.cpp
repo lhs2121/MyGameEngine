@@ -9,6 +9,19 @@ EngineMemoryPool::~EngineMemoryPool()
 {
 }
 
+bool EngineMemoryPool::IsUsing()
+{
+	if (HeaderPtr != nullptr)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
+}
+
 void EngineMemoryPool::CreatePool(int PoolSize, int _ObjectSize)
 {
 	HeaderPtr = malloc(PoolSize);
@@ -22,19 +35,34 @@ void EngineMemoryPool::DeletePool()
 	free(HeaderPtr);
 }
 
-void* EngineMemoryPool::InsertObject(void* Ptr)
+void* EngineMemoryPool::InsertObject(void* Ptr, int Size)
 {
-	memcpy_s(NextPtr, ObjectSize, Ptr, ObjectSize);
+	if (Size == -1)
+	{
+		Size = ObjectSize;
+	}
+	memcpy_s(NextPtr, Size, Ptr, Size);
 	void* ReturnPtr = NextPtr;
 
-	// NextPtr옮김
-	__int64 CastPtr = (__int64)NextPtr;
-	CastPtr += ObjectSize;
-	NextPtr = (void*)CastPtr;
+	// NextPtr 오프셋이동
+
+	while (true)
+	{
+		__int64 CastPtr = (__int64)NextPtr;
+		CastPtr += ObjectSize;
+		NextPtr = (void*)CastPtr;
+
+		if (*(char*)NextPtr == 0)
+		{
+			break;
+		}
+	}
+
 
 	return ReturnPtr;
 }
 void EngineMemoryPool::DeleteObject(void* Ptr)
 {
 	memset(Ptr, 0, ObjectSize);
+	NextPtr = Ptr;
 }

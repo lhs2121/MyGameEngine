@@ -1,9 +1,9 @@
 #include "Pre.h"
 #include "EngineString.h"
 
-void* EngineString::FirstString16 = nullptr;
-void* EngineString::FirstString32 = nullptr;
-void* EngineString::FirstString64 = nullptr;
+EngineMemoryPool EngineString::StringPool16;
+EngineMemoryPool EngineString::StringPool32;
+EngineMemoryPool EngineString::StringPool64;
 
 EngineString::EngineString()
 {
@@ -11,66 +11,99 @@ EngineString::EngineString()
 
 EngineString::~EngineString()
 {
-	if (String != nullptr)
-	{
-		delete[] String;
-		String = nullptr;
-	}
 }
 
 void EngineString::operator=(EngineString& OtherString)
 {
-	int ByteSize = OtherString.GetByte();
-	if (String == nullptr)
-	{
-		String = new char[ByteSize + 1];
-	}
-	else if(String != nullptr)
-	{
-		if (GetLen() < ByteSize)
-		{
-			delete[] String;
-			String = new char[ByteSize + 1];
-		}
-		memset(String, 0, GetByte());
-	}
-
-	memcpy_s(String, ByteSize, OtherString.c_str(), ByteSize);
+	*this = OtherString.c_str();
 }
 
 void EngineString::operator=(const char* OtherString)
 {
-	int ByteSize = GetByte(OtherString) + 1;
-	if (String == nullptr)
+	if (StringPool16.IsUsing() == false)
 	{
-		if (ByteSize <= 16)
-		{
-			String = new char[16];
-			if (FirstString16 == nullptr)
-			{
-				FirstString16 = String;
-			}
-		}
-		else if (ByteSize <= 32)
-		{
-			String = new char[32];
-			if (FirstString32 == nullptr)
-			{
-				FirstString32 = String;
-			}
-		}
-		else if (ByteSize <= 64)
-		{
-			String = new char[64];
-			if (FirstString64 == nullptr)
-			{
-				FirstString64 = String;
-			}
-		}
-		
+		StringPool16.CreatePool(1024, 16);
+	}
+	if (StringPool32.IsUsing() == false)
+	{
+		StringPool32.CreatePool(1024, 32);
+	}
+	if (StringPool64.IsUsing() == false)
+	{
+		StringPool64.CreatePool(1024, 64);
 	}
 
-	memcpy_s(String, ByteSize, OtherString, ByteSize);
+	if (String == nullptr)
+	{
+		int ByteSize = GetByte(OtherString) + 1;
+
+		if (ByteSize <= 16)
+		{
+			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+		}
+		else if (16 < ByteSize <= 32)
+		{
+			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+		}
+		else if (32 < ByteSize <= 64)
+		{
+			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+		}
+	}
+	else
+	{
+		int ByteSize = GetByte() + 1;
+
+		if (ByteSize <= 16)
+		{
+			StringPool16.DeleteObject(String);
+			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+		}
+		else if (16 < ByteSize <= 32)
+		{
+			StringPool32.DeleteObject(String);
+			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+		}
+		else if (32 < ByteSize <= 64)
+		{
+			StringPool64.DeleteObject(String);
+			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+		}
+	}
+}
+
+void EngineString::operator+=(EngineString& OtherString)
+{
+	int ByteSize = OtherString.GetByte() + 1;
+
+}
+
+void EngineString::operator+=(const char* OtherString)
+{
+	int OtherSize = GetByte(OtherString) + 1;
+	int ThisSize = GetByte();
+
+	int ByteSize = OtherSize + ThisSize;
+
+	if (ByteSize <= 16)
+	{
+		memcpy_s(String + ThisSize, OtherSize, OtherString, OtherSize);
+	}
+	else if (16 < ByteSize <= 32)
+	{
+		void* PrevPtr = String;
+
+		String = (char*)StringPool32.InsertObject((void*)String, ThisSize + 1);
+		memcpy_s(String + ThisSize, OtherSize, OtherString, OtherSize);
+
+		StringPool16.DeleteObject(PrevPtr);
+	}
+	else if (32 < ByteSize <= 64)
+	{
+		StringPool64.DeleteObject(String);
+		String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+	}
+
 }
 
 void EngineString::GetUTF8(wchar_t** WideString)
@@ -132,33 +165,3 @@ int EngineString::GetLen() const
 	return (int)strlen(String);
 }
 
-void EngineString::operator+=(EngineString& OtherString)
-{
-	int ByteSize = OtherString.GetByte() + 1;
-
-	if (String != nullptr)
-	{
-		int Len = GetByte() + ByteSize;
-		if(Len)
-		memcpy_s(String + Len, ByteSize, OtherString.c_str(), ByteSize);
-	}
-	else
-	{
-		*this = OtherString;
-	}
-}
-
-void EngineString::operator+=(const char* OtherString)
-{
-	int OtherByte = GetByte(OtherString) + 1;
-
-	if (String != nullptr)
-	{
-		int MyByte = GetByte();
-		memcpy_s(String + MyByte, OtherByte, OtherString, OtherByte);
-	}
-	else
-	{
-		*this = OtherString;
-	}
-}

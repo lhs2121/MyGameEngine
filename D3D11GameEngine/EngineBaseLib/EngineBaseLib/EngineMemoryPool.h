@@ -13,10 +13,11 @@ public:
 	EngineMemoryPool& operator=(const EngineMemoryPool& _Other) = delete;
 	EngineMemoryPool& operator=(EngineMemoryPool&& _Other) noexcept = delete;
 
+	bool IsUsing();
 	void CreatePool(int PoolSize,int _ObjectSize);
 	void DeletePool();
 
-	void* InsertObject(void* Ptr);
+	void* InsertObject(void* Ptr,int Size = -1);
 	void DeleteObject(void* Ptr);
 
 private:

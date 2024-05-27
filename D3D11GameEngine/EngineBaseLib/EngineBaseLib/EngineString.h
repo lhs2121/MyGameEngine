@@ -1,5 +1,6 @@
 #pragma once
 
+class EngineMemoryPool;
 class __declspec(dllexport) EngineString
 {
 public:
@@ -9,10 +10,16 @@ public:
 	{
 		*this = OtherString;
 	};
+	EngineString(EngineString& OtherString)
+	{
+		*this = OtherString.c_str();
+	};
 	~EngineString();
 
 	void operator=(EngineString& OtherString);
 	void operator=(const char* OtherString);
+	void operator+=(EngineString& OtherString);
+	void operator+=(const char* OtherString);
 
 
 	void GetUTF8(wchar_t** WideString);
@@ -21,15 +28,12 @@ public:
 	const char* c_str();
 	int GetByte();
 	int GetLen() const;
-	
-	void operator+=(EngineString& OtherString);
-	void operator+=(const char* OtherString);
+
+	static EngineMemoryPool StringPool16;
+	static EngineMemoryPool StringPool32;
+	static EngineMemoryPool StringPool64;
 
 private:
-	static void* FirstString16;
-	static void* FirstString32;
-	static void* FirstString64;
-	
 	char* String = nullptr;
 };
 
