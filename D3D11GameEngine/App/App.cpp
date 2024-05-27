@@ -21,6 +21,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
+	EngineString a;
+	a = "asdas";
+	a += "123";
+	 
 	//EngineDebug::CrtSetBreakAlloc(243);
 	EngineDebug::CrtSetDbgFlag();
 	ContentsCore CoreObject;

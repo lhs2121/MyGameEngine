@@ -5,16 +5,31 @@ class __declspec(dllexport) EngineString
 public:
 	// constrcuter destructer
 	EngineString();
+	EngineString(const char* OtherString)
+	{
+		*this = OtherString;
+	};
 	~EngineString();
 
-	//constrcuter destructer
-	EngineString(const EngineString& _Other) = delete;
-	EngineString(EngineString&& _Other) noexcept = delete;
-	EngineString& operator=(const EngineString& _Other) = delete;
-	EngineString& operator=(EngineString&& _Other) noexcept = delete;
+	void operator=(EngineString& OtherString);
+	void operator=(const char* OtherString);
 
 
-	static std::string GetMultiString(std::wstring& WideString);
-	static std::wstring GetWideString(std::string& String);
+	void GetUTF8(wchar_t** WideString);
+	static int GetByte(const char* OtherString);
+	
+	const char* c_str();
+	int GetByte();
+	int GetLen() const;
+	
+	void operator+=(EngineString& OtherString);
+	void operator+=(const char* OtherString);
+
+private:
+	static void* FirstString16;
+	static void* FirstString32;
+	static void* FirstString64;
+	
+	char* String = nullptr;
 };
 

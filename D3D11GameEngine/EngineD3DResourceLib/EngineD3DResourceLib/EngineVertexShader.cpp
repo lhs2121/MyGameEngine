@@ -11,11 +11,12 @@ EngineVertexShader::~EngineVertexShader()
 
 void EngineVertexShader::Setting(const char* _Name, const char* _Path)
 {
-	std::string MainFuncName = _Name;
+	EngineString MainFuncName = _Name;
 	MainFuncName += "_VS";
 
-	std::string PathString = _Path;
-	std::wstring WPathString = EngineString::GetWideString(PathString);
+	EngineString PathString = _Path;
+	wchar_t* WPathString;
+	PathString.GetUTF8(&WPathString);
 
 	int Flag;
 
@@ -29,7 +30,7 @@ void EngineVertexShader::Setting(const char* _Name, const char* _Path)
 
 
 
-	HRESULT Result = D3DCompileFromFile(WPathString.c_str(),
+	HRESULT Result = D3DCompileFromFile(WPathString,
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "vs_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
 
 	if (FAILED(Result))

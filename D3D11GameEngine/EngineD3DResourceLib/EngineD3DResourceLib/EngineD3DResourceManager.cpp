@@ -163,7 +163,7 @@ IEngineTexture* EngineD3DResourceManager::FindTexture(const char* _Name)
 
 void EngineD3DResourceManager::Release()
 {
-	for (std::pair<std::string, IEngineVertexBuffer*> pair : VBMap)
+	for (std::pair<EngineString, IEngineVertexBuffer*> pair : VBMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -171,7 +171,7 @@ void EngineD3DResourceManager::Release()
 	}
 	VBMap.clear();
 
-	for (std::pair<std::string, IEngineIndexBuffer*> pair : IBMap)
+	for (std::pair<EngineString, IEngineIndexBuffer*> pair : IBMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -179,7 +179,7 @@ void EngineD3DResourceManager::Release()
 	}
 	IBMap.clear();
 
-	for (std::pair<std::string, IEngineInputLayout*> pair : IAMap)
+	for (std::pair<EngineString, IEngineInputLayout*> pair : IAMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -187,7 +187,7 @@ void EngineD3DResourceManager::Release()
 	}
 	IAMap.clear();
 
-	for (std::pair<std::string, IEngineVertexShader*> pair : VSMap)
+	for (std::pair<EngineString, IEngineVertexShader*> pair : VSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -195,7 +195,7 @@ void EngineD3DResourceManager::Release()
 	}
 	VSMap.clear();
 
-	for (std::pair<std::string, IEngineRasterizer*> pair : RSMap)
+	for (std::pair<EngineString, IEngineRasterizer*> pair : RSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -203,7 +203,7 @@ void EngineD3DResourceManager::Release()
 	}
 	RSMap.clear();
 
-	for (std::pair<std::string, IEnginePixelShader*> pair : PSMap)
+	for (std::pair<EngineString, IEnginePixelShader*> pair : PSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -211,7 +211,7 @@ void EngineD3DResourceManager::Release()
 	}
 	PSMap.clear();
 
-	for (std::pair<std::string, IEngineDepthStencil*> pair : DSMap)
+	for (std::pair<EngineString, IEngineDepthStencil*> pair : DSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -219,7 +219,7 @@ void EngineD3DResourceManager::Release()
 	}
 	DSMap.clear();
 
-	for (std::pair<std::string, IEngineTexture*> pair : TexMap)
+	for (std::pair<EngineString, IEngineTexture*> pair : TexMap)
 	{
 		pair.second->Release();
 		delete pair.second;

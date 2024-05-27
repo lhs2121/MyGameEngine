@@ -11,10 +11,10 @@ EnginePixelShader::~EnginePixelShader()
 
 void EnginePixelShader::Setting(const char* _Name, const char* _Path)
 {
-	std::string MainFuncName = _Name;
+	EngineString MainFuncName = _Name;
 	MainFuncName += "_PS";
 
-	std::string PathString = _Path;
+	EngineString PathString = _Path;
 	std::wstring WPathString = EngineString::GetWideString(PathString);
 
 	int Flag;

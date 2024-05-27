@@ -18,4 +18,4 @@ void EngineSpriteRenderer::Start()
 void EngineSpriteRenderer::Render()
 {
 	EngineRenderer::Render();
-}
+} 

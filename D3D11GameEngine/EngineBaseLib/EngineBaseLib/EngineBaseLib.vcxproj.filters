@@ -9,6 +9,7 @@
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineDebug.cpp" />
+    <ClCompile Include="EngineMemoryPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDirectory.h" />
@@ -22,6 +23,7 @@
     <ClInclude Include="IEngineBase.h">
       <Filter>Interface</Filter>
     </ClInclude>
+    <ClInclude Include="EngineMemoryPool.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">

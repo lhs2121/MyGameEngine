@@ -20,7 +20,7 @@ void EngineDevice::ResourceInit(void* pManager)
 
 		for (EngineFile& ShaderFile : AllShaderFile)
 		{
-			std::string FileName = ShaderFile.GetFileName();
+			EngineString FileName = ShaderFile.GetFileName();
 
 			IEngineVertexShader* pVertexShader = Manager->CreateVertexShader(FileName.c_str());
 			pVertexShader->Setting(FileName.c_str(), ShaderFile.GetStringPath().c_str());

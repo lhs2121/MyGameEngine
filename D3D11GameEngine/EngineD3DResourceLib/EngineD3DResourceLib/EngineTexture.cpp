@@ -11,9 +11,10 @@ EngineTexture::~EngineTexture()
 
 void EngineTexture::Setting(const char* _FilePath)
 {
-	std::string Path = _FilePath;
-	std::wstring UniPath = EngineString::GetWideString(Path);
-	DirectX::LoadFromWICFile(UniPath.c_str(), DirectX::WIC_FLAGS_FILTER_POINT, &MetaData, ScratchImage);
+	EngineString Path = _FilePath;
+	wchar_t* UniPath;
+	Path.GetUTF8(&UniPath);
+	DirectX::LoadFromWICFile(UniPath, DirectX::WIC_FLAGS_FILTER_POINT, &MetaData, ScratchImage);
 	DirectX::CreateShaderResourceView(DevicePtr->GetDevice(), ScratchImage.GetImages(), ScratchImage.GetImageCount(), MetaData, &SRV);
 }
 
