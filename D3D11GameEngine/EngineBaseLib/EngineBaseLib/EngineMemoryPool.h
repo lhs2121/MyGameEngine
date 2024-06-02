@@ -1,5 +1,5 @@
 #pragma once
-
+#include <queue>
 class __declspec(dllexport) EngineMemoryPool
 {
 public:
@@ -17,10 +17,11 @@ public:
 	void CreatePool(int PoolSize,int _ObjectSize);
 	void DeletePool();
 
-	void* InsertObject(void* Ptr,int Size = -1);
+	void* GetBlock();
 	void DeleteObject(void* Ptr);
 
 private:
+	std::queue<void*> DeletedBlocks;
 	void* HeaderPtr = nullptr;
 	void* NextPtr = nullptr;
 	int ObjectSize = 0;

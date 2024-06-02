@@ -35,34 +35,29 @@ void EngineMemoryPool::DeletePool()
 	free(HeaderPtr);
 }
 
-void* EngineMemoryPool::InsertObject(void* Ptr, int Size)
+void* EngineMemoryPool::GetBlock()
 {
-	if (Size == -1)
+	void* ReturnBlock = nullptr;
+
+	if (false == DeletedBlocks.empty())
 	{
-		Size = ObjectSize;
+		ReturnBlock = DeletedBlocks.front();
+		DeletedBlocks.pop();
 	}
-	memcpy_s(NextPtr, Size, Ptr, Size);
-	void* ReturnPtr = NextPtr;
-
-	// NextPtr 오프셋이동
-
-	while (true)
+	else
 	{
+		ReturnBlock = NextPtr;
 		__int64 CastPtr = (__int64)NextPtr;
 		CastPtr += ObjectSize;
 		NextPtr = (void*)CastPtr;
-
-		if (*(char*)NextPtr == 0)
-		{
-			break;
-		}
 	}
 
-
-	return ReturnPtr;
+	return ReturnBlock;
 }
+
 void EngineMemoryPool::DeleteObject(void* Ptr)
 {
 	memset(Ptr, 0, ObjectSize);
-	NextPtr = Ptr;
+
+	DeletedBlocks.push(Ptr);
 }

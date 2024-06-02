@@ -20,6 +20,7 @@ void EngineString::operator=(EngineString& OtherString)
 
 void EngineString::operator=(const char* OtherString)
 {
+	// 메모리풀이 있는지 체크
 	if (StringPool16.IsUsing() == false)
 	{
 		StringPool16.CreatePool(1024, 16);
@@ -33,77 +34,72 @@ void EngineString::operator=(const char* OtherString)
 		StringPool64.CreatePool(1024, 64);
 	}
 
-	if (String == nullptr)
+	// 이미 문자열이있다면 제거해주고
+	if (String != nullptr)
 	{
-		int ByteSize = GetByte(OtherString) + 1;
-
-		if (ByteSize <= 16)
-		{
-			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
-		}
-		else if (16 < ByteSize <= 32)
-		{
-			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
-		}
-		else if (32 < ByteSize <= 64)
-		{
-			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
-		}
-	}
-	else
-	{
-		int ByteSize = GetByte() + 1;
-
-		if (ByteSize <= 16)
+		int PrevByteSize = GetByte(String);
+		if (PrevByteSize <= 16)
 		{
 			StringPool16.DeleteObject(String);
-			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
 		}
-		else if (16 < ByteSize <= 32)
+		else if (16 < PrevByteSize <= 32)
 		{
 			StringPool32.DeleteObject(String);
-			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
 		}
-		else if (32 < ByteSize <= 64)
+		else if (32 < PrevByteSize <= 64)
 		{
 			StringPool64.DeleteObject(String);
-			String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
 		}
 	}
+
+	// 인자문자열의 바이트에 적합한 메모리풀 블록을 가져온다
+	int ByteSize = GetByte(OtherString);
+
+	if (ByteSize <= 16)
+	{
+		String = (char*)StringPool16.GetBlock();
+	}
+	else if (16 < ByteSize <= 32)
+	{
+		String = (char*)StringPool32.GetBlock();
+	}
+	else if (32 < ByteSize <= 64)
+	{
+		String = (char*)StringPool64.GetBlock();
+	}
+
+	memcpy_s(String, ByteSize, OtherString, ByteSize);
 }
 
 void EngineString::operator+=(EngineString& OtherString)
 {
-	int ByteSize = OtherString.GetByte() + 1;
-
+	*this += OtherString.c_str();
 }
 
 void EngineString::operator+=(const char* OtherString)
 {
-	int OtherSize = GetByte(OtherString) + 1;
-	int ThisSize = GetByte();
-
-	int ByteSize = OtherSize + ThisSize;
-
-	if (ByteSize <= 16)
+	int Byte = GetByte(String);
+	if (Byte != 0)
 	{
-		memcpy_s(String + ThisSize, OtherSize, OtherString, OtherSize);
+		--Byte;
 	}
-	else if (16 < ByteSize <= 32)
+	int OtherByte = GetByte(OtherString);
+	char* TempString = new char[Byte + OtherByte];
+
+	if (String != nullptr)
 	{
-		void* PrevPtr = String;
-
-		String = (char*)StringPool32.InsertObject((void*)String, ThisSize + 1);
-		memcpy_s(String + ThisSize, OtherSize, OtherString, OtherSize);
-
-		StringPool16.DeleteObject(PrevPtr);
+		memcpy_s(TempString, Byte, String, Byte);
+		memcpy_s(TempString + Byte, OtherByte, OtherString, OtherByte);
 	}
-	else if (32 < ByteSize <= 64)
+	else
 	{
-		StringPool64.DeleteObject(String);
-		String = (char*)StringPool16.InsertObject((void*)OtherString, ByteSize);
+		memcpy_s(TempString, OtherByte, OtherString, OtherByte);
 	}
 
+	*this = TempString;
+
+	delete[] TempString;
+	TempString = nullptr;
 }
 
 void EngineString::GetUTF8(wchar_t** WideString)
@@ -115,6 +111,11 @@ void EngineString::GetUTF8(wchar_t** WideString)
 
 int EngineString::GetByte(const char* OtherString)
 {
+	if (OtherString == nullptr)
+	{
+		return 0;
+	}
+
 	int Index = 0;
 	int Byte = 0;
 	while (true)
@@ -126,38 +127,16 @@ int EngineString::GetByte(const char* OtherString)
 		}
 		else
 		{
-			return Byte;
+			return Byte + 1;
 		}
 
 		Index++;
 	}
-	return 0;
 }
 
 const char* EngineString::c_str()
 {
 	return String;
-}
-
-int EngineString::GetByte()
-{
-	int Index = 0;
-	int Byte = 0;
-	while (true)
-	{
-		char Ch = String[Index];
-		if (Ch != '\0')
-		{
-			Byte++;
-		}
-		else
-		{
-			return Byte;
-		}
-
-		Index++;
-	}
-	return 0;
 }
 
 int EngineString::GetLen() const

@@ -26,7 +26,6 @@ public:
 	static int GetByte(const char* OtherString);
 	
 	const char* c_str();
-	int GetByte();
 	int GetLen() const;
 
 	static EngineMemoryPool StringPool16;
