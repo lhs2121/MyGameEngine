@@ -20,11 +20,11 @@ EngineString::~EngineString()
 		}
 		else if (16 < ByteSize <= 32)
 		{
-			StringPool16.DeleteObject(String);
+			StringPool32.DeleteObject(String);
 		}
 		else if (32 < ByteSize <= 64)
 		{
-			StringPool16.DeleteObject(String);
+			StringPool64.DeleteObject(String);
 		}
 
 		String = nullptr;
