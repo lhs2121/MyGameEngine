@@ -14,19 +14,8 @@ EngineString::~EngineString()
 	if (String != nullptr)
 	{
 		int ByteSize = GetByte(String);
-		if (ByteSize <= 16)
-		{
-			StringPool16.DeleteObject(String);
-		}
-		else if (16 < ByteSize <= 32)
-		{
-			StringPool32.DeleteObject(String);
-		}
-		else if (32 < ByteSize <= 64)
-		{
-			StringPool64.DeleteObject(String);
-		}
-
+		EngineMemoryPool* CurPool = EngineString::GetStringPool(ByteSize);
+		CurPool->DeleteObject(String);
 		String = nullptr;
 	}
 }
@@ -55,15 +44,15 @@ void EngineString::operator=(const char* OtherString)
 	// 이미 문자열이있다면 제거해주고
 	if (String != nullptr)
 	{
-		int PrevByteSize = GetByte(String);
-	    EngineMemoryPool* StringPool =  GetStringPool(PrevByteSize);
+		int PrevByteSize = EngineString::GetByte(String);
+	    EngineMemoryPool* StringPool = EngineString::GetStringPool(PrevByteSize);
 
 		StringPool->DeleteObject(String);
 	}
 
 	// 인자문자열의 바이트에 적합한 메모리풀 블록을 가져온다
 	int ByteSize = GetByte(OtherString);
-	EngineMemoryPool* StringPool = GetStringPool(ByteSize);
+	EngineMemoryPool* StringPool = EngineString::GetStringPool(ByteSize);
 	String = (char*)StringPool->GetBlock();
 
 	memcpy_s(String, ByteSize, OtherString, ByteSize);
@@ -76,12 +65,12 @@ void EngineString::operator+=(EngineString& OtherString)
 
 void EngineString::operator+=(const char* OtherString)
 {
-	int Byte = GetByte(String);
+	int Byte = EngineString::GetByte(String);
 	if (Byte != 0)
 	{
 		--Byte;
 	}
-	int OtherByte = GetByte(OtherString);
+	int OtherByte = EngineString::GetByte(OtherString);
 	char* TempString = new char[Byte + OtherByte];
 
 	if (String != nullptr)
