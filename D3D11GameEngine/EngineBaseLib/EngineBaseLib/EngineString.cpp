@@ -11,6 +11,24 @@ EngineString::EngineString()
 
 EngineString::~EngineString()
 {
+	if (String != nullptr)
+	{
+		int ByteSize = GetByte(String);
+		if (ByteSize <= 16)
+		{
+			StringPool16.DeleteObject(String);
+		}
+		else if (16 < ByteSize <= 32)
+		{
+			StringPool16.DeleteObject(String);
+		}
+		else if (32 < ByteSize <= 64)
+		{
+			StringPool16.DeleteObject(String);
+		}
+
+		String = nullptr;
+	}
 }
 
 void EngineString::operator=(EngineString& OtherString)
@@ -38,35 +56,15 @@ void EngineString::operator=(const char* OtherString)
 	if (String != nullptr)
 	{
 		int PrevByteSize = GetByte(String);
-		if (PrevByteSize <= 16)
-		{
-			StringPool16.DeleteObject(String);
-		}
-		else if (16 < PrevByteSize <= 32)
-		{
-			StringPool32.DeleteObject(String);
-		}
-		else if (32 < PrevByteSize <= 64)
-		{
-			StringPool64.DeleteObject(String);
-		}
+	    EngineMemoryPool* StringPool =  GetStringPool(PrevByteSize);
+
+		StringPool->DeleteObject(String);
 	}
 
 	// 인자문자열의 바이트에 적합한 메모리풀 블록을 가져온다
 	int ByteSize = GetByte(OtherString);
-
-	if (ByteSize <= 16)
-	{
-		String = (char*)StringPool16.GetBlock();
-	}
-	else if (16 < ByteSize <= 32)
-	{
-		String = (char*)StringPool32.GetBlock();
-	}
-	else if (32 < ByteSize <= 64)
-	{
-		String = (char*)StringPool64.GetBlock();
-	}
+	EngineMemoryPool* StringPool = GetStringPool(ByteSize);
+	String = (char*)StringPool->GetBlock();
 
 	memcpy_s(String, ByteSize, OtherString, ByteSize);
 }
@@ -139,8 +137,18 @@ const char* EngineString::c_str()
 	return String;
 }
 
-int EngineString::GetLen() const
+EngineMemoryPool* EngineString::GetStringPool(int ByteSize)
 {
-	return (int)strlen(String);
+	if (ByteSize <= 16)
+	{
+		return &StringPool16;
+	}
+	else if (16 < ByteSize <= 32)
+	{
+		return &StringPool32;
+	}
+	else if (32 < ByteSize <= 64)
+	{
+		return &StringPool64;
+	}
 }
-

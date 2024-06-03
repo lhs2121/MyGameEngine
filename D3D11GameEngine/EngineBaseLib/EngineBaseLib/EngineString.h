@@ -16,23 +16,27 @@ public:
 	};
 	~EngineString();
 
+	static int GetByte(const char* OtherString);
+	static EngineMemoryPool* GetStringPool(int ByteSize);
+
+	
+
 	void operator=(EngineString& OtherString);
 	void operator=(const char* OtherString);
 	void operator+=(EngineString& OtherString);
 	void operator+=(const char* OtherString);
 
-
-	void GetUTF8(wchar_t** WideString);
-	static int GetByte(const char* OtherString);
-	
+	void GetUTF8(wchar_t** WideString);	
 	const char* c_str();
-	int GetLen() const;
-
+private:
 	static EngineMemoryPool StringPool16;
 	static EngineMemoryPool StringPool32;
 	static EngineMemoryPool StringPool64;
 
-private:
+
+
+
+
 	char* String = nullptr;
 };
 
