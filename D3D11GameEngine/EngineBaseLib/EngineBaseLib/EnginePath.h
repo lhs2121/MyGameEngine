@@ -1,24 +1,22 @@
 #pragma once
-#include <filesystem>
+#include "EngineString.h"
 
 class __declspec(dllexport) EnginePath
 {
 public:
 	// constrcuter destructer
-	EnginePath();
-	EnginePath(std::string _Path);
+	EnginePath()
+	{
+	}
 
-	~EnginePath();
+	EnginePath(EngineString _Path);
 
-	// constrcuter destructer
-	//EnginePath(const EnginePath& _Other) = delete;
-	//EnginePath(EnginePath&& _Other) noexcept = delete;
-	//EnginePath& operator=(const EnginePath& _Other) = delete;
-	//EnginePath& operator=(EnginePath&& _Other) noexcept = delete;
+	virtual ~EnginePath()
+	{
+	}
 
-	std::string GetStringPath();
+	EngineString GetPath();
 
-protected:
-	std::filesystem::path Path;
+	EngineString Path;
 };
 

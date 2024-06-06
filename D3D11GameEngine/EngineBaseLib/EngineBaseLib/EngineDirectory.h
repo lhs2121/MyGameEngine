@@ -15,10 +15,12 @@ public:
 	EngineDirectory& operator=(const EngineDirectory& _Other) = delete;
 	EngineDirectory& operator=(EngineDirectory&& _Other) noexcept = delete;
 
+	static const char* BaseDir;
 	void GoParent();
-	void GoChild(std::string ChildPath);
+	void GoChild(const char* ChildPath);
+	void GoBase();
 
-	std::vector<EngineFile> GetAllFile();
-	std::vector<EngineFile> GetAllFile(std::string _Ext);
+	void GetAllFile(void* vector);
+	void GetAllFileExt(void* vector, const char* _Ext);
 };
 

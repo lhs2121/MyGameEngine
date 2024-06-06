@@ -19,9 +19,9 @@ void EngineDebug::CrtSetDbgFlag()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 }
 
-void EngineDebug::MsgBoxAssert(std::string_view ErrorMsg)
+void EngineDebug::MsgBoxAssert(EngineString ErrorMsg)
 {
-	MessageBox(nullptr, ErrorMsg.data(), "Error", MB_OK);
+	MessageBox(nullptr, ErrorMsg.c_str(), "Error", MB_OK);
 	assert(0);
 }
 

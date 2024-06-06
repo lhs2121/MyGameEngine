@@ -1,11 +1,11 @@
 #include "Pre.h"
 #include "EngineFile.h"
-
+#include <filesystem>
 EngineFile::EngineFile()
 {
 }
 
-EngineFile::EngineFile(std::string _Path)
+EngineFile::EngineFile(const char* _Path)
 {
 	Path = _Path;
 }
@@ -14,8 +14,9 @@ EngineFile::~EngineFile()
 {
 }
 
-std::string EngineFile::GetFileName()
+EngineString EngineFile::GetFileName()
 {
-	return Path.filename().replace_extension("").string();
+	std::filesystem::path stdPath = Path.c_str();
+	return stdPath.filename().replace_extension("").string().c_str();
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-class EngineMemoryPool;
+class IEngineMemoryPool;
 class __declspec(dllexport) EngineString
 {
 public:
@@ -12,30 +12,37 @@ public:
 	};
 	EngineString(EngineString& OtherString)
 	{
-		*this = OtherString.c_str();
+		*this = OtherString.String;
+	};
+	EngineString(const EngineString& OtherString)
+	{
+		*this = OtherString.String;
 	};
 	~EngineString();
 
 	static int GetByte(const char* OtherString);
-	static EngineMemoryPool* GetStringPool(int ByteSize);
-
-	
+	void GetUTF8(wchar_t** WideString);	
+	const char* c_str();
 
 	void operator=(EngineString& OtherString);
 	void operator=(const char* OtherString);
+
 	void operator+=(EngineString& OtherString);
 	void operator+=(const char* OtherString);
 
-	void GetUTF8(wchar_t** WideString);	
-	const char* c_str();
+	bool operator==(EngineString* OtherString);
+	bool operator==(const char* OtherString);
+
+	bool operator!=(EngineString* OtherString);
+	bool operator!=(const char* OtherString);
 private:
-	static EngineMemoryPool StringPool16;
-	static EngineMemoryPool StringPool32;
-	static EngineMemoryPool StringPool64;
-
-
-
-
+	static IEngineMemoryPool* GetStringPool(int ByteSize);
+	static IEngineMemoryPool* StringPool16;
+	static IEngineMemoryPool* StringPool32;
+	static IEngineMemoryPool* StringPool64;
+	static IEngineMemoryPool* StringPool128;
+	static IEngineMemoryPool* StringPool256;
+	static IEngineMemoryPool* StringPool512;
 
 	char* String = nullptr;
 };

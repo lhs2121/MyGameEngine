@@ -1,21 +1,12 @@
 #include "Pre.h"
 #include "EnginePath.h"
 
-EnginePath::EnginePath()
+EnginePath::EnginePath(EngineString _Path)
 {
+	Path = _Path;
 }
 
-EnginePath::EnginePath(std::string _Path)
+EngineString EnginePath::GetPath()
 {
-	_Path = _Path;
-}
-
-EnginePath::~EnginePath()
-{
-}
-
-std::string EnginePath::GetStringPath()
-{
-	std::string StringPath = Path.string();
-	return StringPath;
+	return Path;
 }

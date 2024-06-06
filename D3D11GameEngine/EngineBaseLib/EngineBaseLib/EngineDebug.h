@@ -15,7 +15,7 @@ public:
 
 	static void CrtSetBreakAlloc(UINT Number);
 	static void CrtSetDbgFlag();
-	static void MsgBoxAssert(std::string_view ErrorMsg);
+	static void MsgBoxAssert(EngineString ErrorMsg);
 
 };
 

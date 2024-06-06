@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
-class __declspec(dllexport) EngineMemoryPool
+#include "IEngineBase.h"
+class EngineMemoryPool : public IEngineMemoryPool
 {
 public:
 	// constrcuter destructer
@@ -13,15 +14,13 @@ public:
 	EngineMemoryPool& operator=(const EngineMemoryPool& _Other) = delete;
 	EngineMemoryPool& operator=(EngineMemoryPool&& _Other) noexcept = delete;
 
-	bool IsUsing();
-	void CreatePool(int PoolSize,int _ObjectSize);
-	void DeletePool();
-
-	void* GetBlock();
-	void DeleteObject(void* Ptr);
+	void Init(int PoolSize, int _ObjectSize) override;
+	void CleanUp() override;
+	void* GetBlock() override;
+	void FreeBlock(void* Ptr) override;
 
 private:
-	std::queue<void*> DeletedBlocks;
+	std::queue<void*> FreeBlocks;
 	void* HeaderPtr = nullptr;
 	void* NextPtr = nullptr;
 	int ObjectSize = 0;

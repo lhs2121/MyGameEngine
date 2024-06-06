@@ -2,10 +2,14 @@
 #include "EngineDirectory.h"
 #include "EngineFile.h"
 #include <iostream>
+#include <filesystem>
+#include <string>
+
+const char* EngineDirectory::BaseDir = "D3D11GameEngine";
 
 EngineDirectory::EngineDirectory()
 {
-	Path = std::filesystem::current_path();
+	Path = std::filesystem::current_path().string().c_str();
 }
 
 EngineDirectory::~EngineDirectory()
@@ -14,59 +18,80 @@ EngineDirectory::~EngineDirectory()
 
 void EngineDirectory::GoParent()
 {	
-	std::filesystem::path ParentPath;
-	if (true == std::filesystem::exists(Path.parent_path()))
+	std::filesystem::path ParentPath = Path.c_str();
+	if (true == std::filesystem::exists(ParentPath.parent_path()))
 	{
-		Path = Path.parent_path();
+		Path = ParentPath.parent_path().string().c_str();
 	}
 }
 
-void EngineDirectory::GoChild(std::string ChildPath)
+void EngineDirectory::GoChild(const char* ChildPath)
 {
-	std::filesystem::path TestPath = Path;
+	std::filesystem::path TestPath = Path.c_str();
 	TestPath /= ChildPath;
 
 	if (true == std::filesystem::exists(TestPath))
 	{
-		Path /= ChildPath;
+		Path = TestPath.string().c_str();
 	}
 }
 
-std::vector<EngineFile> EngineDirectory::GetAllFile()
+void EngineDirectory::GoBase()
 {
-	std::vector<EngineFile> AllFile;
-	for (const std::filesystem::path& ele : std::filesystem::directory_iterator(Path))
+	while (true)
 	{
-		if (std::filesystem::is_directory(ele))
+		std::filesystem::path stdPath = Path.c_str();
+		EngineString CurDir = stdPath.stem().string().c_str();
+
+		if (CurDir == "")
 		{
+			EngineDebug::MsgBoxAssert("BaseDirectory를 찾을수없습니다");
+		}
+		if (EngineDirectory::BaseDir != CurDir.c_str())
+		{
+			GoParent();
 			continue;
 		}
+	
+		break;
+	}
 
-		EngineFile File(ele.string());
-		AllFile.push_back(File);
-    }
-	return AllFile;
 }
 
-std::vector<EngineFile> EngineDirectory::GetAllFile(std::string _Ext)
+void EngineDirectory::GetAllFile(void* vector)
 {
-	std::vector<EngineFile> AllFile;
-	for (const std::filesystem::path& ele : std::filesystem::directory_iterator(Path))
+	std::vector<EngineFile>* AllFile = (std::vector<EngineFile>*)vector;
+	std::filesystem::path DirPath = Path.c_str();
+	for (const std::filesystem::path& Entry : std::filesystem::directory_iterator(DirPath))
 	{
-		if (std::filesystem::is_directory(ele))
+		if (std::filesystem::is_directory(Entry))
 		{
 			continue;
 		}
 
-		std::string FileExt = ele.extension().string();
+		AllFile->emplace_back(Entry.string().c_str());
+    }
+	
+}
+
+void EngineDirectory::GetAllFileExt(void* vector, const char* _Ext)
+{
+	std::vector<EngineFile>* AllFile = (std::vector<EngineFile>*)vector;
+	std::filesystem::path DirPath = Path.c_str();
+	for (const std::filesystem::path& Entry : std::filesystem::directory_iterator(DirPath))
+	{
+		if (std::filesystem::is_directory(Entry))
+		{
+			continue;
+		}
+
+		std::string FileExt = Entry.extension().string();
 		if (FileExt != _Ext)
 		{
 			continue;
 		}
 
-		EngineFile File(ele.string());
-		AllFile.push_back(File);
+		AllFile->emplace_back(Entry.string().c_str());
 	}
-	return AllFile;
 }
 

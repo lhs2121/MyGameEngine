@@ -9,20 +9,8 @@ EngineMemoryPool::~EngineMemoryPool()
 {
 }
 
-bool EngineMemoryPool::IsUsing()
-{
-	if (HeaderPtr != nullptr)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-	
-}
 
-void EngineMemoryPool::CreatePool(int PoolSize, int _ObjectSize)
+void EngineMemoryPool::Init(int PoolSize, int _ObjectSize)
 {
 	HeaderPtr = malloc(PoolSize);
 	memset(HeaderPtr, 0, PoolSize);
@@ -30,7 +18,7 @@ void EngineMemoryPool::CreatePool(int PoolSize, int _ObjectSize)
 	ObjectSize = _ObjectSize;
 }
 
-void EngineMemoryPool::DeletePool()
+void EngineMemoryPool::CleanUp()
 {
 	free(HeaderPtr);
 }
@@ -39,10 +27,10 @@ void* EngineMemoryPool::GetBlock()
 {
 	void* ReturnBlock = nullptr;
 
-	if (false == DeletedBlocks.empty())
+	if (false == FreeBlocks.empty())
 	{
-		ReturnBlock = DeletedBlocks.front();
-		DeletedBlocks.pop();
+		ReturnBlock = FreeBlocks.front();
+		FreeBlocks.pop();
 	}
 	else
 	{
@@ -55,9 +43,7 @@ void* EngineMemoryPool::GetBlock()
 	return ReturnBlock;
 }
 
-void EngineMemoryPool::DeleteObject(void* Ptr)
+void EngineMemoryPool::FreeBlock(void* Ptr)
 {
-	memset(Ptr, 0, ObjectSize);
-
-	DeletedBlocks.push(Ptr);
+	FreeBlocks.push(Ptr);
 }
