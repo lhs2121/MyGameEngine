@@ -30,10 +30,10 @@ public:
 	void operator+=(EngineString& OtherString);
 	void operator+=(const char* OtherString);
 
-	bool operator==(EngineString* OtherString);
+	bool operator==(EngineString& OtherString);
 	bool operator==(const char* OtherString);
 
-	bool operator!=(EngineString* OtherString);
+	bool operator!=(EngineString& OtherString);
 	bool operator!=(const char* OtherString);
 private:
 	static IEngineMemoryPool* GetStringPool(int ByteSize);

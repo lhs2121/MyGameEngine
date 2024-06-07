@@ -6,7 +6,7 @@ EnginePath::EnginePath(EngineString _Path)
 	Path = _Path;
 }
 
-EngineString EnginePath::GetPath()
+EngineString& EnginePath::GetPath()
 {
 	return Path;
 }

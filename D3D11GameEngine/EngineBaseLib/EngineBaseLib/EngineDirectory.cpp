@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <string>
 
-const char* EngineDirectory::BaseDir = "D3D11GameEngine";
+EngineString EngineDirectory::BaseDir = "D3D11GameEngine";
 
 EngineDirectory::EngineDirectory()
 {
@@ -47,13 +47,17 @@ void EngineDirectory::GoBase()
 		{
 			EngineDebug::MsgBoxAssert("BaseDirectory를 찾을수없습니다");
 		}
-		if (EngineDirectory::BaseDir != CurDir.c_str())
+		if (EngineDirectory::BaseDir == CurDir.c_str())
+		{
+			Path = stdPath.string().c_str();
+			break;
+		}
+		else
 		{
 			GoParent();
 			continue;
 		}
 	
-		break;
 	}
 
 }

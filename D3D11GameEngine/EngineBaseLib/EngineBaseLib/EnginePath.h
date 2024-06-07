@@ -15,7 +15,7 @@ public:
 	{
 	}
 
-	EngineString GetPath();
+	EngineString& GetPath();
 
 	EngineString Path;
 };

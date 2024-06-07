@@ -79,10 +79,10 @@ void EngineString::operator+=(const char* OtherString)
 	TempString = nullptr;
 }
 
-bool EngineString::operator==(EngineString* OtherString)
+bool EngineString::operator==(EngineString& OtherString)
 {
 	int ByteSize = EngineString::GetByte(String);
-	int Result = strncmp(String, OtherString->String, ByteSize);
+	int Result = strncmp(String, OtherString.String, ByteSize);
 	if (Result == 0)
 	{
 		return true;
@@ -107,10 +107,10 @@ bool EngineString::operator==(const char* OtherString)
 	}
 }
 
-bool EngineString::operator!=(EngineString* OtherString)
+bool EngineString::operator!=(EngineString& OtherString)
 {
 	int ByteSize = EngineString::GetByte(String);
-	int Result = strncmp(String, OtherString->String, ByteSize);
+	int Result = strncmp(String, OtherString.String, ByteSize);
 	if (Result == 0)
 	{
 		return false;
