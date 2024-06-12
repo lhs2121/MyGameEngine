@@ -1,6 +1,13 @@
 #pragma once
 #include "EnginePath.h"
 
+enum class FileMode
+{
+	Read,
+	Write,
+	ReadBinary,
+	WriteBinary,
+};
 class __declspec(dllexport) EngineFile : public EnginePath
 {
 public:
@@ -11,5 +18,10 @@ public:
 	~EngineFile();
 
 	EngineString GetFileName();
+
+	void Open(FileMode _Mode);
+	void Close();
+
+	FILE* FilePtr = nullptr; 
 };
 
