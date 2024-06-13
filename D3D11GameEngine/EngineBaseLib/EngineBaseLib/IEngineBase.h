@@ -3,6 +3,7 @@
 
 #include "EngineMath.h"
 #include "EngineString.h"
+
 struct IEngineMemoryPool
 { 	      
 	virtual void  Init(int PoolSize, int _ObjectSize) = 0;

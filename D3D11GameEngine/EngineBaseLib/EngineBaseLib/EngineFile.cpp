@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineFile.h"
+#include "EngineDebug.h"
 #include <filesystem>
 EngineFile::EngineFile()
 {
@@ -40,7 +41,7 @@ void EngineFile::Open(FileMode _Mode)
 	default:
 		break;
 	}
-	
+
     fopen_s(&FilePtr, Path.c_str(), Mode.c_str());
 	if (FilePtr == nullptr)
 	{

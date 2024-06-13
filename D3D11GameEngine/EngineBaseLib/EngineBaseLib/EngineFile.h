@@ -1,5 +1,7 @@
 #pragma once
 #include "EnginePath.h"
+struct _iobuf;
+typedef struct _iobuf FILE;
 
 enum class FileMode
 {
@@ -8,6 +10,7 @@ enum class FileMode
 	ReadBinary,
 	WriteBinary,
 };
+
 class __declspec(dllexport) EngineFile : public EnginePath
 {
 public:
@@ -22,6 +25,7 @@ public:
 	void Open(FileMode _Mode);
 	void Close();
 
-	FILE* FilePtr = nullptr; 
+private:
+	FILE* FilePtr = nullptr;
 };
 

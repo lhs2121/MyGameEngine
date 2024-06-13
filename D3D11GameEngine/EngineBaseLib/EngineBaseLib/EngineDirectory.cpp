@@ -1,4 +1,5 @@
 #include "Pre.h"
+#include "EngineDebug.h"
 #include "EngineDirectory.h"
 #include "EngineFile.h"
 #include <iostream>
