@@ -28,7 +28,7 @@ float4 float4::Normalize(float4& Other)
 {
 	float4 result;
 	result = Other;
-	float length = sqrt(Other.x * Other.x + Other.y * Other.y + Other.z * Other.z);
+	float length = static_cast<float>(sqrt(Other.x * Other.x + Other.y * Other.y + Other.z * Other.z));
 
 	result.x /= length;
 	result.y /= length;
@@ -38,7 +38,7 @@ float4 float4::Normalize(float4& Other)
 
 void float4::Normalize()
 {
-	float length = sqrt(x * x + y * y + z * z);
+	float length = static_cast<float>(sqrt(x * x + y * y + z * z));
 	x /= length;
 	y /= length;
 	z /= length;

@@ -1,7 +1,7 @@
 #pragma once
 
 class IEngineMemoryPool;
-class __declspec(dllexport) EngineString
+class EngineAPI EngineString
 {
 public:
 	// constrcuter destructer

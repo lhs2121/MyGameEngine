@@ -1,5 +1,6 @@
 #pragma once
-#include "EnginePath.h"
+#include "EngineString.h"
+
 struct _iobuf;
 typedef struct _iobuf FILE;
 
@@ -11,21 +12,16 @@ enum class FileMode
 	WriteBinary,
 };
 
-class __declspec(dllexport) EngineFile : public EnginePath
+class EngineFile : public IEngineFile
 {
 public:
-	// constrcuter destructer
-	EngineFile();
-	EngineFile(const char* _Path);
-
-	~EngineFile();
-
-	EngineString GetFileName();
-
-	void Open(FileMode _Mode);
-	void Close();
+	void SetPath(const char* _Path) override;
+	const char* GetFileName() override;
+	void Open(FileMode _Mode) override;
+	void Close() override;
 
 private:
 	FILE* FilePtr = nullptr;
+	EngineString Path;
 };
 

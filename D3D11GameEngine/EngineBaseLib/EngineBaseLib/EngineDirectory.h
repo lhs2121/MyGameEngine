@@ -1,9 +1,9 @@
 #pragma once
-#include "EnginePath.h"
+#include "EngineString.h"
 
-class __declspec(dllexport) EngineDirectory : public EnginePath
+class EngineDirectory : public IEngineDirectory
 {
-public:
+public:	
 	// constrcuter destructer
 	EngineDirectory();
 	~EngineDirectory();
@@ -14,14 +14,15 @@ public:
 	EngineDirectory& operator=(const EngineDirectory& _Other) = delete;
 	EngineDirectory& operator=(EngineDirectory&& _Other) noexcept = delete;
 
-	void GoParent();
-	void GoChild(const char* ChildPath);
-	void GoBase();
+	void GoParent() override;
+	void GoChild(const char* ChildPath) override;
+	void GoBase() override;
 
-	void GetAllFile(void* vector);
-	void GetAllFileExt(void* vector, const char* _Ext);
+	void GetAllFile(void* vector) override;
+	void GetAllFileExt(void* vector, const char* _Ext) override;
 
 private:
 	static EngineString BaseDir;
+	EngineString Path;
 };
 

@@ -10,9 +10,6 @@
     <ClCompile Include="EngineDirectory.cpp">
       <Filter>FileSystem</Filter>
     </ClCompile>
-    <ClCompile Include="EnginePath.cpp">
-      <Filter>FileSystem</Filter>
-    </ClCompile>
     <ClCompile Include="EngineFile.cpp">
       <Filter>FileSystem</Filter>
     </ClCompile>
@@ -34,9 +31,6 @@
     <ClInclude Include="EngineDirectory.h">
       <Filter>FileSystem</Filter>
     </ClInclude>
-    <ClInclude Include="EnginePath.h">
-      <Filter>FileSystem</Filter>
-    </ClInclude>
     <ClInclude Include="EngineFile.h">
       <Filter>FileSystem</Filter>
     </ClInclude>
@@ -47,6 +41,7 @@
       <Filter>String</Filter>
     </ClInclude>
     <ClInclude Include="EngineMemoryPool.h" />
+    <ClInclude Include="DLLCommon.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">
