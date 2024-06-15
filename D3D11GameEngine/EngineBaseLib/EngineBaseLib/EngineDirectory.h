@@ -1,9 +1,9 @@
 #pragma once
 #include "EngineString.h"
 
-class EngineDirectory : public IEngineDirectory
+class EngineAPI EngineDirectory
 {
-public:	
+public:
 	// constrcuter destructer
 	EngineDirectory();
 	~EngineDirectory();
@@ -14,12 +14,12 @@ public:
 	EngineDirectory& operator=(const EngineDirectory& _Other) = delete;
 	EngineDirectory& operator=(EngineDirectory&& _Other) noexcept = delete;
 
-	void GoParent() override;
-	void GoChild(const char* ChildPath) override;
-	void GoBase() override;
+	void GoParent();
+	void GoChild(const char* ChildPath);
+	void GoBase();
 
-	void GetAllFile(void* vector) override;
-	void GetAllFileExt(void* vector, const char* _Ext) override;
+	void GetAllFile(void* vector);
+	void GetAllFileExt(void* vector, const char* _Ext);
 
 private:
 	static EngineString BaseDir;

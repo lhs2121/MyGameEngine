@@ -4,7 +4,7 @@
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="IEngineBase.cpp">
+    <ClCompile Include="EngineBaseInterface.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="EngineDirectory.cpp">
@@ -25,7 +25,7 @@
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="IEngineBase.h">
+    <ClInclude Include="EngineBaseInterface.h">
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="EngineDirectory.h">

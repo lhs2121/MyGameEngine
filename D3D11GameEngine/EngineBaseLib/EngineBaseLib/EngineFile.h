@@ -12,13 +12,13 @@ enum class FileMode
 	WriteBinary,
 };
 
-class EngineFile : public IEngineFile
+class EngineAPI EngineFile 
 {
 public:
-	void SetPath(const char* _Path) override;
-	const char* GetFileName() override;
-	void Open(FileMode _Mode) override;
-	void Close() override;
+	void SetPath(const char* _Path);
+	const char* GetFileName();
+	void Open(FileMode _Mode);
+	void Close();
 
 private:
 	FILE* FilePtr = nullptr;

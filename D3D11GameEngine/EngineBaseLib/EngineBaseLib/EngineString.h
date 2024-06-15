@@ -1,6 +1,6 @@
 #pragma once
 
-class IEngineMemoryPool;
+struct IEngineMemoryPool;
 class EngineAPI EngineString
 {
 public:

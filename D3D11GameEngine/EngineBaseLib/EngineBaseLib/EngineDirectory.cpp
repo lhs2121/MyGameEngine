@@ -65,7 +65,7 @@ void EngineDirectory::GoBase()
 
 void EngineDirectory::GetAllFile(void* vector)
 {
-	std::vector<IEngineFile>* AllFile = (std::vector<IEngineFile>*)vector;
+	std::vector<EngineFile>* AllFile = (std::vector<EngineFile>*)vector;
 	std::filesystem::path DirPath = Path.c_str();
 	for (const std::filesystem::path& Entry : std::filesystem::directory_iterator(DirPath))
 	{
@@ -82,7 +82,7 @@ void EngineDirectory::GetAllFile(void* vector)
 
 void EngineDirectory::GetAllFileExt(void* vector, const char* _Ext)
 {
-	std::vector<IEngineFile>* AllFile = (std::vector<IEngineFile>*)vector;
+	std::vector<EngineFile>* AllFile = (std::vector<EngineFile>*)vector;
 	std::filesystem::path DirPath = Path.c_str();
 	for (const std::filesystem::path& Entry : std::filesystem::directory_iterator(DirPath))
 	{

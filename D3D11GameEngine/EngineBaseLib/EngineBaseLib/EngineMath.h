@@ -199,7 +199,7 @@ public:
 
 };
 
-class __declspec(dllexport) float4x4
+class EngineAPI float4x4
 {
 public:
 	float4x4()

@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "EngineString.h"
-#include "IEngineBase.h"
+#include "EngineBaseInterface.h"
 
 IEngineMemoryPool* EngineString::StringPool16 = nullptr;
 IEngineMemoryPool* EngineString::StringPool32 = nullptr;

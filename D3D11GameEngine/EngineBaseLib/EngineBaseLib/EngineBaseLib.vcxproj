@@ -180,7 +180,7 @@
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="EngineString.cpp" />
     <ClCompile Include="EngineTime.cpp" />
-    <ClCompile Include="IEngineBase.cpp" />
+    <ClCompile Include="EngineBaseInterface.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -197,7 +197,7 @@
     <ClInclude Include="EngineMemoryPool.h" />
     <ClInclude Include="EngineString.h" />
     <ClInclude Include="EngineTime.h" />
-    <ClInclude Include="IEngineBase.h" />
+    <ClInclude Include="EngineBaseInterface.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="DLLCommon.h" />
   </ItemGroup>
