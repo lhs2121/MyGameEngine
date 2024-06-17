@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef EngineDLLExport
+#ifdef EngineDLLProject
 #define EngineAPI __declspec(dllexport)
 #else 
 #define EngineAPI __declspec(dllimport)

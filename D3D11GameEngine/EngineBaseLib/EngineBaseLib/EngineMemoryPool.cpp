@@ -7,6 +7,7 @@ EngineMemoryPool::EngineMemoryPool()
 
 EngineMemoryPool::~EngineMemoryPool()
 {
+	CleanUp();
 }
 
 
@@ -20,7 +21,11 @@ void EngineMemoryPool::Init(int PoolSize, int _ObjectSize)
 
 void EngineMemoryPool::CleanUp()
 {
-	free(HeaderPtr);
+	if (HeaderPtr != nullptr)
+	{
+		free(HeaderPtr);
+		HeaderPtr = nullptr;
+	}
 }
 
 void* EngineMemoryPool::GetBlock()

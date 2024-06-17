@@ -1,5 +1,5 @@
 #pragma once
-#include "IEngineD3DResource.h"
+#include "EngineD3DInterface.h"
 
 class EngineVertexShader : public IEngineVertexShader
 {
@@ -14,7 +14,7 @@ public:
 	EngineVertexShader& operator=(const EngineVertexShader& _Other) = delete;
 	EngineVertexShader& operator=(EngineVertexShader&& _Other) noexcept = delete;
 
-	void Setting(const char* _Name, const char* _Path) override;
+	void Setting(EngineString _Name, EngineString _Path) override;
 	void Release() override;
 	void IntoPipeLine() override;
 	void* GetShaderByteCode();

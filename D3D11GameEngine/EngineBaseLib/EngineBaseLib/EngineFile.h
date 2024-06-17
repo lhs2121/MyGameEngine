@@ -16,7 +16,8 @@ class EngineAPI EngineFile
 {
 public:
 	void SetPath(const char* _Path);
-	const char* GetFileName();
+	EngineString GetPath();
+	EngineString GetFileName();
 	void Open(FileMode _Mode);
 	void Close();
 

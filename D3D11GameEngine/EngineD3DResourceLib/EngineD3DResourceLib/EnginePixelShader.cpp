@@ -9,13 +9,13 @@ EnginePixelShader::~EnginePixelShader()
 {
 }
 
-void EnginePixelShader::Setting(const char* _Name, const char* _Path)
+void EnginePixelShader::Setting(EngineString _Name, EngineString _Path)
 {
 	EngineString MainFuncName = _Name;
 	MainFuncName += "_PS";
-
+	wchar_t* UTF8Path;
 	EngineString PathString = _Path;
-	std::wstring WPathString = EngineString::GetWideString(PathString);
+	PathString.GetUTF8(&UTF8Path);
 
 	int Flag;
 
@@ -28,7 +28,7 @@ void EnginePixelShader::Setting(const char* _Name, const char* _Path)
 
 	ID3DBlob* ErrorBlob = nullptr;
 
-	HRESULT Result = D3DCompileFromFile(WPathString.c_str(),
+	HRESULT Result = D3DCompileFromFile(UTF8Path,
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "ps_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
 
 
@@ -42,6 +42,12 @@ void EnginePixelShader::Setting(const char* _Name, const char* _Path)
 	}
 
 	DevicePtr->GetDevice()->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
+
+	if (UTF8Path != nullptr)
+	{
+		delete[] UTF8Path;
+		UTF8Path = nullptr;
+	}
 }
 
 void EnginePixelShader::Release()

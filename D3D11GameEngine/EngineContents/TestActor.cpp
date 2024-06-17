@@ -13,12 +13,13 @@ TestActor::~TestActor()
 void TestActor::Start()
 {
 	EngineDirectory dir;
-	std::vector<EngineFile> ImageFile = dir.GetAllFile(".png");
-	std::string FileStr = ImageFile[0].GetStringPath();
-	IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+	std::vector<EngineFile> ImageFile;
+	dir.GetAllFileExt(&ImageFile,".png");
+	
+	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 	Texture = ResManager->CreateTexture("TestTexture");
 
-	Texture->Setting(FileStr.c_str());
+	Texture->Setting(ImageFile[0].GetPath().c_str());
 
 	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 	Renderer = CreateComponent<EngineRenderer>();
@@ -71,7 +72,7 @@ void TestActor::Update(float _Delta)
 
 	if (KeyIsDown('C'))
 	{
-		IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+		IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		Renderer->VB = ResManager->FindVertexBuffer("Box3D");
 		Renderer->IB = ResManager->FindIndexBuffer("Box3D");
 		Renderer->VS = ResManager->FindVertexShader("Test3DShader");
@@ -80,7 +81,7 @@ void TestActor::Update(float _Delta)
 	}
 	if (KeyIsDown('V'))
 	{
-		IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+		IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		Renderer->VB = ResManager->FindVertexBuffer("Box2D");
 		Renderer->IB = ResManager->FindIndexBuffer("Box2D");
 		Renderer->VS = ResManager->FindVertexShader("Test2DShader");

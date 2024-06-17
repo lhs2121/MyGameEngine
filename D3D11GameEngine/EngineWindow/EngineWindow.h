@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <Windows.h>
 class EngineWindow
 {
@@ -27,7 +26,7 @@ public:
 		WindowSize = Value;
 	}
 
-	inline void SetWinTitle(const std::string Value)
+	inline void SetWinTitle(const char* Value)
 	{
 		WindowTitle = Value;
 	}
@@ -56,7 +55,7 @@ public:
 		return WindowPos;
 	}
 
-	std::string GetWindowTitle()
+	EngineString GetWindowTitle()
 	{
 		return WindowTitle;
 	}
@@ -67,7 +66,7 @@ private:
 
 	float4 WindowPos;
 	float4 WindowSize;
-	std::string WindowTitle;
+	EngineString WindowTitle;
 
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	void Register();

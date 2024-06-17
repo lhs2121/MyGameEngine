@@ -18,8 +18,13 @@ public:
 	{
 		*this = OtherString.String;
 	};
+	bool operator<(const EngineString& other) const
+	{
+		return std::strcmp(String, other.String) < 0;
+	}
 	~EngineString();
 
+	static void DeleteAllStringPool();
 	static int GetByte(const char* OtherString);
 	void GetUTF8(wchar_t** WideString);	
 	const char* c_str();
@@ -36,7 +41,10 @@ public:
 	bool operator!=(EngineString& OtherString);
 	bool operator!=(const char* OtherString);
 private:
+	static void CreateAllStringPool();
 	static IEngineMemoryPool* GetStringPool(int ByteSize);
+
+	static bool IsCreateStringPool;
 	static IEngineMemoryPool* StringPool16;
 	static IEngineMemoryPool* StringPool32;
 	static IEngineMemoryPool* StringPool64;

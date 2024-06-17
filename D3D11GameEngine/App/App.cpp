@@ -21,13 +21,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	EngineString a;
-	a = "asdas";
-	a += "123";
-	 
-	//EngineDebug::CrtSetBreakAlloc(243);
+	//EngineDebug::CrtSetBreakAlloc(473);
 	EngineDebug::CrtSetDbgFlag();
 	ContentsCore CoreObject;
 	EngineCore::EngineStart(hInstance, { 50, 50 }, { 1366,789 }, "Cilent", &CoreObject);
+	EngineString::DeleteAllStringPool();
 }
 

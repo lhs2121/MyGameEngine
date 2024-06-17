@@ -1,5 +1,5 @@
 #pragma once
-#include "IEngineD3DResource.h"
+#include "EngineD3DInterface.h"
 
 class EngineIndexBuffer : public IEngineIndexBuffer
 {

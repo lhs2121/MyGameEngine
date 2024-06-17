@@ -138,7 +138,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;EngineDLLProject;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -151,7 +151,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)IEngineD3DResource.h" "$(SolutionDir)include\"</Command>
+      <Command>copy /Y "$(ProjectDir)EngineD3DInterface.h" "$(SolutionDir)include\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -179,7 +179,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ThirdParty\include\DirectXTex.h" />
-    <ClInclude Include="EngineD3DResourceManager.h" />
+    <ClInclude Include="EngineD3DManager.h" />
     <ClInclude Include="EngineDepthStencil.h" />
     <ClInclude Include="EngineDevice.h" />
     <ClInclude Include="EngineIndexBuffer.h" />
@@ -189,12 +189,12 @@
     <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="EngineVertexFormat.h" />
     <ClInclude Include="EngineVertexShader.h" />
-    <ClInclude Include="IEngineD3DResource.h" />
+    <ClInclude Include="EngineD3DInterface.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineTexture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineD3DResourceManager.cpp" />
+    <ClCompile Include="EngineD3DManager.cpp" />
     <ClCompile Include="EngineDepthStencil.cpp" />
     <ClCompile Include="EngineDevice.cpp" />
     <ClCompile Include="EngineDevice_ResourceInit.cpp" />
@@ -204,7 +204,7 @@
     <ClCompile Include="EngineRasterizer.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
-    <ClCompile Include="IEngineD3DResource.cpp" />
+    <ClCompile Include="EngineD3DInterface.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

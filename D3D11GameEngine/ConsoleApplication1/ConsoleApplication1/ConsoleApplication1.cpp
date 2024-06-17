@@ -1,13 +1,21 @@
-#include <EngineBaseLib\EngineBaseLib\IEngineBase.h>
+#include "Windows.h"
+#include <string>
+#include <map>
 #include <vector>
+#include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
 #pragma comment(lib,"EngineBaseLib.lib")
 
 int main()
 {
-	std::vector<IEngineFile> Files;
-	IEngineDirectory* dir;
-	CreateDir(&dir);
-	dir->GoBase();
-	dir->GoChild("Asset");
-	dir->GetAllFile(&Files);
+	EngineDebug::CrtSetDbgFlag();
+
+	{
+		IEngineMemoryPool* mp;
+		CreateEngineMemoryPool(&mp);
+		mp->Init(1024, 24);
+
+		DeleteEngineMemoryPool(mp);
+		mp = nullptr;
+	}
+	
 }

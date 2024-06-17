@@ -7,9 +7,9 @@ EngineTime EngineCore::MainTime;
 EngineLevel* EngineCore::CurLevel;
 EngineObject* EngineCore::CoreObject = nullptr;
 IEngineInput* EngineCore::MainInput = nullptr;
-IEngineD3DResourceManager* EngineCore::MainResourceManager = nullptr;
+IEngineD3DManager* EngineCore::MainD3DManager = nullptr;
 
-std::map<std::string, EngineLevel*> EngineCore::AllLevel;
+std::map<const char*, EngineLevel*> EngineCore::AllLevel;
 
 EngineCore::EngineCore()
 {
@@ -19,7 +19,7 @@ EngineCore::~EngineCore()
 {
 }
 
-void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _WindowSize, std::string _WindowTitle, EngineObject* _CoreObject)
+void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _WindowSize, const char* _WindowTitle, EngineObject* _CoreObject)
 {
     MainWindow.SetWinPos(_WindowPos);
     MainWindow.SetWinSize(_WindowSize);
@@ -27,10 +27,10 @@ void EngineCore::EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _Wi
     MainWindow.SetHinstance(_hInstance);
     MainWindow.OpenWindow();
 
-    CreateD3DResourceManger(&MainResourceManager);    
-    MainDevice = MainResourceManager->CreateDevice();
+    CreateEngineD3DManager(&MainD3DManager);    
+    MainDevice = MainD3DManager->CreateDevice();
     MainDevice->Init(MainWindow.GetHwnd(), _WindowSize);
-    MainDevice->ResourceInit(MainResourceManager);
+    MainDevice->ResourceInit(MainD3DManager);
 
     CoreObject = _CoreObject;
     CoreObject->Start();
@@ -75,11 +75,11 @@ void EngineCore::EngineRelease()
 		MainInput = nullptr;
 	}
 
-	if (MainResourceManager != nullptr)
+	if (MainD3DManager != nullptr)
 	{
-        MainResourceManager->Release();
-		delete MainResourceManager;
-		MainResourceManager = nullptr;
+        MainD3DManager->Release();
+		delete MainD3DManager;
+		MainD3DManager = nullptr;
 	}
 
 	if (MainDevice != nullptr)

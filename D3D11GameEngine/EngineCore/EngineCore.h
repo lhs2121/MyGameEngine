@@ -2,7 +2,7 @@
 #include <d3d11.h>
 #include <EngineWindow\EngineWindow.h>
 #include <EngineInputLib\include\IEngineInput.h>
-#include <EngineD3DResourceLib\include\IEngineD3DResource.h>
+#include <EngineD3DResourceLib\EngineD3DResourceLib\EngineD3DInterface.h>
 #include "EngineRenderer.h"
 #include "EngineLevel.h"
 
@@ -36,13 +36,13 @@ public:
 	{
 		return MainWindow;
 	}
-	static IEngineD3DResourceManager* GetMainResourceManager()
+	static IEngineD3DManager* GetMainD3DManager()
 	{
-		return MainResourceManager;
+		return MainD3DManager;
 	}
 
 	template<typename LevelType>
-	static EngineLevel* CreateLevel(std::string LevelName)
+	static EngineLevel* CreateLevel(const char* LevelName)
 	{
 		EngineLevel* NewLevel = new LevelType();
 		NewLevel->SetName(LevelName);
@@ -54,7 +54,7 @@ public:
 
 	static void DeleteAllLevel()
 	{
-		for (std::pair<std::string, EngineLevel*> pair : AllLevel)
+		for (std::pair<const char*, EngineLevel*> pair : AllLevel)
 		{
 			EngineLevel* LevelPtr = pair.second;
 			if (LevelPtr != nullptr)
@@ -66,7 +66,7 @@ public:
 		AllLevel.clear();
 	}
 
-	static void ChangeLevel(std::string LevelName)
+	static void ChangeLevel(const char* LevelName)
 	{
 		if(AllLevel.end() != AllLevel.find(LevelName))
 		{
@@ -74,7 +74,7 @@ public:
 		}
 	}
 
-	static void EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _WindowSize, std::string _WindowTitle, EngineObject* _CoreObject);
+	static void EngineStart(HINSTANCE _hInstance, float4 _WindowPos, float4 _WindowSize, const char* _WindowTitle, EngineObject* _CoreObject);
 	static void EngineUpdate();
 	static void EngineRelease();
 
@@ -102,6 +102,6 @@ private:
 	static IEngineDevice* MainDevice;
 	static EngineTime MainTime;
 	static IEngineInput* MainInput;
-	static IEngineD3DResourceManager* MainResourceManager;
-	static std::map<std::string, EngineLevel*> AllLevel;
+	static IEngineD3DManager* MainD3DManager;
+	static std::map<const char*, EngineLevel*> AllLevel;
 };

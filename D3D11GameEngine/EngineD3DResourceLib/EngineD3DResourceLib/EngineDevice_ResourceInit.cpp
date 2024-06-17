@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "EngineD3DResourceManager.h"
+#include "EngineD3DManager.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
 #include "EngineInputLayout.h"
@@ -11,22 +11,21 @@
 
 void EngineDevice::ResourceInit(void* pManager)
 { 
-	EngineD3DResourceManager* Manager = (EngineD3DResourceManager*)pManager;
+	EngineD3DManager* Manager = (EngineD3DManager*)pManager;
 
 	{
 		EngineDirectory Dir;
 		Dir.GoChild("EngineShader");
-		std::vector<EngineFile> AllShaderFile = Dir.GetAllFile(".fx");
+		std::vector<EngineFile> AllShaderFile;
+		Dir.GetAllFileExt(&AllShaderFile, ".fx");
 
 		for (EngineFile& ShaderFile : AllShaderFile)
 		{
-			EngineString FileName = ShaderFile.GetFileName();
+			IEngineVertexShader* pVertexShader = Manager->CreateVertexShader(ShaderFile.GetFileName());
+			pVertexShader->Setting(ShaderFile.GetFileName(), ShaderFile.GetPath());
 
-			IEngineVertexShader* pVertexShader = Manager->CreateVertexShader(FileName.c_str());
-			pVertexShader->Setting(FileName.c_str(), ShaderFile.GetStringPath().c_str());
-
-			IEnginePixelShader* pPixelShader = Manager->CreatePixelShader(FileName.c_str());
-			pPixelShader->Setting(FileName.c_str(), ShaderFile.GetStringPath().c_str());
+			IEnginePixelShader* pPixelShader = Manager->CreatePixelShader(ShaderFile.GetFileName());
+			pPixelShader->Setting(ShaderFile.GetFileName(), ShaderFile.GetPath());
 		}
 	}
 

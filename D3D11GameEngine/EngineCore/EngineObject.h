@@ -14,7 +14,7 @@ public:
 	EngineObject& operator=(const EngineObject& _Other) = delete;
 	EngineObject& operator=(EngineObject&& _Other) noexcept = delete;
 
-	void SetName(std::string _Name)
+	void SetName(EngineString _Name)
 	{
 		Name = _Name;
 	}
@@ -119,6 +119,6 @@ public:
 protected:
 	EngineObject* Parent = nullptr;
 	std::list<EngineObject*> ChildList;
-	std::string Name;
+	EngineString Name;
 	bool Death = false;
 };

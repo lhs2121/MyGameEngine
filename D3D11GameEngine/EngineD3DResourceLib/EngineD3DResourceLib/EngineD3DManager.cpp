@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "EngineD3DResourceManager.h"
+#include "EngineD3DManager.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
 #include "EngineInputLayout.h"
@@ -10,14 +10,14 @@
 #include "EngineVertexFormat.h"
 #include "EngineTexture.h"
 
-IEngineDevice* EngineD3DResourceManager::CreateDevice()
+IEngineDevice* EngineD3DManager::CreateDevice()
 {
 	IEngineDevice* NewDevice = new EngineDevice();
 	Device = (EngineDevice*)NewDevice;
 	return NewDevice;
 }
 
-IEngineVertexBuffer* EngineD3DResourceManager::CreateVertexBuffer(const char* _Name)
+IEngineVertexBuffer* EngineD3DManager::CreateVertexBuffer(EngineString _Name)
 {
 	IEngineVertexBuffer* NewVertexBuffer = new EngineVertexBuffer();
 	EngineVertexBuffer* ChildPtr = (EngineVertexBuffer*)NewVertexBuffer;
@@ -26,7 +26,7 @@ IEngineVertexBuffer* EngineD3DResourceManager::CreateVertexBuffer(const char* _N
 	return NewVertexBuffer;
 }
 
-IEngineIndexBuffer* EngineD3DResourceManager::CreateIndexBuffer(const char* _Name)
+IEngineIndexBuffer* EngineD3DManager::CreateIndexBuffer(EngineString _Name)
 {
 	IEngineIndexBuffer* NewIndexBuffer = new EngineIndexBuffer();
 	EngineIndexBuffer* ChildPtr = (EngineIndexBuffer*)NewIndexBuffer;
@@ -35,7 +35,7 @@ IEngineIndexBuffer* EngineD3DResourceManager::CreateIndexBuffer(const char* _Nam
 	return NewIndexBuffer;
 }
 
-IEngineInputLayout* EngineD3DResourceManager::CreateInputLayout(const char* _Name)
+IEngineInputLayout* EngineD3DManager::CreateInputLayout(EngineString _Name)
 {
 	IEngineInputLayout* NewInputLayout = new EngineInputLayout();
 	EngineInputLayout* ChildPtr = (EngineInputLayout*)NewInputLayout;
@@ -44,7 +44,7 @@ IEngineInputLayout* EngineD3DResourceManager::CreateInputLayout(const char* _Nam
 	return NewInputLayout;
 }
 
-IEngineVertexShader* EngineD3DResourceManager::CreateVertexShader(const char* _Name)
+IEngineVertexShader* EngineD3DManager::CreateVertexShader(EngineString _Name)
 {
 	IEngineVertexShader* NewVertexShader = new EngineVertexShader();
 	EngineVertexShader* ChildPtr = (EngineVertexShader*)NewVertexShader;
@@ -53,7 +53,7 @@ IEngineVertexShader* EngineD3DResourceManager::CreateVertexShader(const char* _N
 	return NewVertexShader;
 }
 
-IEnginePixelShader* EngineD3DResourceManager::CreatePixelShader(const char* _Name)
+IEnginePixelShader* EngineD3DManager::CreatePixelShader(EngineString _Name)
 {
 	IEnginePixelShader* NewPixelShader = new EnginePixelShader();
 	EnginePixelShader* ChildPtr = (EnginePixelShader*)NewPixelShader;
@@ -62,7 +62,7 @@ IEnginePixelShader* EngineD3DResourceManager::CreatePixelShader(const char* _Nam
 	return NewPixelShader;
 }
 
-IEngineRasterizer* EngineD3DResourceManager::CreateRasterizer(const char* _Name)
+IEngineRasterizer* EngineD3DManager::CreateRasterizer(EngineString _Name)
 {
 	IEngineRasterizer* NewRasterizer = new EngineRasterizer();
 	EngineRasterizer* ChildPtr = (EngineRasterizer*)NewRasterizer;
@@ -71,7 +71,7 @@ IEngineRasterizer* EngineD3DResourceManager::CreateRasterizer(const char* _Name)
 	return NewRasterizer;
 }
 
-IEngineDepthStencil* EngineD3DResourceManager::CreateDepthStencil(const char* _Name)
+IEngineDepthStencil* EngineD3DManager::CreateDepthStencil(EngineString _Name)
 {
 	IEngineDepthStencil* NewDepthStencil = new EngineDepthStencil();
 	EngineDepthStencil* ChildPtr = (EngineDepthStencil*)NewDepthStencil;
@@ -80,7 +80,7 @@ IEngineDepthStencil* EngineD3DResourceManager::CreateDepthStencil(const char* _N
 	return NewDepthStencil;
 }
 
-IEngineTexture* EngineD3DResourceManager::CreateTexture(const char* _Name)
+IEngineTexture* EngineD3DManager::CreateTexture(EngineString _Name)
 {
 	IEngineTexture* NewTexture = new EngineTexture();
 	EngineTexture* ChildPtr = (EngineTexture*)NewTexture;
@@ -89,7 +89,7 @@ IEngineTexture* EngineD3DResourceManager::CreateTexture(const char* _Name)
 	return NewTexture;
 }
 
-IEngineVertexBuffer* EngineD3DResourceManager::FindVertexBuffer(const char* _Name)
+IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(const char* _Name)
 {
 	if (VBMap.find(_Name) != VBMap.end())
 	{
@@ -98,7 +98,7 @@ IEngineVertexBuffer* EngineD3DResourceManager::FindVertexBuffer(const char* _Nam
 	return nullptr;;
 }
 
-IEngineIndexBuffer* EngineD3DResourceManager::FindIndexBuffer(const char* _Name)
+IEngineIndexBuffer* EngineD3DManager::FindIndexBuffer(const char* _Name)
 {
 	if (IBMap.find(_Name) != IBMap.end())
 	{
@@ -107,7 +107,7 @@ IEngineIndexBuffer* EngineD3DResourceManager::FindIndexBuffer(const char* _Name)
 	return nullptr;
 }
 
-IEngineInputLayout* EngineD3DResourceManager::FindInputLayout(const char* _Name)
+IEngineInputLayout* EngineD3DManager::FindInputLayout(const char* _Name)
 {
 	if (IAMap.find(_Name) != IAMap.end())
 	{
@@ -116,7 +116,7 @@ IEngineInputLayout* EngineD3DResourceManager::FindInputLayout(const char* _Name)
 	return nullptr;
 }
 
-IEngineVertexShader* EngineD3DResourceManager::FindVertexShader(const char* _Name)
+IEngineVertexShader* EngineD3DManager::FindVertexShader(const char* _Name)
 {
 	if (VSMap.find(_Name) != VSMap.end())
 	{
@@ -125,7 +125,7 @@ IEngineVertexShader* EngineD3DResourceManager::FindVertexShader(const char* _Nam
 	return nullptr;
 }
 
-IEngineRasterizer* EngineD3DResourceManager::FindRasterizer(const char* _Name)
+IEngineRasterizer* EngineD3DManager::FindRasterizer(const char* _Name)
 {
 	if (RSMap.find(_Name) != RSMap.end())
 	{
@@ -134,7 +134,7 @@ IEngineRasterizer* EngineD3DResourceManager::FindRasterizer(const char* _Name)
 	return nullptr;
 }
 
-IEnginePixelShader* EngineD3DResourceManager::FindPixelShader(const char* _Name)
+IEnginePixelShader* EngineD3DManager::FindPixelShader(const char* _Name)
 {
 	if (PSMap.find(_Name) != PSMap.end())
 	{
@@ -143,7 +143,7 @@ IEnginePixelShader* EngineD3DResourceManager::FindPixelShader(const char* _Name)
 	return nullptr;
 }
 
-IEngineDepthStencil* EngineD3DResourceManager::FindDepthStencil(const char* _Name)
+IEngineDepthStencil* EngineD3DManager::FindDepthStencil(const char* _Name)
 {
 	if (DSMap.find(_Name) != DSMap.end())
 	{
@@ -152,7 +152,7 @@ IEngineDepthStencil* EngineD3DResourceManager::FindDepthStencil(const char* _Nam
 	return nullptr;
 }
 
-IEngineTexture* EngineD3DResourceManager::FindTexture(const char* _Name)
+IEngineTexture* EngineD3DManager::FindTexture(const char* _Name)
 {
 	if (TexMap.find(_Name) != TexMap.end())
 	{
@@ -161,9 +161,9 @@ IEngineTexture* EngineD3DResourceManager::FindTexture(const char* _Name)
 	return nullptr;
 }
 
-void EngineD3DResourceManager::Release()
+void EngineD3DManager::Release()
 {
-	for (std::pair<EngineString, IEngineVertexBuffer*> pair : VBMap)
+	for (auto& pair : VBMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -171,7 +171,7 @@ void EngineD3DResourceManager::Release()
 	}
 	VBMap.clear();
 
-	for (std::pair<EngineString, IEngineIndexBuffer*> pair : IBMap)
+	for (auto& pair : IBMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -179,7 +179,7 @@ void EngineD3DResourceManager::Release()
 	}
 	IBMap.clear();
 
-	for (std::pair<EngineString, IEngineInputLayout*> pair : IAMap)
+	for (auto& pair : IAMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -187,7 +187,7 @@ void EngineD3DResourceManager::Release()
 	}
 	IAMap.clear();
 
-	for (std::pair<EngineString, IEngineVertexShader*> pair : VSMap)
+	for (auto& pair : VSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -195,7 +195,7 @@ void EngineD3DResourceManager::Release()
 	}
 	VSMap.clear();
 
-	for (std::pair<EngineString, IEngineRasterizer*> pair : RSMap)
+	for (auto& pair : RSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -203,7 +203,7 @@ void EngineD3DResourceManager::Release()
 	}
 	RSMap.clear();
 
-	for (std::pair<EngineString, IEnginePixelShader*> pair : PSMap)
+	for (auto& pair : PSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -211,7 +211,7 @@ void EngineD3DResourceManager::Release()
 	}
 	PSMap.clear();
 
-	for (std::pair<EngineString, IEngineDepthStencil*> pair : DSMap)
+	for (auto& pair : DSMap)
 	{
 		pair.second->Release();
 		delete pair.second;
@@ -219,7 +219,7 @@ void EngineD3DResourceManager::Release()
 	}
 	DSMap.clear();
 
-	for (std::pair<EngineString, IEngineTexture*> pair : TexMap)
+	for (auto& pair : TexMap)
 	{
 		pair.second->Release();
 		delete pair.second;

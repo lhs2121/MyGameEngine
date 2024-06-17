@@ -9,14 +9,14 @@ EngineVertexShader::~EngineVertexShader()
 {
 }
 
-void EngineVertexShader::Setting(const char* _Name, const char* _Path)
+void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
 {
 	EngineString MainFuncName = _Name;
 	MainFuncName += "_VS";
 
 	EngineString PathString = _Path;
-	wchar_t* WPathString;
-	PathString.GetUTF8(&WPathString);
+	wchar_t* UTF8Path;
+	PathString.GetUTF8(&UTF8Path);
 
 	int Flag;
 
@@ -30,7 +30,7 @@ void EngineVertexShader::Setting(const char* _Name, const char* _Path)
 
 
 
-	HRESULT Result = D3DCompileFromFile(WPathString,
+	HRESULT Result = D3DCompileFromFile(UTF8Path,
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "vs_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
 
 	if (FAILED(Result))
@@ -43,6 +43,12 @@ void EngineVertexShader::Setting(const char* _Name, const char* _Path)
 	}
 
 	HRESULT R = DevicePtr->GetDevice()->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
+
+	if (UTF8Path != nullptr)
+	{
+		delete[] UTF8Path;
+		UTF8Path = nullptr;
+	}
 }
 
 void EngineVertexShader::Release()

@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)..\..\;</IncludePath>
-    <LibraryPath>C:\MyGameEngine\D3D11GameEngine\Bin\x64\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>F:\MyGameEngine\D3D11GameEngine\Bin\x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>

@@ -9,11 +9,12 @@
 #include "EngineFile.h"
 
 struct IEngineMemoryPool
-{ 	      
+{ 	    
 	virtual void  Init(int PoolSize, int _ObjectSize) = 0;
 	virtual void  CleanUp() = 0;	    	      
 	virtual void* GetBlock() = 0;
 	virtual void  FreeBlock(void* Ptr) = 0;
 };
 
-extern "C" EngineAPI void CreateMemoryPool(IEngineMemoryPool** ppMemoryPool);
+extern "C" EngineAPI void CreateEngineMemoryPool(IEngineMemoryPool** ppMemoryPool);
+extern "C" EngineAPI void DeleteEngineMemoryPool(IEngineMemoryPool* ppMemoryPool);

@@ -1,18 +1,18 @@
 #pragma once
-#include "IEngineD3DResource.h"
+#include "EngineD3DInterface.h"
 
-class EngineD3DResourceManager : public IEngineD3DResourceManager
+class EngineD3DManager : public IEngineD3DManager
 {
 public:
 	IEngineDevice* CreateDevice() override;
-	IEngineVertexBuffer* CreateVertexBuffer(const char* _Name) override;
-	IEngineIndexBuffer* CreateIndexBuffer(const char* _Name) override;
-	IEngineInputLayout* CreateInputLayout(const char* _Name) override;
-	IEngineVertexShader* CreateVertexShader(const char* _Name) override;
-	IEnginePixelShader* CreatePixelShader(const char* _Name) override;
-	IEngineRasterizer* CreateRasterizer(const char* _Name) override;
-	IEngineDepthStencil* CreateDepthStencil(const char* _Name) override;
-	IEngineTexture* CreateTexture(const char* _Name) override;
+	IEngineVertexBuffer* CreateVertexBuffer(EngineString _Name) override;
+	IEngineIndexBuffer* CreateIndexBuffer(EngineString _Name) override;
+	IEngineInputLayout* CreateInputLayout(EngineString _Name) override;
+	IEngineVertexShader* CreateVertexShader(EngineString _Name) override;
+	IEnginePixelShader* CreatePixelShader(EngineString _Name) override;
+	IEngineRasterizer* CreateRasterizer(EngineString _Name) override;
+	IEngineDepthStencil* CreateDepthStencil(EngineString _Name) override;
+	IEngineTexture* CreateTexture(EngineString _Name) override;
 
 	IEngineVertexBuffer* FindVertexBuffer(const char* _Name) override;
 	IEngineIndexBuffer* FindIndexBuffer(const char* _Name) override;
@@ -33,6 +33,5 @@ private:
 	std::map<EngineString, IEnginePixelShader*> PSMap;
 	std::map<EngineString, IEngineRasterizer*> RSMap;
 	std::map<EngineString, IEngineDepthStencil*> DSMap;
-
 	std::map<EngineString, IEngineTexture*> TexMap;
 };

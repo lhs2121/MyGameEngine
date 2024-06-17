@@ -33,10 +33,10 @@
     <ClInclude Include="EngineDevice.h">
       <Filter>Device</Filter>
     </ClInclude>
-    <ClInclude Include="IEngineD3DResource.h">
+    <ClInclude Include="EngineD3DInterface.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="EngineD3DResourceManager.h">
+    <ClInclude Include="EngineD3DManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
@@ -72,10 +72,10 @@
     <ClCompile Include="EngineDevice_ResourceInit.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="IEngineD3DResource.cpp">
+    <ClCompile Include="EngineD3DInterface.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
-    <ClCompile Include="EngineD3DResourceManager.cpp">
+    <ClCompile Include="EngineD3DManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>

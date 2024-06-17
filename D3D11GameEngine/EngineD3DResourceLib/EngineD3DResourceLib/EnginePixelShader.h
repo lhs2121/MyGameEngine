@@ -1,5 +1,5 @@
 #pragma once
-#include "IEngineD3DResource.h"
+#include "EngineD3DInterface.h"
 
 class EnginePixelShader : public IEnginePixelShader
 {
@@ -14,7 +14,7 @@ public:
 	EnginePixelShader& operator=(const EnginePixelShader& _Other) = delete;
 	EnginePixelShader& operator=(EnginePixelShader&& _Other) noexcept = delete;
 
-	void Setting(const char* _Name, const char* _Path) override;
+	void Setting(EngineString _Name, EngineString _Path) override;
 	void Release() override;
 	void IntoPipeLine() override;
 	void SetDevicePtr(EngineDevice* _DevicePtr)

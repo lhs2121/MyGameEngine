@@ -36,7 +36,7 @@ void EngineRenderer::Start()
 
 	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
 
-	IEngineD3DResourceManager* ResManager = EngineCore::GetMainResourceManager();
+	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 	VB = ResManager->FindVertexBuffer("Box2D");
 	IB = ResManager->FindIndexBuffer("Box2D");
 	IA = ResManager->FindInputLayout("Pos");
