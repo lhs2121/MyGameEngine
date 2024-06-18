@@ -64,25 +64,25 @@ struct IEngineDepthStencil : public IEnginePipeLineRes
 };
 
 struct IEngineD3DManager : public IEngineUnknown
-{ 
-	virtual IEngineDevice* CreateDevice() = 0;
-	virtual IEngineVertexBuffer* CreateVertexBuffer(EngineString _Name) = 0;
-	virtual IEngineIndexBuffer* CreateIndexBuffer( EngineString _Name) = 0;
-	virtual IEngineInputLayout* CreateInputLayout( EngineString _Name) = 0;
-	virtual IEngineVertexShader* CreateVertexShader(EngineString _Name) = 0;
-	virtual IEnginePixelShader* CreatePixelShader(EngineString _Name) = 0;
-	virtual IEngineRasterizer* CreateRasterizer(EngineString _Name) = 0;
-	virtual IEngineDepthStencil* CreateDepthStencil(EngineString _Name) = 0;
-	virtual IEngineTexture* CreateTexture(EngineString _Name) = 0;
+{
+	virtual IEngineDevice*       CreateDevice() = 0;
+	virtual IEngineVertexBuffer* CreateVertexBuffer  (EngineString _Name) = 0;
+	virtual IEngineIndexBuffer*  CreateIndexBuffer   (EngineString _Name) = 0;
+	virtual IEngineInputLayout*  CreateInputLayout   (EngineString _Name) = 0;
+	virtual IEngineVertexShader* CreateVertexShader  (EngineString _Name) = 0;
+	virtual IEnginePixelShader*  CreatePixelShader   (EngineString _Name) = 0;
+	virtual IEngineRasterizer*   CreateRasterizer    (EngineString _Name) = 0;
+	virtual IEngineDepthStencil* CreateDepthStencil  (EngineString _Name) = 0;
+	virtual IEngineTexture*      CreateTexture       (EngineString _Name) = 0;
 
-	virtual IEngineVertexBuffer* FindVertexBuffer(const char* _Name) = 0;
-	virtual IEngineIndexBuffer* FindIndexBuffer(const char* _Name) = 0;
-	virtual IEngineInputLayout* FindInputLayout(const char* _Name) = 0;
-	virtual IEngineVertexShader* FindVertexShader(const char* _Name) = 0;
-	virtual IEngineRasterizer* FindRasterizer(const char* _Name) = 0;
-	virtual IEnginePixelShader* FindPixelShader(const char* _Name) = 0;
-	virtual IEngineDepthStencil* FindDepthStencil(const char* _Name) = 0;
-	virtual IEngineTexture* FindTexture(const char* _Name) = 0;
+	virtual IEngineVertexBuffer* FindVertexBuffer    (const char* _Name) = 0;
+	virtual IEngineIndexBuffer*  FindIndexBuffer     (const char* _Name) = 0;
+	virtual IEngineInputLayout*  FindInputLayout     (const char* _Name) = 0;
+	virtual IEngineVertexShader* FindVertexShader    (const char* _Name) = 0;
+	virtual IEngineRasterizer*   FindRasterizer      (const char* _Name) = 0;
+	virtual IEnginePixelShader*  FindPixelShader     (const char* _Name) = 0;
+	virtual IEngineDepthStencil* FindDepthStencil    (const char* _Name) = 0;
+	virtual IEngineTexture*      FindTexture         (const char* _Name) = 0;
 };
 
 extern "C" EngineAPI void CreateEngineD3DManager(IEngineD3DManager * *ppManager);
