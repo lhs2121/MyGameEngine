@@ -39,11 +39,12 @@ void EngineRenderer::Start()
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 	VB = ResManager->FindVertexBuffer("Box2D");
 	IB = ResManager->FindIndexBuffer("Box2D");
-	IA = ResManager->FindInputLayout("Pos");
-	VS = ResManager->FindVertexShader("Test2DShader");
-	PS = ResManager->FindPixelShader("Test2DShader");
+	IA = ResManager->FindInputLayout("PosTexcoord");
+	VS = ResManager->FindVertexShader("TestSpriteShader");
+	PS = ResManager->FindPixelShader("TestSpriteShader");
 	RS = ResManager->FindRasterizer("Default");
 	DS = ResManager->FindDepthStencil("Default");
+
 }
 void EngineRenderer::Render()
 {
@@ -59,14 +60,25 @@ void EngineRenderer::Render()
 	EngineCore::GetContext() ->DrawIndexed(IB->GetIndexCount(), 0, 0);
 }
 
+void EngineRenderer::SetTexture(ID3D11ShaderResourceView* _SRV)
+{
+	SRV = _SRV;
+	EngineCore::GetContext()->PSSetShaderResources(0, 1, &SRV);
+}
+
+void EngineRenderer::SetSampler(ID3D11SamplerState* _Sampler)
+{
+	Sampler = _Sampler;
+	EngineCore::GetContext()->PSSetSamplers(0, 1, &Sampler);
+}
+
 void EngineRenderer::UpdateConstantBuffer()
 {
 	D3D11_MAPPED_SUBRESOURCE MappedResource;
 
 	EngineCore::GetContext()->Map(ConstantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
 
-	void* DataPtr = MappedResource.pData;
-	memcpy_s(DataPtr, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
+	memcpy_s(MappedResource.pData, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
 
 	EngineCore::GetContext()->Unmap(ConstantBuffer, 0);
 	EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &ConstantBuffer);

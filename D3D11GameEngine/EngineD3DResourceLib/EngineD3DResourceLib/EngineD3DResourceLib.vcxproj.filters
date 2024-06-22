@@ -39,6 +39,9 @@
     <ClInclude Include="EngineD3DManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="EngineSampler.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp" />
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="EngineD3DManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSampler.cpp">
+      <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

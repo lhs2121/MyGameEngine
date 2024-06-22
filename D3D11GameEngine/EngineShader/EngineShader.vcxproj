@@ -173,7 +173,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Test2DSpriteShader.fx" />
+    <None Include="TestSpriteShader.fx" />
     <None Include="Test2DShader.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

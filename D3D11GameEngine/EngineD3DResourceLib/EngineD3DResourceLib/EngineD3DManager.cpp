@@ -9,6 +9,7 @@
 #include "EngineDepthStencil.h"
 #include "EngineVertexFormat.h"
 #include "EngineTexture.h"
+#include "EngineSampler.h"
 
 IEngineDevice* EngineD3DManager::CreateDevice()
 {
@@ -89,6 +90,14 @@ IEngineTexture* EngineD3DManager::CreateTexture(EngineString _Name)
 	return NewTexture;
 }
 
+IEngineSampler* EngineD3DManager::CreateSampler(EngineString _Name)
+{
+	IEngineSampler* NewSampler = new EngineSampler();
+	NewSampler->
+	TexMap.insert(std::make_pair(_Name, NewTexture));
+	return NewTexture;
+}
+
 IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(const char* _Name)
 {
 	if (VBMap.find(_Name) != VBMap.end())
@@ -157,6 +166,15 @@ IEngineTexture* EngineD3DManager::FindTexture(const char* _Name)
 	if (TexMap.find(_Name) != TexMap.end())
 	{
 		return TexMap[_Name];
+	}
+	return nullptr;
+}
+
+IEngineSampler* EngineD3DManager::FindSampler(const char* _Name)
+{
+	if (SamMap.find(_Name) != SamMap.end())
+	{
+		return SamMap[_Name];
 	}
 	return nullptr;
 }

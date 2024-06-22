@@ -14,12 +14,14 @@ public:
 	EngineTexture& operator=(const EngineTexture& _Other) = delete;
 	EngineTexture& operator=(EngineTexture&& _Other) noexcept = delete;
 
-	void Setting(const char* _FilePath) override;
+	void Setting(EngineString _FilePath) override;
 	void SetDevicePtr(EngineDevice* _DevicePtr)
 	{
 		DevicePtr = _DevicePtr;
 	}
 	void Release() override;
+	ID3D11ShaderResourceView* GetSRV();
+private:
 	EngineDevice* DevicePtr;
 	ID3D11ShaderResourceView* SRV;
 	DirectX::ScratchImage ScratchImage;

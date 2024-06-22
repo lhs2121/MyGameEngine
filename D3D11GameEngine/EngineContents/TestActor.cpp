@@ -24,6 +24,8 @@ void TestActor::Start()
 	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 	Renderer = CreateComponent<EngineRenderer>();
 	Renderer->Transform.SetScale({ 100,100,100 });
+	Renderer->SetTexture(Texture->GetSRV());
+	Renderer->SetSampler()
 }
 
 void TestActor::Update(float _Delta)

@@ -18,6 +18,10 @@ public:
 
 	void Start() override;
 	virtual void Render();
+
+	void SetTexture(ID3D11ShaderResourceView* _SRV);
+	void SetSampler(ID3D11SamplerState* _Sampler);
+
 	void UpdateConstantBuffer();
 
 	IEngineVertexBuffer* VB = nullptr;
@@ -29,6 +33,8 @@ public:
 	IEngineDepthStencil* DS = nullptr;
 
 	UINT IndexCount;
+	ID3D11ShaderResourceView* SRV;
+	ID3D11SamplerState* Sampler;
 	ID3D11Buffer* ConstantBuffer;
 };	
 

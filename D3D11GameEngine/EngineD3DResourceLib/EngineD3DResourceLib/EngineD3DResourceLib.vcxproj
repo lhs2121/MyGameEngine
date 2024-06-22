@@ -151,7 +151,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)EngineD3DInterface.h" "$(SolutionDir)include\"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -192,6 +193,7 @@
     <ClInclude Include="EngineD3DInterface.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineTexture.h" />
+    <ClInclude Include="EngineSampler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineD3DManager.cpp" />
@@ -212,6 +214,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="EngineTexture.cpp" />
+    <ClCompile Include="EngineSampler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\ThirdParty\Debug\DirectXTex.lib" />

@@ -1,4 +1,5 @@
 #include "Pre.h"
+#include "EngineD3DInterface.h"
 #include "EngineD3DManager.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
@@ -53,6 +54,19 @@ void EngineDevice::ResourceInit(void* pManager)
 			};
 
 			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("PosColor");
+			pInputLayout->Setting(Desc, 2, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
+		}
+
+		{
+			EngineVertexShader* TestVertexShader = (EngineVertexShader*)Manager->FindVertexShader("TestSpriteShader");
+
+			D3D11_INPUT_ELEMENT_DESC Desc[] =
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 8, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			};
+
+			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("PosTexcoord");
 			pInputLayout->Setting(Desc, 2, TestVertexShader->GetShaderByteCode(), TestVertexShader->GetShaderByteLength());
 		}
 
@@ -191,6 +205,27 @@ void EngineDevice::ResourceInit(void* pManager)
 
 		IEngineDepthStencil* pDepthStencil = Manager->CreateDepthStencil("Default");
 		pDepthStencil->Setting(Desc);
+	}
+
+	{
+		ID3D11SamplerState* NewSampler = nullptr;
+		D3D11_SAMPLER_DESC Desc = {};
+		Desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT; // 선형 필터링
+		Desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;    // U 방향으로 랩 어드레싱
+		Desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;    // V 방향으로 랩 어드레싱
+		Desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;    // W 방향으로 랩 어드레싱
+		Desc.MipLODBias = 0.0f;                        // Mipmap 수준 오프셋
+		Desc.MaxAnisotropy = 1;                        // 최대 이방성 필터링 수준 (1은 이방성 필터링 비활성화)
+		Desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS; // 비교 함수
+		Desc.BorderColor[0] = 1.0f;                    // 테두리 색상 (RGBA)
+		Desc.BorderColor[1] = 1.0f;
+		Desc.BorderColor[2] = 1.0f;
+		Desc.BorderColor[3] = 1.0f;
+		Desc.MinLOD = 0;                               // 최소 Mipmap 수준
+		Desc.MaxLOD = D3D11_FLOAT32_MAX;               // 최대 Mipmap 수준
+
+		IEngineSampler* NewSampler = Manager->CreateSampler("Default");
+		NewSampler->setting
 	}
 
 }

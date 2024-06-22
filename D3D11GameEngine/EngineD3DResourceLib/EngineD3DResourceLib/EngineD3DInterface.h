@@ -1,4 +1,6 @@
 #pragma once
+#include <d3d11.h>
+#include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
 
 struct IEngineUnknown
 {
@@ -24,7 +26,14 @@ struct IEngineDevice : public IEngineUnknown
 
 struct IEngineTexture : public IEngineUnknown
 {
-	virtual void Setting(const char* _FilePath) = 0;
+	virtual ID3D11ShaderResourceView* GetSRV() = 0;
+	virtual void Setting(EngineString _FilePath) = 0;
+};
+
+struct IEngineSampler : public IEngineUnknown
+{
+	virtual ID3D11SamplerState* GetState() = 0;
+	virtual void Setting(D3D11_SAMPLER_DESC* DescPtr) = 0;
 };
 
 struct IEngineVertexBuffer : public IEnginePipeLineRes
@@ -74,6 +83,7 @@ struct IEngineD3DManager : public IEngineUnknown
 	virtual IEngineRasterizer*   CreateRasterizer    (EngineString _Name) = 0;
 	virtual IEngineDepthStencil* CreateDepthStencil  (EngineString _Name) = 0;
 	virtual IEngineTexture*      CreateTexture       (EngineString _Name) = 0;
+	virtual IEngineSampler*      CreateSampler       (EngineString _Name) = 0;
 
 	virtual IEngineVertexBuffer* FindVertexBuffer    (const char* _Name) = 0;
 	virtual IEngineIndexBuffer*  FindIndexBuffer     (const char* _Name) = 0;
@@ -83,6 +93,7 @@ struct IEngineD3DManager : public IEngineUnknown
 	virtual IEnginePixelShader*  FindPixelShader     (const char* _Name) = 0;
 	virtual IEngineDepthStencil* FindDepthStencil    (const char* _Name) = 0;
 	virtual IEngineTexture*      FindTexture         (const char* _Name) = 0;
+	virtual IEngineSampler*      FindSampler         (const char* _Name) = 0;
 };
 
 extern "C" EngineAPI void CreateEngineD3DManager(IEngineD3DManager * *ppManager);
