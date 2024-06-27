@@ -1,3 +1,4 @@
+#include "Pre.h"
 #include "EngineSampler.h"
 
 EngineSampler::EngineSampler()
@@ -6,6 +7,7 @@ EngineSampler::EngineSampler()
 
 EngineSampler::~EngineSampler()
 {
+	StatePtr->Release();
 }
 
 ID3D11SamplerState* EngineSampler::GetState()
@@ -15,7 +17,7 @@ ID3D11SamplerState* EngineSampler::GetState()
 
 void EngineSampler::Setting(D3D11_SAMPLER_DESC* DescPtr)
 {
-	DevicePtr->CreateSamplerState(DescPtr, &StatePtr);
+    DevicePtr->CreateSamplerState(DescPtr, &StatePtr);
 }
 
 void EngineSampler::Release()

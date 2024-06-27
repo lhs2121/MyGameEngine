@@ -3,6 +3,7 @@
 
 class EngineSampler : public IEngineSampler
 {
+	friend class EngineD3DManager;
 public:
 	// constrcuter destructer
 	EngineSampler();

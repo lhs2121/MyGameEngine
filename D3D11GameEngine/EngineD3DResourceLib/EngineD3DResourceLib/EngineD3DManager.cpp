@@ -93,9 +93,10 @@ IEngineTexture* EngineD3DManager::CreateTexture(EngineString _Name)
 IEngineSampler* EngineD3DManager::CreateSampler(EngineString _Name)
 {
 	IEngineSampler* NewSampler = new EngineSampler();
-	NewSampler->
-	TexMap.insert(std::make_pair(_Name, NewTexture));
-	return NewTexture;
+	EngineSampler* ChildPtr = (EngineSampler*)NewSampler;
+	ChildPtr->DevicePtr = Device->GetDevice();
+	SamMap.insert(std::make_pair(_Name, NewSampler));
+	return NewSampler;
 }
 
 IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(const char* _Name)
@@ -244,4 +245,12 @@ void EngineD3DManager::Release()
 		pair.second = nullptr;
 	}
 	TexMap.clear();
+
+	for (auto& pair : SamMap)
+	{
+		pair.second->Release();
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	SamMap.clear();
 }

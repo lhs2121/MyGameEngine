@@ -9,9 +9,10 @@
 #include "EngineRasterizer.h"
 #include "EngineDepthStencil.h"
 #include "EngineVertexFormat.h"
+#include "EngineVertexFormat.h"
 
 void EngineDevice::ResourceInit(void* pManager)
-{ 
+{
 	EngineD3DManager* Manager = (EngineD3DManager*)pManager;
 
 	{
@@ -63,7 +64,7 @@ void EngineDevice::ResourceInit(void* pManager)
 			D3D11_INPUT_ELEMENT_DESC Desc[] =
 			{
 				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 8, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			};
 
 			IEngineInputLayout* pInputLayout = Manager->CreateInputLayout("PosTexcoord");
@@ -95,6 +96,19 @@ void EngineDevice::ResourceInit(void* pManager)
 		pIndexBuffer->Setting(Box2D, sizeof(Box2D));
 	}
 
+	//Box2D with Tex
+	{
+		VERTEX_POS_TEXCOORD Box2D[] =
+		{
+			{float4(-0.5f, 0.5f), 0, 0},
+			{float4(0.5f, 0.5f), 1, 0},
+			{float4(0.5f,-0.5f), 1, 1},
+			{float4(-0.5f,-0.5f), 0, 1}
+		};
+		IEngineVertexBuffer* pVertexBuffer = Manager->CreateVertexBuffer("Box2DTex");
+		pVertexBuffer->Setting(Box2D, sizeof(VERTEX_POS_TEXCOORD), sizeof(Box2D));
+	}
+
 	//Box3D
 	{
 		VERTEX_POS_COLOR Box3D[] =
@@ -102,9 +116,9 @@ void EngineDevice::ResourceInit(void* pManager)
 			//¾Õ¸é
 			//»¡°­
 			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(1.0f, 0.0f, 0.0f, 1.0f) },
+			{ float4( 0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
+			{ float4( 0.5f,-0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
+			{ float4(-0.5f,-0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
 
 			//µÞ¸é
 			//ÆÄ¶û
@@ -208,7 +222,6 @@ void EngineDevice::ResourceInit(void* pManager)
 	}
 
 	{
-		ID3D11SamplerState* NewSampler = nullptr;
 		D3D11_SAMPLER_DESC Desc = {};
 		Desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT; // ¼±Çü ÇÊÅÍ¸µ
 		Desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;    // U ¹æÇâÀ¸·Î ·¦ ¾îµå·¹½Ì
@@ -225,7 +238,7 @@ void EngineDevice::ResourceInit(void* pManager)
 		Desc.MaxLOD = D3D11_FLOAT32_MAX;               // ÃÖ´ë Mipmap ¼öÁØ
 
 		IEngineSampler* NewSampler = Manager->CreateSampler("Default");
-		NewSampler->setting
+		NewSampler->Setting(&Desc);
 	}
 
 }

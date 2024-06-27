@@ -12,20 +12,24 @@ TestActor::~TestActor()
 
 void TestActor::Start()
 {
+	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
+
 	EngineDirectory dir;
 	std::vector<EngineFile> ImageFile;
 	dir.GetAllFileExt(&ImageFile,".png");
 	
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
+		
 	Texture = ResManager->CreateTexture("TestTexture");
-
 	Texture->Setting(ImageFile[0].GetPath().c_str());
 
-	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
+
 	Renderer = CreateComponent<EngineRenderer>();
 	Renderer->Transform.SetScale({ 100,100,100 });
 	Renderer->SetTexture(Texture->GetSRV());
-	Renderer->SetSampler()
+	IEngineSampler* Sampler = ResManager->FindSampler("Default");
+		
+	Renderer->SetSampler(Sampler->GetState());
 }
 
 void TestActor::Update(float _Delta)

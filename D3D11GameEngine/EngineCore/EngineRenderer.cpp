@@ -37,7 +37,7 @@ void EngineRenderer::Start()
 	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
 
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
-	VB = ResManager->FindVertexBuffer("Box2D");
+	VB = ResManager->FindVertexBuffer("Box2DTex");
 	IB = ResManager->FindIndexBuffer("Box2D");
 	IA = ResManager->FindInputLayout("PosTexcoord");
 	VS = ResManager->FindVertexShader("TestSpriteShader");
