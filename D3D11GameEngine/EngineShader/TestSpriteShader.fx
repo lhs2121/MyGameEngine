@@ -29,6 +29,7 @@ VS_OUTPUT TestSpriteShader_VS(VS_INPUT input)
 cbuffer SpriteData : register(b1)
 {
     float4 ResizeRatio;
+    float2 Offset;
 }
 
 Texture2D g_Texture : register(t0);
@@ -36,8 +37,23 @@ SamplerState g_Sampler : register(s0);
 
 float4 TestSpriteShader_PS(VS_OUTPUT input) : SV_Target
 {
-    float2 TexLocation = float2(input.TEX.x * 0.5f, input.TEX.y * 0.5f);
+    float2 TexLocation = input.TEX * ResizeRatio;
+    TexLocation.x += Offset.x;
+    TexLocation.y += Offset.y;
     
     float4 texColor = g_Texture.Sample(g_Sampler, TexLocation);
+    
+    float threshold = 0.001;
+    bool isCloseToWhite =
+        abs(texColor.r - 1.0) < threshold &&
+        abs(texColor.g - 1.0) < threshold &&
+        abs(texColor.b - 1.0) < threshold;
+    
+    if (isCloseToWhite)
+    {
+        clip(-1);
+    }
+    
+    
     return texColor;
 }

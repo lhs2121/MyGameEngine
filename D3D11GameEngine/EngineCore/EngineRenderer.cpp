@@ -76,8 +76,10 @@ void EngineRenderer::Render()
 
 void EngineRenderer::SetTexture(EngineString _Name)
 {
-	IEngineTexture* Tex = EngineCore::GetMainD3DManager()->FindTexture(_Name);
-	ID3D11ShaderResourceView* SRV = Tex->GetSRV();
+	Texture = EngineCore::GetMainD3DManager()->FindTexture(_Name);
+	ID3D11ShaderResourceView* SRV = Texture->GetSRV();
+	float4 ImageScale = Texture->GetImageScale();
+	Transform.SetScale(ImageScale);
 	EngineCore::GetContext()->PSSetShaderResources(0, 1, &SRV);
 }
 
@@ -88,9 +90,18 @@ void EngineRenderer::SetSampler(EngineString _Name)
 	EngineCore::GetContext()->PSSetSamplers(0, 1, &State);
 }
 
+void EngineRenderer::CreateAnimation(int SliceX, int SliceY)
+{
+	if (Texture != nullptr)
+	{
+		EngineDebug::MsgBoxAssert("애니메이션을 만들기 전에 텍스처를 설정하세요");
+	}
+	float4 ImageScale = Texture->GetImageScale();
+	Image
+}
+
 void EngineRenderer::UpdateConstantBuffer()
 {
-	
 	{
 		D3D11_MAPPED_SUBRESOURCE MappedResource;
 
@@ -102,8 +113,20 @@ void EngineRenderer::UpdateConstantBuffer()
 	}
 
 	{
-		SpriteData Data;
+		static 	SpriteData Data;
 		Data.ResizeRatio = { 1,1 };
+
+		if (KeyIsPress('B'))
+		{
+			Data.ResizeRatio.x += 0.01f;
+			Data.ResizeRatio.y += 0.01f;
+		}
+
+		if (KeyIsPress('N'))
+		{
+			Data.ResizeRatio.x -= 0.01f;
+			Data.ResizeRatio.y -= 0.01f;
+		}
 		D3D11_MAPPED_SUBRESOURCE MappedResource;
 
 		EngineCore::GetContext()->Map(SpriteCBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);

@@ -34,3 +34,9 @@ ID3D11ShaderResourceView* EngineTexture::GetSRV()
 {
 	return SRV;
 }
+
+float4 EngineTexture::GetImageScale()
+{
+	float4 Scale = { (float)MetaData.width,(float)MetaData.height };
+	return Scale;
+}

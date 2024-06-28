@@ -21,12 +21,10 @@ void TestActor::Start()
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		
 	Texture = ResManager->CreateTexture("TestTexture");
-	Texture->Setting(ImageFile[0].GetPath().c_str());
+	Texture->Setting(ImageFile[0].GetPath());
 
 
 	Renderer = CreateComponent<EngineRenderer>();
-	Renderer->Transform.SetScale({ 100,100,100 });
-
 	Renderer->SetTexture("TestTexture");
 	Renderer->SetSampler("Default");
 }

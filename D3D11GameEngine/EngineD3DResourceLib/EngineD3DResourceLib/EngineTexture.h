@@ -20,7 +20,8 @@ public:
 		DevicePtr = _DevicePtr;
 	}
 	void Release() override;
-	ID3D11ShaderResourceView* GetSRV();
+	ID3D11ShaderResourceView* GetSRV() override;
+	float4 GetImageScale() override;
 private:
 	EngineDevice* DevicePtr;
 	ID3D11ShaderResourceView* SRV;

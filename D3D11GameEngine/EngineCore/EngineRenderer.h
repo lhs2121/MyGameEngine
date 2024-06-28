@@ -22,7 +22,7 @@ public:
 
 	void SetTexture(EngineString _Name);
 	void SetSampler(EngineString _Name);
-
+	void CreateAnimation(int SliceX,int SliceY);
 	void UpdateConstantBuffer();
 
 	IEngineVertexBuffer* VB = nullptr;
@@ -33,10 +33,11 @@ public:
 	IEnginePixelShader* PS = nullptr;
 	IEngineDepthStencil* DS = nullptr;
 
-	UINT IndexCount;
-	SpriteData Data;
-	ID3D11Buffer* ConstantBuffer;
-	ID3D11Buffer* SpriteCBuffer;
+	IEngineTexture* Texture = nullptr;
+
+	UINT IndexCount = 0;
+	ID3D11Buffer* ConstantBuffer = nullptr;
+	ID3D11Buffer* SpriteCBuffer = nullptr;
 };	
 
 

@@ -27,6 +27,7 @@ struct IEngineDevice : public IEngineUnknown
 struct IEngineTexture : public IEngineUnknown
 {
 	virtual ID3D11ShaderResourceView* GetSRV() = 0;
+	virtual float4 GetImageScale() = 0;
 	virtual void Setting(EngineString _FilePath) = 0;
 };
 
