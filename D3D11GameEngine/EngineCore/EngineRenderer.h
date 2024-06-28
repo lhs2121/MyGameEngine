@@ -2,6 +2,7 @@
 #include <d3d11.h>
 #include "EngineTransform.h"
 #include "EngineComponent.h"
+#include "EngineConstantBuffer.h"
 
 class EngineRenderer : public EngineComponent
 {
@@ -19,8 +20,8 @@ public:
 	void Start() override;
 	virtual void Render();
 
-	void SetTexture(ID3D11ShaderResourceView* _SRV);
-	void SetSampler(ID3D11SamplerState* _Sampler);
+	void SetTexture(EngineString _Name);
+	void SetSampler(EngineString _Name);
 
 	void UpdateConstantBuffer();
 
@@ -33,9 +34,9 @@ public:
 	IEngineDepthStencil* DS = nullptr;
 
 	UINT IndexCount;
-	ID3D11ShaderResourceView* SRV;
-	ID3D11SamplerState* Sampler;
+	SpriteData Data;
 	ID3D11Buffer* ConstantBuffer;
+	ID3D11Buffer* SpriteCBuffer;
 };	
 
 

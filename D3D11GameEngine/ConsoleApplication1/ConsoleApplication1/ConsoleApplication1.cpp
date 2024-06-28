@@ -5,17 +5,20 @@
 #include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
 #pragma comment(lib,"EngineBaseLib.lib")
 
+
+void func(EngineString& String)
+{
+	String += "a";
+}
+void func2(std::string& String)
+{
+	String += "a";
+}
 int main()
 {
-	EngineDebug::CrtSetDbgFlag();
-
-	{
-		IEngineMemoryPool* mp;
-		CreateEngineMemoryPool(&mp);
-		mp->Init(1024, 24);
-
-		DeleteEngineMemoryPool(mp);
-		mp = nullptr;
-	}
+	EngineString a;
+	func(a);
+	std::string b;
+	func2(b);
 	
 }

@@ -8,17 +8,16 @@ EngineRenderer::EngineRenderer()
 
 EngineRenderer::~EngineRenderer()
 {
-	VB = nullptr;
-	IB = nullptr;
-	IA = nullptr;
-	VS = nullptr;
-	PS = nullptr;
-	RS = nullptr;
-
 	if (ConstantBuffer != nullptr)
 	{
 		ConstantBuffer->Release();
 		ConstantBuffer = nullptr;
+	}
+
+	if (SpriteCBuffer != nullptr)
+	{
+		SpriteCBuffer->Release();
+		SpriteCBuffer = nullptr;
 	}
 }
 
@@ -26,15 +25,30 @@ void EngineRenderer::Start()
 {
 	GetLevel()->GetMainCamera()->PushRenderer(this);
 
-	D3D11_BUFFER_DESC Desc = { 0 };
-	Desc.Usage = D3D11_USAGE_DYNAMIC;
-	Desc.ByteWidth = sizeof(float4x4);
-	Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	Desc.MiscFlags = 0;
-	Desc.StructureByteStride = 0;
+	{
+		D3D11_BUFFER_DESC Desc = { 0 };
+		Desc.Usage = D3D11_USAGE_DYNAMIC;
+		Desc.ByteWidth = sizeof(float4x4);
+		Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		Desc.MiscFlags = 0;
+		Desc.StructureByteStride = 0;
 
-	HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
+		HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
+	}
+	
+
+	{
+		D3D11_BUFFER_DESC Desc = { 0 };
+		Desc.Usage = D3D11_USAGE_DYNAMIC;
+		Desc.ByteWidth = sizeof(SpriteData);
+		Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		Desc.MiscFlags = 0;
+		Desc.StructureByteStride = 0;
+
+		HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &SpriteCBuffer);
+	}
 
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 	VB = ResManager->FindVertexBuffer("Box2DTex");
@@ -60,27 +74,43 @@ void EngineRenderer::Render()
 	EngineCore::GetContext() ->DrawIndexed(IB->GetIndexCount(), 0, 0);
 }
 
-void EngineRenderer::SetTexture(ID3D11ShaderResourceView* _SRV)
+void EngineRenderer::SetTexture(EngineString _Name)
 {
-	SRV = _SRV;
+	IEngineTexture* Tex = EngineCore::GetMainD3DManager()->FindTexture(_Name);
+	ID3D11ShaderResourceView* SRV = Tex->GetSRV();
 	EngineCore::GetContext()->PSSetShaderResources(0, 1, &SRV);
 }
 
-void EngineRenderer::SetSampler(ID3D11SamplerState* _Sampler)
+void EngineRenderer::SetSampler(EngineString _Name)
 {
-	Sampler = _Sampler;
-	EngineCore::GetContext()->PSSetSamplers(0, 1, &Sampler);
+	IEngineSampler* Sam = EngineCore::GetMainD3DManager()->FindSampler(_Name);
+	ID3D11SamplerState* State = Sam->GetState();
+	EngineCore::GetContext()->PSSetSamplers(0, 1, &State);
 }
 
 void EngineRenderer::UpdateConstantBuffer()
 {
-	D3D11_MAPPED_SUBRESOURCE MappedResource;
+	
+	{
+		D3D11_MAPPED_SUBRESOURCE MappedResource;
 
-	EngineCore::GetContext()->Map(ConstantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
+		EngineCore::GetContext()->Map(ConstantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
+		memcpy_s(MappedResource.pData, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
 
-	memcpy_s(MappedResource.pData, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
+		EngineCore::GetContext()->Unmap(ConstantBuffer, 0);
+		EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &ConstantBuffer);
+	}
 
-	EngineCore::GetContext()->Unmap(ConstantBuffer, 0);
-	EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &ConstantBuffer);
+	{
+		SpriteData Data;
+		Data.ResizeRatio = { 1,1 };
+		D3D11_MAPPED_SUBRESOURCE MappedResource;
+
+		EngineCore::GetContext()->Map(SpriteCBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
+		memcpy_s(MappedResource.pData, sizeof(SpriteData), &Data, sizeof(SpriteData));
+
+		EngineCore::GetContext()->Unmap(SpriteCBuffer, 0);
+		EngineCore::GetContext()->PSSetConstantBuffers(1, 1, &SpriteCBuffer);
+	}
 }
 

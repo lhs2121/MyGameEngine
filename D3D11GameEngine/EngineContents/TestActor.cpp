@@ -26,10 +26,9 @@ void TestActor::Start()
 
 	Renderer = CreateComponent<EngineRenderer>();
 	Renderer->Transform.SetScale({ 100,100,100 });
-	Renderer->SetTexture(Texture->GetSRV());
-	IEngineSampler* Sampler = ResManager->FindSampler("Default");
-		
-	Renderer->SetSampler(Sampler->GetState());
+
+	Renderer->SetTexture("TestTexture");
+	Renderer->SetSampler("Default");
 }
 
 void TestActor::Update(float _Delta)

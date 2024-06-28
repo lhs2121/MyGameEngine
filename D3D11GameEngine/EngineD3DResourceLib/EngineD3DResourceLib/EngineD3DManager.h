@@ -15,15 +15,15 @@ public:
 	IEngineTexture*      CreateTexture      (EngineString _Name) override;
 	IEngineSampler*      CreateSampler      (EngineString _Name) override;
 
-	IEngineVertexBuffer* FindVertexBuffer   (const char* _Name) override;
-	IEngineIndexBuffer*  FindIndexBuffer    (const char* _Name) override;
-	IEngineInputLayout*  FindInputLayout    (const char* _Name) override;
-	IEngineVertexShader* FindVertexShader   (const char* _Name) override;
-	IEngineRasterizer*   FindRasterizer     (const char* _Name) override;
-	IEnginePixelShader*  FindPixelShader    (const char* _Name) override;
-	IEngineDepthStencil* FindDepthStencil   (const char* _Name) override;
-	IEngineTexture*      FindTexture        (const char* _Name) override;
-	IEngineSampler*      FindSampler        (const char* _Name) override;
+	IEngineVertexBuffer* FindVertexBuffer   (EngineString _Name) override;
+	IEngineIndexBuffer*  FindIndexBuffer    (EngineString _Name) override;
+	IEngineInputLayout*  FindInputLayout    (EngineString _Name) override;
+	IEngineVertexShader* FindVertexShader   (EngineString _Name) override;
+	IEngineRasterizer*   FindRasterizer     (EngineString _Name) override;
+	IEnginePixelShader*  FindPixelShader    (EngineString _Name) override;
+	IEngineDepthStencil* FindDepthStencil   (EngineString _Name) override;
+	IEngineTexture*      FindTexture        (EngineString _Name) override;
+	IEngineSampler*      FindSampler        (EngineString _Name) override;
 
 	void Release() override;
 private:

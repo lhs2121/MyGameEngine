@@ -99,7 +99,7 @@ IEngineSampler* EngineD3DManager::CreateSampler(EngineString _Name)
 	return NewSampler;
 }
 
-IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(const char* _Name)
+IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(EngineString _Name)
 {
 	if (VBMap.find(_Name) != VBMap.end())
 	{
@@ -108,7 +108,7 @@ IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(const char* _Name)
 	return nullptr;;
 }
 
-IEngineIndexBuffer* EngineD3DManager::FindIndexBuffer(const char* _Name)
+IEngineIndexBuffer* EngineD3DManager::FindIndexBuffer(EngineString _Name)
 {
 	if (IBMap.find(_Name) != IBMap.end())
 	{
@@ -117,7 +117,7 @@ IEngineIndexBuffer* EngineD3DManager::FindIndexBuffer(const char* _Name)
 	return nullptr;
 }
 
-IEngineInputLayout* EngineD3DManager::FindInputLayout(const char* _Name)
+IEngineInputLayout* EngineD3DManager::FindInputLayout(EngineString _Name)
 {
 	if (IAMap.find(_Name) != IAMap.end())
 	{
@@ -126,7 +126,7 @@ IEngineInputLayout* EngineD3DManager::FindInputLayout(const char* _Name)
 	return nullptr;
 }
 
-IEngineVertexShader* EngineD3DManager::FindVertexShader(const char* _Name)
+IEngineVertexShader* EngineD3DManager::FindVertexShader(EngineString _Name)
 {
 	if (VSMap.find(_Name) != VSMap.end())
 	{
@@ -135,7 +135,7 @@ IEngineVertexShader* EngineD3DManager::FindVertexShader(const char* _Name)
 	return nullptr;
 }
 
-IEngineRasterizer* EngineD3DManager::FindRasterizer(const char* _Name)
+IEngineRasterizer* EngineD3DManager::FindRasterizer(EngineString _Name)
 {
 	if (RSMap.find(_Name) != RSMap.end())
 	{
@@ -144,7 +144,7 @@ IEngineRasterizer* EngineD3DManager::FindRasterizer(const char* _Name)
 	return nullptr;
 }
 
-IEnginePixelShader* EngineD3DManager::FindPixelShader(const char* _Name)
+IEnginePixelShader* EngineD3DManager::FindPixelShader(EngineString _Name)
 {
 	if (PSMap.find(_Name) != PSMap.end())
 	{
@@ -153,7 +153,7 @@ IEnginePixelShader* EngineD3DManager::FindPixelShader(const char* _Name)
 	return nullptr;
 }
 
-IEngineDepthStencil* EngineD3DManager::FindDepthStencil(const char* _Name)
+IEngineDepthStencil* EngineD3DManager::FindDepthStencil(EngineString _Name)
 {
 	if (DSMap.find(_Name) != DSMap.end())
 	{
@@ -162,7 +162,7 @@ IEngineDepthStencil* EngineD3DManager::FindDepthStencil(const char* _Name)
 	return nullptr;
 }
 
-IEngineTexture* EngineD3DManager::FindTexture(const char* _Name)
+IEngineTexture* EngineD3DManager::FindTexture(EngineString _Name)
 {
 	if (TexMap.find(_Name) != TexMap.end())
 	{
@@ -171,7 +171,7 @@ IEngineTexture* EngineD3DManager::FindTexture(const char* _Name)
 	return nullptr;
 }
 
-IEngineSampler* EngineD3DManager::FindSampler(const char* _Name)
+IEngineSampler* EngineD3DManager::FindSampler(EngineString _Name)
 {
 	if (SamMap.find(_Name) != SamMap.end())
 	{
