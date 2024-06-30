@@ -20,13 +20,13 @@ void TestActor::Start()
 	
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		
-	Texture = ResManager->CreateTexture("TestTexture");
+    IEngineTexture*	Texture = ResManager->CreateTexture("TestTexture");
 	Texture->Setting(ImageFile[0].GetPath());
 
 	Renderer = CreateComponent<EngineRenderer>();
-	Renderer->SetTexture("TestTexture");
+	Renderer->BindTexture("TestTexture");
 
-	Renderer->CreateAnimation(4,4);
+	Renderer->CreateAnimation(8,10);
 }
 
 void TestActor::Update(float _Delta)

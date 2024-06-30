@@ -8,22 +8,22 @@ EngineRenderer::EngineRenderer()
 
 EngineRenderer::~EngineRenderer()
 {
-	if (ConstantBuffer != nullptr)
+	if (TransformBuffer != nullptr)
 	{
-		ConstantBuffer->Release();
-		ConstantBuffer = nullptr;
+		TransformBuffer->Release();
+		TransformBuffer = nullptr;
 	}
 
-	if (SpriteCBuffer != nullptr)
+	if (SpriteDataBuffer != nullptr)
 	{
-		SpriteCBuffer->Release();
-		SpriteCBuffer = nullptr;
+		SpriteDataBuffer->Release();
+		SpriteDataBuffer = nullptr;
 	}
 
-	if (SpriteIndex != nullptr)
+	if (SpriteDatas != nullptr)
 	{
-		delete SpriteIndex;
-		SpriteIndex = nullptr;
+		delete SpriteDatas;
+		SpriteDatas = nullptr;
 	}
 }
 
@@ -40,9 +40,9 @@ void EngineRenderer::Start()
 		Desc.MiscFlags = 0;
 		Desc.StructureByteStride = 0;
 
-		HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &ConstantBuffer);
+		HRESULT hr = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &TransformBuffer);
 	}
-	
+
 
 	{
 		D3D11_BUFFER_DESC Desc = { 0 };
@@ -53,29 +53,53 @@ void EngineRenderer::Start()
 		Desc.MiscFlags = 0;
 		Desc.StructureByteStride = 0;
 
-		HRESULT OK = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &SpriteCBuffer);
+		HRESULT hr = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &SpriteDataBuffer);
 	}
 
-	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
-	VB = ResManager->FindVertexBuffer("Box2DTex");
-	IB = ResManager->FindIndexBuffer("Box2D");
-	IA = ResManager->FindInputLayout("PosTexcoord");
-	VS = ResManager->FindVertexShader("TestSpriteShader");
-	PS = ResManager->FindPixelShader("TestSpriteShader");
-	RS = ResManager->FindRasterizer("Default");
-	DS = ResManager->FindDepthStencil("Default");
+	IEngineD3DManager* Manager = EngineCore::GetMainD3DManager();
 
-	SetSampler("Default");
+	VB = Manager->FindVertexBuffer("Box2DTex");
+	IB = Manager->FindIndexBuffer("Box2D");
+	IA = Manager->FindInputLayout("PosTexcoord");
+	VS = Manager->FindVertexShader("TestSpriteShader");
+	PS = Manager->FindPixelShader("TestSpriteShader");
+	RS = Manager->FindRasterizer("Default");
+	DS = Manager->FindDepthStencil("Default");
+
+	BindSampler("Default");
 }
+
 void EngineRenderer::Update(float _Delta)
 {
-	UpdateConstantBuffer();
+	BindTransform();
+
+	CurTime += _Delta;
+	if (CurTime >= InterTime)
+	{
+		CurSpriteData = &(*SpriteDatas)[CurSpriteY][CurSpriteX];
+
+		CurSpriteX++;
+		CurFrame++;
+		CurTime = 0.0f;
+	}
 	
+	if (CurSpriteX == SpriteCountX)
+	{
+		CurSpriteY++;
+		CurSpriteX = 0;
+	}
+
+	if (CurSpriteY == SpriteCountY)
+	{
+		CurSpriteY = 0;
+		CurFrame = 0;
+	}
+
+	BindSpriteData();
+
 }
 void EngineRenderer::Render()
 {
-	
-
 	VB->IntoPipeLine();
 	IB->IntoPipeLine();
 	IA->IntoPipeLine();
@@ -83,91 +107,82 @@ void EngineRenderer::Render()
 	RS->IntoPipeLine();
 	PS->IntoPipeLine();
 	DS->IntoPipeLine();
-	
-	EngineCore::GetContext() ->DrawIndexed(IB->GetIndexCount(), 0, 0);
+
+	UINT IndexCount = IB->GetIndexCount();
+	EngineCore::GetContext()->DrawIndexed(IndexCount, 0, 0);
 }
 
-void EngineRenderer::SetTexture(EngineString _Name)
+void EngineRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY)
 {
-	Texture = EngineCore::GetMainD3DManager()->FindTexture(_Name);
-	ID3D11ShaderResourceView* SRV = Texture->GetSRV();
-	float4 ImageScale = Texture->GetImageScale();
-	Transform.SetScale(ImageScale);
-	EngineCore::GetContext()->PSSetShaderResources(0, 1, &SRV);
-}
-
-void EngineRenderer::SetSampler(EngineString _Name)
-{
-	IEngineSampler* Sam = EngineCore::GetMainD3DManager()->FindSampler(_Name);
-	ID3D11SamplerState* State = Sam->GetState();
-	EngineCore::GetContext()->PSSetSamplers(0, 1, &State);
-}
-
-void EngineRenderer::CreateAnimation(int TileCountX, int TileCountY)
-{
-	if (Texture == nullptr)
+	if (CurTexture == nullptr)
 	{
 		EngineDebug::MsgBoxAssert("애니메이션을 만들기 전에 텍스처를 설정하세요");
 	}
-	SpriteIndex = new std::vector<std::vector<SpriteData>>(TileCountY, std::vector<SpriteData>(TileCountX));
 
-	float2 Ratio = {1 / static_cast<float>(TileCountX), 1 / static_cast<float>(TileCountY)};
+	SpriteCountX = _SpriteCountX;
+	SpriteCountY = _SpriteCountY;
 
-	for (int y = 0; y < TileCountY; y++)
+	SpriteDatas = new std::vector<std::vector<SpriteData>>(SpriteCountY, std::vector<SpriteData>(SpriteCountX));
+
+	float2 Ratio = { 1 / static_cast<float>(SpriteCountX), 1 / static_cast<float>(SpriteCountY) };
+
+	for (int y = 0; y < SpriteCountY; y++)
 	{
-		for (int x = 0; x < TileCountX; x++)
+		for (int x = 0; x < SpriteCountX; x++)
 		{
-			SpriteData& a = (*SpriteIndex)[y][x];
+			SpriteData& a = (*SpriteDatas)[y][x];
 			a.ResizeRatio = Ratio;
 			a.Offset.x = Ratio.x * x;
 			a.Offset.y = Ratio.y * y;
 		}
 	}
-	
+
+	CurSpriteX = 0;
+	CurSpriteY = 0;
+	CurFrame = 0;
+	CurTime = 0.0f;
+
+	CurSpriteData = &(*SpriteDatas)[0][0];
+
 }
 
-void EngineRenderer::SetAnimation()
+void EngineRenderer::BindTexture(EngineString _Name)
 {
+	CurTexture = EngineCore::GetMainD3DManager()->FindTexture(_Name);
 
+	float4 ImageScale = CurTexture->GetImageScale();
+	Transform.SetScale(ImageScale);
+
+	ID3D11ShaderResourceView* SRV = CurTexture->GetSRV();
+	EngineCore::GetContext()->PSSetShaderResources(0, 1, &SRV);
 }
 
-void EngineRenderer::UpdateConstantBuffer()
+void EngineRenderer::BindSampler(EngineString _Name)
 {
-	{
-		D3D11_MAPPED_SUBRESOURCE MappedResource;
+	IEngineSampler* Sampler = EngineCore::GetMainD3DManager()->FindSampler(_Name);
+	ID3D11SamplerState* State = Sampler->GetState();
+	EngineCore::GetContext()->PSSetSamplers(0, 1, &State);
+}
 
-		EngineCore::GetContext()->Map(ConstantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
-		memcpy_s(MappedResource.pData, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
+void EngineRenderer::BindTransform() 
+{
+	D3D11_MAPPED_SUBRESOURCE MappedRes;
 
-		EngineCore::GetContext()->Unmap(ConstantBuffer, 0);
-		EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &ConstantBuffer);
-	}
+	EngineCore::GetContext()->Map(TransformBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedRes);
+	memcpy_s(MappedRes.pData, sizeof(float4x4), &Transform.WorldViewProjectionMat, sizeof(float4x4));
 
-	{
-		static int i = 0;
-		static int j = 0;
-		
+	EngineCore::GetContext()->Unmap(TransformBuffer, 0);
+	EngineCore::GetContext()->VSSetConstantBuffers(0, 1, &TransformBuffer);
+}
 
-		if (i == 4)
-		{
-			i = 0;
-			j++;
-			if (j == 4)
-			{
-				j = 0;
-			}
-		}
+void EngineRenderer::BindSpriteData()
+{
+	D3D11_MAPPED_SUBRESOURCE MappedRes;
 
-		SpriteData& a = (*SpriteIndex)[j][i];
-		D3D11_MAPPED_SUBRESOURCE MappedResource;
+	EngineCore::GetContext()->Map(SpriteDataBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedRes);
+	memcpy_s(MappedRes.pData, sizeof(SpriteData), CurSpriteData, sizeof(SpriteData));
 
-		i++;
-
-		EngineCore::GetContext()->Map(SpriteCBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
-		memcpy_s(MappedResource.pData, sizeof(SpriteData), &a, sizeof(SpriteData));
-
-		EngineCore::GetContext()->Unmap(SpriteCBuffer, 0);
-		EngineCore::GetContext()->PSSetConstantBuffers(1, 1, &SpriteCBuffer);
-	}
+	EngineCore::GetContext()->Unmap(SpriteDataBuffer, 0);
+	EngineCore::GetContext()->PSSetConstantBuffers(1, 1, &SpriteDataBuffer);
 }
 

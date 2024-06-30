@@ -27,13 +27,27 @@ public:
 
 	virtual void Render();
 
-	void SetTexture(EngineString _Name);
-	void SetSampler(EngineString _Name);
-	void CreateAnimation(int TileCountX,int TileCountY);
-	void SetAnimation();
-	void UpdateConstantBuffer();
+	void BindTexture(EngineString _Name);
+	void BindSampler(EngineString _Name);
+	void BindTransform();
+	void BindSpriteData();
 
-	std::vector<std::vector<SpriteData>>* SpriteIndex = nullptr;
+	void CreateAnimation(int _SpriteCountX,int _SpriteCountY);
+
+	
+	int SpriteCountX;
+	int SpriteCountY;
+
+	int CurSpriteX = 0;
+	int CurSpriteY = 0;
+
+	int CurFrame = 0;
+
+	float InterTime = 0.5f;
+	float CurTime;
+
+	std::vector<std::vector<SpriteData>>* SpriteDatas = nullptr;
+	SpriteData* CurSpriteData = nullptr;
 
 	IEngineVertexBuffer* VB = nullptr;
 	IEngineIndexBuffer* IB = nullptr;
@@ -42,12 +56,10 @@ public:
 	IEngineRasterizer* RS = nullptr;
 	IEnginePixelShader* PS = nullptr;
 	IEngineDepthStencil* DS = nullptr;
+	IEngineTexture* CurTexture = nullptr;
 
-	IEngineTexture* Texture = nullptr;
-
-	UINT IndexCount = 0;
-	ID3D11Buffer* ConstantBuffer = nullptr;
-	ID3D11Buffer* SpriteCBuffer = nullptr;
+	ID3D11Buffer* TransformBuffer = nullptr;
+	ID3D11Buffer* SpriteDataBuffer = nullptr;
 };	
 
 
