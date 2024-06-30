@@ -97,7 +97,7 @@ void EngineRenderer::CreateAnimation(int SliceX, int SliceY)
 		EngineDebug::MsgBoxAssert("애니메이션을 만들기 전에 텍스처를 설정하세요");
 	}
 	float4 ImageScale = Texture->GetImageScale();
-	Image
+	
 }
 
 void EngineRenderer::UpdateConstantBuffer()
