@@ -19,6 +19,12 @@ EngineRenderer::~EngineRenderer()
 		SpriteCBuffer->Release();
 		SpriteCBuffer = nullptr;
 	}
+
+	if (SpriteIndex != nullptr)
+	{
+		delete SpriteIndex;
+		SpriteIndex = nullptr;
+	}
 }
 
 void EngineRenderer::Start()
@@ -59,10 +65,17 @@ void EngineRenderer::Start()
 	RS = ResManager->FindRasterizer("Default");
 	DS = ResManager->FindDepthStencil("Default");
 
+	SetSampler("Default");
+}
+void EngineRenderer::Update(float _Delta)
+{
+	UpdateConstantBuffer();
+	
 }
 void EngineRenderer::Render()
 {
-	UpdateConstantBuffer();
+	
+
 	VB->IntoPipeLine();
 	IB->IntoPipeLine();
 	IA->IntoPipeLine();
@@ -90,14 +103,32 @@ void EngineRenderer::SetSampler(EngineString _Name)
 	EngineCore::GetContext()->PSSetSamplers(0, 1, &State);
 }
 
-void EngineRenderer::CreateAnimation(int SliceX, int SliceY)
+void EngineRenderer::CreateAnimation(int TileCountX, int TileCountY)
 {
-	if (Texture != nullptr)
+	if (Texture == nullptr)
 	{
 		EngineDebug::MsgBoxAssert("애니메이션을 만들기 전에 텍스처를 설정하세요");
 	}
-	float4 ImageScale = Texture->GetImageScale();
+	SpriteIndex = new std::vector<std::vector<SpriteData>>(TileCountY, std::vector<SpriteData>(TileCountX));
+
+	float2 Ratio = {1 / static_cast<float>(TileCountX), 1 / static_cast<float>(TileCountY)};
+
+	for (int y = 0; y < TileCountY; y++)
+	{
+		for (int x = 0; x < TileCountX; x++)
+		{
+			SpriteData& a = (*SpriteIndex)[y][x];
+			a.ResizeRatio = Ratio;
+			a.Offset.x = Ratio.x * x;
+			a.Offset.y = Ratio.y * y;
+		}
+	}
 	
+}
+
+void EngineRenderer::SetAnimation()
+{
+
 }
 
 void EngineRenderer::UpdateConstantBuffer()
@@ -113,24 +144,27 @@ void EngineRenderer::UpdateConstantBuffer()
 	}
 
 	{
-		static 	SpriteData Data;
-		Data.ResizeRatio = { 1,1 };
+		static int i = 0;
+		static int j = 0;
+		
 
-		if (KeyIsPress('B'))
+		if (i == 4)
 		{
-			Data.ResizeRatio.x += 0.01f;
-			Data.ResizeRatio.y += 0.01f;
+			i = 0;
+			j++;
+			if (j == 4)
+			{
+				j = 0;
+			}
 		}
 
-		if (KeyIsPress('N'))
-		{
-			Data.ResizeRatio.x -= 0.01f;
-			Data.ResizeRatio.y -= 0.01f;
-		}
+		SpriteData& a = (*SpriteIndex)[j][i];
 		D3D11_MAPPED_SUBRESOURCE MappedResource;
 
+		i++;
+
 		EngineCore::GetContext()->Map(SpriteCBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
-		memcpy_s(MappedResource.pData, sizeof(SpriteData), &Data, sizeof(SpriteData));
+		memcpy_s(MappedResource.pData, sizeof(SpriteData), &a, sizeof(SpriteData));
 
 		EngineCore::GetContext()->Unmap(SpriteCBuffer, 0);
 		EngineCore::GetContext()->PSSetConstantBuffers(1, 1, &SpriteCBuffer);

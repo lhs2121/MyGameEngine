@@ -48,7 +48,6 @@
     <ClInclude Include="EngineActor.h" />
     <ClInclude Include="EngineComponent.h" />
     <ClInclude Include="EngineLevelObject.h" />
-    <ClInclude Include="EngineConstantBuffer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

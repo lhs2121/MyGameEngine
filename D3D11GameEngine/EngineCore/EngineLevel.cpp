@@ -20,6 +20,7 @@ void EngineLevel::ActorUpdate(float _Delta)
 {
 	for (EngineObject* Object : ChildList)
 	{
+		Object->ChildUpdate(_Delta);
 		Object->Update(_Delta);
 	}
 }

@@ -23,10 +23,10 @@ void TestActor::Start()
 	Texture = ResManager->CreateTexture("TestTexture");
 	Texture->Setting(ImageFile[0].GetPath());
 
-
 	Renderer = CreateComponent<EngineRenderer>();
 	Renderer->SetTexture("TestTexture");
-	Renderer->SetSampler("Default");
+
+	Renderer->CreateAnimation(4,4);
 }
 
 void TestActor::Update(float _Delta)

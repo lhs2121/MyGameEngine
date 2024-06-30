@@ -69,6 +69,5 @@
     <ClInclude Include="EngineSpriteRenderer.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="EngineConstantBuffer.h" />
   </ItemGroup>
 </Project>

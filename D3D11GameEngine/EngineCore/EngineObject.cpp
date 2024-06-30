@@ -21,8 +21,17 @@ void EngineObject::Start()
 {
 }
 
+void EngineObject::ChildUpdate(float _Delta)
+{
+	for (EngineObject* Object : ChildList)
+	{
+		Object->Update(_Delta);
+	}
+}
+
 void EngineObject::Update(float _Delta)
 {
+
 }
 
 void EngineObject::Release()

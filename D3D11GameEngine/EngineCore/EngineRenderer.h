@@ -2,7 +2,12 @@
 #include <d3d11.h>
 #include "EngineTransform.h"
 #include "EngineComponent.h"
-#include "EngineConstantBuffer.h"
+
+struct SpriteData
+{
+	float2 ResizeRatio = { 1.0f,1.0f };
+	float2 Offset = { 0.0f,0.0f };
+};
 
 class EngineRenderer : public EngineComponent
 {
@@ -18,12 +23,17 @@ public:
 	EngineRenderer& operator=(EngineRenderer&& _Other) noexcept = delete;
 
 	void Start() override;
+	void Update(float _Delta) override;
+
 	virtual void Render();
 
 	void SetTexture(EngineString _Name);
 	void SetSampler(EngineString _Name);
-	void CreateAnimation(int SliceX,int SliceY);
+	void CreateAnimation(int TileCountX,int TileCountY);
+	void SetAnimation();
 	void UpdateConstantBuffer();
+
+	std::vector<std::vector<SpriteData>>* SpriteIndex = nullptr;
 
 	IEngineVertexBuffer* VB = nullptr;
 	IEngineIndexBuffer* IB = nullptr;

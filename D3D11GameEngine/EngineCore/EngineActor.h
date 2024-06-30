@@ -23,8 +23,5 @@ public:
 		NewComponent->Start();
 		return dynamic_cast<ComponentType*>(NewComponent);
 	}
-
-private:
-
 };
 

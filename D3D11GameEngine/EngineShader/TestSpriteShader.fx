@@ -28,7 +28,7 @@ VS_OUTPUT TestSpriteShader_VS(VS_INPUT input)
 
 cbuffer SpriteData : register(b1)
 {
-    float4 ResizeRatio;
+    float2 ResizeRatio;
     float2 Offset;
 }
 

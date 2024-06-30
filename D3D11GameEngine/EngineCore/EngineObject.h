@@ -112,6 +112,7 @@ public:
 	}
 
 	virtual void Start();
+	void ChildUpdate(float _Delta);
 	virtual void Update(float _Delta);
 	virtual void Release();
 
