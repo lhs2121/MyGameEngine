@@ -15,18 +15,23 @@ void TestActor::Start()
 	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
 	EngineDirectory dir;
+	dir.GoBase();
+	dir.GoChild("Assets");
+	dir.GoChild("Character");
+	dir.GoChild("Stand");
+
 	std::vector<EngineFile> ImageFile;
 	dir.GetAllFileExt(&ImageFile,".png");
 	
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		
-    IEngineTexture*	Texture = ResManager->CreateTexture("TestTexture");
+	IEngineTexture* Texture = ResManager->CreateTexture("Stand_000");
 	Texture->Setting(ImageFile[0].GetPath());
 
 	Renderer = CreateComponent<EngineRenderer>();
-	Renderer->BindTexture("TestTexture");
+	Renderer->BindTexture("Stand_000");
 
-	Renderer->CreateAnimation(8,10);
+	Renderer->CreateAnimation(2,2);
 }
 
 void TestActor::Update(float _Delta)
