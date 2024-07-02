@@ -228,7 +228,7 @@ void float4x4::Orthographic(float Width, float Height, float Near, float Far)
 	matrix[3][2] = Near / (Near - Far);
 }
 
-int EngineMath::GetDigitCount(int Num)
+int EngineMath::GetDigitCount(unsigned long long Num)
 {
 	int Result = 0;
 

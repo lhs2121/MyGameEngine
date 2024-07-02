@@ -8,6 +8,7 @@
 
 int main()
 {
-	EngineString a = "asdf";
-	a += 123;
+	EngineString String = "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd";
+	String += 1234567812378768684;
+	
 }

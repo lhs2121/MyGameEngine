@@ -34,8 +34,7 @@ public:
 
 	void operator+=(EngineString& OtherString);
 	void operator+=(const char* OtherString);
-	void operator+=(int Num);
-	void operator+=(float Num);
+	void operator+=(unsigned long long Num);
 
 	bool operator==(EngineString& OtherString);
 	bool operator==(const char* OtherString);

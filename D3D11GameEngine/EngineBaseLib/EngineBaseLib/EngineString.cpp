@@ -92,34 +92,29 @@ void EngineString::operator+=(const char* OtherString)
 	TempString = nullptr;
 }
 
-void EngineString::operator+=(int Num)
+void EngineString::operator+=(unsigned long long Num)
 {
 	int DigitCount = EngineMath::GetDigitCount(Num);
 	char* ConvertString = new char[DigitCount + 1];
 	
-	sprintf_s(ConvertString, DigitCount + 1, "%d", Num);
+	sprintf_s(ConvertString, DigitCount + 1, "%llu", Num);
 
-	if (String == nullptr)
+	if (String != nullptr)
 	{
-		String = ConvertString;
-
-		if (ConvertString != nullptr)
-		{
-			delete[] ConvertString;
-			ConvertString = nullptr;
-		}
-
-		return;
+		*this += ConvertString;
 	}
-	
-	int ByteSize = GetByte(String) - 1;
+	else
+	{
+		*this = ConvertString;
+	}
 
-	memcpy_s(String + ByteSize, DigitCount + 1, ConvertString, DigitCount + 1);
+	if (ConvertString != nullptr)
+	{
+		delete[] ConvertString;
+		ConvertString = nullptr;
+	}
 }
 
-void EngineString::operator+=(float Num)
-{
-}
 
 bool EngineString::operator==(EngineString& OtherString)
 {

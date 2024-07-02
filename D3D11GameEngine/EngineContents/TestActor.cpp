@@ -16,9 +16,6 @@ void TestActor::Start()
 
 	EngineDirectory dir;
 	dir.GoBase();
-	dir.GoChild("Assets");
-	dir.GoChild("Character");
-	dir.GoChild("Stand");
 
 	std::vector<EngineFile> ImageFile;
 	dir.GetAllFileExt(&ImageFile,".png");
@@ -26,16 +23,14 @@ void TestActor::Start()
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		
 	IEngineTexture* Texture = ResManager->CreateTexture("Stand_000");
+	Texture->Setting(ImageFile[0]);
 
-	for (int i = 0; i < ImageFile.size(); i++)
-	{
-		Texture->Setting(ImageFile[i]);
-	}
 
 	Renderer = CreateComponent<EngineRenderer>();
 	Renderer->BindTexture("Stand_000");
 
-	Renderer->CreateAnimation(1,1);
+	Renderer->Transform.SetScale({ 200,200,200 });
+	Renderer->CreateAnimation(6,6);
 }
 
 void TestActor::Update(float _Delta)

@@ -4,7 +4,7 @@ constexpr float DegToRad = 3.141592653f / 180.0f;
 
 struct EngineAPI EngineMath
 {
-	static int GetDigitCount(int Num);
+	static int GetDigitCount(unsigned long long Num);
 };
 struct float2
 {

@@ -43,7 +43,7 @@ public:
 
 	int CurFrame = 0;
 
-	float InterTime = 0.5f;
+	float InterTime = 0.05f;
 	float CurTime;
 
 	std::vector<std::vector<SpriteData>>* SpriteDatas = nullptr;
