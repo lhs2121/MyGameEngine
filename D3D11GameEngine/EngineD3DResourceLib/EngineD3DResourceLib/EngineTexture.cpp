@@ -10,11 +10,32 @@ EngineTexture::~EngineTexture()
 {
 }
 
-void EngineTexture::Setting(EngineString _FilePath)
+void EngineTexture::Setting(EngineFile& _File)
 {
 	wchar_t* UniPath = nullptr;
-	_FilePath.GetUTF8(&UniPath);
-	DirectX::LoadFromWICFile(UniPath, DirectX::WIC_FLAGS_FILTER_POINT, &MetaData, ScratchImage);
+	EngineString Ext = _File.GetExt();
+
+
+	if (Ext == ".png")
+	{
+		_File.GetPath().GetUTF8(&UniPath);
+		DirectX::LoadFromWICFile(UniPath, DirectX::WIC_FLAGS_NONE, &MetaData, ScratchImage);
+	}
+	else if (Ext == ".dds")
+	{
+		_File.GetPath().GetUTF8(&UniPath);
+		DirectX::LoadFromDDSFile(UniPath, DirectX::DDS_FLAGS_NONE, &MetaData, ScratchImage);
+	}
+	else if (Ext == ".tga")
+	{
+		_File.GetPath().GetUTF8(&UniPath);
+		DirectX::LoadFromTGAFile(UniPath, DirectX::TGA_FLAGS_NONE, &MetaData, ScratchImage);
+	}
+	else
+	{
+		return;
+	}
+
 	DirectX::CreateShaderResourceView(DevicePtr->GetDevice(), ScratchImage.GetImages(), ScratchImage.GetImageCount(), MetaData, &SRV); 
 
 	if (UniPath != nullptr)

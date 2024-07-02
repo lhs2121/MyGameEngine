@@ -18,6 +18,7 @@ public:
 	void SetPath(const char* _Path);
 	EngineString GetPath();
 	EngineString GetFileName();
+	EngineString GetExt();
 	void Open(FileMode _Mode);
 	void Close();
 

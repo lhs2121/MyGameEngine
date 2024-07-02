@@ -227,3 +227,15 @@ void float4x4::Orthographic(float Width, float Height, float Near, float Far)
 	matrix[2][2] = 1 / (Far - Near);
 	matrix[3][2] = Near / (Near - Far);
 }
+
+int EngineMath::GetDigitCount(int Num)
+{
+	int Result = 0;
+
+	while (Num >= 1)
+	{
+		Num /= 10;
+		Result++;
+	}
+	return Result;
+}

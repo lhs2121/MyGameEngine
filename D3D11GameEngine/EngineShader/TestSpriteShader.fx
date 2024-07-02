@@ -43,17 +43,5 @@ float4 TestSpriteShader_PS(VS_OUTPUT input) : SV_Target
     
     float4 texColor = g_Texture.Sample(g_Sampler, TexLocation);
     
-    float threshold = 0.001;
-    bool isCloseToWhite =
-        abs(texColor.r - 1.0) < threshold &&
-        abs(texColor.g - 1.0) < threshold &&
-        abs(texColor.b - 1.0) < threshold;
-    
-    if (isCloseToWhite)
-    {
-        clip(-1);
-    }
-    
-    
     return texColor;
 }

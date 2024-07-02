@@ -2,6 +2,10 @@
 constexpr float PI = 3.141592653f;
 constexpr float DegToRad = 3.141592653f / 180.0f;
 
+struct EngineAPI EngineMath
+{
+	static int GetDigitCount(int Num);
+};
 struct float2
 {
 	float2(float _x = 0, float _y = 0)

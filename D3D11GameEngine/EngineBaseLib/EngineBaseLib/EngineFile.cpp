@@ -11,6 +11,14 @@ EngineString EngineFile::GetFileName()
 	return FimeName;
 }
 
+EngineString EngineFile::GetExt()
+{
+	EngineString Ext;
+	std::filesystem::path stdPath = Path.c_str();
+	Ext = stdPath.extension().string().c_str();
+	return Ext;
+}
+
 void EngineFile::SetPath(const char* _Path) 
 {
 	Path = _Path;

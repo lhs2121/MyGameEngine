@@ -14,7 +14,7 @@ public:
 	EngineTexture& operator=(const EngineTexture& _Other) = delete;
 	EngineTexture& operator=(EngineTexture&& _Other) noexcept = delete;
 
-	void Setting(EngineString _FilePath) override;
+	void Setting(EngineFile& _File) override;
 	void SetDevicePtr(EngineDevice* _DevicePtr)
 	{
 		DevicePtr = _DevicePtr;
