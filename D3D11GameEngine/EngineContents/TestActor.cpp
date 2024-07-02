@@ -18,7 +18,7 @@ void TestActor::Start()
 	dir.GoBase();
 
 	std::vector<EngineFile> ImageFile;
-	dir.GetAllFileExt(&ImageFile,".png");
+	dir.GetAllFileExt(&ImageFile,".tga");
 	
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		

@@ -43,5 +43,9 @@ float4 TestSpriteShader_PS(VS_OUTPUT input) : SV_Target
     
     float4 texColor = g_Texture.Sample(g_Sampler, TexLocation);
     
+    if(texColor.a <= 0.0f)
+    {
+        clip(-1);
+    }
     return texColor;
 }
