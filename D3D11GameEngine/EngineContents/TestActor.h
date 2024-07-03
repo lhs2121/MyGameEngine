@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore\EngineActor.h>
+#include <EngineCore\EngineSpriteRenderer.h>
 
 // Ό³Έν :
 class TestActor : public EngineActor
@@ -18,7 +19,7 @@ public:
 	void Start() override;
 	void Update(float _Delta) override;
 protected:
-	EngineRenderer* Renderer;
+	EngineSpriteRenderer* Renderer;
 
 };
 

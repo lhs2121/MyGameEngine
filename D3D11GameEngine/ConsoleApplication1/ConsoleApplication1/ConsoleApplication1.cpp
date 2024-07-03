@@ -4,11 +4,12 @@
 #include <Windows.h>
 #include <string>
 #include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
-#pragma comment(lib,"EngineBaseLib.lib")
 
 int main()
 {
-	EngineString String = "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd";
-	String += 1234567812378768684;
+	int a[2][2][2] = { {1,2,3,4},{5,6,7,8} };
 	
+	int(*ap)[2][2] = a;
+
+	int* b = ap[0][1];
 }

@@ -29,25 +29,9 @@ public:
 
 	void BindTexture(EngineString _Name);
 	void BindSampler(EngineString _Name);
+
+protected:
 	void BindTransform();
-	void BindSpriteData();
-
-	void CreateAnimation(int _SpriteCountX,int _SpriteCountY);
-
-	
-	int SpriteCountX;
-	int SpriteCountY;
-
-	int CurSpriteX = 0;
-	int CurSpriteY = 0;
-
-	int CurFrame = 0;
-
-	float InterTime = 0.05f;
-	float CurTime;
-
-	std::vector<std::vector<SpriteData>>* SpriteDatas = nullptr;
-	SpriteData* CurSpriteData = nullptr;
 
 	IEngineVertexBuffer* VB = nullptr;
 	IEngineIndexBuffer* IB = nullptr;
@@ -59,7 +43,6 @@ public:
 	IEngineTexture* CurTexture = nullptr;
 
 	ID3D11Buffer* TransformBuffer = nullptr;
-	ID3D11Buffer* SpriteDataBuffer = nullptr;
 };	
 
 

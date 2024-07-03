@@ -15,7 +15,28 @@ public:
 	EngineSpriteRenderer& operator=(EngineSpriteRenderer&& _Other) noexcept = delete;
 
 	void Start() override;
+	void Update(float _Delta) override;
 	void Render() override;
+
+	void CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime);
+private:
+	void UpdateSpriteData(float _Delta);
+	void BindSpriteData();
+
+	int SpriteCountX;
+	int SpriteCountY;
+
+	int CurSpriteX;
+	int CurSpriteY;
+
+	int CurFrame;
+
+	float InterTime = 0.05f;
+	float CurTime;
+
+	SpriteData (*SpriteDatas)[] = nullptr;
+	SpriteData* CurSpriteData = nullptr;
+	ID3D11Buffer* SpriteDataBuffer = nullptr;
 };
 
 

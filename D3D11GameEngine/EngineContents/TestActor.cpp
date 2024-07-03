@@ -18,7 +18,7 @@ void TestActor::Start()
 	dir.GoBase();
 
 	std::vector<EngineFile> ImageFile;
-	dir.GetAllFileExt(&ImageFile,".tga");
+	dir.GetAllFileExt(&ImageFile,".png");
 	
 	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
 		
@@ -26,11 +26,11 @@ void TestActor::Start()
 	Texture->Setting(ImageFile[0]);
 
 
-	Renderer = CreateComponent<EngineRenderer>();
+	Renderer = CreateComponent<EngineSpriteRenderer>();
 	Renderer->BindTexture("Stand_000");
 
 	Renderer->Transform.SetScale({ 200,200,200 });
-	Renderer->CreateAnimation(6,6);
+	Renderer->CreateAnimation(2,1, 0.1f);
 }
 
 void TestActor::Update(float _Delta)
@@ -41,7 +41,7 @@ void TestActor::Update(float _Delta)
 	}
 	if (KeyIsPress('2'))
 	{
-		Renderer->Transform.AddRotation({ 0,-100 * _Delta,0 });
+		Renderer->Transform.AddRotation({ 0,100 * _Delta,0 });
 	}
 	if (KeyIsPress('3'))
 	{
@@ -75,24 +75,5 @@ void TestActor::Update(float _Delta)
 	{
 		Renderer->Transform.SetPos({ 0,0,0 });
 		Renderer->Transform.SetRotation({ 0,0,0 });
-	}
-
-	if (KeyIsDown('C'))
-	{
-		IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
-		Renderer->VB = ResManager->FindVertexBuffer("Box3D");
-		Renderer->IB = ResManager->FindIndexBuffer("Box3D");
-		Renderer->VS = ResManager->FindVertexShader("Test3DShader");
-		Renderer->IA = ResManager->FindInputLayout("PosColor");
-		Renderer->PS = ResManager->FindPixelShader("Test3DShader");
-	}
-	if (KeyIsDown('V'))
-	{
-		IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
-		Renderer->VB = ResManager->FindVertexBuffer("Box2D");
-		Renderer->IB = ResManager->FindIndexBuffer("Box2D");
-		Renderer->VS = ResManager->FindVertexShader("Test2DShader");
-		Renderer->IA = ResManager->FindInputLayout("Pos");
-		Renderer->PS = ResManager->FindPixelShader("Test2DShader");
 	}
 }
