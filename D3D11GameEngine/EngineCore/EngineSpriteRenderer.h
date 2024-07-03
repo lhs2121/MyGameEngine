@@ -34,7 +34,7 @@ private:
 	float InterTime = 0.05f;
 	float CurTime;
 
-	SpriteData (*SpriteDatas)[] = nullptr;
+	SpriteData** SpriteDatas = nullptr;
 	SpriteData* CurSpriteData = nullptr;
 	ID3D11Buffer* SpriteDataBuffer = nullptr;
 };

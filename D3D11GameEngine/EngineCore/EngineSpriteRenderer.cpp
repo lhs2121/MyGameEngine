@@ -15,7 +15,12 @@ EngineSpriteRenderer::~EngineSpriteRenderer()
 
 	if (SpriteDatas != nullptr)
 	{
-		delete SpriteDatas;
+		for (size_t i = 0; i < SpriteCountY; i++)
+		{
+			delete[] SpriteDatas[i];
+			SpriteDatas[i] = nullptr;
+		}
+		delete[] SpriteDatas;
 		SpriteDatas = nullptr;
 	}
 }
@@ -55,10 +60,16 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 		EngineDebug::MsgBoxAssert("애니메이션을 만들기 전에 텍스처를 설정하세요");
 	}
 
+	SpriteDatas = new SpriteData * [_SpriteCountY];
+
+	for (size_t i = 0; i < _SpriteCountY; i++)
+	{
+		SpriteDatas[i] = new SpriteData[_SpriteCountX];
+	}
+
 	SpriteCountX = _SpriteCountX;
 	SpriteCountY = _SpriteCountY;
 
-	SpriteDatas = new std::vector<std::vector<SpriteData>>(SpriteCountY, std::vector<SpriteData>(SpriteCountX));
 
 	float2 Ratio = { 1 / static_cast<float>(SpriteCountX), 1 / static_cast<float>(SpriteCountY) };
 
@@ -66,10 +77,11 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 	{
 		for (int x = 0; x < SpriteCountX; x++)
 		{
-			SpriteData& a = (*SpriteDatas)[y][x];
-			a.ResizeRatio = Ratio;
-			a.Offset.x = Ratio.x * x;
-			a.Offset.y = Ratio.y * y;
+			SpriteData& Data = SpriteDatas[y][x];
+
+			Data.ResizeRatio = Ratio;
+			Data.Offset.x = Ratio.x * x;
+			Data.Offset.y = Ratio.y * y;
 		}
 	}
 
@@ -77,7 +89,7 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 	CurSpriteY = 0;
 	CurFrame = 0;
 	CurTime = 0.0f;
-	CurSpriteData = &(*SpriteDatas)[0][0];
+	CurSpriteData = &SpriteDatas[0][0];
 
 	InterTime = _InterTime;
 }
@@ -87,7 +99,7 @@ void EngineSpriteRenderer::UpdateSpriteData(float _Delta)
 	CurTime += _Delta;
 	if (CurTime >= InterTime)
 	{
-		CurSpriteData = &(*SpriteDatas)[CurSpriteY][CurSpriteX];
+		CurSpriteData = &(SpriteDatas)[CurSpriteY][CurSpriteX];
 
 		CurSpriteX++;
 		CurFrame++;

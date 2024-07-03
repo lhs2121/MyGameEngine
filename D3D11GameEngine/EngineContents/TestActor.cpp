@@ -30,7 +30,7 @@ void TestActor::Start()
 	Renderer->BindTexture("Stand_000");
 
 	Renderer->Transform.SetScale({ 200,200,200 });
-	Renderer->CreateAnimation(2,1, 0.1f);
+	Renderer->CreateAnimation(6,6, 0.1f);
 }
 
 void TestActor::Update(float _Delta)
