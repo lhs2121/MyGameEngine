@@ -25,28 +25,26 @@ void TestActor::Start()
 	IEngineTexture* Texture = ResManager->CreateTexture("Stand_000");
 	Texture->Setting(ImageFile[0]);
 
-
 	Renderer = CreateComponent<EngineSpriteRenderer>();
-	Renderer->BindTexture("Stand_000");
-
 	Renderer->Transform.SetScale({ 200,200,200 });
-	Renderer->CreateAnimation(6,6, 0.1f);
+	Renderer->CreateAnimation(10,10, 0.1f);
 }
 
 void TestActor::Update(float _Delta)
 {
-	if (KeyIsPress('1'))
+	if (KeyIsPress('Z'))
 	{
 		Renderer->Transform.AddRotation({ 100 * _Delta,0,0 });
 	}
-	if (KeyIsPress('2'))
+	if (KeyIsPress('X'))
 	{
 		Renderer->Transform.AddRotation({ 0,100 * _Delta,0 });
 	}
-	if (KeyIsPress('3'))
+	if (KeyIsPress('C'))
 	{
 		Renderer->Transform.AddRotation({ 0,0,100 * _Delta });
 	}
+
 	if (KeyIsPress('W'))
 	{
 		Renderer->Transform.AddPos({ 0,100 * _Delta,0 });
@@ -63,6 +61,7 @@ void TestActor::Update(float _Delta)
 	{
 		Renderer->Transform.AddPos({ 100 * _Delta,0,0 });
 	}
+
 	if (KeyIsPress('Q'))
 	{
 		Renderer->Transform.AddPos({ 0,0,100 * _Delta });
@@ -71,6 +70,7 @@ void TestActor::Update(float _Delta)
 	{
 		Renderer->Transform.AddPos({ 0,0,-100 * _Delta });
 	}
+
 	if (KeyIsDown('R'))
 	{
 		Renderer->Transform.SetPos({ 0,0,0 });

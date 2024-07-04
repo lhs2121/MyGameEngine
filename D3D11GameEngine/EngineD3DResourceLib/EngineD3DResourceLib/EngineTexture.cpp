@@ -61,3 +61,8 @@ float4 EngineTexture::GetImageScale()
 	float4 Scale = { (float)MetaData.width,(float)MetaData.height };
 	return Scale;
 }
+
+void EngineTexture::IntoPipeLine()
+{
+	DevicePtr->GetContext()->PSSetShaderResources(0, 1, &SRV);
+}

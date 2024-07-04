@@ -17,9 +17,14 @@ ID3D11SamplerState* EngineSampler::GetState()
 
 void EngineSampler::Setting(D3D11_SAMPLER_DESC* DescPtr)
 {
-    DevicePtr->CreateSamplerState(DescPtr, &StatePtr);
+    DevicePtr->GetDevice()->CreateSamplerState(DescPtr, &StatePtr);
 }
 
 void EngineSampler::Release()
 {
+}
+
+void EngineSampler::IntoPipeLine()
+{
+	DevicePtr->GetContext()->PSSetSamplers(0, 1, &StatePtr);
 }

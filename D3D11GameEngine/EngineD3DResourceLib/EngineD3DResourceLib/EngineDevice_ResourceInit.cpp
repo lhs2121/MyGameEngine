@@ -241,4 +241,14 @@ void EngineDevice::ResourceInit(void* pManager)
 		NewSampler->Setting(&Desc);
 	}
 
+	{
+		std::vector<EngineFile> Files;
+		EngineDirectory Dir;
+		Dir.GoBase();
+		Dir.GoChild("Assets");
+		Dir.GetAllFileExt(&Files, ".png");
+	
+		IEngineTexture* NewTexture =  Manager->CreateTexture("Default");
+		NewTexture->Setting(Files[0]);
+	}
 }

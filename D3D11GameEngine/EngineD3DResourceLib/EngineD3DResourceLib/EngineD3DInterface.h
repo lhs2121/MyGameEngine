@@ -24,14 +24,14 @@ struct IEngineDevice : public IEngineUnknown
 };
 
 
-struct IEngineTexture : public IEngineUnknown
+struct IEngineTexture : public IEnginePipeLineRes
 {
 	virtual ID3D11ShaderResourceView* GetSRV() = 0;
 	virtual float4 GetImageScale() = 0;
 	virtual void Setting(EngineFile& _File) = 0;
 };
 
-struct IEngineSampler : public IEngineUnknown
+struct IEngineSampler : public IEnginePipeLineRes
 {
 	virtual ID3D11SamplerState* GetState() = 0;
 	virtual void Setting(D3D11_SAMPLER_DESC* DescPtr) = 0;

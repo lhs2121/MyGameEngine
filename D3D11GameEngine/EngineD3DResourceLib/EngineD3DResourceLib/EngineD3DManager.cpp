@@ -94,7 +94,7 @@ IEngineSampler* EngineD3DManager::CreateSampler(EngineString _Name)
 {
 	IEngineSampler* NewSampler = new EngineSampler();
 	EngineSampler* ChildPtr = (EngineSampler*)NewSampler;
-	ChildPtr->DevicePtr = Device->GetDevice();
+	ChildPtr->DevicePtr = Device;
 	SamMap.insert(std::make_pair(_Name, NewSampler));
 	return NewSampler;
 }

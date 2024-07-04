@@ -41,6 +41,7 @@ void EngineRenderer::Start()
 	RS = Manager->FindRasterizer("Default");
 	DS = Manager->FindDepthStencil("Default");
 
+	BindTexture("Default");
 	BindSampler("Default");
 }
 
@@ -67,19 +68,16 @@ void EngineRenderer::Render()
 void EngineRenderer::BindTexture(EngineString _Name)
 {
 	CurTexture = EngineCore::GetMainD3DManager()->FindTexture(_Name);
+	CurTexture->IntoPipeLine();
 
 	float4 ImageScale = CurTexture->GetImageScale();
 	Transform.SetScale(ImageScale);
-
-	ID3D11ShaderResourceView* SRV = CurTexture->GetSRV();
-	EngineCore::GetContext()->PSSetShaderResources(0, 1, &SRV);
 }
 
 void EngineRenderer::BindSampler(EngineString _Name)
 {
 	IEngineSampler* Sampler = EngineCore::GetMainD3DManager()->FindSampler(_Name);
-	ID3D11SamplerState* State = Sampler->GetState();
-	EngineCore::GetContext()->PSSetSamplers(0, 1, &State);
+	Sampler->IntoPipeLine();
 }
 
 void EngineRenderer::BindTransform() 

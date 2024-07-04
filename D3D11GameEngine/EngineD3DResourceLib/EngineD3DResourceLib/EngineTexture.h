@@ -22,6 +22,8 @@ public:
 	void Release() override;
 	ID3D11ShaderResourceView* GetSRV() override;
 	float4 GetImageScale() override;
+
+	void IntoPipeLine() override;
 private:
 	EngineDevice* DevicePtr;
 	ID3D11ShaderResourceView* SRV;
