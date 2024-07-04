@@ -44,8 +44,8 @@ void EngineRenderer::Start()
 	RS = Manager->FindRasterizer("Default");
 	DS = Manager->FindDepthStencil("Default");
 
-	BindTexture("Default");
-	BindSampler("Default");
+	SetTexture("Default");
+	SetSampler("Default");
 }
 
 void EngineRenderer::Update(float _Delta)
@@ -70,7 +70,7 @@ void EngineRenderer::Render()
 }
 
 
-void EngineRenderer::BindTexture(EngineString _Name)
+void EngineRenderer::SetTexture(EngineString _Name)
 {
 	CurTexture = EngineCore::GetMainD3DManager()->FindTexture(_Name);
 	CurTexture->IntoPipeLine(ShaderType::PS);
@@ -79,7 +79,7 @@ void EngineRenderer::BindTexture(EngineString _Name)
 	Transform.SetScale(ImageScale);
 }
 
-void EngineRenderer::BindSampler(EngineString _Name)
+void EngineRenderer::SetSampler(EngineString _Name)
 {
 	IEngineSampler* Sampler = EngineCore::GetMainD3DManager()->FindSampler(_Name);
 	Sampler->IntoPipeLine(ShaderType::PS);

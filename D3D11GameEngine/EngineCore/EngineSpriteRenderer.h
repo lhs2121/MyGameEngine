@@ -36,7 +36,7 @@ private:
 
 	SpriteData** SpriteDatas = nullptr;
 	SpriteData* CurSpriteData = nullptr;
-	ID3D11Buffer* SpriteDataBuffer = nullptr;
+	IEngineConstantBuffer* SpriteDataBuffer = nullptr;
 };
 
 

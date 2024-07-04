@@ -28,18 +28,6 @@ EngineSpriteRenderer::~EngineSpriteRenderer()
 void EngineSpriteRenderer::Start()
 {
 	EngineRenderer::Start(); 
-
-	{
-		D3D11_BUFFER_DESC Desc = { 0 };
-		Desc.Usage = D3D11_USAGE_DYNAMIC;
-		Desc.ByteWidth = sizeof(SpriteData);
-		Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		Desc.MiscFlags = 0;
-		Desc.StructureByteStride = 0;
-
-		HRESULT hr = EngineCore::GetDevice()->CreateBuffer(&Desc, nullptr, &SpriteDataBuffer);
-	}
 }
 
 void EngineSpriteRenderer::Update(float _Delta)
@@ -92,6 +80,19 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 	CurSpriteData = &SpriteDatas[0][0];
 
 	InterTime = _InterTime;
+
+	{
+		D3D11_BUFFER_DESC Desc = { 0 };
+		Desc.Usage = D3D11_USAGE_DYNAMIC;
+		Desc.ByteWidth = sizeof(SpriteData);
+		Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		Desc.MiscFlags = 0;
+		Desc.StructureByteStride = 0;
+
+		SpriteDataBuffer = EngineCore::GetMainD3DManager()->CreateConstantBuffer("SpriteData");
+		SpriteDataBuffer->Setting(Desc, CurSpriteData, sizeof(SpriteData));
+	}
 }
 
 void EngineSpriteRenderer::UpdateSpriteData(float _Delta)
@@ -121,12 +122,6 @@ void EngineSpriteRenderer::UpdateSpriteData(float _Delta)
 
 void EngineSpriteRenderer::BindSpriteData()
 {
-	D3D11_MAPPED_SUBRESOURCE MappedRes;
-
-	EngineCore::GetContext()->Map(SpriteDataBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedRes);
-	memcpy_s(MappedRes.pData, sizeof(SpriteData), CurSpriteData, sizeof(SpriteData));
-
-	EngineCore::GetContext()->Unmap(SpriteDataBuffer, 0);
-	EngineCore::GetContext()->PSSetConstantBuffers(1, 1, &SpriteDataBuffer);
+	SpriteDataBuffer->IntoPipeLine(ShaderType::PS);
 }
 

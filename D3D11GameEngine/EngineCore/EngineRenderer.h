@@ -27,8 +27,8 @@ public:
 
 	virtual void Render();
 
-	void BindTexture(EngineString _Name);
-	void BindSampler(EngineString _Name);
+	void SetTexture(EngineString _Name);
+	void SetSampler(EngineString _Name);
 
 protected:
 	void BindTransform();
