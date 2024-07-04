@@ -25,7 +25,7 @@ struct IEnginePipeLineRes : public IEngineUnknown
 
 struct IEngineShaderResource : public IEngineUnknown
 {
-	virtual void IntoPipeLine(ShaderType _Type) = 0;
+	virtual void IntoPipeLine(ShaderType _Type,int SlotNum = 0) = 0;
 };
 
 struct IEngineDevice : public IEngineUnknown

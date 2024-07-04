@@ -23,7 +23,7 @@ public:
 	ID3D11ShaderResourceView* GetSRV() override;
 	float4 GetImageScale() override;
 
-	void IntoPipeLine(ShaderType _Type) override;
+	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
 private:
 	EngineDevice* DevicePtr;
 	ID3D11ShaderResourceView* SRV;

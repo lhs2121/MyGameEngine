@@ -1,6 +1,12 @@
 #pragma once
 #include "EngineRenderer.h"
 
+struct SpriteData
+{
+	float2 ResizeRatio = { 1.0f,1.0f };
+	float2 Offset = { 0.0f,0.0f };
+};
+
 class EngineSpriteRenderer : public EngineRenderer
 {
 public:
@@ -20,9 +26,6 @@ public:
 
 	void CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime);
 private:
-	void UpdateSpriteData(float _Delta);
-	void BindSpriteData();
-
 	int SpriteCountX;
 	int SpriteCountY;
 
@@ -35,7 +38,7 @@ private:
 	float CurTime;
 
 	SpriteData** SpriteDatas = nullptr;
-	SpriteData* CurSpriteData = nullptr;
+	SpriteData CurSpriteData;
 	IEngineConstantBuffer* SpriteDataBuffer = nullptr;
 };
 

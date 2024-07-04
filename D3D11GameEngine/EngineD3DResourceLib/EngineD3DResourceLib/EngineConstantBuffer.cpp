@@ -25,7 +25,7 @@ void EngineConstantBuffer::Release()
 	}
 }
 
-void EngineConstantBuffer::IntoPipeLine(ShaderType _Type)
+void EngineConstantBuffer::IntoPipeLine(ShaderType _Type, int SlotNum)
 {
 	D3D11_MAPPED_SUBRESOURCE MappedRes;
 
@@ -37,10 +37,10 @@ void EngineConstantBuffer::IntoPipeLine(ShaderType _Type)
 	switch (_Type)
 	{
 	case ShaderType::VS:
-		DevicePtr->GetContext()->VSSetConstantBuffers(0, 1, &BufferPtr);
+		DevicePtr->GetContext()->VSSetConstantBuffers(SlotNum, 1, &BufferPtr);
 		break;
 	case ShaderType::PS:
-		DevicePtr->GetContext()->PSSetConstantBuffers(0, 1, &BufferPtr);
+		DevicePtr->GetContext()->PSSetConstantBuffers(SlotNum, 1, &BufferPtr);
 		break;
 	case ShaderType::CS:
 		break;

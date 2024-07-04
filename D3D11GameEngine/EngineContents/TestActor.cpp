@@ -26,8 +26,8 @@ void TestActor::Start()
 	Texture->Setting(ImageFile[0]);
 
 	Renderer = CreateComponent<EngineSpriteRenderer>();
-	Renderer->Transform.SetScale({ 200,200,200 });
-	Renderer->CreateAnimation(10,10, 0.1f);
+	Renderer->SetTexture("Stand_000");
+	Renderer->CreateAnimation(1,1, 0.1f);
 }
 
 void TestActor::Update(float _Delta)

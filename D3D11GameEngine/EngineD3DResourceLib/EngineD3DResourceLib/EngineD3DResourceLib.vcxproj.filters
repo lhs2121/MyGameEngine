@@ -21,9 +21,6 @@
     <ClInclude Include="EngineRasterizer.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="EngineTexture.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="EngineVertexBuffer.h">
       <Filter>Resource</Filter>
     </ClInclude>
@@ -39,11 +36,14 @@
     <ClInclude Include="EngineD3DManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="EngineTexture.h">
+      <Filter>Resource\ShaderRes</Filter>
+    </ClInclude>
     <ClInclude Include="EngineSampler.h">
-      <Filter>Resource</Filter>
+      <Filter>Resource\ShaderRes</Filter>
     </ClInclude>
     <ClInclude Include="EngineConstantBuffer.h">
-      <Filter>Resource</Filter>
+      <Filter>Resource\ShaderRes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,9 +61,6 @@
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="EngineRasterizer.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineTexture.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="EngineVertexBuffer.cpp">
@@ -84,11 +81,14 @@
     <ClCompile Include="EngineD3DManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
+    <ClCompile Include="EngineTexture.cpp">
+      <Filter>Resource\ShaderRes</Filter>
+    </ClCompile>
     <ClCompile Include="EngineSampler.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Resource\ShaderRes</Filter>
     </ClCompile>
     <ClCompile Include="EngineConstantBuffer.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Resource\ShaderRes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +106,9 @@
     </Filter>
     <Filter Include="Manager">
       <UniqueIdentifier>{430cf983-e210-4d5e-8510-8788faa25da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\ShaderRes">
+      <UniqueIdentifier>{a5b3ab3b-d0d1-472b-9095-8c0e0f09579f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

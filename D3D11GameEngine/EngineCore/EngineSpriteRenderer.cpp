@@ -32,15 +32,37 @@ void EngineSpriteRenderer::Start()
 
 void EngineSpriteRenderer::Update(float _Delta)
 {
-	UpdateSpriteData(_Delta);
+	CurTime += _Delta;
+	if (CurTime >= InterTime)
+	{
+		CurSpriteData = SpriteDatas[CurSpriteY][CurSpriteX];
+
+		CurSpriteX++;
+		CurFrame++;
+		CurTime = 0.0f;
+	}
+
+	if (CurSpriteX == SpriteCountX)
+	{
+		CurSpriteY++;
+		CurSpriteX = 0;
+	}
+
+	if (CurSpriteY == SpriteCountY)
+	{
+		CurSpriteY = 0;
+		CurFrame = 0;
+	}
+
+	SpriteDataBuffer->IntoPipeLine(ShaderType::PS, 5);
 }
 
 void EngineSpriteRenderer::Render()
 {
-	BindSpriteData();
+
 	EngineRenderer::Render();
 } 
-
+ 
 void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
 {
 	if (CurTexture == nullptr)
@@ -77,7 +99,7 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 	CurSpriteY = 0;
 	CurFrame = 0;
 	CurTime = 0.0f;
-	CurSpriteData = &SpriteDatas[0][0];
+	CurSpriteData = SpriteDatas[0][0];
 
 	InterTime = _InterTime;
 
@@ -91,37 +113,8 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 		Desc.StructureByteStride = 0;
 
 		SpriteDataBuffer = EngineCore::GetMainD3DManager()->CreateConstantBuffer("SpriteData");
-		SpriteDataBuffer->Setting(Desc, CurSpriteData, sizeof(SpriteData));
+		SpriteDataBuffer->Setting(Desc, &CurSpriteData, sizeof(SpriteData));
 	}
 }
 
-void EngineSpriteRenderer::UpdateSpriteData(float _Delta)
-{
-	CurTime += _Delta;
-	if (CurTime >= InterTime)
-	{
-		CurSpriteData = &(SpriteDatas)[CurSpriteY][CurSpriteX];
-
-		CurSpriteX++;
-		CurFrame++;
-		CurTime = 0.0f;
-	}
-
-	if (CurSpriteX == SpriteCountX)
-	{
-		CurSpriteY++;
-		CurSpriteX = 0;
-	}
-
-	if (CurSpriteY == SpriteCountY)
-	{
-		CurSpriteY = 0;
-		CurFrame = 0;
-	}
-}
-
-void EngineSpriteRenderer::BindSpriteData()
-{
-	SpriteDataBuffer->IntoPipeLine(ShaderType::PS);
-}
 

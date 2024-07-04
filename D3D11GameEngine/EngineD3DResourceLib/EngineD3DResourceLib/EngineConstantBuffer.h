@@ -16,7 +16,7 @@ public:
 
 	void Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _DataSize) override;
 	void Release() override;
-	void IntoPipeLine(ShaderType _Type) override;
+	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
 
 	void SetDevicePtr(EngineDevice* _DevicePtr)
 	{

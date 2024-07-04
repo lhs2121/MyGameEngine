@@ -10,7 +10,7 @@ struct VS_OUTPUT
     float2 TEX : TEXCOORD;
 };
 
-cbuffer ConstantBuffer : register(b0)
+cbuffer Transform : register(b0)
 {
     float4x4 WorldViewProjection;
 };
@@ -18,7 +18,6 @@ cbuffer ConstantBuffer : register(b0)
 
 VS_OUTPUT TestSpriteShader_VS(VS_INPUT input)
 {
-    
     VS_OUTPUT output;
     
     output.POS = mul(input.POS, WorldViewProjection);
@@ -26,14 +25,14 @@ VS_OUTPUT TestSpriteShader_VS(VS_INPUT input)
     return output;
 }
 
-cbuffer SpriteData : register(b1)
+cbuffer SpriteData : register(b5)
 {
     float2 ResizeRatio;
     float2 Offset;
 }
 
-Texture2D g_Texture : register(t0);
-SamplerState g_Sampler : register(s0);
+Texture2D Texture : register(t0);
+SamplerState Sampler : register(s0);
 
 float4 TestSpriteShader_PS(VS_OUTPUT input) : SV_Target
 {
@@ -41,11 +40,11 @@ float4 TestSpriteShader_PS(VS_OUTPUT input) : SV_Target
     TexLocation.x += Offset.x;
     TexLocation.y += Offset.y;
     
-    float4 texColor = g_Texture.Sample(g_Sampler, TexLocation);
+    float4 TexColor = Texture.Sample(Sampler, TexLocation);
     
-    if(texColor.a <= 0.0f)
+    if (TexColor.a <= 0.0f)
     {
         clip(-1);
     }
-    return texColor;
+    return TexColor;
 }

@@ -44,7 +44,7 @@ void EngineRenderer::Start()
 	RS = Manager->FindRasterizer("Default");
 	DS = Manager->FindDepthStencil("Default");
 
-	SetTexture("Default");
+	//SetTexture("Default");
 	SetSampler("Default");
 }
 
@@ -53,8 +53,6 @@ void EngineRenderer::Update(float _Delta)
 }
 void EngineRenderer::Render()
 {
-	//BindTransform();
-
 	VB->IntoPipeLine();
 	IB->IntoPipeLine();
 	IA->IntoPipeLine();
@@ -83,9 +81,4 @@ void EngineRenderer::SetSampler(EngineString _Name)
 {
 	IEngineSampler* Sampler = EngineCore::GetMainD3DManager()->FindSampler(_Name);
 	Sampler->IntoPipeLine(ShaderType::PS);
-}
-
-void EngineRenderer::BindTransform() 
-{
-
 }

@@ -18,7 +18,7 @@ public:
     ID3D11SamplerState* GetState() override;
 	void Setting(D3D11_SAMPLER_DESC* DescPtr) override;
 	void Release() override;
-	void IntoPipeLine(ShaderType _Type) override;
+	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
 private:
 	EngineDevice* DevicePtr;
 	ID3D11SamplerState* StatePtr;

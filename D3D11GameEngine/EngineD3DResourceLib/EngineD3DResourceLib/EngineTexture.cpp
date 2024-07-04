@@ -62,15 +62,15 @@ float4 EngineTexture::GetImageScale()
 	return Scale;
 }
 
-void EngineTexture::IntoPipeLine(ShaderType _Type)
+void EngineTexture::IntoPipeLine(ShaderType _Type, int SlotNum)
 {
 	switch (_Type)
 	{
 	case ShaderType::VS:
-		DevicePtr->GetContext()->VSSetShaderResources(0, 1, &SRV);
+		DevicePtr->GetContext()->VSSetShaderResources(SlotNum, 1, &SRV);
 		break;
 	case ShaderType::PS:
-		DevicePtr->GetContext()->PSSetShaderResources(0, 1, &SRV);
+		DevicePtr->GetContext()->PSSetShaderResources(SlotNum, 1, &SRV);
 		break;
 	case ShaderType::CS:
 		break;

@@ -3,12 +3,6 @@
 #include "EngineComponent.h"
 #include <EngineD3DResourceLib\EngineD3DResourceLib\EngineD3DInterface.h>
 
-struct SpriteData
-{
-	float2 ResizeRatio = { 1.0f,1.0f };
-	float2 Offset = { 0.0f,0.0f };
-};
-
 class EngineRenderer : public EngineComponent
 {
 public:
@@ -31,8 +25,6 @@ public:
 	void SetSampler(EngineString _Name);
 
 protected:
-	void BindTransform();
-
 	IEngineVertexBuffer* VB = nullptr;
 	IEngineIndexBuffer* IB = nullptr;
 	IEngineInputLayout* IA = nullptr;
