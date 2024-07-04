@@ -24,7 +24,26 @@ void EngineSampler::Release()
 {
 }
 
-void EngineSampler::IntoPipeLine()
+void EngineSampler::IntoPipeLine(ShaderType _Type)
 {
-	DevicePtr->GetContext()->PSSetSamplers(0, 1, &StatePtr);
+	switch (_Type)
+	{
+	case ShaderType::VS:
+		DevicePtr->GetContext()->VSSetSamplers(0, 1, &StatePtr);
+		break;
+	case ShaderType::PS:
+		DevicePtr->GetContext()->PSSetSamplers(0, 1, &StatePtr);
+		break;
+	case ShaderType::CS:
+		break;
+	case ShaderType::HS:
+		break;
+	case ShaderType::DS:
+		break;
+	case ShaderType::GS:
+		break;
+	default:
+		break;
+	}
+	
 }

@@ -124,10 +124,9 @@ bool EngineString::operator==(EngineString& OtherString)
 	{
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
+	
 }
 
 bool EngineString::operator==(const char* OtherString)

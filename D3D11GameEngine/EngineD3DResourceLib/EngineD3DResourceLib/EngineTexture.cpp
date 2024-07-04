@@ -62,7 +62,26 @@ float4 EngineTexture::GetImageScale()
 	return Scale;
 }
 
-void EngineTexture::IntoPipeLine()
+void EngineTexture::IntoPipeLine(ShaderType _Type)
 {
-	DevicePtr->GetContext()->PSSetShaderResources(0, 1, &SRV);
+	switch (_Type)
+	{
+	case ShaderType::VS:
+		DevicePtr->GetContext()->VSSetShaderResources(0, 1, &SRV);
+		break;
+	case ShaderType::PS:
+		DevicePtr->GetContext()->PSSetShaderResources(0, 1, &SRV);
+		break;
+	case ShaderType::CS:
+		break;
+	case ShaderType::HS:
+		break;
+	case ShaderType::DS:
+		break;
+	case ShaderType::GS:
+		break;
+	default:
+		break;
+	}
+	
 }

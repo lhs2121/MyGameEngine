@@ -42,6 +42,9 @@
     <ClInclude Include="EngineSampler.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="EngineConstantBuffer.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp" />
@@ -82,6 +85,9 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="EngineSampler.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineConstantBuffer.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
-#include <d3d11.h>
 #include "EngineTransform.h"
 #include "EngineComponent.h"
+#include <EngineD3DResourceLib\EngineD3DResourceLib\EngineD3DInterface.h>
 
 struct SpriteData
 {
@@ -42,7 +42,7 @@ protected:
 	IEngineDepthStencil* DS = nullptr;
 	IEngineTexture* CurTexture = nullptr;
 
-	ID3D11Buffer* TransformBuffer = nullptr;
+	IEngineConstantBuffer* TransformBuffer = nullptr;
 };	
 
 

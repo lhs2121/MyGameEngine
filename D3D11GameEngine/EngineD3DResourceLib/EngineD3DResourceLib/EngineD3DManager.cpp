@@ -10,6 +10,7 @@
 #include "EngineVertexFormat.h"
 #include "EngineTexture.h"
 #include "EngineSampler.h"
+#include "EngineConstantBuffer.h"
 
 IEngineDevice* EngineD3DManager::CreateDevice()
 {
@@ -99,6 +100,15 @@ IEngineSampler* EngineD3DManager::CreateSampler(EngineString _Name)
 	return NewSampler;
 }
 
+IEngineConstantBuffer* EngineD3DManager::CreateConstantBuffer(EngineString _Name)
+{
+	IEngineConstantBuffer* NewCB = new EngineConstantBuffer();
+	EngineConstantBuffer* ChildPtr = (EngineConstantBuffer*)NewCB;
+	ChildPtr->DevicePtr = Device;
+	CBMap.insert(std::make_pair(_Name, NewCB));
+	return NewCB;
+}
+
 IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(EngineString _Name)
 {
 	if (VBMap.find(_Name) != VBMap.end())
@@ -180,6 +190,15 @@ IEngineSampler* EngineD3DManager::FindSampler(EngineString _Name)
 	return nullptr;
 }
 
+IEngineConstantBuffer* EngineD3DManager::FindConstantBuffer(EngineString _Name)
+{
+	if (CBMap.find(_Name) != CBMap.end())
+	{
+		return CBMap[_Name];
+	}
+	return nullptr;
+}
+
 void EngineD3DManager::Release()
 {
 	for (auto& pair : VBMap)
@@ -253,4 +272,12 @@ void EngineD3DManager::Release()
 		pair.second = nullptr;
 	}
 	SamMap.clear();
+
+	for (auto& pair : CBMap)
+	{
+		pair.second->Release();
+		delete pair.second;
+		pair.second = nullptr;
+	}
+	CBMap.clear();
 }
