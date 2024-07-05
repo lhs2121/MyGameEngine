@@ -3,12 +3,13 @@
 #include "EngineBaseInterface.h"
 
 bool EngineString::IsCreateStringPool = false;
-IEngineMemoryPool* EngineString::StringPool16 = nullptr;
-IEngineMemoryPool* EngineString::StringPool32 = nullptr;
-IEngineMemoryPool* EngineString::StringPool64 = nullptr;
-IEngineMemoryPool* EngineString::StringPool128 = nullptr;
-IEngineMemoryPool* EngineString::StringPool256 = nullptr;
-IEngineMemoryPool* EngineString::StringPool512 = nullptr;
+IEngineStaticMemoryPool* EngineString::StringPool16 = nullptr;
+IEngineStaticMemoryPool* EngineString::StringPool32 = nullptr;
+IEngineStaticMemoryPool* EngineString::StringPool64 = nullptr;
+IEngineStaticMemoryPool* EngineString::StringPool128 = nullptr;
+IEngineStaticMemoryPool* EngineString::StringPool256 = nullptr;
+IEngineStaticMemoryPool* EngineString::StringPool512 = nullptr;
+
 EngineString::EngineString()
 {
 }
@@ -24,7 +25,7 @@ EngineString::~EngineString()
 		}
 
 		int ByteSize = GetByte(String);
-		IEngineMemoryPool* CurPool = EngineString::GetStringPool(ByteSize);
+		IEngineStaticMemoryPool* CurPool = EngineString::GetStringPool(ByteSize);
 		memset(String, 0, ByteSize);
 		CurPool->FreeBlock(String);
 		String = nullptr;
@@ -48,14 +49,14 @@ void EngineString::operator=(const char* OtherString)
 	if (String != nullptr)
 	{
 		int PrevByteSize = EngineString::GetByte(String);
-		IEngineMemoryPool* StringPool = EngineString::GetStringPool(PrevByteSize);
+		IEngineStaticMemoryPool* StringPool = EngineString::GetStringPool(PrevByteSize);
 		memset(String, 0, PrevByteSize);
 		StringPool->FreeBlock(String);
 	}
 
 	// 인자문자열의 바이트에 적합한 메모리풀 블록을 가져온다
 	int ByteSize = GetByte(OtherString);
-	IEngineMemoryPool* StringPool = EngineString::GetStringPool(ByteSize);
+	IEngineStaticMemoryPool* StringPool = EngineString::GetStringPool(ByteSize);
 	String = (char*)StringPool->GetBlock();
 
 	memcpy_s(String, ByteSize, OtherString, ByteSize);
@@ -188,7 +189,7 @@ const char* EngineString::c_str()
 	return String;
 }
 
-IEngineMemoryPool* EngineString::GetStringPool(int ByteSize)
+IEngineStaticMemoryPool* EngineString::GetStringPool(int ByteSize)
 {
 	if (ByteSize <= 16)
 	{
@@ -221,27 +222,27 @@ IEngineMemoryPool* EngineString::GetStringPool(int ByteSize)
 
 void EngineString::CreateAllStringPool()
 {
-	CreateEngineMemoryPool(&StringPool16);
+	CreateEngineStaticMemoryPool(&StringPool16);
 	StringPool16->Init(16 * 100000, 16);
 
 
-	CreateEngineMemoryPool(&StringPool32);
+	CreateEngineStaticMemoryPool(&StringPool32);
 	StringPool32->Init(32 * 100000, 32);
 
 
-	CreateEngineMemoryPool(&StringPool64);
+	CreateEngineStaticMemoryPool(&StringPool64);
 	StringPool64->Init(64 * 100000, 64);
 
 
-	CreateEngineMemoryPool(&StringPool128);
+	CreateEngineStaticMemoryPool(&StringPool128);
 	StringPool128->Init(128 * 5000, 128);
 
 
-	CreateEngineMemoryPool(&StringPool256);
+	CreateEngineStaticMemoryPool(&StringPool256);
 	StringPool256->Init(256 * 5000, 256);
 
 
-	CreateEngineMemoryPool(&StringPool512);
+	CreateEngineStaticMemoryPool(&StringPool512);
 	StringPool512->Init(512 * 5000, 512);
 
 	IsCreateStringPool = true;
@@ -254,23 +255,23 @@ void EngineString::DeleteAllStringPool()
 		return;
 	}
 
-	DeleteEngineMemoryPool(StringPool16);
+	DeleteEngineStaticMemoryPool(StringPool16);
 	StringPool16 = nullptr;
 
-	DeleteEngineMemoryPool(StringPool32);
+	DeleteEngineStaticMemoryPool(StringPool32);
 	StringPool16 = nullptr;
 
-	DeleteEngineMemoryPool(StringPool64);
+	DeleteEngineStaticMemoryPool(StringPool64);
 	StringPool16 = nullptr;
 
-	DeleteEngineMemoryPool(StringPool128);
+	DeleteEngineStaticMemoryPool(StringPool128);
 	StringPool128 = nullptr;
 
 
-	DeleteEngineMemoryPool(StringPool256);
+	DeleteEngineStaticMemoryPool(StringPool256);
 	StringPool256 = nullptr;
 
-	DeleteEngineMemoryPool(StringPool512);
+	DeleteEngineStaticMemoryPool(StringPool512);
 	StringPool512 = nullptr;
 
 	IsCreateStringPool = false;

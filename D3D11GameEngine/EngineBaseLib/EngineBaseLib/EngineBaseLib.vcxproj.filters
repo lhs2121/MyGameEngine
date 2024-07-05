@@ -19,7 +19,12 @@
     <ClCompile Include="EngineString.cpp">
       <Filter>String</Filter>
     </ClCompile>
-    <ClCompile Include="EngineMemoryPool.cpp" />
+    <ClCompile Include="EngineStaticMemoryPool.cpp">
+      <Filter>MemoryPool</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMemoryPool.cpp">
+      <Filter>MemoryPool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineMath.h" />
@@ -40,8 +45,13 @@
     <ClInclude Include="EngineString.h">
       <Filter>String</Filter>
     </ClInclude>
-    <ClInclude Include="EngineMemoryPool.h" />
     <ClInclude Include="DLLCommon.h" />
+    <ClInclude Include="EngineStaticMemoryPool.h">
+      <Filter>MemoryPool</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMemoryPool.h">
+      <Filter>MemoryPool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">
@@ -55,6 +65,9 @@
     </Filter>
     <Filter Include="String">
       <UniqueIdentifier>{2f63dcfb-417e-4117-918f-eb1ebfe22e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MemoryPool">
+      <UniqueIdentifier>{00345310-503f-45f6-a51d-aa79b81ed4e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

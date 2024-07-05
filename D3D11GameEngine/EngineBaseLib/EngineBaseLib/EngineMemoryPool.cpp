@@ -1,4 +1,3 @@
-#include "Pre.h"
 #include "EngineMemoryPool.h"
 
 EngineMemoryPool::EngineMemoryPool()
@@ -7,48 +6,65 @@ EngineMemoryPool::EngineMemoryPool()
 
 EngineMemoryPool::~EngineMemoryPool()
 {
-	CleanUp();
 }
 
-
-void EngineMemoryPool::Init(int PoolSize, int _ObjectSize)
+void EngineMemoryPool::Init(int PoolSize)
 {
 	HeaderPtr = malloc(PoolSize);
-	memset(HeaderPtr, 0, PoolSize);
-	NextPtr = HeaderPtr;
-	ObjectSize = _ObjectSize;
+	InitPtr = HeaderPtr;
 }
 
 void EngineMemoryPool::CleanUp()
 {
-	if (HeaderPtr != nullptr)
-	{
-		free(HeaderPtr);
-		HeaderPtr = nullptr;
-	}
+	free(InitPtr);
 }
 
-void* EngineMemoryPool::GetBlock()
+void* EngineMemoryPool::GetBlock(int _Size)
 {
-	void* ReturnBlock = nullptr;
+	void* ReturnPtr = HeaderPtr;
 
-	if (false == FreeBlocks.empty())
-	{
-		ReturnBlock = FreeBlocks.front();
-		FreeBlocks.pop();
-	}
-	else
-	{
-		ReturnBlock = NextPtr;
-		__int64 CastPtr = (__int64)NextPtr;
-		CastPtr += ObjectSize;
-		NextPtr = (void*)CastPtr;
-	}
+	*(int*)HeaderPtr = _Size;
+	int* intCastPtr = (int*)HeaderPtr;
+	intCastPtr++;
+	HeaderPtr = intCastPtr;
 
-	return ReturnBlock;
+	ReturnPtr = HeaderPtr;
+
+	char* CastPtr = (char*)HeaderPtr;
+	CastPtr += _Size;
+	HeaderPtr = CastPtr;
+
+	return ReturnPtr;
 }
 
 void EngineMemoryPool::FreeBlock(void* Ptr)
 {
+	int* intCastPtr = (int*)Ptr;
+	intCastPtr--;
+	Ptr = intCastPtr;
+
+	int BlockSize = *intCastPtr;
+
+	memset(Ptr, 0, BlockSize + sizeof(int));
 	FreeBlocks.push(Ptr);
 }
+
+int EngineMemoryPool::SizeSearch(int Size)
+{
+	int BlockSize;
+	int i = 4;
+	while (true)
+	{
+		int BlockSize = 2 ^ i;
+		i++;
+
+
+		if (BlockSize > Size)
+		{
+			return BlockSize;
+		}
+
+	}
+}
+
+

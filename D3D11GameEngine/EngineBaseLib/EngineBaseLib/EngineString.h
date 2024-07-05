@@ -1,6 +1,6 @@
 #pragma once
 
-struct IEngineMemoryPool;
+struct IEngineStaticMemoryPool;
 class EngineAPI EngineString
 {
 public:
@@ -43,15 +43,15 @@ public:
 	bool operator!=(const char* OtherString);
 private:
 	static void CreateAllStringPool();
-	static IEngineMemoryPool* GetStringPool(int ByteSize);
+	static IEngineStaticMemoryPool* GetStringPool(int ByteSize);
 
 	static bool IsCreateStringPool;
-	static IEngineMemoryPool* StringPool16;
-	static IEngineMemoryPool* StringPool32;
-	static IEngineMemoryPool* StringPool64;
-	static IEngineMemoryPool* StringPool128;
-	static IEngineMemoryPool* StringPool256;
-	static IEngineMemoryPool* StringPool512;
+	static IEngineStaticMemoryPool* StringPool16;
+	static IEngineStaticMemoryPool* StringPool32;
+	static IEngineStaticMemoryPool* StringPool64;
+	static IEngineStaticMemoryPool* StringPool128;
+	static IEngineStaticMemoryPool* StringPool256;
+	static IEngineStaticMemoryPool* StringPool512;
 
 	char* String = nullptr;
 };

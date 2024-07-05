@@ -27,7 +27,7 @@ void TestActor::Start()
 
 	Renderer = CreateComponent<EngineSpriteRenderer>();
 	Renderer->SetTexture("Stand_000");
-	Renderer->CreateAnimation(1,1, 0.1f);
+	Renderer->CreateAnimation(3,3, 0.1f);
 }
 
 void TestActor::Update(float _Delta)
