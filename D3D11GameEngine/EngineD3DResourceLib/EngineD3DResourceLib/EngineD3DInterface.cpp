@@ -2,8 +2,13 @@
 #include "EngineD3DInterface.h"
 #include "EngineD3DManager.h"
 
-void EngineAPI CreateEngineD3DManager(IEngineD3DManager** ppManager)
+void CreateEngineD3DManager(IEngineD3DManager** ppEngineManager)
 {
-	*ppManager = new EngineD3DManager();
+	*ppEngineManager = new EngineD3DManager();
+}
+
+void DeleteEngineD3DManager(IEngineD3DManager* pEngineManager)
+{
+	delete dynamic_cast<EngineD3DManager*>(pEngineManager);
 }
 	

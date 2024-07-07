@@ -1,5 +1,5 @@
+#include "Pre.h"
 #include "EngineInput.h"
-#include <Windows.h>
 
 std::map<int, EngineKey*> EngineInput::AllKey;
 
@@ -9,7 +9,6 @@ EngineInput::EngineInput()
 
 EngineInput::~EngineInput()
 {
-	//asd
 }
 
 void EngineInput::InitAllKey()

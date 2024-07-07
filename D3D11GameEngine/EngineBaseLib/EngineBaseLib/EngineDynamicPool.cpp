@@ -1,30 +1,32 @@
-#include "EngineMemoryPool.h"
+#include "Pre.h"
+#include "EngineDynamicPool.h"
+#include <math.h>
 
-EngineMemoryPool::EngineMemoryPool()
+EngineDynamicPool::EngineDynamicPool()
 {
 }
 
-EngineMemoryPool::~EngineMemoryPool()
+EngineDynamicPool::~EngineDynamicPool()
 {
 }
 
-void EngineMemoryPool::Init(int PoolSize)
+void EngineDynamicPool::Init(int PoolSize)
 {
 	HeaderPtr = malloc(PoolSize);
 	InitPtr = HeaderPtr;
 }
 
-void EngineMemoryPool::CleanUp()
+void EngineDynamicPool::CleanUp()
 {
 	free(InitPtr);
 }
 
-void* EngineMemoryPool::GetBlock(int _Size)
+void* EngineDynamicPool::GetBlock(int _Size)
 {
 	void* ReturnPtr = HeaderPtr;
 
-	*(int*)HeaderPtr = _Size;
-	int* intCastPtr = (int*)HeaderPtr;
+	int* intCastPtr =(int*)HeaderPtr;
+	*intCastPtr = _Size;
 	intCastPtr++;
 	HeaderPtr = intCastPtr;
 
@@ -37,7 +39,7 @@ void* EngineMemoryPool::GetBlock(int _Size)
 	return ReturnPtr;
 }
 
-void EngineMemoryPool::FreeBlock(void* Ptr)
+void EngineDynamicPool::FreeBlock(void* Ptr)
 {
 	int* intCastPtr = (int*)Ptr;
 	intCastPtr--;
@@ -49,17 +51,17 @@ void EngineMemoryPool::FreeBlock(void* Ptr)
 	FreeBlocks.push(Ptr);
 }
 
-int EngineMemoryPool::SizeSearch(int Size)
+int EngineDynamicPool::SizeSearch(int Size)
 {
-	int BlockSize;
+	int BlockSize = 0;
 	int i = 4;
 	while (true)
 	{
-		int BlockSize = 2 ^ i;
+		int BlockSize = static_cast<int>(powf(2, (float)i));
 		i++;
 
 
-		if (BlockSize > Size)
+		if (BlockSize <= Size)
 		{
 			return BlockSize;
 		}

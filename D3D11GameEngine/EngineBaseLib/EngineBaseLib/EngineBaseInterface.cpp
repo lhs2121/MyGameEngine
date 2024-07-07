@@ -1,13 +1,24 @@
 #include "Pre.h"
 #include "EngineBaseInterface.h"
-#include "EngineStaticMemoryPool.h"
+#include "EngineStaticPool.h"
+#include "EngineDynamicPool.h"
 
-EngineAPI void CreateEngineStaticMemoryPool(IEngineStaticMemoryPool** ppMemoryPool)
+void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool)
 {
-	*ppMemoryPool = new EngineStaticMemoryPool();
+	*ppIEngineStaticPool = new EngineStaticPool();
 }
 
-EngineAPI void DeleteEngineStaticMemoryPool(IEngineStaticMemoryPool* pMemoryPool)
+void DeleteEngineStaticPool(IEngineStaticPool* pIEngineStaticPool)
 {
-	delete dynamic_cast<EngineStaticMemoryPool*>(pMemoryPool);
+	delete dynamic_cast<EngineStaticPool*>(pIEngineStaticPool);
+}
+
+void CreateEngineDynamicPool(IEngineDynamicPool** ppIEngineDynamicPool)
+{
+	*ppIEngineDynamicPool = new EngineDynamicPool();
+}
+
+void DeleteEngineDynamicPool(IEngineDynamicPool* pIEngineDynamicPool)
+{
+	delete dynamic_cast<EngineDynamicPool*>(pIEngineDynamicPool);
 }

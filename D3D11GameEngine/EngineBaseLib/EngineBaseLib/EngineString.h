@@ -1,8 +1,10 @@
 #pragma once
+#include "DLLExport.h"
 
-struct IEngineStaticMemoryPool;
-class EngineAPI EngineString
+struct IEngineStaticPool;
+class EngineBaseAPI EngineString
 {
+	friend class EngineFile;
 public:
 	// constrcuter destructer
 	EngineString();
@@ -18,10 +20,7 @@ public:
 	{
 		*this = OtherString.String;
 	};
-	bool operator<(const EngineString& other) const
-	{
-		return std::strcmp(String, other.String) < 0;
-	}
+	bool operator<(const EngineString& other) const;
 	~EngineString();
 
 	static void DeleteAllStringPool();
@@ -43,15 +42,15 @@ public:
 	bool operator!=(const char* OtherString);
 private:
 	static void CreateAllStringPool();
-	static IEngineStaticMemoryPool* GetStringPool(int ByteSize);
+	static IEngineStaticPool* GetStringPool(int ByteSize);
 
 	static bool IsCreateStringPool;
-	static IEngineStaticMemoryPool* StringPool16;
-	static IEngineStaticMemoryPool* StringPool32;
-	static IEngineStaticMemoryPool* StringPool64;
-	static IEngineStaticMemoryPool* StringPool128;
-	static IEngineStaticMemoryPool* StringPool256;
-	static IEngineStaticMemoryPool* StringPool512;
+	static IEngineStaticPool* StringPool16;
+	static IEngineStaticPool* StringPool32;
+	static IEngineStaticPool* StringPool64;
+	static IEngineStaticPool* StringPool128;
+	static IEngineStaticPool* StringPool256;
+	static IEngineStaticPool* StringPool512;
 
 	char* String = nullptr;
 };

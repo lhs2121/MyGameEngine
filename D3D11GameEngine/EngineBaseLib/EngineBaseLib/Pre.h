@@ -5,4 +5,3 @@
 #include <list> 
 #include <memory>
 #include <Windows.h>
-#include "DLLCommon.h"

@@ -1,6 +1,12 @@
 #pragma once
+
+#ifdef EngineD3D11Lib
+#define EngineD3D11API __declspec(dllexport)
+#else
+#define EngineD3D11API __declspec(dllimport)
+#endif
+
 #include <d3d11.h>
-#include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
 
 enum class ShaderType
 {
@@ -118,4 +124,5 @@ struct IEngineD3DManager : public IEngineUnknown
 	virtual IEngineConstantBuffer*   FindConstantBuffer    (EngineString _Name) = 0;
 };
 
-extern "C" EngineAPI void CreateEngineD3DManager(IEngineD3DManager * *ppManager);
+extern "C" EngineD3D11API void CreateEngineD3DManager(IEngineD3DManager** ppEngineManager);
+extern "C" EngineD3D11API void DeleteEngineD3DManager(IEngineD3DManager* pEngineManager);

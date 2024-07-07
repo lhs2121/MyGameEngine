@@ -1,17 +1,17 @@
 #include "Pre.h"
-#include "EngineStaticMemoryPool.h"
+#include "EngineStaticPool.h"
 
-EngineStaticMemoryPool::EngineStaticMemoryPool()
+EngineStaticPool::EngineStaticPool()
 {
 }
 
-EngineStaticMemoryPool::~EngineStaticMemoryPool()
+EngineStaticPool::~EngineStaticPool()
 {
 	CleanUp();
 }
 
 
-void EngineStaticMemoryPool::Init(int PoolSize, int _ObjectSize)
+void EngineStaticPool::Init(int PoolSize, int _ObjectSize)
 {
 	HeaderPtr = malloc(PoolSize);
 	memset(HeaderPtr, 0, PoolSize);
@@ -19,7 +19,7 @@ void EngineStaticMemoryPool::Init(int PoolSize, int _ObjectSize)
 	ObjectSize = _ObjectSize;
 }
 
-void EngineStaticMemoryPool::CleanUp()
+void EngineStaticPool::CleanUp()
 {
 	if (HeaderPtr != nullptr)
 	{
@@ -28,7 +28,7 @@ void EngineStaticMemoryPool::CleanUp()
 	}
 }
 
-void* EngineStaticMemoryPool::GetBlock()
+void* EngineStaticPool::GetBlock()
 {
 	void* ReturnBlock = nullptr;
 
@@ -48,7 +48,14 @@ void* EngineStaticMemoryPool::GetBlock()
 	return ReturnBlock;
 }
 
-void EngineStaticMemoryPool::FreeBlock(void* Ptr)
+void EngineStaticPool::FreeBlock(void* Ptr)
 {
-	FreeBlocks.push(Ptr);
+	try 
+	{
+		FreeBlocks.push(Ptr);
+	}
+	catch (const std::exception& e) 
+	{
+		const char* a = e.what();
+	}
 }

@@ -5,18 +5,49 @@
 
 EngineString EngineFile::GetFileName()
 {
-	EngineString FimeName;
-	std::filesystem::path stdPath = Path.c_str();
-	FimeName = stdPath.filename().replace_extension("").string().c_str();
-	return FimeName;
+	int ByteSize = EngineString::GetByte(Path.String);
+
+	int ExtByteSize = EngineString::GetByte(GetExt().c_str());
+
+	char* temp = new char[ByteSize];
+	memcpy_s(temp, ByteSize, Path.String, ByteSize);
+	char* Header = Path.String;
+	Header += ByteSize;
+	while (true)
+	{
+		if (*(Header -1) == '\\')
+		{
+			break;
+		}
+		Header--;
+	}
+	int WasteSize = Header - Path.String;
+	memset(temp, 0, WasteSize);
+	memset(temp + ByteSize - ExtByteSize, 0, ExtByteSize);
+	char* temp2 = temp + WasteSize;
+
+	EngineString Result = temp2;
+	
+	delete[] temp;
+
+	return Result;
 }
 
 EngineString EngineFile::GetExt()
 {
-	EngineString Ext;
-	std::filesystem::path stdPath = Path.c_str();
-	Ext = stdPath.extension().string().c_str();
-	return Ext;
+	char* Temp = Path.String;
+	int ByteSize = EngineString::GetByte(Path.String);
+
+	Temp += ByteSize;
+	while (true)
+	{
+		Temp -= 1;
+		if (*Temp == '.')
+		{
+			return Temp;
+		}
+	}
+
 }
 
 void EngineFile::SetPath(const char* _Path) 
@@ -61,4 +92,5 @@ void EngineFile::Close()
 {
 	fclose(FilePtr);
 }
+
 

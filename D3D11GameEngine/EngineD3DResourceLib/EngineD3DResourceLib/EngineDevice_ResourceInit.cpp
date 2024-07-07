@@ -16,18 +16,22 @@ void EngineDevice::ResourceInit(void* pManager)
 	EngineD3DManager* Manager = (EngineD3DManager*)pManager;
 
 	{
-		EngineDirectory Dir;
+		EngineDirectory Dir; 
+		Dir.GoBase();
 		Dir.GoChild("EngineShader");
 		std::vector<EngineFile> AllShaderFile;
 		Dir.GetAllFileExt(&AllShaderFile, ".fx");
 
 		for (EngineFile& ShaderFile : AllShaderFile)
 		{
-			IEngineVertexShader* pVertexShader = Manager->CreateVertexShader(ShaderFile.GetFileName());
-			pVertexShader->Setting(ShaderFile.GetFileName(), ShaderFile.GetPath());
+			EngineString FileName = ShaderFile.GetFileName();
+			EngineString FilePath = ShaderFile.GetPath();
 
-			IEnginePixelShader* pPixelShader = Manager->CreatePixelShader(ShaderFile.GetFileName());
-			pPixelShader->Setting(ShaderFile.GetFileName(), ShaderFile.GetPath());
+			IEngineVertexShader* pVertexShader = Manager->CreateVertexShader(FileName);
+			pVertexShader->Setting(FileName, FilePath);
+
+			IEnginePixelShader* pPixelShader = Manager->CreatePixelShader(FileName);
+			pPixelShader->Setting(FileName, FilePath);
 		}
 	}
 

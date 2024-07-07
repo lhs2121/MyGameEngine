@@ -12,7 +12,7 @@ EngineCamera::~EngineCamera()
 
 void EngineCamera::Start()
 {
-	WindowSize = EngineCore::GetMainWindow().GetWindowSize();
+	WindowSize = EngineCore::GetMainWindow()->GetWindowSize();
 }
 
 void EngineCamera::PushRenderer(EngineRenderer* Renderer)

@@ -19,10 +19,10 @@
     <ClCompile Include="EngineString.cpp">
       <Filter>String</Filter>
     </ClCompile>
-    <ClCompile Include="EngineStaticMemoryPool.cpp">
+    <ClCompile Include="EngineStaticPool.cpp">
       <Filter>MemoryPool</Filter>
     </ClCompile>
-    <ClCompile Include="EngineMemoryPool.cpp">
+    <ClCompile Include="EngineDynamicPool.cpp">
       <Filter>MemoryPool</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,13 +45,13 @@
     <ClInclude Include="EngineString.h">
       <Filter>String</Filter>
     </ClInclude>
-    <ClInclude Include="DLLCommon.h" />
-    <ClInclude Include="EngineStaticMemoryPool.h">
+    <ClInclude Include="EngineStaticPool.h">
       <Filter>MemoryPool</Filter>
     </ClInclude>
-    <ClInclude Include="EngineMemoryPool.h">
+    <ClInclude Include="EngineDynamicPool.h">
       <Filter>MemoryPool</Filter>
     </ClInclude>
+    <ClInclude Include="DLLExport.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">

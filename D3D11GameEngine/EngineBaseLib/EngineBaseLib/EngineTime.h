@@ -1,6 +1,8 @@
 #pragma once
+#include "DLLExport.h"
+#include <Windows.h>
 
-class EngineAPI EngineTime
+class EngineBaseAPI EngineTime
 {
 public:
 	// constrcuter destructer

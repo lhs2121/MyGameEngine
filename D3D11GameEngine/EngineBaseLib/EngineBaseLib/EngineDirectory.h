@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineString.h"
 
-class EngineAPI EngineDirectory
+class EngineBaseAPI EngineDirectory
 {
 public:
 	// constrcuter destructer
