@@ -15,15 +15,17 @@ public:
 	EngineStaticPool& operator=(const EngineStaticPool& _Other) = delete;
 	EngineStaticPool& operator=(EngineStaticPool&& _Other) noexcept = delete;
 
-	void Init(int PoolSize, int _ObjectSize) override;
+	void Init(int _BlockCount, int _BlockSize) override;
 	void CleanUp() override;
 	void* GetBlock() override;
 	void FreeBlock(void* Ptr) override;
 
 private:
-	std::queue<void*> FreeBlocks;
+	std::list<void*> FreeBlocks;
+
+	void* HeaderArray = nullptr;
+	void* InitPtr = nullptr;
 	void* HeaderPtr = nullptr;
-	void* NextPtr = nullptr;
-	int ObjectSize = 0;
+	int BlockSize = 0;
 };
 

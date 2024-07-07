@@ -44,7 +44,7 @@ void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _Wind
 	}
 
 	{
-		hWnd = CreateWindowA("ClinetWindow", WindowTitle, WS_OVERLAPPEDWINDOW,
+		hWnd = CreateWindowA("ClinetWindow", "WindowTitle", WS_OVERLAPPEDWINDOW,
 			WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), nullptr, nullptr, hInst, nullptr);
 
 		if (!hWnd)

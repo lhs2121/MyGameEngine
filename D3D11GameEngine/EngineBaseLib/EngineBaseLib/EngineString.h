@@ -33,7 +33,7 @@ public:
 
 	void operator+=(EngineString& OtherString);
 	void operator+=(const char* OtherString);
-	void operator+=(unsigned long long Num);
+	void operator+=(double Num);
 
 	bool operator==(EngineString& OtherString);
 	bool operator==(const char* OtherString);

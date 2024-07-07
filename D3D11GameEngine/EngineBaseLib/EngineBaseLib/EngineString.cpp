@@ -98,12 +98,12 @@ void EngineString::operator+=(const char* OtherString)
 	TempString = nullptr;
 }
 
-void EngineString::operator+=(unsigned long long Num)
+void EngineString::operator+=(double Num)
 {
 	int DigitCount = EngineMath::GetDigitCount(Num);
-	char* ConvertString = new char[DigitCount + 1];
+	char* ConvertString = new char[20];
 	
-	sprintf_s(ConvertString, DigitCount + 1, "%llu", Num);
+	sprintf_s(ConvertString, 20, "%lf", Num);
 
 	if (String != nullptr)
 	{
@@ -232,27 +232,27 @@ IEngineStaticPool* EngineString::GetStringPool(int ByteSize)
 void EngineString::CreateAllStringPool()
 {
 	CreateEngineStaticPool(&StringPool16);
-	StringPool16->Init(16 * 100000, 16);
+	StringPool16->Init(1000, 16);
 
 
 	CreateEngineStaticPool(&StringPool32);
-	StringPool32->Init(32 * 100000, 32);
+	StringPool32->Init(1000, 32);
 
 
 	CreateEngineStaticPool(&StringPool64);
-	StringPool64->Init(64 * 100000, 64);
+	StringPool64->Init(1000, 64);
 
 
 	CreateEngineStaticPool(&StringPool128);
-	StringPool128->Init(128 * 5000, 128);
+	StringPool128->Init(500, 128);
 
 
 	CreateEngineStaticPool(&StringPool256);
-	StringPool256->Init(256 * 5000, 256);
+	StringPool256->Init(500, 256);
 
 
 	CreateEngineStaticPool(&StringPool512);
-	StringPool512->Init(512 * 5000, 512);
+	StringPool512->Init(500, 512);
 
 	IsCreateStringPool = true;
 }

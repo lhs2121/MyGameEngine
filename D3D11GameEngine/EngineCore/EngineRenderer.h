@@ -25,14 +25,14 @@ public:
 	void SetSampler(EngineString _Name);
 
 protected:
-	IEngineVertexBuffer* VB = nullptr;
-	IEngineIndexBuffer* IB = nullptr;
-	IEngineInputLayout* IA = nullptr;
-	IEngineVertexShader* VS = nullptr;
-	IEngineRasterizer* RS = nullptr;
-	IEnginePixelShader* PS = nullptr;
-	IEngineDepthStencil* DS = nullptr;
-	IEngineTexture* CurTexture = nullptr;
+	IEngineVertexBuffer* VB         = nullptr;
+	IEngineIndexBuffer*  IB         = nullptr;
+	IEngineInputLayout*  IA         = nullptr;
+	IEngineVertexShader* VS         = nullptr;
+	IEngineRasterizer*   RS         = nullptr;
+	IEnginePixelShader*  PS         = nullptr;
+	IEngineDepthStencil* DS         = nullptr;
+	IEngineTexture*      CurTexture = nullptr;
 
 	IEngineConstantBuffer* TransformBuffer = nullptr;
 };	

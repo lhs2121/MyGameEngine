@@ -51,5 +51,5 @@ public:
 
 private:
 	EngineTransform* Parent = nullptr;
-	EngineTransform* Child = nullptr;
+	EngineTransform* Child  = nullptr;
 };

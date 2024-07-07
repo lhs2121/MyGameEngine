@@ -1,22 +1,12 @@
 #pragma once
 #include "EngineString.h"
-
+#include <functional>
 class EngineBaseAPI EngineDebug
 {
 public:
-	// constrcuter destructer
-	EngineDebug();
-	~EngineDebug();
-
-	//constrcuter destructer
-	EngineDebug(const EngineDebug& _Other) = delete;
-	EngineDebug(EngineDebug&& _Other) noexcept = delete;
-	EngineDebug& operator=(const EngineDebug& _Other) = delete;
-	EngineDebug& operator=(EngineDebug&& _Other) noexcept = delete;
-
 	static void CrtSetBreakAlloc(UINT Number);
 	static void CrtSetDbgFlag();
 	static void MsgBoxAssert(EngineString ErrorMsg);
-
+	static double CalculateTime(std::function<void()> ExecuteTarget, int ExecuteCount);
 };
 

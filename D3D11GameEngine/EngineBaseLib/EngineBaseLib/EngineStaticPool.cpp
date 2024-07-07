@@ -11,51 +11,48 @@ EngineStaticPool::~EngineStaticPool()
 }
 
 
-void EngineStaticPool::Init(int PoolSize, int _ObjectSize)
+void EngineStaticPool::Init(int _BlockCount, int _BlockSize)
 {
-	HeaderPtr = malloc(PoolSize);
-	memset(HeaderPtr, 0, PoolSize);
-	NextPtr = HeaderPtr;
-	ObjectSize = _ObjectSize;
+	int PoolSize = _BlockCount * _BlockSize;
+
+	InitPtr = malloc(PoolSize);
+
+	if (InitPtr != nullptr)
+	{
+		memset(InitPtr, 0, PoolSize);
+	}
+	HeaderPtr = InitPtr;
+	BlockSize = _BlockSize;
 }
 
 void EngineStaticPool::CleanUp()
 {
-	if (HeaderPtr != nullptr)
+	if (InitPtr != nullptr)
 	{
-		free(HeaderPtr);
-		HeaderPtr = nullptr;
+		free(InitPtr);
+		InitPtr = nullptr;
 	}
 }
 
 void* EngineStaticPool::GetBlock()
 {
-	void* ReturnBlock = nullptr;
+	void* Result = nullptr;
 
-	if (false == FreeBlocks.empty())
+	if (FreeBlocks.empty() == true)
 	{
-		ReturnBlock = FreeBlocks.front();
-		FreeBlocks.pop();
+		Result = HeaderPtr;
+		HeaderPtr = (char*)HeaderPtr + BlockSize;
 	}
 	else
 	{
-		ReturnBlock = NextPtr;
-		__int64 CastPtr = (__int64)NextPtr;
-		CastPtr += ObjectSize;
-		NextPtr = (void*)CastPtr;
+		Result = FreeBlocks.back();
+		FreeBlocks.pop_back();
 	}
 
-	return ReturnBlock;
+	return Result;
 }
 
 void EngineStaticPool::FreeBlock(void* Ptr)
 {
-	try 
-	{
-		FreeBlocks.push(Ptr);
-	}
-	catch (const std::exception& e) 
-	{
-		const char* a = e.what();
-	}
+	FreeBlocks.push_back(Ptr);
 }

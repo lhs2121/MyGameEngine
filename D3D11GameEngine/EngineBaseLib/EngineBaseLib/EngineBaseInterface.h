@@ -10,7 +10,7 @@
 
 struct IEngineStaticPool
 { 	    
-	virtual void  Init(int PoolSize, int _ObjectSize) = 0;
+	virtual void  Init(int _BlockCount, int _BlockSize) = 0;
 	virtual void  CleanUp() = 0;	    	      
 	virtual void* GetBlock() = 0;
 	virtual void  FreeBlock(void* Ptr) = 0;

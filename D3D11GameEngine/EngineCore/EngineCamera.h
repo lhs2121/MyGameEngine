@@ -32,10 +32,10 @@ private:
 	float4 WindowSize;
 	float FovY = 60.0f;
 	float Near = 0.1f;
-	float Far = 10000.0f;
+	float Far  = 10000.0f;
 
 	std::list<EngineRenderer*> RendererList;
 	float4 EyePos = { 0.0f, 0.0f, -500.0f, 1.0f };
 	float4 EyeDir = { 0.0f, 0.0f, 1.0f, 1.0f };
-	float4 EyeUp = { 0.0f, 1.0f, 0.0f, 1.0f };
+	float4 EyeUp  = { 0.0f, 1.0f, 0.0f, 1.0f };
 };

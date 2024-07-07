@@ -1,13 +1,6 @@
 #include "Pre.h"
 #include "EngineDebug.h"
 #include <cassert>
-EngineDebug::EngineDebug()
-{
-}
-
-EngineDebug::~EngineDebug()
-{
-}
 
 void EngineDebug::CrtSetBreakAlloc(UINT Number)
 {
@@ -25,3 +18,25 @@ void EngineDebug::MsgBoxAssert(EngineString ErrorMsg)
 	assert(0);
 }
 
+double EngineDebug::CalculateTime(std::function<void()> ExecuteTarget, int ExecuteCount)
+{
+    clock_t Start; 
+    clock_t End;
+    double Time;
+
+    Start = clock();
+    for (size_t i = 0; i < ExecuteCount; i++)
+    {
+        ExecuteTarget();
+    }
+    End = clock();
+
+    Time = ((double)(End - Start)) / CLOCKS_PER_SEC;
+
+    EngineString Message = "함수 실행결과 :";
+    Message += Time;
+    Message += "초 소요.";
+
+    OutputDebugStringA(Message.c_str());
+    return Time;
+}
