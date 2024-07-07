@@ -49,8 +49,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	double time = EngineDebug::CalculateTime(std::bind(func1,"asd"), 99999);
-	double time2 = EngineDebug::CalculateTime(std::bind(func2,2), 99999);
+	double time = EngineDebug::CalculateTime(std::bind(func1,"asd"), 99999,"Func1");
+	double time2 = EngineDebug::CalculateTime(std::bind(func2,2), 99999, "Func2");
 	//EngineDebug::CrtSetBreakAlloc(249);
 	EngineDebug::CrtSetDbgFlag();
 	EngineCore::EngineStart("D3D11GameEngine", WindowPos, FWXGA, hInstance, &CoreObject);

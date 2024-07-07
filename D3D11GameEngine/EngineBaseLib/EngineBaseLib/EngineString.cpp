@@ -100,7 +100,6 @@ void EngineString::operator+=(const char* OtherString)
 
 void EngineString::operator+=(double Num)
 {
-	int DigitCount = EngineMath::GetDigitCount(Num);
 	char* ConvertString = new char[20];
 	
 	sprintf_s(ConvertString, 20, "%lf", Num);

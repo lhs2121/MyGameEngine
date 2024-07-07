@@ -7,6 +7,6 @@ public:
 	static void CrtSetBreakAlloc(UINT Number);
 	static void CrtSetDbgFlag();
 	static void MsgBoxAssert(EngineString ErrorMsg);
-	static double CalculateTime(std::function<void()> ExecuteTarget, int ExecuteCount);
+	static double CalculateTime(std::function<void()> ExecuteTarget, int ExecuteCount,const char* FunctionName = "¾î¶²");
 };
 

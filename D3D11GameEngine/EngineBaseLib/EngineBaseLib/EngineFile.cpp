@@ -21,7 +21,7 @@ EngineString EngineFile::GetFileName()
 		}
 		Header--;
 	}
-	int WasteSize = Header - Path.String;
+	__int64 WasteSize = Header - Path.String;
 	memset(temp, 0, WasteSize);
 	memset(temp + ByteSize - ExtByteSize, 0, ExtByteSize);
 	char* temp2 = temp + WasteSize;

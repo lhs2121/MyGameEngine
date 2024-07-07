@@ -18,7 +18,7 @@ void EngineDebug::MsgBoxAssert(EngineString ErrorMsg)
 	assert(0);
 }
 
-double EngineDebug::CalculateTime(std::function<void()> ExecuteTarget, int ExecuteCount)
+double EngineDebug::CalculateTime(std::function<void()> ExecuteTarget, int ExecuteCount, const char* FunctionName)
 {
     clock_t Start; 
     clock_t End;
@@ -33,9 +33,10 @@ double EngineDebug::CalculateTime(std::function<void()> ExecuteTarget, int Execu
 
     Time = ((double)(End - Start)) / CLOCKS_PER_SEC;
 
-    EngineString Message = "함수 실행결과 :";
+    EngineString Message = FunctionName;
+    Message += " 함수 실행결과 :";
     Message += Time;
-    Message += "초 소요.";
+    Message += "초 소요.\r\n";
 
     OutputDebugStringA(Message.c_str());
     return Time;
