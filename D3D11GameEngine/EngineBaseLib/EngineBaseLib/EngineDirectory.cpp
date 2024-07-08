@@ -11,6 +11,7 @@ EngineString EngineDirectory::BaseDir = "D3D11GameEngine";
 EngineDirectory::EngineDirectory()
 {
 	Path = std::filesystem::current_path().string().c_str();
+	GoBase();
 }
 
 EngineDirectory::~EngineDirectory()

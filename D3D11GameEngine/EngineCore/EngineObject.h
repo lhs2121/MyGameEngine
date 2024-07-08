@@ -1,6 +1,5 @@
 #pragma once
 #include "EngineTransform.h"
-#include <list>
 // Ό³Έν :
 class EngineObject
 {

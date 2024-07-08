@@ -30,7 +30,7 @@
     <ClInclude Include="EngineDevice.h">
       <Filter>Device</Filter>
     </ClInclude>
-    <ClInclude Include="EngineD3DInterface.h">
+    <ClInclude Include="IEngineD3D11.h">
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="EngineD3DManager.h">
@@ -75,7 +75,7 @@
     <ClCompile Include="EngineDevice_ResourceInit.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="EngineD3DInterface.cpp">
+    <ClCompile Include="IEngineD3D11.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="EngineD3DManager.cpp">

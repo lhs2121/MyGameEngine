@@ -1,6 +1,6 @@
 #pragma once
 #include <queue>
-#include "EngineBaseInterface.h"
+#include "IEngineBase.h"
 
 class EngineStaticPool : public IEngineStaticPool
 {

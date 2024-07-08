@@ -1,3 +1,3 @@
 #pragma once
-#include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
+#include <EngineBaseLib\EngineBaseLib\IEngineBase.h>
 #include <Windows.h>

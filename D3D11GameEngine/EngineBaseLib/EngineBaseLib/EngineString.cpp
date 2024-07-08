@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "EngineString.h"
-#include "EngineBaseInterface.h"
+#include "IEngineBase.h"
 
 bool EngineString::IsCreateStringPool = false;
 IEngineStaticPool* EngineString::StringPool16 = nullptr;

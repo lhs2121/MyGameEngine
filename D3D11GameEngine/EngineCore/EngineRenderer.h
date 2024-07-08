@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineTransform.h"
 #include "EngineComponent.h"
-#include <EngineD3DResourceLib\EngineD3DResourceLib\EngineD3DInterface.h>
+#include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3D11.h>
 
 class EngineRenderer : public EngineComponent
 {

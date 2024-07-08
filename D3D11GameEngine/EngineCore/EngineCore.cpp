@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineCore.h"
+#include "EngineLevel.h"
 
 IEngineWindow* EngineCore::MainWindow = nullptr;
 IEngineInput* EngineCore::MainInput = nullptr;

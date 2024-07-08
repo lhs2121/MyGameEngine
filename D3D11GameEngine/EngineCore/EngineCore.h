@@ -1,15 +1,17 @@
 #pragma once
-#include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
+#include <EngineBaseLib\EngineBaseLib\IEngineBase.h>
 #include <EngineMediaLib\EngineMediaLib\IEngineMedia.h>
-#include <EngineD3DResourceLib\EngineD3DResourceLib\EngineD3DInterface.h>
-#include "EngineRenderer.h"
+#include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3D11.h>
 #include "EngineLevel.h"
 #include <map>
+
 #define KeyIsDown(KeyCode) EngineCore::IsDown(KeyCode)
 #define KeyIsPress(KeyCode) EngineCore::IsPress(KeyCode)
 #define KeyIsUp(KeyCode) EngineCore::IsUp(KeyCode)
 #define KeyIsFree(KeyCode) EngineCore::IsFree(KeyCode)
 
+class EngineLevel;
+class EngineObject;
 class EngineCore
 {
 public:

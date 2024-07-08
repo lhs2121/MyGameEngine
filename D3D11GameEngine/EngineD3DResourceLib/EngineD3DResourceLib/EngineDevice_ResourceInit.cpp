@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "EngineD3DInterface.h"
+#include "IEngineD3D11.h"
 #include "EngineD3DManager.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
@@ -17,7 +17,7 @@ void EngineDevice::ResourceInit(void* pManager)
 
 	{
 		EngineDirectory Dir; 
-		Dir.GoBase();
+ 
 		Dir.GoChild("EngineShader");
 		std::vector<EngineFile> AllShaderFile;
 		Dir.GetAllFileExt(&AllShaderFile, ".fx");

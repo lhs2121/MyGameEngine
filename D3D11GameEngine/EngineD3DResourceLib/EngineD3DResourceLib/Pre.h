@@ -6,7 +6,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h> 
 #include <DirectXTex.h>
-#include <EngineBaseLib\EngineBaseLib\EngineBaseInterface.h>
+#include <EngineBaseLib\EngineBaseLib\IEngineBase.h>
 #include "EngineDevice.h"
 
 

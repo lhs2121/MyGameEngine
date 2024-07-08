@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "EngineD3DInterface.h"
+#include "IEngineD3D11.h"
 #include "EngineD3DManager.h"
 
 void CreateEngineD3DManager(IEngineD3DManager** ppEngineManager)

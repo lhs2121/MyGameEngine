@@ -15,7 +15,6 @@ void TestActor::Start()
 	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
 	EngineDirectory dir;
-	dir.GoBase();
 
 	std::vector<EngineFile> ImageFile;
 	dir.GetAllFileExt(&ImageFile,".png");

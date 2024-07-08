@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineCore\EngineLevel.h>
 
 // Ό³Έν :
 class TestLevel : public EngineLevel

@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineD3DInterface.h"
+#include "IEngineD3D11.h"
 
 class EngineVertexShader : public IEngineVertexShader
 {
