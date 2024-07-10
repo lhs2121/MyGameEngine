@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include "IEngineBase.h"
+
 class EngineDynamicPool : public IEngineDynamicPool
 {
 public:
@@ -23,6 +24,7 @@ public:
 private:
 	int SizeSearch(int Size);
 	std::queue<void*> FreeBlocks;
+
 	void* InitPtr = nullptr;
 	void* HeaderPtr = nullptr;
 	void* FreePtr = nullptr;
