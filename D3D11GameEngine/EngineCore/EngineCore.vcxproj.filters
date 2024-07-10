@@ -69,5 +69,6 @@
     <ClInclude Include="EngineSpriteRenderer.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="IEngineCore.h" />
   </ItemGroup>
 </Project>
