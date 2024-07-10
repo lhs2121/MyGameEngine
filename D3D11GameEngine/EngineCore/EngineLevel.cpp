@@ -4,7 +4,8 @@
 
 EngineLevel::EngineLevel()
 {
-	EngineCamera* NewCamera = CreateActor<EngineCamera>();
+	EngineCamera* NewCamera = (EngineCamera*)CreateActor(sizeof(EngineCamera), new EngineCamera());
+
 	CameraList.push_back(NewCamera);
 }
 

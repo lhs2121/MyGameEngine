@@ -7,7 +7,10 @@ EngineStaticPool::EngineStaticPool()
 
 EngineStaticPool::~EngineStaticPool()
 {
-	CleanUp();
+	if (InitPtr != nullptr)
+	{
+		free(InitPtr);
+	}
 }
 
 void EngineStaticPool::Init(int _BlockCount, int _BlockSize)
@@ -31,8 +34,8 @@ void EngineStaticPool::CleanUp()
 {
 	if (InitPtr != nullptr)
 	{
-		free(InitPtr);
-		InitPtr = nullptr;
+		int PoolSize = BlockCount * BlockSize;
+		memset(InitPtr, 0, PoolSize);
 	}
 }
 

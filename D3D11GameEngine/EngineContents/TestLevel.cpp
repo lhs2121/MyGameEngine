@@ -12,7 +12,7 @@ TestLevel::~TestLevel()
 
 void TestLevel::Start()
 {
-	CreateActor<TestActor>();
+	CreateActor(sizeof(TestActor), new TestActor());
 }
 
 void TestLevel::Update(float _Delta)

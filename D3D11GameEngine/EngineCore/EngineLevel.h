@@ -21,15 +21,17 @@ public:
 	void ActorUpdate(float _Delta);
 	void Update(float _Delta) override;
 	void Render();
-	template<typename ActorType>
-	ActorType* CreateActor()
-	{
-		EngineObject* NewActor = new ActorType();
 
-		//Start()안에서 Level을 참조할수도있으니 SetParent를 걸고 Start를 호출하자
-		NewActor->SetParent(this); 
-		NewActor->Start();
-		return dynamic_cast<ActorType*>(NewActor);
+	void* CreateActor(int _ActorSize, void* _pDummy)
+	{
+		void* Result = malloc(_ActorSize);
+		memcpy_s(Result, _ActorSize, _pDummy, _ActorSize);
+		EngineObject* CastPtr = (EngineObject*)Result;
+		CastPtr->SetParent(this);
+		CastPtr->Start();
+
+		//delete _pDummy;
+		return Result;
 	}
 
 	EngineCamera* GetMainCamera()
@@ -40,5 +42,5 @@ public:
 private:
 	std::list<EngineRenderer*> RendererList;
 	std::list<EngineCamera*> CameraList;
-}; 
+};
 
