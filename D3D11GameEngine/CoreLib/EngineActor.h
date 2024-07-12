@@ -15,13 +15,11 @@ public:
 	EngineActor& operator=(const EngineActor& _Other) = delete;
 	EngineActor& operator=(EngineActor&& _Other) noexcept = delete;
 
-	template<typename ComponentType>
-	ComponentType* CreateComponent()
+	EngineObject* CreateComponent(EngineObject* _NewActor)
 	{
-		EngineComponent* NewComponent = new ComponentType();
-		NewComponent->SetParent(this);
-		NewComponent->Start();
-		return dynamic_cast<ComponentType*>(NewComponent);
+		_NewActor->SetParent(this);
+		_NewActor->Start();
+		return _NewActor;
 	}
 };
 

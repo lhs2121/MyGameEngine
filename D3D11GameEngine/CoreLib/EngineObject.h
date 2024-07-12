@@ -28,10 +28,12 @@ public:
 	virtual void Update(float _Delta);
 	virtual void Release();
 
-	EngineTransform Transform;
 protected:
-	EngineObject* Parent = nullptr;
 	std::list<EngineObject*> ChildList;
+
+	EngineTransform Transform;
+	EngineObject* Parent = nullptr;
 	EngineString Name;
+
 	bool Death = false;
 };

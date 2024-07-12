@@ -1,6 +1,7 @@
 #pragma once
+#include "CoreAPI.h"
 
-class EngineTransform
+class CoreAPI EngineTransform
 {
 public:
 	// constrcuter destructer

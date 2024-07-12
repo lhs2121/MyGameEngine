@@ -166,6 +166,7 @@
     <ClInclude Include="EngineTransform.h" />
     <ClInclude Include="ICoreLib.h" />
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="CoreAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineActor.cpp" />

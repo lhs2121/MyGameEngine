@@ -16,11 +16,10 @@ public:
 	EngineLevel& operator=(EngineLevel&& _Other) noexcept = delete;
 
 	void Start() override;
-	void ActorUpdate(float _Delta);
 	void Update(float _Delta) override;
 	void Render();
 
-	EngineObject* CreateActor(int _ActorSize, EngineObject* _NewActor)
+	EngineObject* CreateActor(EngineObject* _NewActor)
 	{
 		_NewActor->SetParent(this);
 		_NewActor->Start();
@@ -33,7 +32,6 @@ public:
 	}
 
 private:
-	std::list<EngineObject*> RendererList;
 	std::list<EngineObject*> CameraList;
 };
 

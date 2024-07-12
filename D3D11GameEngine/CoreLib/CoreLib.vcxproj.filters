@@ -58,6 +58,9 @@
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="CoreAPI.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineComponent.cpp">
