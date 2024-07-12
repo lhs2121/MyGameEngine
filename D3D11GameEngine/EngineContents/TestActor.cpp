@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "TestActor.h"
-#include "EngineCore\EngineCamera.h"
+#include <EngineCore\EngineCamera.h>
 
 TestActor::TestActor()
 {
@@ -31,46 +31,44 @@ void TestActor::Start()
 
 void TestActor::Update(float _Delta)
 {
-	if (KeyIsPress('Z'))
+	if (IsPress('Z'))
 	{
 		Renderer->Transform.AddRotation({ 100 * _Delta,0,0 });
 	}
-	if (KeyIsPress('X'))
+	if (IsPress('X'))
 	{
 		Renderer->Transform.AddRotation({ 0,100 * _Delta,0 });
 	}
-	if (KeyIsPress('C'))
+	if (IsPress('C'))
 	{
 		Renderer->Transform.AddRotation({ 0,0,100 * _Delta });
 	}
 
-	if (KeyIsPress('W'))
+	if (IsPress('W'))
 	{
 		Renderer->Transform.AddPos({ 0,100 * _Delta,0 });
 	}
-	if (KeyIsPress('A'))
+	if (IsPress('A'))
 	{
 		Renderer->Transform.AddPos({ -100 * _Delta,0,0 });
 	}
-	if (KeyIsPress('S'))
+	if (IsPress('S'))
 	{
 		Renderer->Transform.AddPos({ 0,-100 * _Delta,0 });
 	}
-	if (KeyIsPress('D'))
+	if (IsPress('D'))
 	{
 		Renderer->Transform.AddPos({ 100 * _Delta,0,0 });
 	}
-
-	if (KeyIsPress('Q'))
+	if (IsPress('Q'))
 	{
 		Renderer->Transform.AddPos({ 0,0,100 * _Delta });
 	}
-	if (KeyIsPress('E'))
+	if (IsPress('E'))
 	{
 		Renderer->Transform.AddPos({ 0,0,-100 * _Delta });
 	}
-
-	if (KeyIsDown('R'))
+	if (IsDown('R'))
 	{
 		Renderer->Transform.SetPos({ 0,0,0 });
 		Renderer->Transform.SetRotation({ 0,0,0 });

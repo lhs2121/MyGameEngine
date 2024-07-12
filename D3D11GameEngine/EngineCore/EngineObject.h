@@ -21,7 +21,7 @@ public:
 	void DetachChild(EngineObject* _Child);
 	EngineObject* GetChild(int Order = 0);
 	EngineObject* GetTopParent();
-	bool Destroy();
+	void Destroy();
 	bool IsDeath();
 	virtual void Start();
 	void ChildUpdate(float _Delta);

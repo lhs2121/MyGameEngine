@@ -1,8 +1,6 @@
 #pragma once
 #include "EngineObject.h"
 
-// Ό³Έν :
-class EngineRenderer;
 class EngineCamera;
 class EngineLevel : public EngineObject
 {
@@ -22,25 +20,20 @@ public:
 	void Update(float _Delta) override;
 	void Render();
 
-	void* CreateActor(int _ActorSize, void* _pDummy)
+	EngineObject* CreateActor(int _ActorSize, EngineObject* _NewActor)
 	{
-		void* Result = malloc(_ActorSize);
-		memcpy_s(Result, _ActorSize, _pDummy, _ActorSize);
-		EngineObject* CastPtr = (EngineObject*)Result;
-		CastPtr->SetParent(this);
-		CastPtr->Start();
-
-		//delete _pDummy;
-		return Result;
+		_NewActor->SetParent(this);
+		_NewActor->Start();
+		return _NewActor;
 	}
 
 	EngineCamera* GetMainCamera()
 	{
-		return (*CameraList.begin());
+		return (EngineCamera*)(*CameraList.begin());
 	}
 
 private:
-	std::list<EngineRenderer*> RendererList;
-	std::list<EngineCamera*> CameraList;
+	std::list<EngineObject*> RendererList;
+	std::list<EngineObject*> CameraList;
 };
 

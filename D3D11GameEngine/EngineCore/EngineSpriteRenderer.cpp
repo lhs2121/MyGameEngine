@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineSpriteRenderer.h"
+#include "EngineCore.h"
 
 EngineSpriteRenderer::EngineSpriteRenderer()
 {

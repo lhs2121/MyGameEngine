@@ -9,6 +9,7 @@
 #pragma comment(lib, "EngineCore.lib")
 #pragma comment(lib, "EngineContents.lib")
 
+#include <EngineBaseLib\EngineBaseLib\Pre.h>
 #include <EngineCore\EngineCore.h>
 #include <EngineContents\ContentsCore.h>
 #include <EngineBaseLib\EngineBaseLib\IEngineBase.h>

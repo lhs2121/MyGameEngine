@@ -23,6 +23,37 @@ EngineCore::~EngineCore()
 {
 }
 
+EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
+{
+	_NewLevel->SetName(_Name);
+	_NewLevel->Start();
+
+	AllLevel.insert(std::make_pair(_Name, _NewLevel));
+	return _NewLevel;
+}
+
+void EngineCore::ChangeLevel(const char* LevelName)
+{
+	if (AllLevel.end() != AllLevel.find(LevelName))
+	{
+		CurLevel = AllLevel[LevelName];
+	}
+}
+
+void EngineCore::DeleteAllLevel()
+{
+	for (std::pair<const char*, EngineLevel*> pair : AllLevel)
+	{
+		EngineLevel* LevelPtr = pair.second;
+		if (LevelPtr != nullptr)
+		{
+			delete LevelPtr;
+			LevelPtr = nullptr;
+		}
+	}
+	AllLevel.clear();
+}
+
 void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, EngineObject* _CoreObject)
 {
     CreateEngineWindow(&MainWindow);
@@ -38,12 +69,13 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
     CoreObject->Start();
 
     MainTime.Init();
-    MainTime.CountStart();
     
     CreateEngineInput(&MainInput);
     MainInput->InitAllKey();
 
     MainWindow->MessageLoop();
+
+    MainTime.CountStart();
 }
 void EngineCore::EngineUpdate()
 {

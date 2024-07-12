@@ -18,26 +18,41 @@ void EngineDebug::MsgBoxAssert(EngineString ErrorMsg)
 	assert(0);
 }
 
-double EngineDebug::CalculateTime(std::function<void()> ExecuteTarget, int ExecuteCount, const char* FunctionName)
+double EngineDebug::CalculatePerformance(double t1, double t2)
 {
-    clock_t Start; 
-    clock_t End;
-    double Time;
-
-    Start = clock();
-    for (size_t i = 0; i < ExecuteCount; i++)
+    if (t1 <= 1.0E-6)
     {
-        ExecuteTarget();
+        t1 = 0.0;
     }
-    End = clock();
+    if (t2 <= 1.0E-6)
+    {
+        t2 = 0.0;
+    }
 
-    Time = ((double)(End - Start)) / CLOCKS_PER_SEC;
+    if (t1 == 0.0f || t2 == 0.0f)
+    {
+        OutputDebugStringA("한쪽의 실행시간이 0에 매우 근접해 측정을 중단합니다.\n");
+        return 0.0f;
+    }
 
-    EngineString Message = FunctionName;
-    Message += " 함수 실행결과 :";
-    Message += Time;
-    Message += "초 소요.\r\n";
+    double Diff = 0.0;
+
+    Diff = (abs(t1 - t2) / t1) * 100;
+    
+    EngineString Message;
+
+    if (t1 < t2)
+    {
+        Message = "첫번째 함수가 ";
+    }
+    if (t1 > t2)
+    {
+        Message = "두번째 함수가 ";
+    }
+    Message += Diff;
+    Message += "%만큼 성능이 높습니다.\n";
 
     OutputDebugStringA(Message.c_str());
-    return Time;
+    return Diff;
 }
+

@@ -1,7 +1,4 @@
 #pragma once
-#include "EngineCore.h"
-#include "EngineObject.h"
-#include <list>
-#include <map>
-#include <vector>
-#include <functional>
+#include <EngineBaseLib\EngineBaseLib\Pre.h>
+#include <EngineBaseLib\EngineBaseLib\IEngineBase.h>
+#include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3D11.h>

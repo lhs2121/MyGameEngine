@@ -70,7 +70,7 @@ void EngineObject::DetachChild(EngineObject* _Child)
 	}
 }
 
-EngineObject* EngineObject::GetChild(int Order = 0)
+EngineObject* EngineObject::GetChild(int Order)
 {
 	std::list<EngineObject*>::iterator Start = ChildList.begin();
 	std::list<EngineObject*>::iterator End = ChildList.end();
@@ -104,7 +104,7 @@ EngineObject* EngineObject::GetTopParent()
 	}
 }
 
-bool EngineObject::Destroy()
+void EngineObject::Destroy()
 {
 	Death = true;
 }

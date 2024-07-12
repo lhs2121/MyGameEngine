@@ -1,4 +1,5 @@
 #include "Pre.h"
+#include "EngineCore.h"
 #include "EngineRenderer.h"
 #include "EngineCamera.h"
 

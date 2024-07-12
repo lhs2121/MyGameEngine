@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineLevelObject.h"
+#include "EngineRenderer.h"
 
 enum class ProjectionType
 {

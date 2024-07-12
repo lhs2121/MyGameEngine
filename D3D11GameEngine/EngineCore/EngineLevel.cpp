@@ -32,9 +32,9 @@ void EngineLevel::Update(float _Delta)
 
 void EngineLevel::Render()
 {
-	for (EngineCamera* Camera : CameraList)
+	for (EngineObject* Camera : CameraList)
 	{
-		Camera->Render();
+		((EngineCamera*)Camera)->Render();
 	}
 }
 

@@ -74,18 +74,19 @@ void EngineString::operator+=(EngineString& OtherString)
 
 void EngineString::operator+=(const char* OtherString)
 {
-	int Byte = EngineString::GetByte(String);
-	if (Byte != 0)
+	int ByteSize = 0;
+	if (String != nullptr)
 	{
-		--Byte;
+		ByteSize = EngineString::GetByte(String);
+		--ByteSize;
 	}
 	int OtherByte = EngineString::GetByte(OtherString);
-	char* TempString = new char[Byte + OtherByte];
+	char* TempString = new char[ByteSize + OtherByte];
 
 	if (String != nullptr)
 	{
-		memcpy_s(TempString, Byte, String, Byte);
-		memcpy_s(TempString + Byte, OtherByte, OtherString, OtherByte);
+		memcpy_s(TempString, ByteSize, String, ByteSize);
+		memcpy_s(TempString + ByteSize, OtherByte, OtherString, OtherByte);
 	}
 	else
 	{

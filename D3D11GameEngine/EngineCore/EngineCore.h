@@ -3,15 +3,7 @@
 #include <EngineMediaLib\EngineMediaLib\IEngineMedia.h>
 #include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3D11.h>
 #include "EngineLevel.h"
-#include <map>
 
-#define KeyIsDown(KeyCode) EngineCore::IsDown(KeyCode)
-#define KeyIsPress(KeyCode) EngineCore::IsPress(KeyCode)
-#define KeyIsUp(KeyCode) EngineCore::IsUp(KeyCode)
-#define KeyIsFree(KeyCode) EngineCore::IsFree(KeyCode)
-
-class EngineLevel;
-class EngineObject;
 class EngineCore
 {
 public:
@@ -42,38 +34,9 @@ public:
 		return MainD3DManager;
 	}
 
-	template<typename LevelType>
-	static EngineLevel* CreateLevel(const char* LevelName)
-	{
-		EngineLevel* NewLevel = new LevelType();
-		NewLevel->SetName(LevelName);
-		NewLevel->Start();
-
-		AllLevel.insert(std::make_pair(LevelName, NewLevel));
-		return NewLevel;
-	}
-
-	static void DeleteAllLevel()
-	{
-		for (std::pair<const char*, EngineLevel*> pair : AllLevel)
-		{
-			EngineLevel* LevelPtr = pair.second;
-			if (LevelPtr != nullptr)
-			{
-				delete LevelPtr;
-				LevelPtr = nullptr;
-			}
-		}
-		AllLevel.clear();
-	}
-
-	static void ChangeLevel(const char* LevelName)
-	{
-		if(AllLevel.end() != AllLevel.find(LevelName))
-		{
-			CurLevel = AllLevel[LevelName];
-		}
-	}
+	static EngineLevel* CreateLevel(const char* _Name, EngineLevel* _NewLevel);
+	static void ChangeLevel(const char* _Name);
+	static void DeleteAllLevel();
 
 	static void EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, EngineObject* _CoreObject);
 	static void EngineUpdate();
@@ -95,17 +58,21 @@ public:
 	{
 		return MainInput->IsFree(KeyCode);
 	}
+
 private:
 	static EngineTime MainTime;
-
 	static IEngineWindow* MainWindow;
 	static IEngineInput* MainInput;
-
 	static IEngineDevice* MainDevice;
 	static IEngineD3DManager* MainD3DManager;
-
 	static EngineObject* CoreObject;
 	static EngineLevel* CurLevel;
 
 	static std::map<const char*, EngineLevel*> AllLevel;
 };
+
+
+#define IsDown(KeyCode) EngineCore::IsDown(KeyCode)
+#define IsPress(KeyCode) EngineCore::IsPress(KeyCode)
+#define IsUp(KeyCode) EngineCore::IsUp(KeyCode)
+#define IsFree(KeyCode) EngineCore::IsFree(KeyCode)
