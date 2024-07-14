@@ -24,8 +24,8 @@ struct IEngineDynamicPool
 	virtual void  FreeBlock(void* Ptr) = 0;
 };
 
-extern "C" EngineBaseAPI void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool);
-extern "C" EngineBaseAPI void DeleteEngineStaticPool(IEngineStaticPool* pIEngineStaticPool);
+extern "C" BaseAPI void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool);
+extern "C" BaseAPI void DeleteEngineStaticPool(IEngineStaticPool* pIEngineStaticPool);
 
-extern "C" EngineBaseAPI void CreateEngineDynamicPool(IEngineDynamicPool** ppIEngineDynamicPool);
-extern "C" EngineBaseAPI void DeleteEngineDynamicPool(IEngineDynamicPool* pIEngineDynamicPool);
+extern "C" BaseAPI void CreateEngineDynamicPool(IEngineDynamicPool** ppIEngineDynamicPool);
+extern "C" BaseAPI void DeleteEngineDynamicPool(IEngineDynamicPool* pIEngineDynamicPool);

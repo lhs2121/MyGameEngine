@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include <CoreLib\ICoreLib.h>
+#include <CoreLib\CoreLibAPI.h>
 #include <EngineBaseLib\EngineBaseLib\EngineMath.h>
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)

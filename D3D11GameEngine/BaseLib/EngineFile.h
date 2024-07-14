@@ -12,7 +12,7 @@ enum class FileMode
 	WriteBinary,
 };
 
-class EngineBaseAPI EngineFile 
+class BaseAPI EngineFile 
 {
 public:
 	void SetPath(const char* _Path);

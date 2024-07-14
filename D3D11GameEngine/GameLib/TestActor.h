@@ -1,9 +1,8 @@
 #pragma once
-#include <EngineCore\EngineActor.h>
-#include <EngineCore\EngineSpriteRenderer.h>
+#include <CoreLib\CoreLibAPI.h>
 
 // Ό³Έν :
-class TestActor : public EngineActor
+class TestActor : public IObject
 {
 public:
 	// constrcuter destructer
@@ -19,7 +18,7 @@ public:
 	void Start() override;
 	void Update(float _Delta) override;
 protected:
-	EngineSpriteRenderer* Renderer;
+	ISpriteRenderer* Renderer;
 
 };
 

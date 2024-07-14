@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineString.h"
 
-class EngineBaseAPI EngineDebug
+class BaseAPI EngineDebug
 {
 public:
 	static void CrtSetBreakAlloc(UINT Number);

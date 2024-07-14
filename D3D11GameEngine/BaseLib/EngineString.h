@@ -1,8 +1,8 @@
 #pragma once
-#include "DLLExport.h"
+
 
 struct IEngineStaticPool;
-class EngineBaseAPI EngineString
+class BaseAPI EngineString
 {
 	friend class EngineFile;
 public:

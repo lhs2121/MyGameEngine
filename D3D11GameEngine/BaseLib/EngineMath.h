@@ -1,10 +1,10 @@
 #pragma once
-#include "DLLExport.h"
+
 
 constexpr float PI = 3.141592653f;
 constexpr float DegToRad = 3.141592653f / 180.0f;
 
-struct EngineBaseAPI EngineMath
+struct BaseAPI EngineMath
 {
 	static int GetDigitCount(unsigned long long Num);
 };
@@ -330,7 +330,7 @@ struct float3
 	}
 };
 struct float4x4;
-struct EngineBaseAPI float4
+struct BaseAPI float4
 {
 	float4(float _x = 0, float _y = 0, float _z = 0, float _w = 1)
 		: x(_x), y(_y), z(_z), w(_w)
@@ -525,7 +525,7 @@ struct EngineBaseAPI float4
 
 };
 
-struct EngineBaseAPI float4x4
+struct BaseAPI float4x4
 {
 	float4x4()
 	{

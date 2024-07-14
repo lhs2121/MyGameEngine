@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Pre.h" />
+    <ClInclude Include="EngineDebug.h" />
+    <ClInclude Include="EngineDirectory.h" />
+    <ClInclude Include="EngineDynamicPool.h" />
+    <ClInclude Include="EngineFile.h" />
+    <ClInclude Include="EngineMath.h" />
+    <ClInclude Include="EngineStaticPool.h" />
+    <ClInclude Include="EngineString.h" />
+    <ClInclude Include="EngineTime.h" />
+    <ClInclude Include="BaseAPI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EngineDebug.cpp" />
+    <ClCompile Include="EngineDirectory.cpp" />
+    <ClCompile Include="EngineDynamicPool.cpp" />
+    <ClCompile Include="EngineFile.cpp" />
+    <ClCompile Include="EngineMath.cpp" />
+    <ClCompile Include="EngineStaticPool.cpp" />
+    <ClCompile Include="EngineString.cpp" />
+    <ClCompile Include="EngineTime.cpp" />
+    <ClCompile Include="BaseAPI.cpp" />
+    <ClCompile Include="Pre.cpp" />
+  </ItemGroup>
+</Project>
