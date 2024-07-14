@@ -1,5 +1,6 @@
 ﻿#include "Pre.h"
 #include "EngineWindow.h"
+#include <CoreLib\ICoreLib.h>
 
 EngineWindow::EngineWindow()
 {
@@ -9,7 +10,7 @@ EngineWindow::~EngineWindow()
 {
 }
 
-void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, void(*UpdataFunc)(void), void(*ReleaseFunc)(void))
+void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, ICore* _Core)
 {
 
 	WindowTitle = _WindowTile;
@@ -20,10 +21,8 @@ void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _Wind
 
 	hInst = _hInst;
 
-	UpdatePtr = UpdataFunc;
-
-	ReleasePtr = ReleaseFunc;
-
+	Core = _Core;
+	
 	{
 		WNDCLASSEXA wcex;
 
@@ -87,11 +86,11 @@ void EngineWindow::MessageLoop()
 		}
 		else
 		{
-			UpdatePtr();
+			Core->EngineUpdate();
 		}
 	}
 
-	ReleasePtr();
+	Core->EngineRelease();
 }
 
 const char* EngineWindow::GetWindowTitle()

@@ -6,7 +6,8 @@
 #endif
 
 class float4;
-
+class EngineCore;
+struct ICore;
 struct IEngineInput
 {
 	virtual void CreateKey(int KeyCode) = 0;
@@ -24,7 +25,7 @@ struct IEngineInput
 
 struct IEngineWindow
 {
-	virtual void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, void(*UpdataFunc)(void), void(*ReleaseFunc)(void)) = 0;
+	virtual void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, ICore* _Core) = 0;
 	virtual void MessageLoop() = 0;
 
 	virtual const char* GetWindowTitle() = 0;

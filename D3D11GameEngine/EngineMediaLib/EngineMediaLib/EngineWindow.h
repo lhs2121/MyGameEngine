@@ -14,7 +14,7 @@ public:
 	EngineWindow& operator=(const EngineWindow& _Other) = delete;
 	EngineWindow& operator=(EngineWindow&& _Other) noexcept = delete;
 
-	void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, void(*UpdataFunc)(void), void(*ReleaseFunc)(void)) override;
+	void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, ICore* _Core) override;
 	void MessageLoop() override;
 
 	const char* GetWindowTitle() override;
@@ -25,14 +25,11 @@ public:
 
 private:
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-
-	void(*UpdatePtr)(void) = nullptr;
-	void(*ReleasePtr)(void) = nullptr;
-
 	const char*  WindowTitle;
 	float4       WindowPos;
 	float4       WindowSize;
 	HINSTANCE    hInst;
 	HWND         hWnd;
+	ICore*       Core;
 };
 

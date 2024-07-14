@@ -2,19 +2,6 @@
 #include "EngineCore.h"
 #include "EngineLevel.h"
 
-IEngineWindow* EngineCore::MainWindow = nullptr;
-IEngineInput* EngineCore::MainInput = nullptr;
-
-IEngineDevice* EngineCore::MainDevice = nullptr;
-IEngineD3DManager* EngineCore::MainD3DManager = nullptr;
-
-EngineTime EngineCore::MainTime;
-
-EngineLevel* EngineCore::CurLevel;
-EngineObject* EngineCore::CoreObject = nullptr;
-
-std::map<const char*, EngineLevel*> EngineCore::AllLevel;
-
 EngineCore::EngineCore()
 {
 }
@@ -23,8 +10,9 @@ EngineCore::~EngineCore()
 {
 }
 
-EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
+ILevel* EngineCore::CreateLevel(const char* _Name, ILevel* _NewLevel)
 {
+	_NewLevel = new EngineLevel();
 	_NewLevel->SetName(_Name);
 	_NewLevel->Start();
 
@@ -54,10 +42,10 @@ void EngineCore::DeleteAllLevel()
 	AllLevel.clear();
 }
 
-void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, EngineObject* _CoreObject)
+void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IObject* _CoreObject)
 {
     CreateEngineWindow(&MainWindow);
-    MainWindow->Init(_WindowTitle, _WindowPos, _WindowSize, _hInstance, EngineUpdate, EngineRelease);
+    MainWindow->Init(_WindowTitle, _WindowPos, _WindowSize, _hInstance, this);
 
     CreateEngineD3DManager(&MainD3DManager);    
 
@@ -77,6 +65,7 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
 
     MainTime.CountStart();
 }
+
 void EngineCore::EngineUpdate()
 {
     if (CurLevel == nullptr)

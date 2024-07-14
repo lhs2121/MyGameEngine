@@ -164,9 +164,9 @@
     <ClInclude Include="EngineRenderer.h" />
     <ClInclude Include="EngineSpriteRenderer.h" />
     <ClInclude Include="EngineTransform.h" />
-    <ClInclude Include="ICoreLib.h" />
+    <ClInclude Include="CoreLibAPI.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="CoreAPI.h" />
+    <ClInclude Include="dllExport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineActor.cpp" />
@@ -179,6 +179,7 @@
     <ClCompile Include="EngineRenderer.cpp" />
     <ClCompile Include="EngineSpriteRenderer.cpp" />
     <ClCompile Include="EngineTransform.cpp" />
+    <ClCompile Include="CoreLibAPI.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pre.h</PrecompiledHeaderFile>

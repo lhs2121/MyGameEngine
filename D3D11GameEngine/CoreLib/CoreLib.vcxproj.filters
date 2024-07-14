@@ -54,13 +54,11 @@
     <ClInclude Include="EngineTransform.h">
       <Filter>Transform</Filter>
     </ClInclude>
-    <ClInclude Include="ICoreLib.h">
+    <ClInclude Include="CoreLibAPI.h">
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="CoreAPI.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
+    <ClInclude Include="dllExport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineComponent.cpp">
@@ -94,5 +92,8 @@
       <Filter>Transform</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="CoreLibAPI.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #pragma once
-#include "CoreAPI.h"
+#include "dllExport.h"
 
 class CoreAPI EngineTransform
 {
