@@ -1,8 +1,9 @@
 #pragma once
-#include "CoreLibAPI.h"
+#include "CoreAPI.h"
 #include "EngineObject.h"
 
 class EngineCamera;
+class EngineActor;
 class EngineLevel : public EngineObject
 {
 public:
@@ -20,16 +21,16 @@ public:
 	void Update(float _Delta) override;
 	void Render();
 
-	IObject* CreateActor(IObject* _NewActor) override
+	void* CreateActor(const char* _Name, void* _NewActor)
 	{
-		_NewActor->SetParent(this);
-		_NewActor->Start();
+		((EngineObject*)_NewActor)->SetParent(this);
+		((EngineObject*)_NewActor)->Awake();
 		return _NewActor;
 	}
 
-	IObject* GetMainCamera() override
+	EngineObject* GetMainCamera()
 	{
-		return (IObject*)(*CameraList.begin());
+		return *(CameraList.begin());
 	}
 
 private:

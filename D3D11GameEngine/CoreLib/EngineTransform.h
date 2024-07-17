@@ -1,5 +1,4 @@
 #pragma once
-#include "dllExport.h"
 
 class CoreAPI EngineTransform
 {

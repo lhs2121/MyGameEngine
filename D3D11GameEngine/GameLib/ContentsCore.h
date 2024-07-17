@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineCore\EngineObject.h"
+#include <CoreLib\EngineObject.h>
 
 class ContentsCore : public EngineObject
 {
@@ -15,5 +15,6 @@ public:
 	ContentsCore& operator=(ContentsCore&& _Other) noexcept = delete;
 
 private:
+	void Awake() override;
 	void Start() override;
 };

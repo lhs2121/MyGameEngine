@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="EngineIndexBuffer.cpp" />
+    <ClCompile Include="EngineInputLayout.cpp" />
+    <ClCompile Include="EnginePixelShader.cpp" />
+    <ClCompile Include="EngineRasterizer.cpp" />
+    <ClCompile Include="EngineSampler.cpp" />
+    <ClCompile Include="EngineTexture.cpp" />
+    <ClCompile Include="EngineVertexBuffer.cpp" />
+    <ClCompile Include="EngineVertexShader.cpp" />
+    <ClCompile Include="D3D11API.cpp" />
+    <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="EngineConstantBuffer.cpp" />
+    <ClCompile Include="EngineD3DManager.cpp" />
+    <ClCompile Include="EngineDepthStencil.cpp" />
+    <ClCompile Include="EngineDevice.cpp" />
+    <ClCompile Include="EngineDevice_ResourceInit.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EngineIndexBuffer.h" />
+    <ClInclude Include="EngineInputLayout.h" />
+    <ClInclude Include="EnginePixelShader.h" />
+    <ClInclude Include="EngineRasterizer.h" />
+    <ClInclude Include="EngineSampler.h" />
+    <ClInclude Include="EngineTexture.h" />
+    <ClInclude Include="EngineVertexBuffer.h" />
+    <ClInclude Include="EngineVertexFormat.h" />
+    <ClInclude Include="EngineVertexShader.h" />
+    <ClInclude Include="D3D11API.h" />
+    <ClInclude Include="Pre.h" />
+    <ClInclude Include="EngineConstantBuffer.h" />
+    <ClInclude Include="EngineD3DManager.h" />
+    <ClInclude Include="EngineDepthStencil.h" />
+    <ClInclude Include="EngineDevice.h" />
+  </ItemGroup>
+</Project>

@@ -1,6 +1,4 @@
-@echo off
-set SolutionDir=%~dp0\EngineBaseLib\
-set SolutionFile=%SolutionDir%EngineBaseLib.sln
+set SolutionFile=%~dp0\BaseLib\BaseLib.sln
 
 echo Building EngineBaseLib.sln...
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsMSBuildCmd.bat" -arch=x64

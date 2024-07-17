@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{f66d3ead-9659-4fe3-a20f-f5555432d9ef}</ProjectGuid>
-    <RootNamespace>CoreLib</RootNamespace>
+    <ProjectGuid>{d3d7c985-3979-42cf-a22d-5bb9a29aa7bd}</ProjectGuid>
+    <RootNamespace>MediaLib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,30 +74,35 @@
     <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>..\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Bin\x64\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>..\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Bin\x64\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>..\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Bin\x64\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\Bin\x64\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>..\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Bin\x64\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);CoreLib</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);MediaLib</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,9 +115,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);CoreLib</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);MediaLib</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,7 +132,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);CoreLib</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);MediaLib</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -142,9 +149,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);CoreLib</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);MediaLib</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,40 +163,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EngineActor.h" />
-    <ClInclude Include="EngineCamera.h" />
-    <ClInclude Include="EngineComponent.h" />
-    <ClInclude Include="EngineCore.h" />
-    <ClInclude Include="EngineLevel.h" />
-    <ClInclude Include="EngineLevelObject.h" />
-    <ClInclude Include="EngineObject.h" />
-    <ClInclude Include="EngineRenderer.h" />
-    <ClInclude Include="EngineSpriteRenderer.h" />
-    <ClInclude Include="EngineTransform.h" />
-    <ClInclude Include="CoreAPI.h" />
-    <ClInclude Include="Pre.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="EngineActor.cpp" />
-    <ClCompile Include="EngineCamera.cpp" />
-    <ClCompile Include="EngineComponent.cpp" />
-    <ClCompile Include="EngineCore.cpp" />
-    <ClCompile Include="EngineLevel.cpp" />
-    <ClCompile Include="EngineLevelObject.cpp" />
-    <ClCompile Include="EngineObject.cpp" />
-    <ClCompile Include="EngineRenderer.cpp" />
-    <ClCompile Include="EngineSpriteRenderer.cpp" />
-    <ClCompile Include="EngineTransform.cpp" />
-    <ClCompile Include="CoreAPI.cpp" />
+    <ClCompile Include="EngineInput.cpp" />
+    <ClCompile Include="EngineWindow.cpp" />
+    <ClCompile Include="MediaAPI.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pre.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pre.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EngineInput.h" />
+    <ClInclude Include="EngineWindow.h" />
+    <ClInclude Include="MediaAPI.h" />
+    <ClInclude Include="Pre.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

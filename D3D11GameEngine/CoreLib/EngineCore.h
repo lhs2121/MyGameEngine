@@ -1,8 +1,8 @@
 #pragma once
-#include <EngineBaseLib\EngineBaseLib\IEngineBase.h>
-#include <EngineMediaLib\EngineMediaLib\IEngineMedia.h>
-#include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3D11.h>
-#include "CoreLibAPI.h"
+#include <BaseLib\BaseAPI.h>
+#include <MediaLib\MediaAPI.h>
+#include <D3D11Lib\D3D11API.h>
+#include "CoreAPI.h"
 #include "EngineLevel.h"
 
 class EngineCore : public ICore
@@ -35,7 +35,7 @@ public:
 		return MainD3DManager;
 	}
 
-	ILevel* CreateLevel(const char* _Name, ILevel* _NewLevel) override;
+	EngineLevel* CreateLevel(const char* _Name, EngineLevel* _NewLevel) override;
 	void ChangeLevel(const char* _Name) override;
 	void DeleteAllLevel() override;
 

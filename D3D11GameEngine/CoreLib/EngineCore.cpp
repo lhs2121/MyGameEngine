@@ -10,7 +10,7 @@ EngineCore::~EngineCore()
 {
 }
 
-ILevel* EngineCore::CreateLevel(const char* _Name, ILevel* _NewLevel)
+EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
 {
 	_NewLevel = new EngineLevel();
 	_NewLevel->SetName(_Name);

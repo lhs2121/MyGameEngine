@@ -114,8 +114,14 @@ bool EngineObject::IsDeath()
 	return Death;
 }
 
+void EngineObject::Awake()
+{
+	// 오브젝트가 만들어지는 시점
+}
+
 void EngineObject::Start()
 {
+	// 레벨이 시작하는 시점
 }
 
 void EngineObject::ChildUpdate(float _Delta)
@@ -132,6 +138,13 @@ void EngineObject::Update(float _Delta)
 
 }
 
+void EngineObject::End()
+{
+	// 레벨이 끝나는 시점
+}
+
 void EngineObject::Release()
 {
 }
+
+

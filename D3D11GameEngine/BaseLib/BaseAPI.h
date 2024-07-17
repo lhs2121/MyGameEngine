@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning(disable:4099)
 
+#include <common/declspec.h>
 #include "EngineString.h"
 #include "EngineMath.h"
 #include "EngineTime.h"

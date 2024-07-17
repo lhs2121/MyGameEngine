@@ -1,6 +1,6 @@
 #pragma once
 #include "EngineComponent.h"
-#include <EngineD3DResourceLib\EngineD3DResourceLib\IEngineD3D11.h>
+#include <D3D11Lib\D3D11Lib\D3D11API.h>
 
 class EngineRenderer : public EngineComponent
 {
