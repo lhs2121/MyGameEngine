@@ -168,6 +168,7 @@
     <ClInclude Include="EngineString.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="BaseAPI.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,7 @@
     <ClCompile Include="EngineString.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="BaseAPI.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="Pre.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

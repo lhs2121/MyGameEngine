@@ -11,6 +11,7 @@
     <ClInclude Include="EngineString.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="BaseAPI.h" />
+    <ClInclude Include="List.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp" />
@@ -23,5 +24,6 @@
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="BaseAPI.cpp" />
     <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="List.cpp" />
   </ItemGroup>
 </Project>
