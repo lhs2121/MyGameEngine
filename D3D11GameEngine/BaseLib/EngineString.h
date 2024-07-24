@@ -6,7 +6,6 @@ class BaseAPI EngineString
 {
 	friend class EngineFile;
 public:
-	// constrcuter destructer
 	EngineString();
 	EngineString(const char* OtherString)
 	{

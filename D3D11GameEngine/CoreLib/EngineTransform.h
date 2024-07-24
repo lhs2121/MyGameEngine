@@ -1,18 +1,9 @@
 #pragma once
+#include <BaseLib\BaseAPI.h>
 
 class CoreAPI EngineTransform
 {
 public:
-	// constrcuter destructer
-	EngineTransform();
-	~EngineTransform();
-
-	// delete Function
-	EngineTransform(const EngineTransform& _Other) = delete;
-	EngineTransform(EngineTransform&& _Other) noexcept = delete;
-	EngineTransform& operator=(const EngineTransform& _Other) = delete;
-	EngineTransform& operator=(EngineTransform&& _Other) noexcept = delete;
-
 	void SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat);
 	void SetPos(float4 Value);
 	void SetScale(float4 Value);

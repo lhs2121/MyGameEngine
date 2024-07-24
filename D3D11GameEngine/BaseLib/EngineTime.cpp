@@ -1,14 +1,6 @@
 #include "Pre.h"
 #include "EngineTime.h"
 
-EngineTime::EngineTime()
-{
-}
-
-EngineTime::~EngineTime()
-{
-}
-
 void EngineTime::Init()
 {
 	QueryPerformanceFrequency(&Frequency);

@@ -161,27 +161,27 @@
   <ItemGroup>
     <ClInclude Include="EngineDebug.h" />
     <ClInclude Include="EngineDirectory.h" />
-    <ClInclude Include="EngineDynamicPool.h" />
     <ClInclude Include="EngineFile.h" />
+    <ClInclude Include="EngineHashMap.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="EngineStaticPool.h" />
     <ClInclude Include="EngineString.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="BaseAPI.h" />
-    <ClInclude Include="List.h" />
+    <ClInclude Include="EngineList.h" />
     <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="EngineDirectory.cpp" />
-    <ClCompile Include="EngineDynamicPool.cpp" />
     <ClCompile Include="EngineFile.cpp" />
+    <ClCompile Include="EngineHashMap.cpp" />
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="EngineStaticPool.cpp" />
     <ClCompile Include="EngineString.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="BaseAPI.cpp" />
-    <ClCompile Include="List.cpp" />
+    <ClCompile Include="EngineList.cpp" />
     <ClCompile Include="Pre.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

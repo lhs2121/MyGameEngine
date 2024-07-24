@@ -19,9 +19,6 @@
     <Filter Include="Transform">
       <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interface">
-      <UniqueIdentifier>{478d63e1-876e-439b-99d7-f8559ea9c272}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSpriteRenderer.h">
@@ -54,10 +51,9 @@
     <ClInclude Include="EngineTransform.h">
       <Filter>Transform</Filter>
     </ClInclude>
-    <ClInclude Include="CoreAPI.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="CoreAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineComponent.cpp">
@@ -91,8 +87,7 @@
       <Filter>Transform</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="CoreAPI.cpp">
-      <Filter>Interface</Filter>
-    </ClCompile>
+    <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="CoreAPI.cpp" />
   </ItemGroup>
 </Project>

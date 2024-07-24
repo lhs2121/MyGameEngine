@@ -1,9 +1,11 @@
 #include "Pre.h"
 #include "CoreAPI.h"
 #include "EngineCore.h"
+#include "Singleton.h"
 
 void CreateEngineCore(ICore** pICore)
 {
-	*pICore = new EngineCore();
+	MainCore = new EngineCore();
+	*pICore = MainCore;
 
 }

@@ -1,29 +1,21 @@
 #include "Pre.h"
-#include "EngineRenderer.h"
 #include "EngineCamera.h"
-#include "EngineCore.h"
+#include "EngineRenderer.h"
+#include "Singleton.h"
 
-EngineCamera::EngineCamera()
+void EngineCamera::Awake()
 {
-}
-
-EngineCamera::~EngineCamera()
-{
-}
-
-void EngineCamera::Start()
-{
-	WindowSize = EngineCore::GetMainWindow()->GetWindowSize();
+	WindowSize = MainWindow->GetWindowSize();
 }
 
 void EngineCamera::PushRenderer(EngineRenderer* Renderer)
 {
-	RendererList.push_back(Renderer);
+	RendererList.Add(Renderer);
 }
 
 void EngineCamera::Update(float _Delta)
 {
-	
+
 }
 
 void EngineCamera::Render()
@@ -40,10 +32,15 @@ void EngineCamera::Render()
 		break;
 	}
 
-	for (EngineRenderer* Renderer : RendererList)
+	RendererList.GoFirst();
+	for (size_t i = 0; i < RendererList.GetCount(); i++)
 	{
-		float4x4 World = Renderer->Transform.WorldMat;
-		Renderer->Transform.WorldViewProjectionMat = World * Transform.ViewMat * Transform.ProjectionMat;
+		EngineRenderer* Renderer = (EngineRenderer*)RendererList.Item();
+
+		float4x4 world = Renderer->Transform.WorldMat;
+		Renderer->Transform.WorldViewProjectionMat = world * Transform.ViewMat * Transform.ProjectionMat;
 		Renderer->Render();
+
+		RendererList.GoNext();
 	}
 }

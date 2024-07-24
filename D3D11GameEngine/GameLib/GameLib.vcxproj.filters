@@ -3,13 +3,15 @@
   <ItemGroup>
     <ClInclude Include="TestActor.h" />
     <ClInclude Include="TestLevel.h" />
-    <ClInclude Include="ContentsCore.h" />
+    <ClInclude Include="GameStarter.h" />
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="GameAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestLevel.cpp" />
-    <ClCompile Include="ContentsCore.cpp" />
+    <ClCompile Include="GameStarter.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="TestActor.cpp" />
+    <ClCompile Include="GameAPI.cpp" />
   </ItemGroup>
 </Project>

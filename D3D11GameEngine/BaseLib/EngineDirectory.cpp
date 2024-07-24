@@ -14,10 +14,6 @@ EngineDirectory::EngineDirectory()
 	GoBase();
 }
 
-EngineDirectory::~EngineDirectory()
-{
-}
-
 void EngineDirectory::GoParent()
 {	
 	std::filesystem::path ParentPath = Path.c_str();

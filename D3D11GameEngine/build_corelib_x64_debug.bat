@@ -1,7 +1,6 @@
 @echo off
-set SolutionFile=%~dp0\GameLib\GameLib.sln
+set SolutionFile=%~dp0\CoreLib\CoreLib.sln
 
-echo Building D3D11GameEngine.sln...
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsMSBuildCmd.bat" -arch=x64
 msbuild "%SolutionFile%" /p:Configuration=Debug /p:Platform=x64
 

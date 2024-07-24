@@ -1,24 +1,15 @@
 #pragma once
-#include <CoreLib\CoreLibAPI.h>
+#include <CoreLib\CoreAPI.h>
+#include <CoreLib\EngineActor.h>
 
-// Ό³Έν :
-class TestActor : public IObject
+class EngineSpriteRenderer;
+class TestActor : public EngineActor
 {
 public:
-	// constrcuter destructer
-	TestActor();
-	~TestActor();
-
-	// delete Function
-	TestActor(const TestActor& _Other) = delete;
-	TestActor(TestActor&& _Other) noexcept = delete;
-	TestActor& operator=(const TestActor& _Other) = delete;
-	TestActor& operator=(TestActor&& _Other) noexcept = delete;
-
-	void Start() override;
+	void Awake() override;
 	void Update(float _Delta) override;
 protected:
-	ISpriteRenderer* Renderer;
+	EngineSpriteRenderer* Renderer;
 
 };
 

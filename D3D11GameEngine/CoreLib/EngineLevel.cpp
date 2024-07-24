@@ -6,11 +6,14 @@ EngineLevel::EngineLevel()
 {
 	EngineCamera* NewCamera = (EngineCamera*)CreateActor(new EngineCamera());
 
-	CameraList.push_back(NewCamera);
+	CameraList.Add(NewCamera);
 }
 
-EngineLevel::~EngineLevel()
+void* EngineLevel::CreateActor(void* _NewActor)
 {
+	((EngineObject*)_NewActor)->SetParent(this);
+	((EngineObject*)_NewActor)->Awake();
+	return _NewActor;
 }
 
 void EngineLevel::Start()
@@ -23,9 +26,19 @@ void EngineLevel::Update(float _Delta)
 
 void EngineLevel::Render()
 {
-	for (EngineObject* Camera : CameraList)
+	CameraList.GoFirst();
+
+	for (size_t i = 0; i < CameraList.GetCount(); i++)
 	{
-		((EngineCamera*)Camera)->Render();
+		EngineCamera* CurCamera = (EngineCamera*)CameraList.Item();
+		CurCamera->Render();
+
+		CameraList.GoNext();
 	}
 }
 
+
+EngineCamera* EngineLevel::GetMainCamera()
+{
+	return (EngineCamera*)CameraList.Item();
+}

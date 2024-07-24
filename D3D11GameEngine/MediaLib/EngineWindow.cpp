@@ -1,6 +1,6 @@
 ﻿#include "Pre.h"
 #include "EngineWindow.h"
-#include <CoreLib/CoreLibAPI.h>
+#include <CoreLib/CoreAPI.h>
 
 EngineWindow::EngineWindow()
 {

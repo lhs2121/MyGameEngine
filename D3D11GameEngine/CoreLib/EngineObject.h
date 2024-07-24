@@ -1,44 +1,38 @@
 #pragma once
-#include "CoreAPI.h"
+#include <common\declspec.h>
 #include "EngineTransform.h"
 // Ό³Έν :
-class EngineObject 
+class CoreAPI EngineObject
 {
 public:
 	EngineObject();
 	virtual ~EngineObject();
-	void              SetName(EngineString _Name);
 
-	void              SetParent(EngineObject* _Parent);
+	void SetName(EngineString _Name);
 
-	void              DetachParent();
+	void SetParent(EngineObject* _Parent);
 
-	void              SetChild(EngineObject* _Child);
+	EngineObject* GetTopParent();
 
-	void              DetachChild(EngineObject* _Child);
+	void Destroy();
 
-	EngineObject*     GetChild(int Order = 0);
+	bool IsDeath();
 
-	EngineObject*     GetTopParent();
+	void ChildUpdate(float _Delta);
 
-	void              Destroy();
+	virtual void Awake();
 
-	bool              IsDeath();
+	virtual void Start();
 
-	virtual void      Awake();
+	virtual void Update(float _Delta);
 
-	virtual void      Start();
+	virtual void End();
 
-	void              ChildUpdate(float _Delta);
+	virtual void Release();
 
-	virtual void      Update(float _Delta);
-
-	virtual void      Release();
-
-	virtual void      End();
-protected:
-	std::list<EngineObject*> ChildList;
 	EngineTransform Transform;
+protected:
+	EngineList ChildList;
 	EngineObject* Parent = nullptr;
 	EngineString Name;
 

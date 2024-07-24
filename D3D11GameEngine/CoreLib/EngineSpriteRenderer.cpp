@@ -1,10 +1,6 @@
 #include "Pre.h"
 #include "EngineSpriteRenderer.h"
-#include "EngineCore.h"
-
-EngineSpriteRenderer::EngineSpriteRenderer()
-{
-}
+#include "Singleton.h"
 
 EngineSpriteRenderer::~EngineSpriteRenderer()
 {
@@ -26,9 +22,9 @@ EngineSpriteRenderer::~EngineSpriteRenderer()
 	}
 }
 
-void EngineSpriteRenderer::Start()
+void EngineSpriteRenderer::Awake()
 {
-	EngineRenderer::Start(); 
+	EngineRenderer::Awake();
 }
 
 void EngineSpriteRenderer::Update(float _Delta)
@@ -60,7 +56,6 @@ void EngineSpriteRenderer::Update(float _Delta)
 
 void EngineSpriteRenderer::Render()
 {
-
 	EngineRenderer::Render();
 } 
  
@@ -113,7 +108,7 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 		Desc.MiscFlags = 0;
 		Desc.StructureByteStride = 0;
 
-		SpriteDataBuffer = EngineCore::GetMainD3DManager()->CreateConstantBuffer("SpriteData");
+		SpriteDataBuffer = MainD3DManager->CreateConstantBuffer("SpriteData");
 		SpriteDataBuffer->Setting(Desc, &CurSpriteData, sizeof(SpriteData));
 	}
 }

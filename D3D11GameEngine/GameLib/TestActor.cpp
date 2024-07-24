@@ -1,16 +1,13 @@
 #include "Pre.h"
 #include "TestActor.h"
-#include <EngineCore\EngineCamera.h>
+#include <BaseLib\BaseAPI.h>
+#include <CoreLib\EngineSpriteRenderer.h>
+#include <CoreLib\EngineLevel.h>
+#include <CoreLib\EngineCamera.h>
+#include <CoreLib\Singleton.h>
+#include <MediaLib\MediaAPI.h>
 
-TestActor::TestActor()
-{
-}
-
-TestActor::~TestActor()
-{
-}
-
-void TestActor::Start()
+void TestActor::Awake()
 {
 	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
@@ -19,56 +16,54 @@ void TestActor::Start()
 	std::vector<EngineFile> ImageFile;
 	dir.GetAllFileExt(&ImageFile,".png");
 	
-	IEngineD3DManager* ResManager = EngineCore::GetMainD3DManager();
-		
-	IEngineTexture* Texture = ResManager->CreateTexture("Stand_000");
+	IEngineTexture* Texture = MainD3DManager->CreateTexture("Stand_000");
 	Texture->Setting(ImageFile[0]);
 
-	Renderer = CreateComponent<EngineSpriteRenderer>();
+	Renderer = (EngineSpriteRenderer*)CreateComponent(new EngineSpriteRenderer);
 	Renderer->SetTexture("Stand_000");
 	Renderer->CreateAnimation(3,3, 0.1f);
 }
 
 void TestActor::Update(float _Delta)
 {
-	if (IsPress('Z'))
+	if (MainInput->IsPress('Z'))
 	{
 		Renderer->Transform.AddRotation({ 100 * _Delta,0,0 });
 	}
-	if (IsPress('X'))
+	if (MainInput->IsPress('X'))
 	{
 		Renderer->Transform.AddRotation({ 0,100 * _Delta,0 });
 	}
-	if (IsPress('C'))
+	if (MainInput->IsPress('C'))
 	{
 		Renderer->Transform.AddRotation({ 0,0,100 * _Delta });
 	}
 
-	if (IsPress('W'))
+	if (MainInput->IsPress('W'))
 	{
 		Renderer->Transform.AddPos({ 0,100 * _Delta,0 });
 	}
-	if (IsPress('A'))
+	if (MainInput->IsPress('A'))
 	{
 		Renderer->Transform.AddPos({ -100 * _Delta,0,0 });
 	}
-	if (IsPress('S'))
+	if (MainInput->IsPress('S'))
 	{
 		Renderer->Transform.AddPos({ 0,-100 * _Delta,0 });
 	}
-	if (IsPress('D'))
+	if (MainInput->IsPress('D'))
 	{
 		Renderer->Transform.AddPos({ 100 * _Delta,0,0 });
 	}
-	if (IsPress('Q'))
+	if (MainInput->IsPress('Q'))
 	{
 		Renderer->Transform.AddPos({ 0,0,100 * _Delta });
 	}
-	if (IsPress('E'))
+	if (MainInput->IsPress('E'))
 	{
 		Renderer->Transform.AddPos({ 0,0,-100 * _Delta });
 	}
-	if (IsDown('R'))
+	if (MainInput->IsDown('R'))
 	{
 		Renderer->Transform.SetPos({ 0,0,0 });
 		Renderer->Transform.SetRotation({ 0,0,0 });

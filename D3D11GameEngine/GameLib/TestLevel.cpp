@@ -2,17 +2,9 @@
 #include "TestLevel.h"
 #include "TestActor.h"
 
-TestLevel::TestLevel()
+void TestLevel::Awake()
 {
-}
-
-TestLevel::~TestLevel()
-{
-}
-
-void TestLevel::Start()
-{
-	CreateActor(sizeof(TestActor), new TestActor());
+	CreateActor(new TestActor());
 }
 
 void TestLevel::Update(float _Delta)

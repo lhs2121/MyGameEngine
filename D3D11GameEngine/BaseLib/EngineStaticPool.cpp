@@ -1,10 +1,6 @@
 #include "Pre.h"
 #include "EngineStaticPool.h"
 
-EngineStaticPool::EngineStaticPool()
-{
-}
-
 EngineStaticPool::~EngineStaticPool()
 {
 	if (InitPtr != nullptr)

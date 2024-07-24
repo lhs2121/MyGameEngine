@@ -1,14 +1,6 @@
 #include "Pre.h"
 #include "EngineTransform.h"
 
-EngineTransform::EngineTransform()
-{
-}
-
-EngineTransform::~EngineTransform()
-{
-}
-
 void EngineTransform::TransformUpdate()
 {
 	WorldMat.Identity();
@@ -18,6 +10,10 @@ void EngineTransform::TransformUpdate()
 	PositionMat.Position(Position);
 
 	WorldMat = ScaleMat * RotationMat * PositionMat;
+}
+
+void EngineTransform::SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat)
+{
 }
 
 void EngineTransform::SetPos(float4 Value)

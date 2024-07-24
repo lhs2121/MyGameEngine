@@ -1,48 +1,41 @@
 #include "Pre.h"
+#include <BaseLib/BaseAPI.h>
+#include <MediaLib/MediaAPI.h>
+#include <D3D11Lib/D3D11API.h>
+#include <GameLib/GameAPI.h>
 #include "EngineCore.h"
 #include "EngineLevel.h"
-
-EngineCore::EngineCore()
-{
-}
-
-EngineCore::~EngineCore()
-{
-}
+#include "Singleton.h"
 
 EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
 {
-	_NewLevel = new EngineLevel();
 	_NewLevel->SetName(_Name);
-	_NewLevel->Start();
+	_NewLevel->Awake();
 
-	AllLevel.insert(std::make_pair(_Name, _NewLevel));
+	AllLevel.Add(_Name, _NewLevel);
 	return _NewLevel;
 }
 
-void EngineCore::ChangeLevel(const char* LevelName)
+void EngineCore::ChangeLevel(const char* _Name)
 {
-	if (AllLevel.end() != AllLevel.find(LevelName))
-	{
-		CurLevel = AllLevel[LevelName];
-	}
+	CurLevel = (EngineLevel*)AllLevel.Get(_Name);
 }
 
 void EngineCore::DeleteAllLevel()
 {
-	for (std::pair<const char*, EngineLevel*> pair : AllLevel)
-	{
-		EngineLevel* LevelPtr = pair.second;
-		if (LevelPtr != nullptr)
-		{
-			delete LevelPtr;
-			LevelPtr = nullptr;
-		}
-	}
-	AllLevel.clear();
+	//for (std::pair<EngineString, EngineLevel*> pair : AllLevel)
+	//{
+	//	EngineLevel* LevelPtr = pair.second;
+	//	if (LevelPtr != nullptr)
+	//	{
+	//		delete LevelPtr;
+	//		LevelPtr = nullptr;
+	//	}
+	//}
+	//AllLevel.clear();
 }
 
-void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IObject* _CoreObject)
+void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IGameStarter* _Starter)
 {
     CreateEngineWindow(&MainWindow);
     MainWindow->Init(_WindowTitle, _WindowPos, _WindowSize, _hInstance, this);
@@ -53,17 +46,18 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
     MainDevice->Init(MainWindow->GethWnd(), _WindowSize);
     MainDevice->ResourceInit(MainD3DManager);
 
-    CoreObject = _CoreObject;
-    CoreObject->Start();
+	Starter = _Starter;
+	Starter->GameStart();
 
-    MainTime.Init();
+	MainTime = new EngineTime();
+    MainTime->Init();
     
     CreateEngineInput(&MainInput);
     MainInput->InitAllKey();
 
-    MainWindow->MessageLoop();
+    MainTime->CountStart();
 
-    MainTime.CountStart();
+    MainWindow->MessageLoop();
 }
 
 void EngineCore::EngineUpdate()
@@ -75,8 +69,8 @@ void EngineCore::EngineUpdate()
 
     MainInput->SetAllKeyState();
 
-    float Delta = MainTime.CountEnd();
-    MainTime.CountStart();  
+    float Delta = MainTime->CountEnd();
+    MainTime->CountStart();
 	CurLevel->ChildUpdate(Delta);
     CurLevel->Update(Delta);
 
@@ -89,7 +83,7 @@ void EngineCore::EngineUpdate()
 
 void EngineCore::EngineRelease()
 {
-	EngineCore::DeleteAllLevel();
+	MainCore->DeleteAllLevel();
 
 	if (MainInput != nullptr)
 	{
@@ -110,6 +104,12 @@ void EngineCore::EngineRelease()
         MainDevice->Release();
 		delete MainDevice;
 		MainDevice = nullptr;
+	}
+
+	if (MainTime != nullptr)
+	{
+		delete MainTime;
+		MainTime = nullptr;
 	}
 
     DeleteEngineWindow(MainWindow);

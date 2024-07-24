@@ -1,10 +1,8 @@
 #include "Pre.h"
 #include "EngineLevelObject.h"
+#include "EngineLevel.h"
 
-EngineLevelObject::EngineLevelObject()
+EngineLevel* EngineLevelObject::GetLevel()
 {
-}
-
-EngineLevelObject::~EngineLevelObject()
-{
+	return (EngineLevel*)GetTopParent();
 }

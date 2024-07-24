@@ -1,4 +1,7 @@
 #pragma once
 
-#include <EngineCore\Pre.h>
-#include <EngineCore\EngineCore.h>
+#include <common/commonPre.h>
+#include <common/declspec.h>
+#include <BaseLib/BaseAPI.h>
+#include <MediaLib/MediaAPI.h>
+#include <CoreLib/CoreAPI.h>

@@ -1,7 +1,8 @@
 #include "Pre.h"
 #include "BaseAPI.h"
 #include "EngineStaticPool.h"
-#include "EngineDynamicPool.h"
+#include "EngineList.h"
+
 
 void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool)
 {
@@ -10,15 +11,5 @@ void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool)
 
 void DeleteEngineStaticPool(IEngineStaticPool* pIEngineStaticPool)
 {
-	delete dynamic_cast<EngineStaticPool*>(pIEngineStaticPool);
-}
-
-void CreateEngineDynamicPool(IEngineDynamicPool** ppIEngineDynamicPool)
-{
-	*ppIEngineDynamicPool = new EngineDynamicPool();
-}
-
-void DeleteEngineDynamicPool(IEngineDynamicPool* pIEngineDynamicPool)
-{
-	delete dynamic_cast<EngineDynamicPool*>(pIEngineDynamicPool);
+	delete (EngineStaticPool*)(pIEngineStaticPool);
 }
