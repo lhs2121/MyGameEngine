@@ -1,7 +1,6 @@
 #pragma once
 #include "EngineString.h"
 #include "EngineFile.h"
-#include <vector>
 
 class EngineFile;
 class BaseAPI EngineDirectory

@@ -1,6 +1,5 @@
 #pragma once
 
-
 constexpr float PI = 3.141592653f;
 constexpr float DegToRad = 3.141592653f / 180.0f;
 

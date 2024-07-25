@@ -169,6 +169,7 @@
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="BaseAPI.h" />
     <ClInclude Include="EngineList.h" />
+    <ClInclude Include="HashNode.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineVector.h" />
   </ItemGroup>

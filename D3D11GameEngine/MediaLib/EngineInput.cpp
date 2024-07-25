@@ -1,7 +1,7 @@
 #include "Pre.h"
 #include "EngineInput.h"
 
-std::map<int, EngineKey*> EngineInput::AllKey;
+EngineIntHashMap EngineInput::AllKey;
 
 EngineInput::EngineInput()
 {
@@ -144,23 +144,24 @@ void EngineInput::CreateKey(int KeyCode)
 {
 	EngineKey* NewKey = new EngineKey();
 	NewKey->KeyCode = KeyCode;
-	AllKey.insert(std::make_pair(KeyCode, NewKey));
+	AllKey.Add(KeyCode, NewKey);
 }
 
 void EngineInput::DeleteAllKey()
 {
-	for (std::pair<int, EngineKey*> pair : AllKey)
+	/*for (std::pair<int, EngineKey*> pair : AllKey)
 	{                     
 		delete pair.second;
 	}
-	AllKey.clear();
+	AllKey.clear();*/
 }
 
 void EngineInput::SetAllKeyState()
 {
-	for (std::pair<int,EngineKey*> Element : AllKey)
+	AllKey.GoFirst();
+	for (size_t i = 0; i < AllKey.Count(); i++)
 	{
-		EngineKey* Key = Element.second;
+		EngineKey* Key = (EngineKey*)AllKey.GetCurItem();
 		SHORT State = GetAsyncKeyState(Key->KeyCode);
 
 		if (State == 0) // ¾È´­·ÈÀ»¶§
@@ -171,6 +172,8 @@ void EngineInput::SetAllKeyState()
 				Key->IsPress = false;
 				Key->IsUp = true;
 				Key->IsFree = false;
+
+				AllKey.GoNext();
 				continue;
 			}
 
@@ -179,6 +182,8 @@ void EngineInput::SetAllKeyState()
 			Key->IsPress = false;
 			Key->IsUp = false;
 			Key->IsFree = true;
+
+			AllKey.GoNext();
 			continue;
 		}
 		else
@@ -189,6 +194,8 @@ void EngineInput::SetAllKeyState()
 				Key->IsPress = true;
 				Key->IsUp = false;
 				Key->IsFree = false;
+
+				AllKey.GoNext();
 				continue;
 			}
 
@@ -197,6 +204,8 @@ void EngineInput::SetAllKeyState()
 			Key->IsPress = false;
 			Key->IsUp = false;
 			Key->IsFree = false;
+
+			AllKey.GoNext();
 			continue;
 		}
 	}
@@ -204,35 +213,17 @@ void EngineInput::SetAllKeyState()
 
 bool EngineInput::IsDown(int KeyCode)
 {
-	if (AllKey.end() != AllKey.find(KeyCode))
-	{
-		return AllKey[KeyCode]->IsDown;
-	}
-	return false;
+	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsDown;
 }
 bool EngineInput::IsPress(int KeyCode)
 {
-	if (AllKey.end() != AllKey.find(KeyCode))
-	{
-		return AllKey[KeyCode]->IsPress;
-	}
-	return false;
+	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsPress;
 }
-
 bool EngineInput::IsUp(int KeyCode)
 {
-	if (AllKey.end() != AllKey.find(KeyCode))
-	{
-		return AllKey[KeyCode]->IsUp;
-	}
-	return false;
+	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsUp;
 }
-
 bool EngineInput::IsFree(int KeyCode)
 {
-	if (AllKey.end() == AllKey.find(KeyCode))
-	{
-		return AllKey[KeyCode]->IsFree;
-	}
-	return false;
+	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsFree;
 }

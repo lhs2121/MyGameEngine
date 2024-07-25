@@ -13,6 +13,7 @@
     <ClInclude Include="EngineList.h" />
     <ClInclude Include="EngineHashMap.h" />
     <ClInclude Include="EngineVector.h" />
+    <ClInclude Include="HashNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp" />

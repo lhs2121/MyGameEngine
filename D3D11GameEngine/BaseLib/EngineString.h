@@ -1,6 +1,5 @@
 #pragma once
 
-
 struct IEngineStaticPool;
 class BaseAPI EngineString
 {

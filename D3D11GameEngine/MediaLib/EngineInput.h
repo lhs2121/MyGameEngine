@@ -1,6 +1,5 @@
 #pragma once
 #include "MediaAPI.h"
-#include <map>
 
 class EngineKey
 {
@@ -37,6 +36,6 @@ public:
 	bool IsUp(int KeyCode) override;
 	bool IsFree(int KeyCode) override;
 
-	static std::map<int,EngineKey*> AllKey;
+	static EngineIntHashMap AllKey;
 };
 

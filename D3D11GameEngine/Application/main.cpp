@@ -1,5 +1,6 @@
 #include <Windows.h>
-#include <BaseLib/BaseAPI.h>
+#include <common/declspec.h>
+#include <BaseLib/EngineMath.h> 
 #include <CoreLib/CoreAPI.h>
 #include <GameLib/GameAPI.h>
 

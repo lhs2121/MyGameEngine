@@ -1,3 +1,4 @@
 #pragma once
-#include <BaseLib\BaseAPI.h>
+#include <common\commonPre.h>
 #include <common\declspec.h>
+#include <BaseLib\BaseAPI.h>

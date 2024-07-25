@@ -3,22 +3,22 @@
 #include "EngineInput.h"
 #include "EngineWindow.h"
 
-MediaAPI void CreateEngineInput(IEngineInput** ppIEngineInput)
+void CreateEngineInput(IEngineInput** ppIEngineInput)
 {
 	*ppIEngineInput = new EngineInput();
 }
 
-MediaAPI void DeleteEngineInput(IEngineInput* pIEngineInput)
+void DeleteEngineInput(IEngineInput* pIEngineInput)
 {
-	delete dynamic_cast<EngineInput*>(pIEngineInput);
+	delete (EngineInput*)(pIEngineInput);
 }
 
-MediaAPI void CreateEngineWindow(IEngineWindow** ppIEngineWindow)
+void CreateEngineWindow(IEngineWindow** ppIEngineWindow)
 {
 	*ppIEngineWindow = new EngineWindow();
 }
 
-MediaAPI void DeleteEngineWindow(IEngineWindow* pIEngineWindow)
+void DeleteEngineWindow(IEngineWindow* pIEngineWindow)
 {
-	delete dynamic_cast<EngineWindow*>(pIEngineWindow);
+	delete (EngineWindow*)(pIEngineWindow);
 }
