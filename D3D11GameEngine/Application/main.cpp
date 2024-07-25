@@ -1,14 +1,9 @@
 #include <Windows.h>
-#include <common/commonPre.h>
-#include <common/declspec.h>
 #include <BaseLib/BaseAPI.h>
-#include <MediaLib/MediaAPI.h>
 #include <CoreLib/CoreAPI.h>
 #include <GameLib/GameAPI.h>
 
 #pragma comment(lib,"BaseLib.lib")
-#pragma comment(lib,"D3D11Lib.lib")
-#pragma comment(lib,"MediaLib.lib")
 #pragma comment(lib,"CoreLib.lib")
 #pragma comment(lib,"GameLib.lib")
 

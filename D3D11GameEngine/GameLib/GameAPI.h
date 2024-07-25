@@ -1,5 +1,4 @@
 #pragma once
-#include <common\declspec.h>
 
 struct IGameStarter
 {

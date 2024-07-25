@@ -1,6 +1,9 @@
 #pragma once
 #include "EngineString.h"
+#include "EngineFile.h"
+#include <vector>
 
+class EngineFile;
 class BaseAPI EngineDirectory
 {
 public:
@@ -10,8 +13,8 @@ public:
 	void GoChild(const char* ChildPath);
 	void GoBase();
 
-	void GetAllFile(void* vector);
-	void GetAllFileExt(void* vector, const char* _Ext);
+	std::vector<EngineFile> GetAllFile();
+	std::vector<EngineFile> GetAllFileExt(const char* _Ext);
 
 private:
 	static EngineString BaseDir;

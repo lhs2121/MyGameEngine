@@ -5,3 +5,15 @@
 #include <BaseLib/BaseAPI.h>
 #include <MediaLib/MediaAPI.h>
 #include <CoreLib/CoreAPI.h>
+
+#include <CoreLib/EngineCore.h>
+#include <CoreLib/EngineObject.h>
+#include <CoreLib/EngineLevel.h>
+#include <CoreLib/EngineRenderer.h>
+#include <CoreLib/EngineSpriteRenderer.h>
+#include <CoreLib/EngineActor.h>
+#include <CoreLib/EngineCamera.h>
+#include <CoreLib/EngineLevelObject.h>
+#include <CoreLib/EngineTransform.h>
+#include <CoreLib/EngineComponent.h>
+#include <CoreLib/Singleton.h>

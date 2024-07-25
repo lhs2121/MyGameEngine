@@ -1,11 +1,5 @@
 #include "Pre.h"
 #include "TestActor.h"
-#include <BaseLib\BaseAPI.h>
-#include <CoreLib\EngineSpriteRenderer.h>
-#include <CoreLib\EngineLevel.h>
-#include <CoreLib\EngineCamera.h>
-#include <CoreLib\Singleton.h>
-#include <MediaLib\MediaAPI.h>
 
 void TestActor::Awake()
 {
@@ -13,15 +7,13 @@ void TestActor::Awake()
 
 	EngineDirectory dir;
 
-	std::vector<EngineFile> ImageFile;
-	dir.GetAllFileExt(&ImageFile,".png");
-	
-	IEngineTexture* Texture = MainD3DManager->CreateTexture("Stand_000");
-	Texture->Setting(ImageFile[0]);
+	std::vector<EngineFile> ImageFile = dir.GetAllFileExt(".png");
 
-	Renderer = (EngineSpriteRenderer*)CreateComponent(new EngineSpriteRenderer);
+	MainD3DManager->CreateTexture("Stand_000")->Setting(ImageFile[0]);
+
+	Renderer = (EngineSpriteRenderer*)CreateComponent(new EngineSpriteRenderer());
 	Renderer->SetTexture("Stand_000");
-	Renderer->CreateAnimation(3,3, 0.1f);
+	Renderer->CreateAnimation(3, 3, 0.1f);
 }
 
 void TestActor::Update(float _Delta)
@@ -38,7 +30,6 @@ void TestActor::Update(float _Delta)
 	{
 		Renderer->Transform.AddRotation({ 0,0,100 * _Delta });
 	}
-
 	if (MainInput->IsPress('W'))
 	{
 		Renderer->Transform.AddPos({ 0,100 * _Delta,0 });

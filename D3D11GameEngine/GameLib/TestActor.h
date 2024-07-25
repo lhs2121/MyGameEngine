@@ -1,6 +1,4 @@
 #pragma once
-#include <CoreLib\CoreAPI.h>
-#include <CoreLib\EngineActor.h>
 
 class EngineSpriteRenderer;
 class TestActor : public EngineActor

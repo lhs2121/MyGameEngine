@@ -15,6 +15,8 @@ enum class FileMode
 class BaseAPI EngineFile 
 {
 public:
+	EngineFile() = default;
+	EngineFile(const char* _Path);
 	void SetPath(const char* _Path);
 	EngineString GetPath();
 	EngineString GetFileName();

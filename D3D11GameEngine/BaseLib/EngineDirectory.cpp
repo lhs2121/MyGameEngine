@@ -60,27 +60,31 @@ void EngineDirectory::GoBase()
 
 }
 
-void EngineDirectory::GetAllFile(void* vector)
+std::vector<EngineFile> EngineDirectory::GetAllFile()
 {
-	std::vector<EngineFile>* AllFile = (std::vector<EngineFile>*)vector;
+	std::vector<EngineFile> AllFile;
+
 	std::filesystem::path DirPath = Path.c_str();
+
 	for (const std::filesystem::path& Entry : std::filesystem::directory_iterator(DirPath))
 	{
 		if (std::filesystem::is_directory(Entry))
 		{
 			continue;
 		}
-		EngineFile NewFile;
-		NewFile.SetPath(Entry.string().c_str());
-		AllFile->push_back(NewFile);
+
+		AllFile.emplace_back(Entry.string().c_str());
     }
-	
+
+	return AllFile;
 }
 
-void EngineDirectory::GetAllFileExt(void* vector, const char* _Ext)
+std::vector<EngineFile> EngineDirectory::GetAllFileExt(const char* _Ext)
 {
-	std::vector<EngineFile>* AllFile = (std::vector<EngineFile>*)vector;
+	std::vector<EngineFile> AllFile;
+
 	std::filesystem::path DirPath = Path.c_str();
+
 	for (const std::filesystem::path& Entry : std::filesystem::directory_iterator(DirPath))
 	{
 		if (std::filesystem::is_directory(Entry))
@@ -94,9 +98,9 @@ void EngineDirectory::GetAllFileExt(void* vector, const char* _Ext)
 			continue;
 		}
 
-		EngineFile NewFile;
-		NewFile.SetPath(Entry.string().c_str());
-		AllFile->push_back(NewFile);
+		AllFile.emplace_back(Entry.string().c_str());
 	}
+
+	return AllFile;
 }
 

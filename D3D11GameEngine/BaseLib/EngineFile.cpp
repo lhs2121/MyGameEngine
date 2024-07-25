@@ -50,7 +50,12 @@ EngineString EngineFile::GetExt()
 
 }
 
-void EngineFile::SetPath(const char* _Path) 
+EngineFile::EngineFile(const char* _Path)
+{
+	Path = _Path;
+}
+
+void EngineFile::SetPath(const char* _Path)
 {
 	Path = _Path;
 }

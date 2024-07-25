@@ -19,8 +19,7 @@ void EngineDevice::ResourceInit(void* pManager)
 		EngineDirectory Dir; 
  
 		Dir.GoChild("EngineShader");
-		std::vector<EngineFile> AllShaderFile;
-		Dir.GetAllFileExt(&AllShaderFile, ".fx");
+		std::vector<EngineFile> AllShaderFile = Dir.GetAllFileExt(".fx");
 
 		for (EngineFile& ShaderFile : AllShaderFile)
 		{
@@ -246,11 +245,10 @@ void EngineDevice::ResourceInit(void* pManager)
 	}
 
 	{
-		std::vector<EngineFile> Files;
 		EngineDirectory Dir;
 		Dir.GoBase();
 		Dir.GoChild("Assets");
-		Dir.GetAllFileExt(&Files, ".png");
+		std::vector<EngineFile> Files = Dir.GetAllFileExt(".png");
 	
 		IEngineTexture* NewTexture =  Manager->CreateTexture("Default");
 		NewTexture->Setting(Files[0]);
