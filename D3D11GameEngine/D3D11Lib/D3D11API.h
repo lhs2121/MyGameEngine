@@ -11,10 +11,20 @@ enum class ShaderType
 	GS
 };
 
+struct IEngineDevice
+{
+	virtual void Init(void* pHwnd, float4 WindowSize) = 0;
+	virtual void ResourceInit(void* pManager) = 0;
+	virtual void Clear() = 0;
+	virtual void Present() = 0;
+	virtual ID3D11Device* GetDevice() = 0;
+	virtual ID3D11DeviceContext* GetContext() = 0;
+};
+
 struct IEngineUnknown
 {
-	virtual void Release() = 0;
-	virtual ~IEngineUnknown() {}
+	virtual void SetDevice() = 0;
+	virtual void SetContext() = 0;
 };
 
 struct IEnginePipeLineRes : public IEngineUnknown
@@ -25,16 +35,6 @@ struct IEnginePipeLineRes : public IEngineUnknown
 struct IEngineShaderResource : public IEngineUnknown
 {
 	virtual void IntoPipeLine(ShaderType _Type,int SlotNum = 0) = 0;
-};
-
-struct IEngineDevice : public IEngineUnknown
-{
-	virtual void Init(void* pHwnd, float4 WindowSize) = 0;
-	virtual void ResourceInit(void* pManager) = 0;
-	virtual void Clear() = 0;
-	virtual void Present() = 0;
-	virtual ID3D11Device* GetDevice() = 0;
-	virtual ID3D11DeviceContext* GetContext() = 0;
 };
 
 struct IEngineVertexBuffer : public IEnginePipeLineRes

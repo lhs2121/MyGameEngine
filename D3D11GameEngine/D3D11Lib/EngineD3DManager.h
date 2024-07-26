@@ -30,14 +30,14 @@ public:
 	void Release() override;
 private:
 	EngineDevice* Device = nullptr;
-	std::map<EngineString, IEngineVertexBuffer*>        VBMap;
-	std::map<EngineString, IEngineIndexBuffer*>         IBMap;
-	std::map<EngineString, IEngineInputLayout*>         IAMap;
-	std::map<EngineString, IEngineVertexShader*>        VSMap;
-	std::map<EngineString, IEnginePixelShader*>         PSMap;
-	std::map<EngineString, IEngineRasterizer*>          RSMap;
-	std::map<EngineString, IEngineDepthStencil*>        DSMap;
-	std::map<EngineString, IEngineTexture*>             TexMap;
-	std::map<EngineString, IEngineSampler*>             SamMap;
-	std::map<EngineString, IEngineConstantBuffer*>      CBMap;
+	EngineHashMap VBMap;
+	EngineHashMap IBMap;
+	EngineHashMap IAMap;
+	EngineHashMap VSMap;
+	EngineHashMap PSMap;
+	EngineHashMap RSMap;
+	EngineHashMap DSMap;
+	EngineHashMap TexMap;
+	EngineHashMap SamMap;
+	EngineHashMap CBMap;
 };

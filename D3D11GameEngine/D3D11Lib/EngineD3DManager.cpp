@@ -105,179 +105,61 @@ IEngineConstantBuffer* EngineD3DManager::CreateConstantBuffer(EngineString _Name
 	IEngineConstantBuffer* NewCB = new EngineConstantBuffer();
 	EngineConstantBuffer* ChildPtr = (EngineConstantBuffer*)NewCB;
 	ChildPtr->DevicePtr = Device;
-	CBMap.insert(std::make_pair(_Name, NewCB));
+	CBMap.Add(_Name, NewCB);
 	return NewCB;
 }
 
 IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(EngineString _Name)
 {
-	if (VBMap.find(_Name) != VBMap.end())
-	{
-		return VBMap[_Name];
-	}
-	return nullptr;;
+	return (IEngineVertexBuffer*)VBMap.Get(_Name.c_str());
 }
 
 IEngineIndexBuffer* EngineD3DManager::FindIndexBuffer(EngineString _Name)
 {
-	if (IBMap.find(_Name) != IBMap.end())
-	{
-		return IBMap[_Name];
-	}
-	return nullptr;
+	return (IEngineIndexBuffer*)IBMap.Get(_Name.c_str());
 }
 
 IEngineInputLayout* EngineD3DManager::FindInputLayout(EngineString _Name)
 {
-	if (IAMap.find(_Name) != IAMap.end())
-	{
-		return IAMap[_Name];
-	}
-	return nullptr;
+	return (IEngineInputLayout*)IAMap.Get(_Name.c_str());
 }
 
 IEngineVertexShader* EngineD3DManager::FindVertexShader(EngineString _Name)
 {
-	if (VSMap.find(_Name) != VSMap.end())
-	{
-		return VSMap[_Name];
-	}
-	return nullptr;
+	return (IEngineVertexShader*)VSMap.Get(_Name.c_str());
 }
 
 IEngineRasterizer* EngineD3DManager::FindRasterizer(EngineString _Name)
 {
-	if (RSMap.find(_Name) != RSMap.end())
-	{
-		return RSMap[_Name];
-	}
-	return nullptr;
+	return (IEngineRasterizer*)RSMap.Get(_Name.c_str());
 }
 
 IEnginePixelShader* EngineD3DManager::FindPixelShader(EngineString _Name)
 {
-	if (PSMap.find(_Name) != PSMap.end())
-	{
-		return PSMap[_Name];
-	}
-	return nullptr;
+	return (IEnginePixelShader*)PSMap.Get(_Name.c_str());
 }
 
 IEngineDepthStencil* EngineD3DManager::FindDepthStencil(EngineString _Name)
 {
-	if (DSMap.find(_Name) != DSMap.end())
-	{
-		return DSMap[_Name];
-	}
-	return nullptr;
+	return (IEngineDepthStencil*)DSMap.Get(_Name.c_str());
 }
 
 IEngineTexture* EngineD3DManager::FindTexture(EngineString _Name)
 {
-	if (TexMap.find(_Name) != TexMap.end())
-	{
-		return TexMap[_Name];
-	}
-	return nullptr;
+	return (IEngineTexture*)TexMap.Get(_Name.c_str());
 }
 
 IEngineSampler* EngineD3DManager::FindSampler(EngineString _Name)
 {
-	if (SamMap.find(_Name) != SamMap.end())
-	{
-		return SamMap[_Name];
-	}
-	return nullptr;
+	return (IEngineSampler*)SamMap.Get(_Name.c_str());
 }
 
 IEngineConstantBuffer* EngineD3DManager::FindConstantBuffer(EngineString _Name)
 {
-	if (CBMap.find(_Name) != CBMap.end())
-	{
-		return CBMap[_Name];
-	}
-	return nullptr;
+	return (IEngineConstantBuffer*)CBMap.Get(_Name.c_str());
 }
 
 void EngineD3DManager::Release()
 {
-	for (auto& pair : VBMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	VBMap.clear();
-
-	for (auto& pair : IBMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	IBMap.clear();
-
-	for (auto& pair : IAMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	IAMap.clear();
-
-	for (auto& pair : VSMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	VSMap.clear();
-
-	for (auto& pair : RSMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	RSMap.clear();
-
-	for (auto& pair : PSMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	PSMap.clear();
-
-	for (auto& pair : DSMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	DSMap.clear();
-
-	for (auto& pair : TexMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	TexMap.clear();
-
-	for (auto& pair : SamMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	SamMap.clear();
-
-	for (auto& pair : CBMap)
-	{
-		pair.second->Release();
-		delete pair.second;
-		pair.second = nullptr;
-	}
-	CBMap.clear();
+	
 }
