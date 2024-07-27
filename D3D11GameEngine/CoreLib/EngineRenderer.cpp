@@ -8,7 +8,7 @@ EngineRenderer::~EngineRenderer()
 {
 	if (TransformBuffer != nullptr)
 	{
-		TransformBuffer->Release();
+		delete TransformBuffer;
 		TransformBuffer = nullptr;
 	}
 }
@@ -26,19 +26,19 @@ void EngineRenderer::Awake()
 		Desc.MiscFlags = 0;
 		Desc.StructureByteStride = 0;
 
-		TransformBuffer = MainD3DManager->CreateConstantBuffer("Transform");
-		TransformBuffer->Setting(Desc, &Transform.WorldViewProjectionMat,sizeof(float4x4));
+		TransformBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, "Transform");
+		TransformBuffer->Setting(Desc, &Transform.WorldViewProjectionMat, sizeof(float4x4));
 	}
 
 
 
-	VB = MainD3DManager->FindVertexBuffer("Box2DTex");
-	IB = MainD3DManager->FindIndexBuffer("Box2D");
-	IA = MainD3DManager->FindInputLayout("PosTexcoord");
-	VS = MainD3DManager->FindVertexShader("TestSpriteShader");
-	PS = MainD3DManager->FindPixelShader("TestSpriteShader");
-	RS = MainD3DManager->FindRasterizer("Default");
-	DS = MainD3DManager->FindDepthStencil("Default");
+	VB = (IEngineVertexBuffer*)MainD3DManager->Find(ResType::VB, "Box2DTex");
+	IB = (IEngineIndexBuffer*)MainD3DManager->Find(ResType::IB, "Box2D");
+	IA = (IEngineInputLayout*)MainD3DManager->Find(ResType::IA, "PosTexcoord");
+	VS = (IEngineVertexShader*)MainD3DManager->Find(ResType::VS, "TestSpriteShader");
+	PS = (IEnginePixelShader*)MainD3DManager->Find(ResType::PS, "TestSpriteShader");
+	RS = (IEngineRasterizer*)MainD3DManager->Find(ResType::RS, "Default");
+	DS = (IEngineDepthStencil*)MainD3DManager->Find(ResType::DS, "Default");
 
 	//SetTexture("Default");
 	SetSampler("Default");
@@ -64,17 +64,17 @@ void EngineRenderer::Render()
 }
 
 
-void EngineRenderer::SetTexture(EngineString _Name)
+void EngineRenderer::SetTexture(const char* _Name)
 {
-	CurTexture = MainD3DManager->FindTexture(_Name);
+	CurTexture = (IEngineTexture*)MainD3DManager->Find(ResType::Texture, _Name);
 	CurTexture->IntoPipeLine(ShaderType::PS);
 
 	float4 ImageScale = CurTexture->GetImageScale();
 	Transform.SetScale(ImageScale);
 }
 
-void EngineRenderer::SetSampler(EngineString _Name)
+void EngineRenderer::SetSampler(const char* _Name)
 {
-	IEngineSampler* Sampler = MainD3DManager->FindSampler(_Name);
+	IEngineSampler* Sampler = (IEngineSampler*)MainD3DManager->Find(ResType::Sampler, _Name);
 	Sampler->IntoPipeLine(ShaderType::PS);
 }

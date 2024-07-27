@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineD3DManager.h"
+#include "EngineDevice.h"
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
 #include "EngineInputLayout.h"
@@ -14,152 +15,127 @@
 
 IEngineDevice* EngineD3DManager::CreateDevice()
 {
-	IEngineDevice* NewDevice = new EngineDevice();
-	Device = (EngineDevice*)NewDevice;
+	EngineDevicePtr = new EngineDevice();
+
+	IEngineDevice* NewDevice = EngineDevicePtr;
 	return NewDevice;
 }
 
-IEngineVertexBuffer* EngineD3DManager::CreateVertexBuffer(EngineString _Name)
+void EngineD3DManager::CleanUp()
 {
-	IEngineVertexBuffer* NewVertexBuffer = new EngineVertexBuffer();
-	EngineVertexBuffer* ChildPtr = (EngineVertexBuffer*)NewVertexBuffer;
-	ChildPtr->SetDevicePtr(Device);
-	VBMap.insert(std::make_pair(_Name, NewVertexBuffer));
-	return NewVertexBuffer;
+	ResourceMap.GoFirst();
+	for (size_t i = 0; i < ResourceMap.Count(); i++)
+	{
+		IEngineUnknown* CurItem = (IEngineUnknown*)ResourceMap.GetCurItem();
+		delete CurItem;
+		ResourceMap.GoNext();
+	}
+
+	if (EngineDevicePtr != nullptr)
+	{
+		delete EngineDevicePtr;
+		EngineDevicePtr = nullptr;
+	}
 }
 
-IEngineIndexBuffer* EngineD3DManager::CreateIndexBuffer(EngineString _Name)
+void* EngineD3DManager::CreateResource(ResType _Type, EngineString _Name)
 {
-	IEngineIndexBuffer* NewIndexBuffer = new EngineIndexBuffer();
-	EngineIndexBuffer* ChildPtr = (EngineIndexBuffer*)NewIndexBuffer;
-	ChildPtr->SetDevicePtr(Device);
-	IBMap.insert(std::make_pair(_Name, NewIndexBuffer));
-	return NewIndexBuffer;
+	IEngineUnknown* NewResource = nullptr;
+	EngineString ResourceName;
+
+	switch (_Type)
+	{
+	case ResType::VB:
+		ResourceName += "VB_";
+		NewResource = new EngineVertexBuffer();
+		break;
+	case ResType::IB:
+		ResourceName += "IB_";
+		NewResource = new EngineIndexBuffer();
+		break;
+	case ResType::CB:
+		ResourceName += "CB_";
+		NewResource = new EngineConstantBuffer();
+		break;
+	case ResType::IA:
+		ResourceName += "IA_";
+		NewResource = new EngineInputLayout();
+		break;
+	case ResType::VS:
+		ResourceName += "VS_";
+		NewResource = new EngineVertexShader();
+		break;
+	case ResType::PS:
+		ResourceName += "PS_";
+		NewResource = new EnginePixelShader();
+		break;
+	case ResType::RS:
+		ResourceName += "RS_";
+		NewResource = new EngineRasterizer();
+		break;
+	case ResType::DS:
+		ResourceName += "DS_";
+		NewResource = new EngineDepthStencil();
+		break;
+	case ResType::Sampler:
+		ResourceName += "Sampler_";
+		NewResource = new EngineSampler();
+		break;
+	case ResType::Texture:
+		ResourceName += "Texture_";
+		NewResource = new EngineTexture();
+		break;
+	default:
+		break;
+	}
+
+	NewResource->SetDevice(EngineDevicePtr->GetDevice());
+	NewResource->SetContext(EngineDevicePtr->GetContext());
+
+	ResourceName += _Name;
+	ResourceMap.Add(ResourceName, NewResource);
+	return NewResource;
 }
 
-IEngineInputLayout* EngineD3DManager::CreateInputLayout(EngineString _Name)
+void* EngineD3DManager::Find(ResType _Type, const char* _Name)
 {
-	IEngineInputLayout* NewInputLayout = new EngineInputLayout();
-	EngineInputLayout* ChildPtr = (EngineInputLayout*)NewInputLayout;
-	ChildPtr->SetDevicePtr(Device);
-	IAMap.insert(std::make_pair(_Name, NewInputLayout));
-	return NewInputLayout;
-}
+	EngineString ResourceName;
 
-IEngineVertexShader* EngineD3DManager::CreateVertexShader(EngineString _Name)
-{
-	IEngineVertexShader* NewVertexShader = new EngineVertexShader();
-	EngineVertexShader* ChildPtr = (EngineVertexShader*)NewVertexShader;
-	ChildPtr->SetDevicePtr(Device);
-	VSMap.insert(std::make_pair(_Name, NewVertexShader));
-	return NewVertexShader;
-}
-
-IEnginePixelShader* EngineD3DManager::CreatePixelShader(EngineString _Name)
-{
-	IEnginePixelShader* NewPixelShader = new EnginePixelShader();
-	EnginePixelShader* ChildPtr = (EnginePixelShader*)NewPixelShader;
-	ChildPtr->SetDevicePtr(Device);
-	PSMap.insert(std::make_pair(_Name, NewPixelShader));
-	return NewPixelShader;
-}
-
-IEngineRasterizer* EngineD3DManager::CreateRasterizer(EngineString _Name)
-{
-	IEngineRasterizer* NewRasterizer = new EngineRasterizer();
-	EngineRasterizer* ChildPtr = (EngineRasterizer*)NewRasterizer;
-	ChildPtr->SetDevicePtr(Device);
-	RSMap.insert(std::make_pair(_Name, NewRasterizer));
-	return NewRasterizer;
-}
-
-IEngineDepthStencil* EngineD3DManager::CreateDepthStencil(EngineString _Name)
-{
-	IEngineDepthStencil* NewDepthStencil = new EngineDepthStencil();
-	EngineDepthStencil* ChildPtr = (EngineDepthStencil*)NewDepthStencil;
-	ChildPtr->SetDevicePtr(Device);
-	DSMap.insert(std::make_pair(_Name, NewDepthStencil));
-	return NewDepthStencil;
-}
-
-IEngineTexture* EngineD3DManager::CreateTexture(EngineString _Name)
-{
-	IEngineTexture* NewTexture = new EngineTexture();
-	EngineTexture* ChildPtr = (EngineTexture*)NewTexture;
-	ChildPtr->SetDevicePtr(Device);
-	TexMap.insert(std::make_pair(_Name, NewTexture));
-	return NewTexture;
-}
-
-IEngineSampler* EngineD3DManager::CreateSampler(EngineString _Name)
-{
-	IEngineSampler* NewSampler = new EngineSampler();
-	EngineSampler* ChildPtr = (EngineSampler*)NewSampler;
-	ChildPtr->DevicePtr = Device;
-	SamMap.insert(std::make_pair(_Name, NewSampler));
-	return NewSampler;
-}
-
-IEngineConstantBuffer* EngineD3DManager::CreateConstantBuffer(EngineString _Name)
-{
-	IEngineConstantBuffer* NewCB = new EngineConstantBuffer();
-	EngineConstantBuffer* ChildPtr = (EngineConstantBuffer*)NewCB;
-	ChildPtr->DevicePtr = Device;
-	CBMap.Add(_Name, NewCB);
-	return NewCB;
-}
-
-IEngineVertexBuffer* EngineD3DManager::FindVertexBuffer(EngineString _Name)
-{
-	return (IEngineVertexBuffer*)VBMap.Get(_Name.c_str());
-}
-
-IEngineIndexBuffer* EngineD3DManager::FindIndexBuffer(EngineString _Name)
-{
-	return (IEngineIndexBuffer*)IBMap.Get(_Name.c_str());
-}
-
-IEngineInputLayout* EngineD3DManager::FindInputLayout(EngineString _Name)
-{
-	return (IEngineInputLayout*)IAMap.Get(_Name.c_str());
-}
-
-IEngineVertexShader* EngineD3DManager::FindVertexShader(EngineString _Name)
-{
-	return (IEngineVertexShader*)VSMap.Get(_Name.c_str());
-}
-
-IEngineRasterizer* EngineD3DManager::FindRasterizer(EngineString _Name)
-{
-	return (IEngineRasterizer*)RSMap.Get(_Name.c_str());
-}
-
-IEnginePixelShader* EngineD3DManager::FindPixelShader(EngineString _Name)
-{
-	return (IEnginePixelShader*)PSMap.Get(_Name.c_str());
-}
-
-IEngineDepthStencil* EngineD3DManager::FindDepthStencil(EngineString _Name)
-{
-	return (IEngineDepthStencil*)DSMap.Get(_Name.c_str());
-}
-
-IEngineTexture* EngineD3DManager::FindTexture(EngineString _Name)
-{
-	return (IEngineTexture*)TexMap.Get(_Name.c_str());
-}
-
-IEngineSampler* EngineD3DManager::FindSampler(EngineString _Name)
-{
-	return (IEngineSampler*)SamMap.Get(_Name.c_str());
-}
-
-IEngineConstantBuffer* EngineD3DManager::FindConstantBuffer(EngineString _Name)
-{
-	return (IEngineConstantBuffer*)CBMap.Get(_Name.c_str());
-}
-
-void EngineD3DManager::Release()
-{
-	
+	switch (_Type)
+	{
+	case ResType::VB:
+		ResourceName += "VB_";
+		break;
+	case ResType::IB:
+		ResourceName += "IB_";
+		break;
+	case ResType::CB:
+		ResourceName += "CB_";
+		break;
+	case ResType::IA:
+		ResourceName += "IA_";
+		break;
+	case ResType::VS:
+		ResourceName += "VS_";
+		break;
+	case ResType::PS:
+		ResourceName += "PS_";
+		break;
+	case ResType::RS:
+		ResourceName += "RS_";
+		break;
+	case ResType::DS:
+		ResourceName += "DS_";
+		break;
+	case ResType::Sampler:
+		ResourceName += "Sampler_";
+		break;
+	case ResType::Texture:
+		ResourceName += "Texture_";
+		break;
+	default:
+		break;
+	}
+	ResourceName += _Name;
+	return ResourceMap.Get(ResourceName.c_str());;
 }

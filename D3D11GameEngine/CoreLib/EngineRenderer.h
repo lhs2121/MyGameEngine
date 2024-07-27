@@ -12,8 +12,8 @@ public:
 
 	virtual void Render();
 
-	void SetTexture(EngineString _Name);
-	void SetSampler(EngineString _Name);
+	void SetTexture(const char* _Name);
+	void SetSampler(const char* _Name);
 
 protected:
 	IEngineVertexBuffer* VB         = nullptr;

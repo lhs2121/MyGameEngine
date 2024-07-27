@@ -1,10 +1,10 @@
 #pragma once
-
+#include "EngineString.h"
 
 struct HashNode
 {
 	HashNode* NextPtr = nullptr;
-	const char* Key = nullptr;
+	EngineString Key;
 	void* ItemPtr = nullptr;
 };
 

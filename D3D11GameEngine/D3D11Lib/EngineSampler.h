@@ -3,23 +3,19 @@
 
 class EngineSampler : public IEngineSampler
 {
-	friend class EngineD3DManager;
 public:
-	// constrcuter destructer
 	EngineSampler();
 	~EngineSampler();
-
-	// delete Function
-	EngineSampler(const EngineSampler& _Other) = delete;
-	EngineSampler(EngineSampler&& _Other) noexcept = delete;
-	EngineSampler& operator=(const EngineSampler& _Other) = delete;
-	EngineSampler& operator=(EngineSampler&& _Other) noexcept = delete;
-
-    ID3D11SamplerState* GetState() override;
+	
 	void Setting(D3D11_SAMPLER_DESC* DescPtr) override;
-	void Release() override;
 	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
+    ID3D11SamplerState* GetState() override;
+
 private:
-	EngineDevice* DevicePtr;
+	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
+
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	ID3D11SamplerState* StatePtr;
 };

@@ -4,25 +4,18 @@
 class EngineInputLayout : public IEngineInputLayout
 {
 public:
-	// constrcuter destructer
 	EngineInputLayout();
 	~EngineInputLayout();
 
-	// delete Function
-	EngineInputLayout(const EngineInputLayout& _Other) = delete;
-	EngineInputLayout(EngineInputLayout&& _Other) noexcept = delete;
-	EngineInputLayout& operator=(const EngineInputLayout& _Other) = delete;
-	EngineInputLayout& operator=(EngineInputLayout&& _Other) noexcept = delete;
-
-	void Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength) override;
-	void Release() override;
+	void Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, IEngineVertexShader* _VSPtr) override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(EngineDevice* _DevicePtr)
-	{
-		DevicePtr = _DevicePtr;
-	}
 
-	EngineDevice* DevicePtr;
+private:
+	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
+
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	D3D11_INPUT_ELEMENT_DESC* Desc;
 	ID3D11InputLayout* LayoutPtr;
 };

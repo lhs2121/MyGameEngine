@@ -1,23 +1,12 @@
 #include "Pre.h"
 #include "EngineInputLayout.h"
-
+#include "EngineVertexShader.h"
 
 EngineInputLayout::EngineInputLayout()
 {
-	
 }
 
 EngineInputLayout::~EngineInputLayout()
-{
-}
-
-void EngineInputLayout::Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength)
-{
-	Desc = _Desc;
-	HRESULT Result = DevicePtr->GetDevice()->CreateInputLayout(Desc, _ElementNum, ShaderBytecode, BytecodeLength, &LayoutPtr);
-}
-
-void EngineInputLayout::Release()
 {
 	if (LayoutPtr != nullptr)
 	{
@@ -26,9 +15,16 @@ void EngineInputLayout::Release()
 	}
 }
 
+void EngineInputLayout::Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, IEngineVertexShader* _VSPtr)
+{
+	Desc = _Desc;
+	EngineVertexShader* VSPtr = (EngineVertexShader*)_VSPtr;
+	HRESULT Result = DevicePtr->CreateInputLayout(Desc, _ElementNum, VSPtr->GetShaderByteCode(), VSPtr->GetShaderByteLength(), &LayoutPtr);
+}
+
 void EngineInputLayout::IntoPipeLine()
 {
-	DevicePtr->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	DevicePtr->GetContext()->IASetInputLayout(LayoutPtr);
+	ContextPtr->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	ContextPtr->IASetInputLayout(LayoutPtr);
 }
 

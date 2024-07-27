@@ -4,30 +4,19 @@
 class EngineDepthStencil : public IEngineDepthStencil
 {
 public:
-	// constrcuter destructer
 	EngineDepthStencil();
 	~EngineDepthStencil();
 
-	// delete Function
-	EngineDepthStencil(const EngineDepthStencil& _Other) = delete;
-	EngineDepthStencil(EngineDepthStencil&& _Other) noexcept = delete;
-	EngineDepthStencil& operator=(const EngineDepthStencil& _Other) = delete;
-	EngineDepthStencil& operator=(EngineDepthStencil&& _Other) noexcept = delete;
-
-
 	void Setting(D3D11_DEPTH_STENCIL_DESC _Desc) override;
-	void Release() override;
 	void IntoPipeLine();
-	void SetDevicePtr(EngineDevice* _DevicePtr)
-	{
-		DevicePtr = _DevicePtr;
-	}
-	ID3D11DepthStencilState* GetResource() const
-	{
-		return DepthStencil;
-	};
+	ID3D11DepthStencilState* GetResource() const { return DepthStencil; }
 
-	EngineDevice* DevicePtr;
+private:
+	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
+
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	D3D11_DEPTH_STENCIL_DESC Desc;
 	ID3D11DepthStencilState* DepthStencil;
 };

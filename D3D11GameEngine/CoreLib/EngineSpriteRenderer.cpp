@@ -6,7 +6,7 @@ EngineSpriteRenderer::~EngineSpriteRenderer()
 {
 	if (SpriteDataBuffer != nullptr)
 	{
-		SpriteDataBuffer->Release();
+		delete SpriteDataBuffer;
 		SpriteDataBuffer = nullptr;
 	}
 
@@ -108,7 +108,7 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 		Desc.MiscFlags = 0;
 		Desc.StructureByteStride = 0;
 
-		SpriteDataBuffer = MainD3DManager->CreateConstantBuffer("SpriteData");
+		SpriteDataBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, "SpriteData");
 		SpriteDataBuffer->Setting(Desc, &CurSpriteData, sizeof(SpriteData));
 	}
 }

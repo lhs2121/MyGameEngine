@@ -1,6 +1,22 @@
 #pragma once
 #include <common\declspec.h>
 #include <d3d11.h>
+struct IEngineD3DManager;
+
+enum class ResType
+{
+	VB,
+	IB,
+	CB,
+	IA,
+	VS,
+	PS,
+	RS,
+	DS,
+	Sampler,
+	Texture,
+};
+
 enum class ShaderType
 {
 	VS,
@@ -14,7 +30,7 @@ enum class ShaderType
 struct IEngineDevice
 {
 	virtual void Init(void* pHwnd, float4 WindowSize) = 0;
-	virtual void ResourceInit(void* pManager) = 0;
+	virtual void ResourceInit(IEngineD3DManager* pManager) = 0;
 	virtual void Clear() = 0;
 	virtual void Present() = 0;
 	virtual ID3D11Device* GetDevice() = 0;
@@ -23,8 +39,9 @@ struct IEngineDevice
 
 struct IEngineUnknown
 {
-	virtual void SetDevice() = 0;
-	virtual void SetContext() = 0;
+	virtual ~IEngineUnknown() {};
+	virtual void SetDevice(ID3D11Device* _DevicePtr) = 0;
+	virtual void SetContext(ID3D11DeviceContext* _ContextPtr) = 0;
 };
 
 struct IEnginePipeLineRes : public IEngineUnknown
@@ -48,9 +65,10 @@ struct IEngineIndexBuffer : public IEnginePipeLineRes
 	virtual UINT GetIndexCount() = 0;
 };
 
+struct IEngineVertexShader;
 struct IEngineInputLayout : public IEnginePipeLineRes
 {
-	virtual void Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, void* ShaderBytecode, SIZE_T BytecodeLength) = 0;
+	virtual void Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, IEngineVertexShader* _VSPtr) = 0;
 };
 
 struct IEngineVertexShader : public IEnginePipeLineRes
@@ -91,30 +109,11 @@ struct IEngineConstantBuffer : public IEngineShaderResource
 	virtual void Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _DataSize) = 0;
 };
 
-struct IEngineD3DManager : public IEngineUnknown
+struct IEngineD3DManager 
 {
-	virtual IEngineDevice*           CreateDevice          ()                   = 0;
-	virtual IEngineVertexBuffer*     CreateVertexBuffer    (EngineString _Name) = 0;
-	virtual IEngineIndexBuffer*      CreateIndexBuffer     (EngineString _Name) = 0;
-	virtual IEngineInputLayout*      CreateInputLayout     (EngineString _Name) = 0;
-	virtual IEngineVertexShader*     CreateVertexShader    (EngineString _Name) = 0;
-	virtual IEnginePixelShader*      CreatePixelShader     (EngineString _Name) = 0;
-	virtual IEngineRasterizer*       CreateRasterizer      (EngineString _Name) = 0;
-	virtual IEngineDepthStencil*     CreateDepthStencil    (EngineString _Name) = 0;
-	virtual IEngineTexture*          CreateTexture         (EngineString _Name) = 0;
-	virtual IEngineSampler*          CreateSampler         (EngineString _Name) = 0;
-	virtual IEngineConstantBuffer*   CreateConstantBuffer  (EngineString _Name) = 0;
-								     
-	virtual IEngineVertexBuffer*     FindVertexBuffer      (EngineString _Name) = 0;
-	virtual IEngineIndexBuffer*      FindIndexBuffer       (EngineString _Name) = 0;
-	virtual IEngineInputLayout*      FindInputLayout       (EngineString _Name) = 0;
-	virtual IEngineVertexShader*     FindVertexShader      (EngineString _Name) = 0;
-	virtual IEngineRasterizer*       FindRasterizer        (EngineString _Name) = 0;
-	virtual IEnginePixelShader*      FindPixelShader       (EngineString _Name) = 0;
-	virtual IEngineDepthStencil*     FindDepthStencil      (EngineString _Name) = 0;
-	virtual IEngineTexture*          FindTexture           (EngineString _Name) = 0;
-	virtual IEngineSampler*          FindSampler           (EngineString _Name) = 0;
-	virtual IEngineConstantBuffer*   FindConstantBuffer    (EngineString _Name) = 0;
+	virtual IEngineDevice*  CreateDevice() = 0;
+	virtual void*           CreateResource(ResType _Type, EngineString _Name) = 0;
+	virtual void*           Find(ResType _Type, const char* _Name) = 0;
 };
 
 extern "C" D3D11API void CreateEngineD3DManager(IEngineD3DManager** ppEngineManager);

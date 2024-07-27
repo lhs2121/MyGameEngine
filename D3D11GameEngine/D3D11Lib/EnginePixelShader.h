@@ -4,25 +4,18 @@
 class EnginePixelShader : public IEnginePixelShader
 {
 public:
-	// constrcuter destructer
 	EnginePixelShader();
 	~EnginePixelShader();
 
-	// delete Function
-	EnginePixelShader(const EnginePixelShader& _Other) = delete;
-	EnginePixelShader(EnginePixelShader&& _Other) noexcept = delete;
-	EnginePixelShader& operator=(const EnginePixelShader& _Other) = delete;
-	EnginePixelShader& operator=(EnginePixelShader&& _Other) noexcept = delete;
-
 	void Setting(EngineString _Name, EngineString _Path) override;
-	void Release() override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(EngineDevice* _DevicePtr)
-	{
-		DevicePtr = _DevicePtr;
-	}
 
-	EngineDevice* DevicePtr;
+private:
+	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
+
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	ID3DBlob* ShaderBlob = nullptr;
 	ID3D11PixelShader* ShaderPtr = nullptr;
 };

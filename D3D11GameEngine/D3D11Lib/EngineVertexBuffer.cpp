@@ -7,6 +7,11 @@ EngineVertexBuffer::EngineVertexBuffer()
 
 EngineVertexBuffer::~EngineVertexBuffer()
 {
+	if (BufferPtr != nullptr)
+	{
+		BufferPtr->Release();
+		BufferPtr = nullptr;
+	}
 }
 
 void EngineVertexBuffer::Setting(void* pVertices, int VertexFormatSize, int VertexSize)
@@ -28,20 +33,11 @@ void EngineVertexBuffer::Setting(void* pVertices, int VertexFormatSize, int Vert
 	Strides = VertexFormatSize;
 	Offsets = 0;
 
-	HRESULT Result = DevicePtr->GetDevice()->CreateBuffer(&Desc, &Data, &BufferPtr);
-}
-
-void EngineVertexBuffer::Release()
-{
-	if (BufferPtr != nullptr)
-	{
-		BufferPtr->Release();
-		BufferPtr = nullptr;
-	}
+	HRESULT Result = DevicePtr->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 
 void EngineVertexBuffer::IntoPipeLine()
 {
-	DevicePtr->GetContext()->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
+	ContextPtr->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
 }
 

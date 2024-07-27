@@ -9,6 +9,8 @@ void CreateEngineD3DManager(IEngineD3DManager** ppEngineManager)
 
 void DeleteEngineD3DManager(IEngineD3DManager* pEngineManager)
 {
-	delete dynamic_cast<EngineD3DManager*>(pEngineManager);
+	EngineD3DManager* castPtr = (EngineD3DManager*)pEngineManager;
+	castPtr->CleanUp();
+	delete castPtr;
 }
 	

@@ -8,6 +8,8 @@ EngineTexture::EngineTexture()
 
 EngineTexture::~EngineTexture()
 {
+	SRV->Release();
+	ScratchImage.Release();
 }
 
 void EngineTexture::Setting(EngineFile& _File)
@@ -36,19 +38,13 @@ void EngineTexture::Setting(EngineFile& _File)
 		return;
 	}
 
-	DirectX::CreateShaderResourceView(DevicePtr->GetDevice(), ScratchImage.GetImages(), ScratchImage.GetImageCount(), MetaData, &SRV); 
+	DirectX::CreateShaderResourceView(DevicePtr, ScratchImage.GetImages(), ScratchImage.GetImageCount(), MetaData, &SRV); 
 
 	if (UniPath != nullptr)
 	{
 		delete[] UniPath;
 		UniPath = nullptr;
 	}
-}
-
-void EngineTexture::Release()
-{
-	SRV->Release();
-	ScratchImage.Release();
 }
 
 ID3D11ShaderResourceView* EngineTexture::GetSRV()
@@ -67,10 +63,10 @@ void EngineTexture::IntoPipeLine(ShaderType _Type, int SlotNum)
 	switch (_Type)
 	{
 	case ShaderType::VS:
-		DevicePtr->GetContext()->VSSetShaderResources(SlotNum, 1, &SRV);
+		ContextPtr->VSSetShaderResources(SlotNum, 1, &SRV);
 		break;
 	case ShaderType::PS:
-		DevicePtr->GetContext()->PSSetShaderResources(SlotNum, 1, &SRV);
+		ContextPtr->PSSetShaderResources(SlotNum, 1, &SRV);
 		break;
 	case ShaderType::CS:
 		break;

@@ -4,31 +4,23 @@
 class EngineIndexBuffer : public IEngineIndexBuffer
 {
 public:
-	// constrcuter destructer
 	EngineIndexBuffer();
 	~EngineIndexBuffer();
 
-	// delete Function
-	EngineIndexBuffer(const EngineIndexBuffer& _Other) = delete;
-	EngineIndexBuffer(EngineIndexBuffer&& _Other) noexcept = delete;
-	EngineIndexBuffer& operator=(const EngineIndexBuffer& _Other) = delete;
-	EngineIndexBuffer& operator=(EngineIndexBuffer&& _Other) noexcept = delete;
-
 	void Setting(UINT* Indices, int IndexSize) override;
-	void Release() override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(EngineDevice* _DevicePtr)
-	{
-		DevicePtr = _DevicePtr;
-	}
-	UINT GetIndexCount() override 
-	{
-		return IndexCount;
-	};
+	UINT GetIndexCount() override { return IndexCount; };
 
-	EngineDevice* DevicePtr;
-	ID3D11Buffer* BufferPtr;
-	UINT IndexCount;
-	UINT Strides;
-	UINT Offsets;
+private:
+	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
+
+	ID3D11Device*        DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
+
+	ID3D11Buffer*        BufferPtr;
+
+	UINT                 IndexCount;
+	UINT                 Strides;
+	UINT                 Offsets;
 };

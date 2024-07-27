@@ -9,7 +9,8 @@ void TestActor::Awake()
 
 	std::vector<EngineFile> ImageFile = dir.GetAllFileExt(".png");
 
-	MainD3DManager->CreateTexture("Stand_000")->Setting(ImageFile[0]);
+	IEngineTexture* tex = (IEngineTexture*)MainD3DManager->CreateResource(ResType::Texture, "Stand_000"); 
+	tex->Setting(ImageFile[0]);
 
 	Renderer = (EngineSpriteRenderer*)CreateComponent(new EngineSpriteRenderer());
 	Renderer->SetTexture("Stand_000");

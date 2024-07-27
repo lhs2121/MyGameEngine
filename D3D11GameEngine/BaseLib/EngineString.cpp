@@ -132,7 +132,6 @@ bool EngineString::operator==(EngineString& OtherString)
 	}
 
 	return false;
-	
 }
 
 bool EngineString::operator==(const char* OtherString)
@@ -143,10 +142,8 @@ bool EngineString::operator==(const char* OtherString)
 	{
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }
 
 bool EngineString::operator!=(EngineString& OtherString)
@@ -157,24 +154,36 @@ bool EngineString::operator!=(EngineString& OtherString)
 	{
 		return false;
 	}
-	else
-	{
-		return true;
-	}
+
+	return true;
 }
 
 bool EngineString::operator!=(const char* OtherString)
 {
 	int ByteSize = EngineString::GetByte(String);
+
+	if (String == 0 && OtherString == 0)
+	{
+		return false;
+	}
+
+	if (String != 0 && OtherString == 0)
+	{
+		return true;
+	}
+
+	if (String == 0 && OtherString != 0)
+	{
+		return true;
+	}
+
 	int Result = strncmp(String, OtherString, ByteSize);
 	if (Result == 0)
 	{
 		return false;
 	}
-	else
-	{
-		return true;
-	}
+
+	return true;
 }
 
 void EngineString::GetUTF8(wchar_t** WideString)
@@ -186,6 +195,11 @@ void EngineString::GetUTF8(wchar_t** WideString)
 
 int EngineString::GetByte(const char* OtherString)
 {
+	if (OtherString == nullptr)
+	{
+		return 0;
+	}
+
 	return (int)strlen(OtherString) + 1;
 }
 

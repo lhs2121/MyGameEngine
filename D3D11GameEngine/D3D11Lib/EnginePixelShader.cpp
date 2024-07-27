@@ -7,6 +7,17 @@ EnginePixelShader::EnginePixelShader()
 
 EnginePixelShader::~EnginePixelShader()
 {
+	if (ShaderBlob != nullptr)
+	{
+		ShaderBlob->Release();
+		ShaderBlob = nullptr;
+	}
+
+	if (ShaderPtr != nullptr)
+	{
+		ShaderPtr->Release();
+		ShaderPtr = nullptr;
+	}
 }
 
 void EnginePixelShader::Setting(EngineString _Name, EngineString _Path)
@@ -41,7 +52,7 @@ void EnginePixelShader::Setting(EngineString _Name, EngineString _Path)
 		}
 	}
 
-	DevicePtr->GetDevice()->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
+	DevicePtr->CreatePixelShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
 
 	if (UTF8Path != nullptr)
 	{
@@ -50,23 +61,8 @@ void EnginePixelShader::Setting(EngineString _Name, EngineString _Path)
 	}
 }
 
-void EnginePixelShader::Release()
-{
-	if (ShaderBlob != nullptr)
-	{
-		ShaderBlob->Release();
-		ShaderBlob = nullptr;
-	}
-
-	if (ShaderPtr != nullptr)
-	{
-		ShaderPtr->Release();
-		ShaderPtr = nullptr;
-	}
-}
-
 void EnginePixelShader::IntoPipeLine()
 {
-	DevicePtr->GetContext()->PSSetShader(ShaderPtr, nullptr, 0);
+	ContextPtr->PSSetShader(ShaderPtr, nullptr, 0);
 }
 

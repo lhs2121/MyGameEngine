@@ -4,28 +4,20 @@
 class EngineTexture : public IEngineTexture
 {
 public:
-	// constrcuter destructer
 	EngineTexture();
 	~EngineTexture();
 
-	// delete Function
-	EngineTexture(const EngineTexture& _Other) = delete;
-	EngineTexture(EngineTexture&& _Other) noexcept = delete;
-	EngineTexture& operator=(const EngineTexture& _Other) = delete;
-	EngineTexture& operator=(EngineTexture&& _Other) noexcept = delete;
-
 	void Setting(EngineFile& _File) override;
-	void SetDevicePtr(EngineDevice* _DevicePtr)
-	{
-		DevicePtr = _DevicePtr;
-	}
-	void Release() override;
-	ID3D11ShaderResourceView* GetSRV() override;
-	float4 GetImageScale() override;
-
 	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
+
+	float4 GetImageScale() override;
+	ID3D11ShaderResourceView* GetSRV() override;
 private:
-	EngineDevice* DevicePtr;
+	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
+
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	ID3D11ShaderResourceView* SRV;
 	DirectX::ScratchImage ScratchImage;
 	DirectX::TexMetadata MetaData;

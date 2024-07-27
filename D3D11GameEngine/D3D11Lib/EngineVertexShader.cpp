@@ -7,6 +7,17 @@ EngineVertexShader::EngineVertexShader()
 
 EngineVertexShader::~EngineVertexShader()
 {
+	if (BlobPtr != nullptr)
+	{
+		BlobPtr->Release();
+		BlobPtr = nullptr;
+	}
+
+	if (ShaderPtr != nullptr)
+	{
+		ShaderPtr->Release();
+		ShaderPtr = nullptr;
+	}
 }
 
 void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
@@ -31,7 +42,7 @@ void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
 
 
 	HRESULT Result = D3DCompileFromFile(UTF8Path,
-		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "vs_5_0", Flag, 0, &ShaderBlob, &ErrorBlob);
+		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, MainFuncName.c_str(), "vs_5_0", Flag, 0, &BlobPtr, &ErrorBlob);
 
 	if (FAILED(Result))
 	{
@@ -42,7 +53,7 @@ void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
 		}
 	}
 
-	HRESULT R = DevicePtr->GetDevice()->CreateVertexShader(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), nullptr, &ShaderPtr);
+	HRESULT R = DevicePtr->CreateVertexShader(BlobPtr->GetBufferPointer(), BlobPtr->GetBufferSize(), nullptr, &ShaderPtr);
 
 	if (UTF8Path != nullptr)
 	{
@@ -51,33 +62,18 @@ void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
 	}
 }
 
-void EngineVertexShader::Release()
-{
-	if (ShaderBlob != nullptr)
-	{
-		ShaderBlob->Release();
-		ShaderBlob = nullptr;
-	}
-
-	if (ShaderPtr != nullptr)
-	{
-		ShaderPtr->Release();
-		ShaderPtr = nullptr;
-	}
-}
-
 void EngineVertexShader::IntoPipeLine()
 {
-	DevicePtr->GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
+	ContextPtr->VSSetShader(ShaderPtr, nullptr, 0);
 }
 
 void* EngineVertexShader::GetShaderByteCode()
 {
-	return ShaderBlob->GetBufferPointer();
+	return BlobPtr->GetBufferPointer();
 }
 
 SIZE_T EngineVertexShader::GetShaderByteLength()
 {
-	return ShaderBlob->GetBufferSize();
+	return BlobPtr->GetBufferSize();
 }
 

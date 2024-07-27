@@ -85,33 +85,14 @@ void EngineCore::EngineRelease()
 {
 	MainCore->DeleteAllLevel();
 
-	if (MainInput != nullptr)
-	{
-	    MainInput->DeleteAllKey();
-		delete MainInput;
-		MainInput = nullptr;
-	}
-
-	if (MainD3DManager != nullptr)
-	{
-        MainD3DManager->Release();
-		delete MainD3DManager;
-		MainD3DManager = nullptr;
-	}
-
-	if (MainDevice != nullptr)
-	{
-        MainDevice->Release();
-		delete MainDevice;
-		MainDevice = nullptr;
-	}
-
 	if (MainTime != nullptr)
 	{
 		delete MainTime;
 		MainTime = nullptr;
 	}
 
+	DeleteEngineInput(MainInput);
+	DeleteEngineD3DManager(MainD3DManager);
     DeleteEngineWindow(MainWindow);
 }
 

@@ -6,6 +6,5 @@
 #include <common\commonPre.h>
 #include <common\declspec.h>
 #include <BaseLib\BaseAPI.h>
-#include "EngineDevice.h"
 
 

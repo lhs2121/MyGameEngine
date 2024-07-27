@@ -9,6 +9,11 @@ EngineIndexBuffer::EngineIndexBuffer()
 
 EngineIndexBuffer::~EngineIndexBuffer()
 {
+	if (BufferPtr != nullptr)
+	{
+		BufferPtr->Release();
+		BufferPtr = nullptr;
+	}
 }
 
 void EngineIndexBuffer::Setting(UINT* Indices, int IndexSize)
@@ -30,20 +35,11 @@ void EngineIndexBuffer::Setting(UINT* Indices, int IndexSize)
 	Offsets = 0;
 
 	IndexCount = IndexSize / sizeof(UINT);
-	HRESULT Result = DevicePtr->GetDevice()->CreateBuffer(&Desc, &Data, &BufferPtr);
-}
-
-void EngineIndexBuffer::Release()
-{
-	if (BufferPtr != nullptr)
-	{
-		BufferPtr->Release();
-		BufferPtr = nullptr;
-	}
+	HRESULT Result = DevicePtr->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 
 void EngineIndexBuffer::IntoPipeLine()
 {
-	DevicePtr->GetContext()->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
+	ContextPtr->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
 }
 

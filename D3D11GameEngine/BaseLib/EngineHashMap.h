@@ -2,17 +2,25 @@
 
 struct HashNode;
 struct IntHashNode;
+class EngineString;
 class BaseAPI EngineHashMap
 {
 public:
-	bool      Add(const char* _Key, void* ItemPtr);
+	bool      Add(EngineString _Key, void* ItemPtr);
 	void*     Get(const char* _Key);
+	int       Count();
+	void      GoFirst();
+	void      GoNext();
+	void*     GetCurItem();
 
 private:
 	int       Hash(const char* _Key) const;
 
+	HashNode* Header = nullptr;
+	HashNode* End = nullptr;
 	HashNode* Array = nullptr;
-	int       ArraySize = 127;
+	int       ArraySize = 197;
+	int       ElementCount = 0;
 };
 
 class BaseAPI EngineIntHashMap

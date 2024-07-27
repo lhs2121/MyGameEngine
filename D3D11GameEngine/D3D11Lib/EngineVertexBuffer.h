@@ -4,25 +4,18 @@
 class EngineVertexBuffer : public IEngineVertexBuffer
 {
 public:
-	// constrcuter destructer
 	EngineVertexBuffer();
 	~EngineVertexBuffer();
 
-	// delete Function
-	EngineVertexBuffer(const EngineVertexBuffer& _Other) = delete;
-	EngineVertexBuffer(EngineVertexBuffer&& _Other) noexcept = delete;
-	EngineVertexBuffer& operator=(const EngineVertexBuffer& _Other) = delete;
-	EngineVertexBuffer& operator=(EngineVertexBuffer&& _Other) noexcept = delete;
-
 	void Setting(void* pVertices, int VertexFormatSize, int VertexSize) override;
-	void Release() override;
 	void IntoPipeLine() override;
-	void SetDevicePtr(EngineDevice* _DevicePtr)
-	{
-		DevicePtr = _DevicePtr;
-	}
 
-	EngineDevice* DevicePtr;
+private:
+	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
+
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	ID3D11Buffer* BufferPtr;
 	UINT Strides;
 	UINT Offsets;

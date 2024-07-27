@@ -1,16 +1,20 @@
 #include "Pre.h"
 #include "HashNode.h"
 #include "EngineHashMap.h"
+#include "EngineString.h"
 #include <string>
 
-bool EngineHashMap::Add(const char* _Key, void* ItemPtr)
+bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 {
+	ElementCount++;
+
 	if (Array == nullptr)
 	{
 		Array = new HashNode[ArraySize];
+		End = &Array[ArraySize - 1];
 	}
 
-	int Index = Hash(_Key);
+	int Index = Hash(_Key.c_str());
 
 	HashNode* CurNode = &Array[Index];
 
@@ -23,7 +27,7 @@ bool EngineHashMap::Add(const char* _Key, void* ItemPtr)
 
 	while (true)
 	{
-		if (strcmp(CurNode->Key, _Key) == 0)
+		if (CurNode->Key == _Key)
 		{
 			return false;	
 		}
@@ -49,7 +53,7 @@ void* EngineHashMap::Get(const char* _Key)
 	HashNode* CurNode = &Array[Index];
 	while (true)
 	{
-		if (strcmp(CurNode->Key, _Key) == 0)
+		if (CurNode->Key == _Key)
 		{
 			break;
 		}
@@ -60,16 +64,64 @@ void* EngineHashMap::Get(const char* _Key)
 	return CurNode->ItemPtr;
 }
 
+int EngineHashMap::Count()
+{
+	return ElementCount;
+}
+
+void EngineHashMap::GoFirst()
+{
+	for (size_t i = 0; i < ArraySize; i++)
+	{
+		if (Array[i].Key != 0)
+		{
+			Header = &Array[i];
+			break;
+		}
+	}
+}
+
+void EngineHashMap::GoNext()
+{
+	if (Header->NextPtr != nullptr)
+	{
+		Header = Header->NextPtr;
+		return;
+	}
+
+	while (true)
+	{
+		if (Header == End)
+		{
+			return;
+		}
+
+		Header++;
+
+		if (Header->Key != nullptr)
+		{
+			break;
+		}
+	}
+}
+
+void* EngineHashMap::GetCurItem()
+{
+	return Header->ItemPtr;
+}
+
 int EngineHashMap::Hash(const char* _Key) const
 {
-	int IntKey = 0;
-	char* c = (char*)_Key;
-	while (*c != '\0')
+	unsigned long hash = 5381;
+	int c = 0;
+	int i = 0;
+	while (_Key[i] != '\0')
 	{
-		IntKey += (int)*c;
-		c++;
+		c = _Key[i];
+		hash = (((hash << 5) + hash) + c) % ArraySize;
+		i++;
 	}
-	int Index = IntKey % ArraySize;
+	int Index = hash % ArraySize;
 
 	return Index;
 }
