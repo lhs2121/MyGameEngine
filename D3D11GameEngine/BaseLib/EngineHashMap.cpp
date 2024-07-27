@@ -131,8 +131,7 @@ bool EngineIntHashMap::Add(int _Key, void* ItemPtr)
 	if (Array == nullptr)
 	{
 		Array = new IntHashNode[ArraySize];
-		IntHashNode* Node = &Array[90];
-		int a = 0;
+		End = &Array[ArraySize - 1];
 	}
 
 	int Index = Hash(_Key);
@@ -214,6 +213,11 @@ void EngineIntHashMap::GoNext()
 
 	while (true)
 	{
+		if (Header == End)
+		{
+			return;
+		}
+
 		Header++;
 
 		if (Header->Key != -1)

@@ -2,7 +2,7 @@
 #include "Singleton.h"
 
 EngineCore* MainCore = nullptr;
-EngineTime* MainTime = nullptr;
+IEngineTime* MainTime = nullptr;
 IEngineWindow* MainWindow = nullptr;
 IEngineInput* MainInput = nullptr;
 IEngineDevice* MainDevice = nullptr;

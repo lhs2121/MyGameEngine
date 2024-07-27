@@ -49,11 +49,11 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
 	Starter = _Starter;
 	Starter->GameStart();
 
-	MainTime = new EngineTime();
+	CreateEngineTime(&MainTime);
     MainTime->Init();
     
     CreateEngineInput(&MainInput);
-    MainInput->InitAllKey();
+    MainInput->Init();
 
     MainTime->CountStart();
 
@@ -84,13 +84,7 @@ void EngineCore::EngineUpdate()
 void EngineCore::EngineRelease()
 {
 	MainCore->DeleteAllLevel();
-
-	if (MainTime != nullptr)
-	{
-		delete MainTime;
-		MainTime = nullptr;
-	}
-
+	DeleteEngineTime(MainTime);
 	DeleteEngineInput(MainInput);
 	DeleteEngineD3DManager(MainD3DManager);
     DeleteEngineWindow(MainWindow);

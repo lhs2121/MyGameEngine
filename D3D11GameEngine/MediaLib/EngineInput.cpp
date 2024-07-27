@@ -1,17 +1,23 @@
 #include "Pre.h"
 #include "EngineInput.h"
 
-EngineIntHashMap EngineInput::AllKey;
-
 EngineInput::EngineInput()
 {
 }
 
 EngineInput::~EngineInput()
 {
+	AllKey.GoFirst();
+	for (size_t i = 0; i < AllKey.Count(); i++)
+	{
+		EngineKey* CurKey = (EngineKey*)AllKey.GetCurItem();
+		delete CurKey;
+
+		AllKey.GoNext();
+	}
 }
 
-void EngineInput::InitAllKey()
+void EngineInput::Init()
 {
 	CreateKey(VK_LBUTTON);
 	CreateKey(VK_RBUTTON);
@@ -145,15 +151,6 @@ void EngineInput::CreateKey(int KeyCode)
 	EngineKey* NewKey = new EngineKey();
 	NewKey->KeyCode = KeyCode;
 	AllKey.Add(KeyCode, NewKey);
-}
-
-void EngineInput::DeleteAllKey()
-{
-	/*for (std::pair<int, EngineKey*> pair : AllKey)
-	{                     
-		delete pair.second;
-	}
-	AllKey.clear();*/
 }
 
 void EngineInput::SetAllKeyState()

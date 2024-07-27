@@ -7,9 +7,7 @@ struct IEngineInput
 {
 	virtual void CreateKey(int KeyCode) = 0;
 
-	virtual void InitAllKey() = 0;
-	virtual void DeleteAllKey() = 0;
-
+	virtual void Init() = 0;
 	virtual void SetAllKeyState() = 0;
 
 	virtual bool IsDown(int KeyCode) = 0;

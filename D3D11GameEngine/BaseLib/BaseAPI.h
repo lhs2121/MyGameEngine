@@ -4,7 +4,6 @@
 #include <common/declspec.h>
 #include "EngineString.h"
 #include "EngineMath.h"
-#include "EngineTime.h"
 #include "EngineDebug.h"
 #include "EngineDirectory.h"
 #include "EngineFile.h"
@@ -19,5 +18,15 @@ struct IEngineStaticPool
 	virtual void  FreeBlock(void* Ptr) = 0;
 };
 
+struct IEngineTime
+{
+	virtual void  Init() = 0;
+	virtual void  CountStart() = 0;
+	virtual float CountEnd() = 0;
+};
+
 extern "C" BaseAPI void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool);
 extern "C" BaseAPI void DeleteEngineStaticPool(IEngineStaticPool* pIEngineStaticPool);
+
+extern "C" BaseAPI void CreateEngineTime(IEngineTime** IEngineTime);
+extern "C" BaseAPI void DeleteEngineTime(IEngineTime* IEngineTime);

@@ -37,6 +37,7 @@ private:
 	int       Hash(int _Key) const;
 
 	IntHashNode* Header = nullptr;
+	IntHashNode* End = nullptr;
 	IntHashNode* Array = nullptr;
 	int       ArraySize = 197;
 	int       ElementCount = 0;

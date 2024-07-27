@@ -1,13 +1,13 @@
 #pragma once
-
+#include "BaseAPI.h"
 #include <Windows.h>
 
-class BaseAPI EngineTime
+class EngineTime : public IEngineTime
 {
 public:
-	void Init();
-	void CountStart();
-	float CountEnd();
+	void  Init() override;
+	void  CountStart() override;
+	float CountEnd() override;
 
 protected:
 	LARGE_INTEGER Frequency;
