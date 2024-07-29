@@ -61,7 +61,7 @@ void EnginePixelShader::Setting(EngineString _Name, EngineString _Path)
 	}
 }
 
-void EnginePixelShader::IntoPipeLine()
+void EnginePixelShader::IntoPipeline()
 {
 	ContextPtr->PSSetShader(ShaderPtr, nullptr, 0);
 }

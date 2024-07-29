@@ -58,7 +58,7 @@ float4 EngineTexture::GetImageScale()
 	return Scale;
 }
 
-void EngineTexture::IntoPipeLine(ShaderType _Type, int SlotNum)
+void EngineTexture::IntoPipeline(ShaderType _Type, int SlotNum)
 {
 	switch (_Type)
 	{

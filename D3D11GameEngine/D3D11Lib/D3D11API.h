@@ -46,23 +46,22 @@ struct IEngineUnknown
 
 struct IEnginePipeLineRes : public IEngineUnknown
 {
-	virtual void IntoPipeLine() = 0;
+	virtual void IntoPipeline() = 0;
 };
 
 struct IEngineShaderResource : public IEngineUnknown
 {
-	virtual void IntoPipeLine(ShaderType _Type,int SlotNum = 0) = 0;
+	virtual void IntoPipeline(ShaderType _Type, int SlotNum = 0) = 0;
 };
 
 struct IEngineVertexBuffer : public IEnginePipeLineRes
 {
-	virtual void Setting(void* pVertices, int VertexFormatSize, int VertexSize) = 0;
+	virtual void Setting(void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) = 0;
 };
 
 struct IEngineIndexBuffer : public IEnginePipeLineRes
 {
 	virtual void Setting(UINT* Indices, int IndexSize) = 0;
-	virtual UINT GetIndexCount() = 0;
 };
 
 struct IEngineVertexShader;
@@ -109,12 +108,25 @@ struct IEngineConstantBuffer : public IEngineShaderResource
 	virtual void Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _DataSize) = 0;
 };
 
-struct IEngineD3DManager 
+struct IMesh : public IEnginePipeLineRes
 {
-	virtual IEngineDevice*  CreateDevice() = 0;
-	virtual void*           CreateResource(ResType _Type, EngineString _Name) = 0;
-	virtual void*           Find(ResType _Type, const char* _Name) = 0;
+	virtual void Setting(const char* _VBName, const char* _IBName) = 0;
+	virtual void IntoPipeline() = 0;
+	virtual UINT GetIndexCount() = 0;
 };
 
-extern "C" D3D11API void CreateEngineD3DManager(IEngineD3DManager** ppEngineManager);
-extern "C" D3D11API void DeleteEngineD3DManager(IEngineD3DManager* pEngineManager);
+struct IMaterial : public IEnginePipeLineRes
+{
+	virtual void Setting(const char* _ShaderName) = 0;
+	virtual void IntoPipeline() = 0;
+};
+
+struct IEngineD3DManager
+{
+	virtual IEngineDevice* CreateDevice() = 0;
+	virtual void* CreateResource(ResType _Type, EngineString _Name) = 0;
+	virtual void* Find(ResType _Type, const char* _Name) = 0;
+};
+
+extern "C" D3D11API void CreateEngineD3DManager(IEngineD3DManager * *ppEngineManager);
+extern "C" D3D11API void DeleteEngineD3DManager(IEngineD3DManager * pEngineManager);

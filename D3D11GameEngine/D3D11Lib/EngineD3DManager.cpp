@@ -13,15 +13,14 @@
 #include "EngineSampler.h"
 #include "EngineConstantBuffer.h"
 
-IEngineDevice* EngineD3DManager::CreateDevice()
-{
-	EngineDevicePtr = new EngineDevice();
+EngineD3DManager* EngineD3DManager::MainManager = nullptr;
 
-	IEngineDevice* NewDevice = EngineDevicePtr;
-	return NewDevice;
+EngineD3DManager::EngineD3DManager()
+{
+	MainManager = this;
 }
 
-void EngineD3DManager::CleanUp()
+EngineD3DManager::~EngineD3DManager()
 {
 	ResourceMap.GoFirst();
 	for (size_t i = 0; i < ResourceMap.Count(); i++)
@@ -36,6 +35,14 @@ void EngineD3DManager::CleanUp()
 		delete EngineDevicePtr;
 		EngineDevicePtr = nullptr;
 	}
+}
+
+IEngineDevice* EngineD3DManager::CreateDevice()
+{
+	EngineDevicePtr = new EngineDevice();
+
+	IEngineDevice* NewDevice = EngineDevicePtr;
+	return NewDevice;
 }
 
 void* EngineD3DManager::CreateResource(ResType _Type, EngineString _Name)

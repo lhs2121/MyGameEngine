@@ -14,7 +14,7 @@ EngineVertexBuffer::~EngineVertexBuffer()
 	}
 }
 
-void EngineVertexBuffer::Setting(void* pVertices, int VertexFormatSize, int VertexSize)
+void EngineVertexBuffer::Setting(void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;
@@ -32,12 +32,12 @@ void EngineVertexBuffer::Setting(void* pVertices, int VertexFormatSize, int Vert
 
 	Strides = VertexFormatSize;
 	Offsets = 0;
-
+	SlotNumber = _SlotNumber;
 	HRESULT Result = DevicePtr->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 
-void EngineVertexBuffer::IntoPipeLine()
+void EngineVertexBuffer::IntoPipeline()
 {
-	ContextPtr->IASetVertexBuffers(0, 1, &BufferPtr, &Strides, &Offsets);
+	ContextPtr->IASetVertexBuffers(0, SlotNumber, &BufferPtr, &Strides, &Offsets);
 }
 

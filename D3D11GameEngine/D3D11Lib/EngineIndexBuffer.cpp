@@ -38,7 +38,7 @@ void EngineIndexBuffer::Setting(UINT* Indices, int IndexSize)
 	HRESULT Result = DevicePtr->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 
-void EngineIndexBuffer::IntoPipeLine()
+void EngineIndexBuffer::IntoPipeline()
 {
 	ContextPtr->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
 }

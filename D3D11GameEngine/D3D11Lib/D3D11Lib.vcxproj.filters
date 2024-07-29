@@ -36,6 +36,7 @@
     <ClCompile Include="EngineVertexShader.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
+    <ClCompile Include="EngineMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineVertexFormat.h" />
@@ -73,6 +74,7 @@
     <ClInclude Include="EngineVertexShader.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="EngineMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource">

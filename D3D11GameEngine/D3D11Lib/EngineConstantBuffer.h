@@ -8,7 +8,7 @@ public:
 	~EngineConstantBuffer();
 
 	void Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _DataSize) override;
-	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
+	void IntoPipeline(ShaderType _Type, int SlotNum = 0) override;
 
 private:
 	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }

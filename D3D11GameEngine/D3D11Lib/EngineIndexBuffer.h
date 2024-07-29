@@ -8,9 +8,9 @@ public:
 	~EngineIndexBuffer();
 
 	void Setting(UINT* Indices, int IndexSize) override;
-	void IntoPipeLine() override;
-	UINT GetIndexCount() override { return IndexCount; };
+	void IntoPipeline() override;
 
+	UINT                 IndexCount;
 private:
 	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
 	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
@@ -20,7 +20,6 @@ private:
 
 	ID3D11Buffer*        BufferPtr;
 
-	UINT                 IndexCount;
 	UINT                 Strides;
 	UINT                 Offsets;
 };

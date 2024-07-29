@@ -25,8 +25,8 @@ struct IEngineTime
 	virtual float CountEnd() = 0;
 };
 
-extern "C" BaseAPI void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool);
-extern "C" BaseAPI void DeleteEngineStaticPool(IEngineStaticPool* pIEngineStaticPool);
+extern "C" BaseAPI void CreateEngineStaticPool(IEngineStaticPool** ppI);
+extern "C" BaseAPI void DeleteEngineStaticPool(IEngineStaticPool* pI);
 
-extern "C" BaseAPI void CreateEngineTime(IEngineTime** IEngineTime);
-extern "C" BaseAPI void DeleteEngineTime(IEngineTime* IEngineTime);
+extern "C" BaseAPI void CreateEngineTime(IEngineTime** ppI);
+extern "C" BaseAPI void DeleteEngineTime(IEngineTime* pI);

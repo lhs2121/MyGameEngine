@@ -170,6 +170,7 @@
     <ClCompile Include="EngineDevice_ResourceInit.cpp" />
     <ClCompile Include="EngineIndexBuffer.cpp" />
     <ClCompile Include="EngineInputLayout.cpp" />
+    <ClCompile Include="EngineMesh.cpp" />
     <ClCompile Include="EnginePixelShader.cpp" />
     <ClCompile Include="EngineRasterizer.cpp" />
     <ClCompile Include="EngineSampler.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="D3D11API.h" />
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="EngineMesh.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

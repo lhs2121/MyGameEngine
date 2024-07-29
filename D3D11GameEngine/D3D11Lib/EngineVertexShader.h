@@ -8,7 +8,7 @@ public:
 	~EngineVertexShader();
 
 	void Setting(EngineString _Name, EngineString _Path) override;
-	void IntoPipeLine() override;
+	void IntoPipeline() override;
 	void* GetShaderByteCode();
 	SIZE_T GetShaderByteLength();
 

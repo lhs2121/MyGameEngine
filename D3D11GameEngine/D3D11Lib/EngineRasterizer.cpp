@@ -16,7 +16,7 @@ void EngineRasterizer::Setting(D3D11_RASTERIZER_DESC _Desc)
 	DevicePtr->CreateRasterizerState(&Desc, &RasterizePtr);
 }
 
-void EngineRasterizer::IntoPipeLine()
+void EngineRasterizer::IntoPipeline()
 {
 	ContextPtr->RSSetState(RasterizePtr);
 }

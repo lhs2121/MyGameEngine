@@ -8,7 +8,7 @@ public:
 	~EngineTexture();
 
 	void Setting(EngineFile& _File) override;
-	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
+	void IntoPipeline(ShaderType _Type, int SlotNum = 0) override;
 
 	float4 GetImageScale() override;
 	ID3D11ShaderResourceView* GetSRV() override;

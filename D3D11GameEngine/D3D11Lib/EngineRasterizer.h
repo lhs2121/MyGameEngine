@@ -8,7 +8,7 @@ public:
 	~EngineRasterizer();
 
 	void Setting(D3D11_RASTERIZER_DESC _Desc) override;
-	void IntoPipeLine() override;
+	void IntoPipeline() override;
 
 private:
 	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }

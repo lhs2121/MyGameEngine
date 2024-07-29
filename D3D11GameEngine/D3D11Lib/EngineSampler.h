@@ -8,7 +8,7 @@ public:
 	~EngineSampler();
 	
 	void Setting(D3D11_SAMPLER_DESC* DescPtr) override;
-	void IntoPipeLine(ShaderType _Type, int SlotNum = 0) override;
+	void IntoPipeline(ShaderType _Type, int SlotNum = 0) override;
     ID3D11SamplerState* GetState() override;
 
 private:

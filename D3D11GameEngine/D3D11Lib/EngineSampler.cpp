@@ -23,7 +23,7 @@ void EngineSampler::Setting(D3D11_SAMPLER_DESC* DescPtr)
 	DevicePtr->CreateSamplerState(DescPtr, &StatePtr);
 }
 
-void EngineSampler::IntoPipeLine(ShaderType _Type, int SlotNum)
+void EngineSampler::IntoPipeline(ShaderType _Type, int SlotNum)
 {
 	switch (_Type)
 	{

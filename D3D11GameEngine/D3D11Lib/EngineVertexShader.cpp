@@ -62,7 +62,7 @@ void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
 	}
 }
 
-void EngineVertexShader::IntoPipeLine()
+void EngineVertexShader::IntoPipeline()
 {
 	ContextPtr->VSSetShader(ShaderPtr, nullptr, 0);
 }

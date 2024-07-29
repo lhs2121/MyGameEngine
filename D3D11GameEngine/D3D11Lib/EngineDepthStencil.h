@@ -8,7 +8,7 @@ public:
 	~EngineDepthStencil();
 
 	void Setting(D3D11_DEPTH_STENCIL_DESC _Desc) override;
-	void IntoPipeLine();
+	void IntoPipeline();
 	ID3D11DepthStencilState* GetResource() const { return DepthStencil; }
 
 private:

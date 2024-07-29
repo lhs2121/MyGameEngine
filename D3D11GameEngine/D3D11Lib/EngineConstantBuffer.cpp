@@ -21,7 +21,7 @@ void EngineConstantBuffer::Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _
 	DevicePtr->CreateBuffer(&Desc, nullptr, &BufferPtr);
 }
 
-void EngineConstantBuffer::IntoPipeLine(ShaderType _Type, int SlotNum)
+void EngineConstantBuffer::IntoPipeline(ShaderType _Type, int SlotNum)
 {
 	D3D11_MAPPED_SUBRESOURCE MappedRes;
 

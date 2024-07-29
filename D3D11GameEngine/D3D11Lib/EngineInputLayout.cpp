@@ -22,7 +22,7 @@ void EngineInputLayout::Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNu
 	HRESULT Result = DevicePtr->CreateInputLayout(Desc, _ElementNum, VSPtr->GetShaderByteCode(), VSPtr->GetShaderByteLength(), &LayoutPtr);
 }
 
-void EngineInputLayout::IntoPipeLine()
+void EngineInputLayout::IntoPipeline()
 {
 	ContextPtr->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	ContextPtr->IASetInputLayout(LayoutPtr);

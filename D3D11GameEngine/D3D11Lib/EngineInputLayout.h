@@ -8,7 +8,7 @@ public:
 	~EngineInputLayout();
 
 	void Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, IEngineVertexShader* _VSPtr) override;
-	void IntoPipeLine() override;
+	void IntoPipeline() override;
 
 private:
 	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }

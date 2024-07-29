@@ -4,22 +4,22 @@
 #include "EngineTime.h"
 
 
-void CreateEngineStaticPool(IEngineStaticPool** ppIEngineStaticPool)
+void CreateEngineStaticPool(IEngineStaticPool** ppI)
 {
-	*ppIEngineStaticPool = new EngineStaticPool();
+	*ppI = new EngineStaticPool();
 }
 
-void DeleteEngineStaticPool(IEngineStaticPool* pIEngineStaticPool)
+void DeleteEngineStaticPool(IEngineStaticPool* pI)
 {
-	delete (EngineStaticPool*)(pIEngineStaticPool);
+	delete (EngineStaticPool*)(pI);
 }
 
-void CreateEngineTime(IEngineTime** ppIEngineTime)
+void CreateEngineTime(IEngineTime** ppI)
 {
-	*ppIEngineTime = new EngineTime();
+	*ppI = new EngineTime();
 }
 
-void DeleteEngineTime(IEngineTime* pIEngineTime)
+void DeleteEngineTime(IEngineTime* pI)
 {
-	delete (EngineTime*)(pIEngineTime);
+	delete (EngineTime*)(pI);
 }
