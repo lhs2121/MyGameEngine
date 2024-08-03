@@ -39,15 +39,15 @@ EngineDevice::~EngineDevice()
 	}
 	if (DevicePtr != nullptr)
 	{
-		#if defined(DEBUG) || defined(_DEBUG)
-				ID3D11Debug* dxgiDebug;
-		
-				if (DevicePtr->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
-				{
-					dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
-					dxgiDebug = nullptr;
-				}
-		#endif
+//#if defined(DEBUG) || defined(_DEBUG)
+//		ID3D11Debug* dxgiDebug;
+//
+//		if (S_OK == DevicePtr->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
+//		{
+//			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+//			dxgiDebug = nullptr;
+//		}
+//#endif
 
 		DevicePtr->Release();
 		DevicePtr = nullptr;
@@ -70,7 +70,6 @@ void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 		AdapterPtr,
 		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN,
 		nullptr,
-		// xhash internal header
 		D3D11_CREATE_DEVICE_DEBUG,
 		nullptr,
 		0,

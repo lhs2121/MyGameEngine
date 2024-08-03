@@ -7,7 +7,7 @@ public:
 	EngineConstantBuffer();
 	~EngineConstantBuffer();
 
-	void Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _DataSize) override;
+	void Setting(void* _DataPtr, int _sizeofData) override;
 	void IntoPipeline(ShaderType _Type, int SlotNum = 0) override;
 
 private:

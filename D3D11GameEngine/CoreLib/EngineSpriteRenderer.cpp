@@ -88,18 +88,9 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 
 	InterTime = _InterTime;
 
-	{
-		D3D11_BUFFER_DESC Desc = { 0 };
-		Desc.Usage = D3D11_USAGE_DYNAMIC;
-		Desc.ByteWidth = sizeof(SpriteData);
-		Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		Desc.MiscFlags = 0;
-		Desc.StructureByteStride = 0;
-
-		SpriteDataBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, "SpriteData");
-		SpriteDataBuffer->Setting(Desc, &CurSpriteData, sizeof(SpriteData));
-	}
+	
+	SpriteDataBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, "SpriteData");
+	SpriteDataBuffer->Setting(&CurSpriteData, sizeof(SpriteData));
 }
 
 

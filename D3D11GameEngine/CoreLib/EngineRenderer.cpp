@@ -13,16 +13,8 @@ void EngineRenderer::Awake()
 	GetLevel()->GetMainCamera()->PushRenderer(this);
 
 	{
-		D3D11_BUFFER_DESC Desc = { 0 };
-		Desc.Usage = D3D11_USAGE_DYNAMIC;
-		Desc.ByteWidth = sizeof(float4x4);
-		Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		Desc.MiscFlags = 0;
-		Desc.StructureByteStride = 0;
-
 		TransformBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, "Transform");
-		TransformBuffer->Setting(Desc, &Transform.WorldViewProjectionMat, sizeof(float4x4));
+		TransformBuffer->Setting(&Transform.WorldViewProjectionMat, sizeof(float4x4));
 	}
 
 	Mesh = (IMesh*)MainD3DManager->Find(ResType::Mesh,"Box2D");

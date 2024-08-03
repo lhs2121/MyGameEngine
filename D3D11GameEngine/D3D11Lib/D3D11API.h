@@ -115,7 +115,7 @@ struct IEngineSampler : public IEngineShaderResource
 
 struct IEngineConstantBuffer : public IEngineShaderResource
 {
-	virtual void Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _DataSize) = 0;
+	virtual void Setting(void* _DataPtr, int _sizeofData) = 0;
 };
 
 struct IMesh : public IEnginePipeLineRes

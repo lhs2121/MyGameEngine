@@ -14,10 +14,18 @@ EngineConstantBuffer::~EngineConstantBuffer()
 	}
 }
 
-void EngineConstantBuffer::Setting(D3D11_BUFFER_DESC Desc, void* _DataPtr, int _DataSize)
+void EngineConstantBuffer::Setting(void* _DataPtr, int _sizeofData)
 {
+	D3D11_BUFFER_DESC Desc = { 0 };
+	Desc.Usage = D3D11_USAGE_DYNAMIC;
+	Desc.ByteWidth = _sizeofData;
+	Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	Desc.MiscFlags = 0;
+	Desc.StructureByteStride = 0;
+
 	DataPtr = _DataPtr;
-	DataSize = _DataSize;
+	DataSize = _sizeofData;
 	DevicePtr->CreateBuffer(&Desc, nullptr, &BufferPtr);
 }
 
