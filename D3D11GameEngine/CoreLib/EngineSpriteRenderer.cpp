@@ -4,12 +4,6 @@
 
 EngineSpriteRenderer::~EngineSpriteRenderer()
 {
-	if (SpriteDataBuffer != nullptr)
-	{
-		delete SpriteDataBuffer;
-		SpriteDataBuffer = nullptr;
-	}
-
 	if (SpriteDatas != nullptr)
 	{
 		for (size_t i = 0; i < SpriteCountY; i++)

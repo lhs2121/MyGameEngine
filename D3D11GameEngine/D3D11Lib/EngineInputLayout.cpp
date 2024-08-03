@@ -14,6 +14,12 @@ EngineInputLayout::~EngineInputLayout()
 		LayoutPtr->Release();
 		LayoutPtr = nullptr;
 	}
+
+	if (Desc != nullptr) 
+	{
+		delete Desc;
+		Desc = nullptr;
+	}
 }
 
 void EngineInputLayout::SetDesc(ShaderInput* _ShaderInputArray, UINT _ArrayCount)

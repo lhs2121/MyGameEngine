@@ -3,9 +3,15 @@
 #include "EngineCore.h"
 #include "Singleton.h"
 
-void CreateEngineCore(ICore** pICore)
+void CreateEngineCore(ICore** ppInterface)
 {
 	MainCore = new EngineCore();
-	*pICore = MainCore;
+	*ppInterface = MainCore;
 
+}
+
+void DeleteEngineCore(ICore* pInterface)
+{
+	EngineCore* castptr = (EngineCore*)pInterface;
+	delete castptr;
 }

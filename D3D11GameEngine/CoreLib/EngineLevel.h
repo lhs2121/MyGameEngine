@@ -8,6 +8,7 @@ class CoreAPI EngineLevel : public EngineObject
 {
 public:
 	EngineLevel();
+	~EngineLevel();
 
 	void Start() override;
 	void Update(float _Delta) override;

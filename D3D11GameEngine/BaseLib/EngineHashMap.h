@@ -13,34 +13,36 @@ public:
 	void      GoNext();
 	void*     GetCurItem();
 
+	~EngineHashMap();
 private:
 	int       Hash(const char* _Key) const;
 
 	HashNode* Header = nullptr;
-	HashNode* End = nullptr;
 	HashNode* Array = nullptr;
 
-	UINT CurIndex = 0;
-	int       ArraySize = 197;
-	int       ElementCount = 0;
+	UINT       CurIndex = 0;
+	UINT       ArraySize = 197;
+	UINT       ElementCount = 0;
 };
 
 class BaseAPI EngineIntHashMap
 {
 public:
-	bool      Add(int _Key, void* ItemPtr);
-	void*     Get(int _Key);
+	bool      Add(UINT _Key, void* ItemPtr);
+	void*     Get(UINT _Key);
 	int       Count();
 	void      GoFirst();
 	void      GoNext();
-	void*     GetCurItem();
+	void*     GetCurItem() const;
 
+	~EngineIntHashMap();
 private:
-	int       Hash(int _Key) const;
+	UINT       Hash(UINT _Key) const;
 
 	IntHashNode* Header = nullptr;
-	IntHashNode* End = nullptr;
 	IntHashNode* Array = nullptr;
-	int       ArraySize = 197;
-	int       ElementCount = 0;
+
+	UINT       CurIndex = 0;
+	UINT       ArraySize = 197;
+	UINT       ElementCount = 0;
 };

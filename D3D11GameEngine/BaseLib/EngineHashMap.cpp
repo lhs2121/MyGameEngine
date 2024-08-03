@@ -4,6 +4,89 @@
 #include "EngineString.h"
 #include <string>
 
+EngineHashMap::~EngineHashMap()
+{
+	for (size_t i = 0; i < ArraySize; i++)
+	{
+		HashNode* CurNode = &Array[i];
+
+		if (CurNode->Key == nullptr)
+		{
+			continue;
+		}
+
+		HashNode* PrevNode = nullptr;
+		while (true)
+		{
+			if (CurNode->NextPtr != nullptr)
+			{
+				PrevNode = CurNode;
+				CurNode = CurNode->NextPtr;
+			}
+			else
+			{
+				if (CurNode != &Array[i])
+				{
+					PrevNode->NextPtr = nullptr;
+					delete CurNode;
+					CurNode = PrevNode;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+	}
+	if (Array != nullptr)
+	{
+		delete[] Array;
+		Array = nullptr;
+	}
+	
+}
+
+EngineIntHashMap::~EngineIntHashMap()
+{
+	for (size_t i = 0; i < ArraySize; i++)
+	{
+		IntHashNode* CurNode = &Array[i];
+
+		if (CurNode->Key == -1)
+		{
+			continue;
+		}
+
+		IntHashNode* PrevNode = nullptr;
+		while (true)
+		{
+			if (CurNode->NextPtr != nullptr)
+			{
+				PrevNode = CurNode;
+				CurNode = CurNode->NextPtr;
+			}
+			else
+			{
+				if (CurNode != &Array[i])
+				{
+					PrevNode->NextPtr = nullptr;
+					delete CurNode;
+					CurNode = PrevNode;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+	}
+	if (Array != nullptr)
+	{
+		delete[] Array;
+		Array = nullptr;
+	}
+}
+
 bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 {
 	ElementCount++;
@@ -11,7 +94,6 @@ bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 	if (Array == nullptr)
 	{
 		Array = new HashNode[ArraySize];
-		End = &Array[ArraySize - 1];
 	}
 	int Index = Hash(_Key.c_str());
 
@@ -70,7 +152,7 @@ int EngineHashMap::Count()
 
 void EngineHashMap::GoFirst()
 {
-	for (size_t i = 0; i < ArraySize; i++)
+	for (UINT i = 0; i < ArraySize; i++)
 	{
 		if (Array[i].Key != 0)
 		{
@@ -83,7 +165,6 @@ void EngineHashMap::GoFirst()
 
 void EngineHashMap::GoNext()
 {
-	int a = End - Header;
 	if (Header->NextPtr != nullptr)
 	{
 		Header = Header->NextPtr;
@@ -92,13 +173,13 @@ void EngineHashMap::GoNext()
 
 	while (true)
 	{
-		if (&Array[CurIndex] >= End)
+		CurIndex++;
+		Header = &Array[CurIndex];
+
+		if (CurIndex >= ArraySize)
 		{
 			return;
 		}
-
-		CurIndex++;
-		Header = &Array[CurIndex];
 
 		if (Header->Key != nullptr)
 		{
@@ -128,15 +209,14 @@ int EngineHashMap::Hash(const char* _Key) const
 	return Index;
 }
 
-bool EngineIntHashMap::Add(int _Key, void* ItemPtr)
+bool EngineIntHashMap::Add(UINT _Key, void* ItemPtr)
 {
 	if (Array == nullptr)
 	{
 		Array = new IntHashNode[ArraySize];
-		End = &Array[ArraySize - 1];
 	}
 
-	int Index = Hash(_Key);
+	UINT Index = Hash(_Key);
 
 	IntHashNode* CurNode = &Array[Index];
 
@@ -171,7 +251,7 @@ bool EngineIntHashMap::Add(int _Key, void* ItemPtr)
 	}
 }
 
-void* EngineIntHashMap::Get(int _Key)
+void* EngineIntHashMap::Get(UINT _Key)
 {
 	int Index = Hash(_Key);
 	IntHashNode* CurNode = &Array[Index];
@@ -195,11 +275,12 @@ int EngineIntHashMap::Count()
 
 void EngineIntHashMap::GoFirst()
 {
-	for (size_t i = 0; i < ArraySize; i++)
+	for (UINT i = 0; i < ArraySize; i++)
 	{
 		if (Array[i].Key != -1)
 		{
-			Header = &Array[i];
+			CurIndex = i;
+			Header = &Array[CurIndex];
 			break;
 		}
 	}
@@ -215,12 +296,13 @@ void EngineIntHashMap::GoNext()
 
 	while (true)
 	{
-		if (Header >= End)
+		CurIndex++;
+		Header = &Array[CurIndex];
+
+		if (CurIndex >= ArraySize)
 		{
 			return;
 		}
-
-		Header++;
 
 		if (Header->Key != -1)
 		{
@@ -229,16 +311,16 @@ void EngineIntHashMap::GoNext()
 	}
 }
 
-void* EngineIntHashMap::GetCurItem()
+void* EngineIntHashMap::GetCurItem() const
 {
 	return Header->ItemPtr;
 }
 
-int EngineIntHashMap::Hash(int _Key) const
+UINT EngineIntHashMap::Hash(UINT _Key) const
 {
 	int Result = 0;
 
-	if (_Key > ArraySize)
+	if (_Key > ArraySize - 1)
 	{
 		Result = _Key % ArraySize;
 	}

@@ -10,7 +10,8 @@ void CreateEngineInput(IEngineInput** ppIEngineInput)
 
 void DeleteEngineInput(IEngineInput* pIEngineInput)
 {
-	delete (EngineInput*)(pIEngineInput);
+	EngineInput* castptr = (EngineInput*)pIEngineInput;
+	delete castptr;
 }
 
 void CreateEngineWindow(IEngineWindow** ppIEngineWindow)
@@ -20,5 +21,6 @@ void CreateEngineWindow(IEngineWindow** ppIEngineWindow)
 
 void DeleteEngineWindow(IEngineWindow* pIEngineWindow)
 {
-	delete (EngineWindow*)(pIEngineWindow);
+	EngineWindow* castptr = (EngineWindow*)pIEngineWindow;
+	delete castptr;
 }

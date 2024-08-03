@@ -8,6 +8,7 @@ public:
 	EngineObject();
 	virtual ~EngineObject();
 
+	void DeleteAllChild();
 	void SetName(EngineString _Name);
 
 	void SetParent(EngineObject* _Parent);

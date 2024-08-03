@@ -6,11 +6,6 @@
 
 EngineRenderer::~EngineRenderer()
 {
-	if (TransformBuffer != nullptr)
-	{
-		delete TransformBuffer;
-		TransformBuffer = nullptr;
-	}
 }
 
 void EngineRenderer::Awake()

@@ -13,4 +13,5 @@ struct ICore
 	virtual void EngineRelease() = 0;
 };
 
-extern "C" CoreAPI void CreateEngineCore(ICore** pICore);
+extern "C" CoreAPI void CreateEngineCore(ICore** ppInterface);
+extern "C" CoreAPI void DeleteEngineCore(ICore* pInterface);

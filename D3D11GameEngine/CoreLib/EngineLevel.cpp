@@ -9,6 +9,11 @@ EngineLevel::EngineLevel()
 	CameraList.Add(NewCamera);
 }
 
+EngineLevel::~EngineLevel()
+{
+	DeleteAllChild();
+}
+
 void* EngineLevel::CreateActor(void* _NewActor)
 {
 	((EngineObject*)_NewActor)->SetParent(this);

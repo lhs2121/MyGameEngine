@@ -136,6 +136,16 @@ bool EngineString::operator==(EngineString& OtherString)
 
 bool EngineString::operator==(const char* OtherString)
 {
+	if (String == nullptr && OtherString == nullptr)
+	{
+		return true;
+	}
+
+	if (String != nullptr && OtherString == nullptr)
+	{
+		return false;
+	}
+
 	int ByteSize = EngineString::GetByte(String);
 	int Result = strncmp(String, OtherString, ByteSize);
 	if (Result == 0)

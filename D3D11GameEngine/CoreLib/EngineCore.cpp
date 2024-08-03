@@ -23,16 +23,15 @@ void EngineCore::ChangeLevel(const char* _Name)
 
 void EngineCore::DeleteAllLevel()
 {
-	//for (std::pair<EngineString, EngineLevel*> pair : AllLevel)
-	//{
-	//	EngineLevel* LevelPtr = pair.second;
-	//	if (LevelPtr != nullptr)
-	//	{
-	//		delete LevelPtr;
-	//		LevelPtr = nullptr;
-	//	}
-	//}
-	//AllLevel.clear();
+	AllLevel.GoFirst();
+	UINT Count = AllLevel.Count();
+
+	for (UINT i = 0; i < Count; i++)
+	{
+		EngineLevel* CurLevel = (EngineLevel*)AllLevel.GetCurItem();
+		delete CurLevel;
+		AllLevel.GoNext();
+	}
 }
 
 void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IGameStarter* _Starter)
@@ -83,11 +82,12 @@ void EngineCore::EngineUpdate()
 
 void EngineCore::EngineRelease()
 {
-	MainCore->DeleteAllLevel();
+	DeleteAllLevel();
 	DeleteEngineTime(MainTime);
 	DeleteEngineInput(MainInput);
 	DeleteEngineD3DManager(MainD3DManager);
     DeleteEngineWindow(MainWindow);
+    EngineString::DeleteAllStringPool();
 }
 
 

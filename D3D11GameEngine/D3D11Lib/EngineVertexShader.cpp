@@ -27,7 +27,7 @@ EngineString EngineVertexShader::GetSementic()
 
 	EngineString ReturnString;
 	const char* searchstring = "VS_INPUT";
-	int len = strlen(searchstring);
+	int len = (int)strlen(searchstring);
 
 	char* SemanticBuffer = nullptr;
 	int combo = 0;
@@ -75,6 +75,7 @@ EngineString EngineVertexShader::GetSementic()
 					{
 						SemanticBuffer[index] = '\0';
 						ReturnString += SemanticBuffer;
+						delete[] SemanticBuffer;
 
 						fseek(f, 2, SEEK_CUR);
 						char d = fgetc(f);

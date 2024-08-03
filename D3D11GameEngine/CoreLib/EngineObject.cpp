@@ -9,6 +9,21 @@ EngineObject::~EngineObject()
 {
 }
 
+void EngineObject::DeleteAllChild()
+{
+	ChildList.GoFirst();
+	int Count = ChildList.GetCount();
+	for (size_t i = 0; i < Count; i++)
+	{
+		EngineObject* CurChild = (EngineObject*)ChildList.Item();
+		CurChild->DeleteAllChild();
+
+		delete CurChild;
+
+		ChildList.GoNext();
+	}
+}
+
 void EngineObject::SetName(EngineString _Name)
 {
 	Name = _Name;
@@ -41,11 +56,10 @@ bool EngineObject::IsDeath()
 
 void EngineObject::ChildUpdate(float _Delta)
 {
-	this;
 	ChildList.GoFirst();
 
-	int ChildCount = ChildList.GetCount();
-	for (size_t i = 0; i < ChildCount; i++)
+	int Count = ChildList.GetCount();
+	for (size_t i = 0; i < Count; i++)
 	{
 		EngineObject* CurChild = (EngineObject*)ChildList.Item();
 		CurChild->ChildUpdate(_Delta);

@@ -15,9 +15,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	EngineDebug::CrtSetDbgFlag();
+	//EngineDebug::CrtSetBreakAlloc(562);
 	ICore* Core;
 	IGameStarter* Starter;
 	CreateGameStarter(&Starter);
 	CreateEngineCore(&Core);
 	Core->EngineStart("GameEngine", { 50,50 }, { 1366,789 }, hInstance, Starter);
+	DeleteGameStarter(Starter);
+	DeleteEngineCore(Core);
 }
