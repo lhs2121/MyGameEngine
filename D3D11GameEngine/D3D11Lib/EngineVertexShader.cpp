@@ -20,12 +20,89 @@ EngineVertexShader::~EngineVertexShader()
 	}
 }
 
+EngineString EngineVertexShader::GetSementic()
+{
+	FILE* f;
+	fopen_s(&f, Path.c_str(), "r");
+
+	EngineString ReturnString;
+	const char* searchstring = "VS_INPUT";
+	int len = strlen(searchstring);
+
+	char* SemanticBuffer = nullptr;
+	int combo = 0;
+	while (true)
+	{
+		char c = fgetc(f);
+		if (c == '\n' || c == ' ')
+		{
+			continue;
+		}
+
+		if (combo != len)
+		{
+			if (searchstring[combo] == c)
+			{
+				combo += 1;
+			}
+			else
+			{
+				combo = 0;
+			}
+		}
+
+		if (combo == len)
+		{
+			if (c == '}')
+			{
+				break;
+			}
+
+			if (c == ':')
+			{
+				SemanticBuffer = new char[32];
+				int index = 0;
+
+				while (true)
+				{
+					char b = fgetc(f);
+					if (b == ' ')
+					{
+						continue;
+					}
+
+					if (b == ';')
+					{
+						SemanticBuffer[index] = '\0';
+						ReturnString += SemanticBuffer;
+
+						fseek(f, 2, SEEK_CUR);
+						char d = fgetc(f);
+						if (d != '}')
+						{
+							ReturnString += "_";
+							break;
+						}
+
+						return ReturnString;
+					}
+
+					SemanticBuffer[index] = b;
+					index++;
+				}
+			}
+		}
+	}
+
+}
+
 void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
 {
+	Path = _Path;
 	EngineString MainFuncName = _Name;
 	MainFuncName += "_VS";
 
-	EngineString PathString = _Path;
+	EngineString PathString = Path;
 	wchar_t* UTF8Path;
 	PathString.GetUTF8(&UTF8Path);
 

@@ -13,7 +13,6 @@ bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 		Array = new HashNode[ArraySize];
 		End = &Array[ArraySize - 1];
 	}
-
 	int Index = Hash(_Key.c_str());
 
 	HashNode* CurNode = &Array[Index];
@@ -75,7 +74,8 @@ void EngineHashMap::GoFirst()
 	{
 		if (Array[i].Key != 0)
 		{
-			Header = &Array[i];
+			CurIndex = i;
+			Header = &Array[CurIndex];
 			break;
 		}
 	}
@@ -83,6 +83,7 @@ void EngineHashMap::GoFirst()
 
 void EngineHashMap::GoNext()
 {
+	int a = End - Header;
 	if (Header->NextPtr != nullptr)
 	{
 		Header = Header->NextPtr;
@@ -91,12 +92,13 @@ void EngineHashMap::GoNext()
 
 	while (true)
 	{
-		if (Header == End)
+		if (&Array[CurIndex] >= End)
 		{
 			return;
 		}
 
-		Header++;
+		CurIndex++;
+		Header = &Array[CurIndex];
 
 		if (Header->Key != nullptr)
 		{
@@ -213,7 +215,7 @@ void EngineIntHashMap::GoNext()
 
 	while (true)
 	{
-		if (Header == End)
+		if (Header >= End)
 		{
 			return;
 		}

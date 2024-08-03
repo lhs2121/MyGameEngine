@@ -38,6 +38,6 @@ void EngineVertexBuffer::Setting(void* pVertices, int VertexFormatSize, int Vert
 
 void EngineVertexBuffer::IntoPipeline()
 {
-	ContextPtr->IASetVertexBuffers(0, SlotNumber, &BufferPtr, &Strides, &Offsets);
+	ContextPtr->IASetVertexBuffers(SlotNumber, 1, &BufferPtr, &Strides, &Offsets);
 }
 

@@ -1,84 +1,129 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D3D11API.cpp" />
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="EngineD3DManager.cpp" />
-    <ClCompile Include="EngineDevice.cpp" />
-    <ClCompile Include="EngineDevice_ResourceInit.cpp" />
     <ClCompile Include="EngineConstantBuffer.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineDepthStencil.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineIndexBuffer.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="EngineInputLayout.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="EnginePixelShader.cpp">
-      <Filter>Resource</Filter>
+    <ClCompile Include="EngineMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDepthStencil.cpp">
+      <Filter>Resource\Material\res</Filter>
     </ClCompile>
     <ClCompile Include="EngineRasterizer.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClCompile>
     <ClCompile Include="EngineSampler.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClCompile>
     <ClCompile Include="EngineTexture.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineVertexBuffer.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClCompile>
     <ClCompile Include="EngineVertexShader.cpp">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClCompile>
-    <ClCompile Include="EngineMesh.cpp" />
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <Filter>Resource\Mesh\res</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>Resource\Mesh\res</Filter>
+    </ClCompile>
+    <ClCompile Include="EnginePixelShader.cpp">
+      <Filter>Resource\Material\res</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDevice.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDevice_ResourceInit.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11API.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineD3DManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineVertexFormat.h" />
-    <ClInclude Include="D3D11API.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineD3DManager.h" />
-    <ClInclude Include="EngineDevice.h" />
     <ClInclude Include="EngineConstantBuffer.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineDepthStencil.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineIndexBuffer.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="EngineInputLayout.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="EnginePixelShader.h">
-      <Filter>Resource</Filter>
+    <ClInclude Include="EngineMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDepthStencil.h">
+      <Filter>Resource\Material\res</Filter>
     </ClInclude>
     <ClInclude Include="EngineRasterizer.h">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClInclude>
     <ClInclude Include="EngineSampler.h">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClInclude>
     <ClInclude Include="EngineTexture.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineVertexBuffer.h">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClInclude>
     <ClInclude Include="EngineVertexShader.h">
-      <Filter>Resource</Filter>
+      <Filter>Resource\Material\res</Filter>
     </ClInclude>
-    <ClInclude Include="EngineMesh.h" />
+    <ClInclude Include="EngineIndexBuffer.h">
+      <Filter>Resource\Mesh\res</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>Resource\Mesh\res</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePixelShader.h">
+      <Filter>Resource\Material\res</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDevice.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11API.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineD3DManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource">
       <UniqueIdentifier>{38240379-2514-4830-92dd-5be527de1881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{8e0cafb9-3d43-4479-bf6a-cf45712cc0ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{322c6bae-58eb-42ad-8510-11a60c477afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material\res">
+      <UniqueIdentifier>{80e20257-9035-4511-a1e9-59d890b65acd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh\res">
+      <UniqueIdentifier>{9ca81dde-f067-4386-bd1f-ea8925dd1bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{5ad2b023-f3fa-4dce-9066-69d1e4615a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{a7541700-0cd2-40de-b761-56f0c8b82b39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{06d95ca2-f71f-4b32-a527-0c9ab33b44ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

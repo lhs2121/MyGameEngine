@@ -1,19 +1,18 @@
 #pragma once
 #include <BaseLib\EngineMath.h>
 
-struct VERTEX_POS
+struct POSITION
 {
-	float4 Pos;
+	float4 POSITION;
 };
 
-struct VERTEX_POS_COLOR
+struct POSITION_COLOR
 {
-	float4 Pos;
-	float4 Color;
+	float4 POSITION;
+	float4 COLOR;
 };
-struct VERTEX_POS_TEXCOORD
+struct POSITION_TEXCOORD
 {
-	float4 Pos;
-	float TexX;
-	float TexY;
+	float4 POSITION;
+	float2 TEXCOORD;
 };

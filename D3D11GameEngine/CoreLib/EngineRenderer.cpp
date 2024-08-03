@@ -30,17 +30,12 @@ void EngineRenderer::Awake()
 		TransformBuffer->Setting(Desc, &Transform.WorldViewProjectionMat, sizeof(float4x4));
 	}
 
+	Mesh = (IMesh*)MainD3DManager->Find(ResType::Mesh,"Box2D");
+	Material = (IMaterial*)MainD3DManager->Find(ResType::Material, "Default");
 
+	pIA = MainD3DManager->FindIA(Mesh, Material);
 
-	VB = (IEngineVertexBuffer*)MainD3DManager->Find(ResType::VB, "Box2DTex");
-	IB = (IEngineIndexBuffer*)MainD3DManager->Find(ResType::IB, "Box2D");
-	IA = (IEngineInputLayout*)MainD3DManager->Find(ResType::IA, "PosTexcoord");
-	VS = (IEngineVertexShader*)MainD3DManager->Find(ResType::VS, "TestSpriteShader");
-	PS = (IEnginePixelShader*)MainD3DManager->Find(ResType::PS, "TestSpriteShader");
-	RS = (IEngineRasterizer*)MainD3DManager->Find(ResType::RS, "Default");
-	DS = (IEngineDepthStencil*)MainD3DManager->Find(ResType::DS, "Default");
-
-	//SetTexture("Default");
+	SetTexture("Default");
 	SetSampler("Default");
 }
 
@@ -49,32 +44,25 @@ void EngineRenderer::Update(float _Delta)
 }
 void EngineRenderer::Render()
 {
-	VB->IntoPipeLine();
-	IB->IntoPipeLine();
-	IA->IntoPipeLine();
-	VS->IntoPipeLine();
-	RS->IntoPipeLine();
-	PS->IntoPipeLine();
-	DS->IntoPipeLine();
-
-	TransformBuffer->IntoPipeLine(ShaderType::VS);
-
-	UINT IndexCount = IB->GetIndexCount();
-	MainDevice->GetContext()->DrawIndexed(IndexCount, 0, 0);
+	TransformBuffer->IntoPipeline(ShaderType::VS);
+	Mesh->IntoPipeline();
+	Material->IntoPipeline();
+	pIA->IntoPipeline();
+	MainDevice->GetContext()->DrawIndexed(Mesh->GetIndexCount(), 0, 0);
 }
 
 
 void EngineRenderer::SetTexture(const char* _Name)
 {
-	CurTexture = (IEngineTexture*)MainD3DManager->Find(ResType::Texture, _Name);
-	CurTexture->IntoPipeLine(ShaderType::PS);
+	Material->SetTexture(_Name);
 
-	float4 ImageScale = CurTexture->GetImageScale();
+	IEngineTexture* Texture = (IEngineTexture*)MainD3DManager->Find(ResType::Texture, _Name);
+	float4 ImageScale = Texture->GetImageScale();
 	Transform.SetScale(ImageScale);
 }
 
 void EngineRenderer::SetSampler(const char* _Name)
 {
+	Material->SetSampler(_Name);
 	IEngineSampler* Sampler = (IEngineSampler*)MainD3DManager->Find(ResType::Sampler, _Name);
-	Sampler->IntoPipeLine(ShaderType::PS);
 }

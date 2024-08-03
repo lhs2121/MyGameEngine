@@ -19,6 +19,8 @@ private:
 	HashNode* Header = nullptr;
 	HashNode* End = nullptr;
 	HashNode* Array = nullptr;
+
+	UINT CurIndex = 0;
 	int       ArraySize = 197;
 	int       ElementCount = 0;
 };

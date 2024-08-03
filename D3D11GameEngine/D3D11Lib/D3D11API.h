@@ -5,6 +5,8 @@ struct IEngineD3DManager;
 
 enum class ResType
 {
+	Mesh,
+	Material,
 	VB,
 	IB,
 	CB,
@@ -25,6 +27,14 @@ enum class ShaderType
 	HS,
 	DS,
 	GS
+};
+
+enum class ShaderInput
+{
+	POSITION,
+	TEXCOORD,
+	COLOR,
+	NORMAL,
 };
 
 struct IEngineDevice
@@ -64,15 +74,15 @@ struct IEngineIndexBuffer : public IEnginePipeLineRes
 	virtual void Setting(UINT* Indices, int IndexSize) = 0;
 };
 
-struct IEngineVertexShader;
-struct IEngineInputLayout : public IEnginePipeLineRes
-{
-	virtual void Setting(D3D11_INPUT_ELEMENT_DESC* _Desc, UINT _ElementNum, IEngineVertexShader* _VSPtr) = 0;
-};
-
 struct IEngineVertexShader : public IEnginePipeLineRes
 {
 	virtual void Setting(EngineString _Name, EngineString _Path) = 0;
+};
+
+struct IEngineInputLayout : public IEnginePipeLineRes
+{
+	virtual void SetDesc(ShaderInput* _ShaderInputArray, UINT _ArrayCount) = 0;
+	virtual void Setting(IEngineVertexBuffer* _pVB, IEngineVertexShader* _pVS) = 0;
 };
 
 struct IEnginePixelShader : public IEnginePipeLineRes
@@ -112,6 +122,8 @@ struct IMesh : public IEnginePipeLineRes
 {
 	virtual void Setting(const char* _VBName, const char* _IBName) = 0;
 	virtual void IntoPipeline() = 0;
+
+	virtual IEngineVertexBuffer* GetVB() = 0;
 	virtual UINT GetIndexCount() = 0;
 };
 
@@ -119,6 +131,10 @@ struct IMaterial : public IEnginePipeLineRes
 {
 	virtual void Setting(const char* _ShaderName) = 0;
 	virtual void IntoPipeline() = 0;
+
+	virtual IEngineVertexShader* GetVS() = 0;
+	virtual void SetSampler(const char* _SamplerName) = 0;
+	virtual void SetTexture(const char* _TextureName) = 0;
 };
 
 struct IEngineD3DManager
@@ -126,6 +142,7 @@ struct IEngineD3DManager
 	virtual IEngineDevice* CreateDevice() = 0;
 	virtual void* CreateResource(ResType _Type, EngineString _Name) = 0;
 	virtual void* Find(ResType _Type, const char* _Name) = 0;
+	virtual IEngineInputLayout* FindIA(IMesh* _Mesh, IMaterial* _Material) = 0;
 };
 
 extern "C" D3D11API void CreateEngineD3DManager(IEngineD3DManager * *ppEngineManager);

@@ -7,6 +7,7 @@ public:
 	EngineVertexShader();
 	~EngineVertexShader();
 
+	EngineString GetSementic();
 	void Setting(EngineString _Name, EngineString _Path) override;
 	void IntoPipeline() override;
 	void* GetShaderByteCode();
@@ -16,6 +17,8 @@ private:
 	void SetDevice(ID3D11Device* _DevicePtr) override { DevicePtr = _DevicePtr; }
 	void SetContext(ID3D11DeviceContext* _ContextPtr) override { ContextPtr = _ContextPtr; }
 
+	
+	EngineString         Path;
 	ID3D11Device*        DevicePtr  = nullptr;
 	ID3D11DeviceContext* ContextPtr = nullptr;
 	ID3DBlob*            BlobPtr = nullptr;

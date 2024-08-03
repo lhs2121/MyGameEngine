@@ -51,7 +51,7 @@ void EngineSpriteRenderer::Update(float _Delta)
 		CurFrame = 0;
 	}
 
-	SpriteDataBuffer->IntoPipeLine(ShaderType::PS, 5);
+	SpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
 }
 
 void EngineSpriteRenderer::Render()
@@ -61,11 +61,6 @@ void EngineSpriteRenderer::Render()
  
 void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
 {
-	if (CurTexture == nullptr)
-	{
-		EngineDebug::MsgBoxAssert("애니메이션을 만들기 전에 텍스처를 설정하세요");
-	}
-
 	SpriteDatas = new SpriteData * [_SpriteCountY];
 
 	for (size_t i = 0; i < _SpriteCountY; i++)

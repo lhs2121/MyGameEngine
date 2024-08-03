@@ -6,8 +6,8 @@
 void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 {
 	{
-		EngineDirectory Dir; 
- 
+		EngineDirectory Dir;
+
 		Dir.GoChild("EngineShader");
 		std::vector<EngineFile> AllShaderFile = Dir.GetAllFileExt(".fx");
 
@@ -24,46 +24,22 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 		}
 	}
 
-	//IA¼³Á¤
 	{
-		{
-			IEngineVertexShader* pVS = (IEngineVertexShader*)pManager->Find(ResType::VS, "Test2DShader");
+		IEngineInputLayout* pIA = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "POSITION");
+		ShaderInput input[] = { ShaderInput::POSITION };
+		pIA->SetDesc(input, 1);
+	}
 
-			D3D11_INPUT_ELEMENT_DESC Desc[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			};
+	{
+		IEngineInputLayout* pIA = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "POSITION_COLOR");
+		ShaderInput input[] = { ShaderInput::POSITION,ShaderInput::COLOR };
+		pIA->SetDesc(input, 2);
+	}
 
-			IEngineInputLayout* pIA = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "Pos");
-			pIA->Setting(Desc, 1, pVS);
-		}
-
-		{
-			IEngineVertexShader* TestVertexShader = (IEngineVertexShader*)pManager->Find(ResType::VS, "Test3DShader");
-
-			D3D11_INPUT_ELEMENT_DESC Desc[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			};
-
-			IEngineInputLayout* pInputLayout = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "PosColor");
-			pInputLayout->Setting(Desc, 2, TestVertexShader);
-		}
-
-		{
-			IEngineVertexShader* TestVertexShader = (IEngineVertexShader*)pManager->Find(ResType::VS, "TestSpriteShader");
-
-			D3D11_INPUT_ELEMENT_DESC Desc[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			};
-
-			IEngineInputLayout* pInputLayout = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "PosTexcoord");
-			pInputLayout->Setting(Desc, 2, TestVertexShader);
-		}
-
+	{
+		IEngineInputLayout* pIA = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "POSITION_TEXCOORD");
+		ShaderInput input[] = { ShaderInput::POSITION,ShaderInput::TEXCOORD };
+		pIA->SetDesc(input, 2);
 	}
 
 	//Box2D
@@ -75,8 +51,8 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 			float4(0.5f, -0.5f),
 			float4(-0.5f, -0.5f)
 		};
-		IEngineVertexBuffer* pVertexBuffer = (IEngineVertexBuffer*)pManager->CreateResource(ResType::VB,"Box2D");
-		pVertexBuffer->Setting(Box2D, sizeof(float4), sizeof(Box2D),0);
+		IEngineVertexBuffer* pVertexBuffer = (IEngineVertexBuffer*)pManager->CreateResource(ResType::VB, "Box2D");
+		pVertexBuffer->Setting(Box2D, sizeof(float4), sizeof(Box2D), 0);
 	}
 
 	{
@@ -91,58 +67,52 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 
 	//Box2D with Tex
 	{
-		VERTEX_POS_TEXCOORD Box2D[] =
+		POSITION_TEXCOORD Box2D[] =
 		{
-			{float4(-0.5f, 0.5f), 0, 0},
-			{float4(0.5f, 0.5f), 1, 0},
-			{float4(0.5f,-0.5f), 1, 1},
-			{float4(-0.5f,-0.5f), 0, 1}
+			{float4(-0.5f, 0.5f), float2(0,0)},
+			{float4( 0.5f, 0.5f), float2(1,0)},
+			{float4( 0.5f,-0.5f), float2(1,1)},
+			{float4(-0.5f,-0.5f), float2(0,1)}
 		};
 		IEngineVertexBuffer* pVertexBuffer = (IEngineVertexBuffer*)pManager->CreateResource(ResType::VB, "Box2DTex");
-		pVertexBuffer->Setting(Box2D, sizeof(VERTEX_POS_TEXCOORD), sizeof(Box2D), 1);
+		pVertexBuffer->Setting(Box2D, sizeof(POSITION_TEXCOORD), sizeof(Box2D), 1);
 	}
 
 	//Box3D
 	{
-		VERTEX_POS_COLOR Box3D[] =
+		POSITION_COLOR Box3D[] =
 		{
-			//¾Õ¸é
-			//»¡°­
+			//¾Õ¸é                              //»¡°­
 			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4( 0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4( 0.5f,-0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
+			{ float4(0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
+			{ float4(0.5f,-0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
 			{ float4(-0.5f,-0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
 
-			//µÞ¸é
-			//ÆÄ¶û
+			//µÞ¸é                              //ÆÄ¶û
 			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 0.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(0.0f, 0.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(0.0f, 0.0f, 1.0f, 1.0f) },
 			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(0.0f, 0.0f, 1.0f, 1.0f) },
 
-			//¿ÞÂÊ
-			//ÃÊ·Ï
+			//¿ÞÂÊ                              //ÃÊ·Ï
 			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(0.0f, 1.0f, 0.0f, 1.0f) },
 			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 0.0f, 1.0f) },
 			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(0.0f, 1.0f, 0.0f, 1.0f) },
 			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(0.0f, 1.0f, 0.0f, 1.0f) },
 
-			//¿À¸¥ÂÊ
-			//¸¶Á¨Å¸
+			//¿À¸¥ÂÊ                             //¸¶Á¨Å¸
 			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(1.0f, 0.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(1.0f, 0.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 0.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 1.0f, 1.0f) },
 
-			//À­¸é
-			//ÇÏ´Ã
+			//À­¸é                               //ÇÏ´Ã
 			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(0.0f, 1.0f, 1.0f, 1.0f) },
 			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(0.0f, 1.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(0.0f, 1.0f, 1.0f, 1.0f) },
 
-			//¾Æ·§¸é
-			//Èò»ö
+			//¾Æ·§¸é                            //Èò»ö
 			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(1.0f, 1.0f, 1.0f, 1.0f) },
 			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) },
 			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },
@@ -150,7 +120,7 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 		};
 
 		IEngineVertexBuffer* pVertexBuffer = (IEngineVertexBuffer*)pManager->CreateResource(ResType::VB, "Box3D");
-		pVertexBuffer->Setting(Box3D, sizeof(VERTEX_POS_COLOR), sizeof(Box3D), 2);
+		pVertexBuffer->Setting(Box3D, sizeof(POSITION_COLOR), sizeof(Box3D), 2);
 	}
 
 	{
@@ -239,8 +209,16 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 		Dir.GoBase();
 		Dir.GoChild("Assets");
 		std::vector<EngineFile> Files = Dir.GetAllFileExt(".png");
-	
+
 		IEngineTexture* NewTexture = (IEngineTexture*)pManager->CreateResource(ResType::Texture, "Default");
 		NewTexture->Setting(Files[0]);
+	}
+
+	{
+		IMesh* NewMesh = (IMesh*)pManager->CreateResource(ResType::Mesh, "Box2D");
+		NewMesh->Setting("Box2DTex", "Box2D");
+
+		IMaterial* NewMat = (IMaterial*)pManager->CreateResource(ResType::Material, "Default");
+		NewMat->Setting("TestSpriteShader");
 	}
 }

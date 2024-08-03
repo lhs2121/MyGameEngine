@@ -7,6 +7,11 @@ UINT EngineMesh::GetIndexCount()
 	return pIB->IndexCount;
 }
 
+IEngineVertexBuffer* EngineMesh::GetVB()
+{
+	return pVB;
+}
+
 void EngineMesh::Setting(const char* _VBName, const char* _IBName)
 {
     pVB = (EngineVertexBuffer*)EngineD3DManager::MainManager->Find(ResType::VB, _VBName);

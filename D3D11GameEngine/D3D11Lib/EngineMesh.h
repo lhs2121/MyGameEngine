@@ -10,7 +10,10 @@ public:
 	void IntoPipeline() override;
 
 	UINT GetIndexCount() override;
+    IEngineVertexBuffer* GetVB() override;
 
+	void SetDevice(ID3D11Device* _DevicePtr) override { }
+	void SetContext(ID3D11DeviceContext* _ContextPtr) override {}
 private:
 	EngineVertexBuffer* pVB = nullptr;
 	EngineIndexBuffer* pIB = nullptr;

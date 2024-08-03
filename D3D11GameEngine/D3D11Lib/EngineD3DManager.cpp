@@ -12,6 +12,8 @@
 #include "EngineTexture.h"
 #include "EngineSampler.h"
 #include "EngineConstantBuffer.h"
+#include "EngineMesh.h"
+#include "EngineMaterial.h"
 
 EngineD3DManager* EngineD3DManager::MainManager = nullptr;
 
@@ -52,6 +54,14 @@ void* EngineD3DManager::CreateResource(ResType _Type, EngineString _Name)
 
 	switch (_Type)
 	{
+	case ResType::Mesh:
+		ResourceName += "Mesh_";
+		NewResource = new EngineMesh();
+		break;
+	case ResType::Material:
+		ResourceName += "Material_";
+		NewResource = new EngineMaterial();
+		break;
 	case ResType::VB:
 		ResourceName += "VB_";
 		NewResource = new EngineVertexBuffer();
@@ -110,6 +120,12 @@ void* EngineD3DManager::Find(ResType _Type, const char* _Name)
 
 	switch (_Type)
 	{
+	case ResType::Mesh:
+		ResourceName += "Mesh_";
+		break;
+	case ResType::Material:
+		ResourceName += "Material_";
+		break;
 	case ResType::VB:
 		ResourceName += "VB_";
 		break;
@@ -145,4 +161,13 @@ void* EngineD3DManager::Find(ResType _Type, const char* _Name)
 	}
 	ResourceName += _Name;
 	return ResourceMap.Get(ResourceName.c_str());;
+}
+
+IEngineInputLayout* EngineD3DManager::FindIA(IMesh* _Mesh, IMaterial* _Material)
+{
+	EngineVertexShader* vs = (EngineVertexShader*)_Material->GetVS();
+	EngineInputLayout* layout = (EngineInputLayout * )Find(ResType::IA, vs->GetSementic().c_str());
+	layout->Setting(_Mesh->GetVB(), _Material->GetVS());
+
+	return layout;
 }

@@ -12,6 +12,7 @@ public:
 	IEngineDevice* CreateDevice() override;
 	void* CreateResource(ResType _Type, EngineString _Name) override;
 	void* Find(ResType _Type, const char* _Name) override;
+    IEngineInputLayout* FindIA(IMesh* _Mesh, IMaterial* _Material) override;
 
 private:
 	EngineDevice* EngineDevicePtr = nullptr;
