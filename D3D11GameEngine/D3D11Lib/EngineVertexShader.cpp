@@ -20,80 +20,18 @@ EngineVertexShader::~EngineVertexShader()
 	}
 }
 
-EngineString EngineVertexShader::GetSementic()
+SementicInfo* EngineVertexShader::SetSementicInfo()
 {
+	InfoArray = new SementicInfo[16];
+	char** SementicNames = new char*[8];
+	for (size_t i = 0; i < 6; i++)
+	{
+		SementicNames[i] = new char[64];
+	}
+
 	FILE* f;
 	fopen_s(&f, Path.c_str(), "r");
 
-	EngineString ReturnString;
-	const char* searchstring = "VS_INPUT";
-	int len = (int)strlen(searchstring);
-
-	char* SemanticBuffer = nullptr;
-	int combo = 0;
-	while (true)
-	{
-		char c = fgetc(f);
-		if (c == '\n' || c == ' ')
-		{
-			continue;
-		}
-
-		if (combo != len)
-		{
-			if (searchstring[combo] == c)
-			{
-				combo += 1;
-			}
-			else
-			{
-				combo = 0;
-			}
-		}
-
-		if (combo == len)
-		{
-			if (c == '}')
-			{
-				break;
-			}
-
-			if (c == ':')
-			{
-				SemanticBuffer = new char[32];
-				int index = 0;
-
-				while (true)
-				{
-					char b = fgetc(f);
-					if (b == ' ')
-					{
-						continue;
-					}
-
-					if (b == ';')
-					{
-						SemanticBuffer[index] = '\0';
-						ReturnString += SemanticBuffer;
-						delete[] SemanticBuffer;
-
-						fseek(f, 2, SEEK_CUR);
-						char d = fgetc(f);
-						if (d != '}')
-						{
-							ReturnString += "_";
-							break;
-						}
-
-						return ReturnString;
-					}
-
-					SemanticBuffer[index] = b;
-					index++;
-				}
-			}
-		}
-	}
 
 }
 

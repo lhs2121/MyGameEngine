@@ -546,6 +546,7 @@ struct BaseAPI float4x4
 	};
 
 	float4x4 operator*(const float4x4& Other);
+	void operator*=(const float4x4& Other);
 
 	void Identity();
 	void Zero();

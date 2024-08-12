@@ -31,8 +31,19 @@ void EngineObject::SetName(EngineString _Name)
 
 void EngineObject::SetParent(EngineObject* _Parent)
 {
+	if (Parent != nullptr)
+	{
+		Parent->ChildList.Delete(this);
+		Parent->Transform.ChildTransform.Delete(this);
+
+		Parent = nullptr;
+		Transform.ParentTransform = nullptr;
+	}
 	_Parent->ChildList.Add(this);
 	Parent = _Parent;
+
+	_Parent->Transform.ChildTransform.Add(&Transform);
+	Transform.ParentTransform = &_Parent->Transform;
 }
 
 EngineObject* EngineObject::GetTopParent()

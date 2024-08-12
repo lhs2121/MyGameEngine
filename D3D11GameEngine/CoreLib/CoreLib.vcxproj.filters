@@ -54,6 +54,7 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="CoreAPI.h" />
+    <ClInclude Include="EngineCollision.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineComponent.cpp">
@@ -89,5 +90,6 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="CoreAPI.cpp" />
+    <ClCompile Include="EngineCollision.cpp" />
   </ItemGroup>
 </Project>

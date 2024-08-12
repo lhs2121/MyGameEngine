@@ -31,13 +31,39 @@ void EngineList::Add(void* _ItemPtr)
 	NewNode->PrevPtr = CurTail;
 }
 
-void EngineList::Delete()
+void EngineList::Delete(void* _TargetPtr)
+{
+	GoFirst();
+	for (size_t i = 0; i < Count; i++)
+	{
+		if (CurNode->ItemPtr == _TargetPtr)
+		{
+			DeleteCurNode();
+			break;
+		}
+		GoNext();
+	}
+}
+
+void EngineList::DeleteCurNode()
 {
 	if (CurNode != nullptr)
 	{
-		Count--;
+		Node* PrevNode = CurNode->PrevPtr;
+		Node* NextNode = CurNode->NextPtr;
 
-		delete CurNode;
+		if (NextNode != nullptr)
+		{
+			NextNode->PrevPtr = PrevNode;
+		}
+
+		if (PrevNode != nullptr)
+		{
+			PrevNode->NextPtr = NextNode;
+		}
+
+		Count--;
+		delete CurNode; 
 		CurNode = FirstNode;
 	}
 }

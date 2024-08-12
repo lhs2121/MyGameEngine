@@ -24,24 +24,6 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 		}
 	}
 
-	{
-		IEngineInputLayout* pIA = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "POSITION");
-		ShaderInput input[] = { ShaderInput::POSITION };
-		pIA->SetDesc(input, 1);
-	}
-
-	{
-		IEngineInputLayout* pIA = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "POSITION_COLOR");
-		ShaderInput input[] = { ShaderInput::POSITION,ShaderInput::COLOR };
-		pIA->SetDesc(input, 2);
-	}
-
-	{
-		IEngineInputLayout* pIA = (IEngineInputLayout*)pManager->CreateResource(ResType::IA, "POSITION_TEXCOORD");
-		ShaderInput input[] = { ShaderInput::POSITION,ShaderInput::TEXCOORD };
-		pIA->SetDesc(input, 2);
-	}
-
 	//Box2D
 	{
 		float4 Box2D[] =

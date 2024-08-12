@@ -85,6 +85,20 @@ float4x4 float4x4::operator*(const float4x4& Other)
 	return Result;
 }
 
+void float4x4::operator*=(const float4x4& Other)
+{
+	for (size_t r = 0; r < 4; r++)
+	{
+		for (size_t j = 0; j < 4; j++)
+		{
+			for (size_t i = 0; i < 4; i++)
+			{
+				matrix[r][j] += matrix[r][i] * Other.matrix[i][j];
+			}
+		}
+	}
+}
+
 void float4x4::Identity()
 {
 	Zero();

@@ -12,10 +12,13 @@ void EngineRenderer::Awake()
 {
 	GetLevel()->GetMainCamera()->PushRenderer(this);
 
-	{
-		TransformBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, "Transform");
-		TransformBuffer->Setting(&Transform.WorldViewProjectionMat, sizeof(float4x4));
-	}
+	static int RendererTransformBufferCount = 0;
+	EngineString BufferName = "Transform_";
+	BufferName += RendererTransformBufferCount;
+	RendererTransformBufferCount++;
+
+	TransformBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, BufferName);
+	TransformBuffer->Setting(&Transform.WorldViewProjectionMat, sizeof(float4x4));
 
 	Mesh = (IMesh*)MainD3DManager->Find(ResType::Mesh,"Box2D");
 	Material = (IMaterial*)MainD3DManager->Find(ResType::Material, "Default");
@@ -32,9 +35,10 @@ void EngineRenderer::Update(float _Delta)
 void EngineRenderer::Render()
 {
 	TransformBuffer->IntoPipeline(ShaderType::VS);
+	pIA->IntoPipeline();
 	Mesh->IntoPipeline();
 	Material->IntoPipeline();
-	pIA->IntoPipeline();
+
 	MainDevice->GetContext()->DrawIndexed(Mesh->GetIndexCount(), 0, 0);
 }
 
@@ -42,10 +46,9 @@ void EngineRenderer::Render()
 void EngineRenderer::SetTexture(const char* _Name)
 {
 	Material->SetTexture(_Name);
-
 	IEngineTexture* Texture = (IEngineTexture*)MainD3DManager->Find(ResType::Texture, _Name);
 	float4 ImageScale = Texture->GetImageScale();
-	Transform.SetScale(ImageScale);
+	Transform.SetScale(ImageScale); 
 }
 
 void EngineRenderer::SetSampler(const char* _Name)

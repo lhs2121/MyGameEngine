@@ -10,7 +10,8 @@ class BaseAPI EngineList
 {
 public:
 	void  Add(void* _ItemPtr);
-	void  Delete();
+	void  Delete(void* _TargetPtr);
+	void  DeleteCurNode();
 
 	void  GoFirst();
 	void  GoPrev();

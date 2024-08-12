@@ -13,18 +13,11 @@ public:
 	void AddScale(float4 Value);
 	void AddRotation(float4 Value);
 
-	void SetParent(EngineTransform* _Parent)
-	{
-		Parent = _Parent;
-	}
-
-	void SetChild(EngineTransform* _Child)
-	{
-		Child = _Child;
-		Child->SetParent(this);
-	}
-
 	void TransformUpdate();
+
+	float4 LocalPosition = { 0,0,0,1 };
+	float4 LocalScale = { 1,1,1,1 };
+	float4 LocalRotation = { 0,0,0,1 };;
 
 	float4 Position;
 	float4 Scale = { 1,1,1,1 };
@@ -40,7 +33,6 @@ public:
 
 	float4x4 WorldViewProjectionMat;
 
-private:
-	EngineTransform* Parent = nullptr;
-	EngineTransform* Child  = nullptr;
+	EngineTransform* ParentTransform = nullptr;
+	EngineList ChildTransform;
 };

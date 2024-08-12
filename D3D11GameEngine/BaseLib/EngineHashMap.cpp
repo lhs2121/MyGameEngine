@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "HashNode.h"
+#include "EngineDebug.h"
 #include "EngineHashMap.h"
 #include "EngineString.h"
 #include <string>
@@ -89,8 +90,6 @@ EngineIntHashMap::~EngineIntHashMap()
 
 bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 {
-	ElementCount++;
-
 	if (Array == nullptr)
 	{
 		Array = new HashNode[ArraySize];
@@ -103,6 +102,8 @@ bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 	{
 		CurNode->Key = _Key;
 		CurNode->ItemPtr = ItemPtr;
+
+		ElementCount++;
 		return true;
 	}
 
@@ -110,6 +111,7 @@ bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 	{
 		if (CurNode->Key == _Key)
 		{
+			EngineDebug::MsgBoxAssert("해쉬맵에 이미 동일한 키가 있습니다.");
 			return false;	
 		}
 
@@ -120,6 +122,8 @@ bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 			NewNode->Key = _Key;
 
 			CurNode->NextPtr = NewNode;
+
+			ElementCount++;
 			return true;
 		}
 		
@@ -139,13 +143,17 @@ void* EngineHashMap::Get(const char* _Key)
 			break;
 		}
 
+		if (CurNode->NextPtr == nullptr)
+		{
+			return nullptr;
+		}
 		CurNode = CurNode->NextPtr;
 	}
 
 	return CurNode->ItemPtr;
 }
 
-int EngineHashMap::Count()
+UINT EngineHashMap::Count()
 {
 	return ElementCount;
 }
@@ -183,7 +191,7 @@ void EngineHashMap::GoNext()
 
 		if (Header->Key != nullptr)
 		{
-			break;
+			return;
 		}
 	}
 }

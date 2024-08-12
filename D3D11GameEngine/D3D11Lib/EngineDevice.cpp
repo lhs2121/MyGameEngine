@@ -39,15 +39,15 @@ EngineDevice::~EngineDevice()
 	}
 	if (DevicePtr != nullptr)
 	{
-//#if defined(DEBUG) || defined(_DEBUG)
-//		ID3D11Debug* dxgiDebug;
-//
-//		if (S_OK == DevicePtr->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
-//		{
-//			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
-//			dxgiDebug = nullptr;
-//		}
-//#endif
+#if defined(DEBUG) || defined(_DEBUG)
+		ID3D11Debug* dxgiDebug;
+
+		if (S_OK == DevicePtr->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
+		{
+			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+			dxgiDebug = nullptr;
+		}
+#endif
 
 		DevicePtr->Release();
 		DevicePtr = nullptr;
@@ -62,10 +62,10 @@ void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 
 	D3D_FEATURE_LEVEL Level = D3D_FEATURE_LEVEL_11_0;
 
-	CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&FactoryPtr));
+	CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&FactoryPtr));
 	FactoryPtr->EnumAdapters(0, &AdapterPtr);
 
-	HRESULT hr = D3D11CreateDevice
+	if (S_OK != D3D11CreateDevice
 	(
 		AdapterPtr,
 		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN,
@@ -77,7 +77,10 @@ void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 		&DevicePtr,
 		&Level,
 		&ContextPtr
-	);
+	))
+	{
+		EngineDebug::MsgBoxAssert("디바이스 생성 실패");
+	}
 
 	{
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
@@ -97,15 +100,21 @@ void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 		Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-		HRESULT Result = FactoryPtr->CreateSwapChain(DevicePtr, &Desc, &SwapChain);
+		if (S_OK != FactoryPtr->CreateSwapChain(DevicePtr, &Desc, &SwapChain))
+		{
+			EngineDebug::MsgBoxAssert("스왑체인 생성 실패");
+		}
 
 		SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&BackTexture));
 	}
 
 
+
+	if (S_OK != DevicePtr->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView))
 	{
-		HRESULT Result = DevicePtr->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView);
+		EngineDebug::MsgBoxAssert("백버퍼 렌더타겟 생성 실패");
 	}
+
 
 	{
 		D3D11_TEXTURE2D_DESC Desc;
@@ -132,6 +141,7 @@ void EngineDevice::Init(void* pHwnd, float4 WindowSize)
 		// 깊이 스텐실 뷰 생성
 		if (S_OK != DevicePtr->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
 		{
+			EngineDebug::MsgBoxAssert("뎁스스텐실 생성 실패");
 		}
 	}
 

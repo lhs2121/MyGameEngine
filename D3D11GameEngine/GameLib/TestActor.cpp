@@ -3,14 +3,15 @@
 
 void TestActor::Awake()
 {
-	GetLevel()->GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
-
 	EngineDirectory dir;
 
 	std::vector<EngineFile> ImageFile = dir.GetAllFileExt(".png");
 
-	IEngineTexture* tex = (IEngineTexture*)MainD3DManager->CreateResource(ResType::Texture, "Stand_000"); 
-	tex->Setting(ImageFile[0]);
+	if (MainD3DManager->Find(ResType::Texture, "Stand_000") == nullptr)
+	{
+		IEngineTexture* tex = (IEngineTexture*)MainD3DManager->CreateResource(ResType::Texture, "Stand_000");
+		tex->Setting(ImageFile[0]);
+	}
 
 	Renderer = (EngineSpriteRenderer*)CreateComponent(new EngineSpriteRenderer());
 	Renderer->SetTexture("Stand_000");

@@ -44,12 +44,11 @@ void EngineSpriteRenderer::Update(float _Delta)
 		CurSpriteY = 0;
 		CurFrame = 0;
 	}
-
-	SpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
 }
 
 void EngineSpriteRenderer::Render()
 {
+	SpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
 	EngineRenderer::Render();
 } 
  
@@ -85,11 +84,13 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 	CurFrame = 0;
 	CurTime = 0.0f;
 	CurSpriteData = SpriteDatas[0][0];
-
 	InterTime = _InterTime;
 
-	
-	SpriteDataBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, "SpriteData");
+	static int SpriteDataBufferCount = 0;
+	EngineString BufferName = "SpriteData_";
+	BufferName += SpriteDataBufferCount;
+	SpriteDataBufferCount++;
+	SpriteDataBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, BufferName);
 	SpriteDataBuffer->Setting(&CurSpriteData, sizeof(SpriteData));
 }
 

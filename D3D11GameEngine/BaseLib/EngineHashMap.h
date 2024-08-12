@@ -8,7 +8,7 @@ class BaseAPI EngineHashMap
 public:
 	bool      Add(EngineString _Key, void* ItemPtr);
 	void*     Get(const char* _Key);
-	int       Count();
+	UINT      Count();
 	void      GoFirst();
 	void      GoNext();
 	void*     GetCurItem();
