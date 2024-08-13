@@ -1,8 +1,20 @@
 #include "Pre.h"
 #include "EngineFile.h"
 #include "EngineDebug.h"
-#include <filesystem>
 
+EngineFile::EngineFile(const char* _Path)
+{
+	Path = _Path;
+}
+
+EngineFile::~EngineFile()
+{
+	if (FileStr != nullptr)
+	{
+		delete[] FileStr;
+		FileStr = nullptr;
+	}
+}
 EngineString EngineFile::GetFileName()
 {
 	int ByteSize = EngineString::GetByte(Path.String);
@@ -15,7 +27,7 @@ EngineString EngineFile::GetFileName()
 	Header += ByteSize;
 	while (true)
 	{
-		if (*(Header -1) == '\\')
+		if (*(Header - 1) == '\\')
 		{
 			break;
 		}
@@ -27,7 +39,7 @@ EngineString EngineFile::GetFileName()
 	char* temp2 = temp + WasteSize;
 
 	EngineString Result = temp2;
-	
+
 	delete[] temp;
 
 	return Result;
@@ -50,11 +62,6 @@ EngineString EngineFile::GetExt()
 
 }
 
-EngineFile::EngineFile(const char* _Path)
-{
-	Path = _Path;
-}
-
 void EngineFile::SetPath(const char* _Path)
 {
 	Path = _Path;
@@ -67,7 +74,7 @@ EngineString EngineFile::GetPath()
 
 void EngineFile::Open(FileMode _Mode)
 {
-	EngineString Mode;
+	const char* Mode = nullptr;
 	switch (_Mode)
 	{
 	case FileMode::Read:
@@ -82,11 +89,9 @@ void EngineFile::Open(FileMode _Mode)
 	case FileMode::WriteBinary:
 		Mode = "wb";
 		break;
-	default:
-		break;
 	}
 
-    fopen_s(&FilePtr, Path.c_str(), Mode.c_str());
+	fopen_s(&FilePtr, Path.c_str(), Mode);
 	if (FilePtr == nullptr)
 	{
 		EngineDebug::MsgBoxAssert("파일을 여는데 실패했습니다");
@@ -96,6 +101,78 @@ void EngineFile::Open(FileMode _Mode)
 void EngineFile::Close()
 {
 	fclose(FilePtr);
+	FilePtr = nullptr;
+}
+
+void EngineFile::ReadFileToMemory()
+{
+	bool OpenHere = false;
+	if (FilePtr == nullptr)
+	{
+		Open(FileMode::Read);
+		OpenHere = true;
+	}
+	fseek(FilePtr, 0, SEEK_END);
+	UINT FileLen = ftell(FilePtr);
+	rewind(FilePtr);
+
+	FileStr = new char[FileLen];
+	fread(FileStr, sizeof(char), FileLen, FilePtr);
+	CurFileStrPtr = FileStr;
+	if (OpenHere)
+	{
+		Close();
+	}
+
+}
+
+void EngineFile::Move(const char* _TargetStr, MoveMode _Mode)
+{
+	CurFileStrPtr = strstr(CurFileStrPtr, _TargetStr);
+	if (CurFileStrPtr == 0)
+	{
+		EngineDebug::MsgBoxAssert("파일안에서 문자열을 못찾았습니다");
+	}
+
+	if (_Mode == MoveMode::Back)
+	{
+		int len = strlen(_TargetStr) - 1;
+		CurFileStrPtr += len;
+	}
+}
+
+void EngineFile::MoveFront()
+{
+	CurFileStrPtr--;
+}
+
+void EngineFile::MoveBack()
+{
+	CurFileStrPtr++;
+}
+
+void EngineFile::ReWind()
+{
+	CurFileStrPtr = FileStr;
+}
+
+EngineString EngineFile::GetString(char _EndStr, int _Offset)
+{
+	if (FileStr == nullptr)
+	{
+		EngineDebug::MsgBoxAssert("먼저 ReadFileToMemory()을 호출해주세요");
+	}
+	UINT _StrCount = 0;
+	char* temp = CurFileStrPtr + _Offset;
+	while (_EndStr != *temp++)
+	{
+		_StrCount++;
+	}
+	char* str = new char[_StrCount + 1];
+	memcpy_s(str, _StrCount, CurFileStrPtr + _Offset, _StrCount);
+	str[_StrCount] = '\0';
+	EngineString Result = str;
+	return Result;
 }
 
 

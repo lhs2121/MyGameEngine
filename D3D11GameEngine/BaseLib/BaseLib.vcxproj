@@ -171,7 +171,6 @@
     <ClInclude Include="EngineList.h" />
     <ClInclude Include="HashNode.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineVector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp" />
@@ -185,7 +184,6 @@
     <ClCompile Include="BaseAPI.cpp" />
     <ClCompile Include="EngineList.cpp" />
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="EngineVector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,7 +12,6 @@
     <ClInclude Include="BaseAPI.h" />
     <ClInclude Include="EngineList.h" />
     <ClInclude Include="EngineHashMap.h" />
-    <ClInclude Include="EngineVector.h" />
     <ClInclude Include="HashNode.h" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +26,5 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineList.cpp" />
     <ClCompile Include="EngineHashMap.cpp" />
-    <ClCompile Include="EngineVector.cpp" />
   </ItemGroup>
 </Project>
