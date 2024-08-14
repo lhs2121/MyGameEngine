@@ -81,7 +81,6 @@ struct IEngineVertexShader : public IEnginePipeLineRes
 
 struct IEngineInputLayout : public IEnginePipeLineRes
 {
-	virtual void SetDesc(ShaderInput* _ShaderInputArray, UINT _ArrayCount) = 0;
 	virtual void Setting(IEngineVertexBuffer* _pVB, IEngineVertexShader* _pVS) = 0;
 };
 

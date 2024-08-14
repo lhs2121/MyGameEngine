@@ -23,6 +23,9 @@ public:
 
 	static void DeleteAllStringPool();
 	static int GetByte(const char* OtherString);
+	int  stoi();
+	double stof();
+
 	void GetUTF8(wchar_t** WideString);	
 	const char* c_str();
 

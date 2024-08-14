@@ -128,27 +128,45 @@ void EngineFile::ReadFileToMemory()
 
 void EngineFile::Move(const char* _TargetStr, MoveMode _Mode)
 {
+	if (FileStr == nullptr)
+	{
+		EngineDebug::MsgBoxAssert("먼저 ReadFileToMemory()을 호출해주세요");
+	}
+
 	CurFileStrPtr = strstr(CurFileStrPtr, _TargetStr);
 	if (CurFileStrPtr == 0)
 	{
 		EngineDebug::MsgBoxAssert("파일안에서 문자열을 못찾았습니다");
 	}
 
-	if (_Mode == MoveMode::Back)
+	if (_Mode == MoveMode::End)
 	{
-		int len = strlen(_TargetStr) - 1;
+		size_t len = strlen(_TargetStr) - 1;
 		CurFileStrPtr += len;
 	}
 }
 
-void EngineFile::MoveFront()
+void EngineFile::MovePrev()
 {
 	CurFileStrPtr--;
 }
 
-void EngineFile::MoveBack()
+void EngineFile::MoveNext()
 {
 	CurFileStrPtr++;
+}
+
+char EngineFile::GetChar()
+{
+	return *CurFileStrPtr;
+}
+
+void EngineFile::SkipSpace()
+{
+	while (' ' == *CurFileStrPtr)
+	{
+		CurFileStrPtr++;
+	}
 }
 
 void EngineFile::ReWind()
@@ -156,20 +174,20 @@ void EngineFile::ReWind()
 	CurFileStrPtr = FileStr;
 }
 
-EngineString EngineFile::GetString(char _EndStr, int _Offset)
+EngineString EngineFile::GetString( char _EndStr)
 {
 	if (FileStr == nullptr)
 	{
 		EngineDebug::MsgBoxAssert("먼저 ReadFileToMemory()을 호출해주세요");
 	}
 	UINT _StrCount = 0;
-	char* temp = CurFileStrPtr + _Offset;
+	char* temp = CurFileStrPtr;
 	while (_EndStr != *temp++)
 	{
 		_StrCount++;
 	}
 	char* str = new char[_StrCount + 1];
-	memcpy_s(str, _StrCount, CurFileStrPtr + _Offset, _StrCount);
+	memcpy_s(str, _StrCount, CurFileStrPtr, _StrCount);
 	str[_StrCount] = '\0';
 	EngineString Result = str;
 	return Result;

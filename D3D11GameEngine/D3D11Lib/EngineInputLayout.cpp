@@ -22,35 +22,6 @@ EngineInputLayout::~EngineInputLayout()
 	}
 }
 
-void EngineInputLayout::SetDesc(ShaderInput* _ShaderInputArray, UINT _ArrayCount)
-{
-	Desc = new D3D11_INPUT_ELEMENT_DESC[_ArrayCount];
-	ArrayCount = _ArrayCount;
-	UINT CurOffset = 0;
-
-	for (size_t i = 0; i < _ArrayCount; i++)
-	{
-		ShaderInput Element = _ShaderInputArray[i];
-		switch (Element)
-		{
-		case ShaderInput::POSITION:
-			Desc[i] = { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, CurOffset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
-			CurOffset += 16;
-			break;
-		case ShaderInput::TEXCOORD:
-			Desc[i] = { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, CurOffset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
-			CurOffset += 4;
-			break;
-		case ShaderInput::COLOR:
-			Desc[i] = { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, CurOffset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
-			CurOffset += 16;
-			break;
-		default:
-			break;
-		}
-	}
-}
-
 void EngineInputLayout::Setting(IEngineVertexBuffer* _pVB, IEngineVertexShader* _pVS)
 {
 	EngineVertexShader* pVS = (EngineVertexShader*)_pVS;

@@ -14,8 +14,8 @@ enum class FileMode
 
 enum class MoveMode
 {
-	Front,
-	Back
+	Start,
+	End,
 };
 class BaseAPI EngineFile 
 {
@@ -32,11 +32,13 @@ public:
 	void Close();
 
 	void ReadFileToMemory();
-	void Move(const char* _TargetStr, MoveMode _Mode = MoveMode::Front);
-	void MoveFront();
-	void MoveBack();
+	void Move(const char* _TargetStr, MoveMode _Mode = MoveMode::Start);
+	void MovePrev();
+	void MoveNext();
+	void SkipSpace();
 	void ReWind();
-	EngineString GetString(char _EndStr, int _Offset = 0);
+	char GetChar();
+	EngineString GetString(char _EndStr);
 
 private:
 	FILE* FilePtr = nullptr;

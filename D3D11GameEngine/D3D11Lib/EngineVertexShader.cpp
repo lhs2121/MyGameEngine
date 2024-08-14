@@ -20,30 +20,49 @@ EngineVertexShader::~EngineVertexShader()
 	}
 }
 
-SementicInfo* EngineVertexShader::SetSementicInfo()
+UINT EngineVertexShader::GetSlotNumber(const char* _BindingResName)
 {
-	InfoArray = new SementicInfo[16];
-	char** SementicNames = new char*[8];
-	for (size_t i = 0; i < 6; i++)
-	{
-		SementicNames[i] = new char[64];
-	}
-
-	FILE* f;
-	fopen_s(&f, Path.c_str(), "r");
+	ShaderFile.Move(_BindingResName);
+	ShaderFile.Move("register(",MoveMode::End);
+	ShaderFile.MoveNext();
+	ShaderFile.MoveNext();
 
 
+	char SlotNumber = ShaderFile.GetChar();
+	return (UINT)(atoi(&SlotNumber));
 }
 
 void EngineVertexShader::Setting(EngineString _Name, EngineString _Path)
 {
-	Path = _Path;
+	ShaderFile.SetPath(_Path.c_str());
+	ShaderFile.ReadFileToMemory();
+	ShaderFile.Move("struct");
+	ShaderFile.Move("VS_INPUT");
+	while (true)
+	{
+		ShaderFile.Move(":");
+		ShaderFile.MoveNext();
+		ShaderFile.MoveNext();
+		EngineString Sementic = ShaderFile.GetString(';');
+
+		Sementics.push_back(Sementic);
+
+		ShaderFile.Move("\n");
+		ShaderFile.MoveNext();
+		char End = ShaderFile.GetChar();
+		if (End == '}')
+		{
+			break;
+		}
+
+
+	}
+
 	EngineString MainFuncName = _Name;
 	MainFuncName += "_VS";
 
-	EngineString PathString = Path;
 	wchar_t* UTF8Path;
-	PathString.GetUTF8(&UTF8Path);
+	_Path.GetUTF8(&UTF8Path);
 
 	int Flag;
 

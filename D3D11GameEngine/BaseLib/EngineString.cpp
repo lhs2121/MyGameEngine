@@ -213,6 +213,16 @@ int EngineString::GetByte(const char* OtherString)
 	return (int)strlen(OtherString) + 1;
 }
 
+int EngineString::stoi()
+{
+	return atoi(String);
+}
+
+double EngineString::stof()
+{
+	return atof(String);
+}
+
 const char* EngineString::c_str()
 {
 	return String;

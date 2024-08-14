@@ -7,7 +7,6 @@ public:
 	EngineInputLayout();
 	~EngineInputLayout();
 
-	void SetDesc(ShaderInput* _ShaderInputArray, UINT _ArrayCount) override;
 	void Setting(IEngineVertexBuffer* _pVB, IEngineVertexShader* _pVS) override;
 	void IntoPipeline() override;
 
