@@ -34,7 +34,7 @@ void EngineList::Add(void* _ItemPtr)
 void EngineList::Delete(void* _TargetPtr)
 {
 	GoFirst();
-	for (size_t i = 0; i < Count; i++)
+	for (int i = 0; i < Count; i++)
 	{
 		if (CurNode->ItemPtr == _TargetPtr)
 		{

@@ -8,6 +8,7 @@ public:
 	~EngineVertexShader();
 
 	std::vector<EngineString>  GetSementics() { return Sementics; }
+	EngineString GetLayoutName();
 	UINT GetSlotNumber(const char* _BindingResName);
 
 	void Setting(EngineString _Name, EngineString _Path) override;

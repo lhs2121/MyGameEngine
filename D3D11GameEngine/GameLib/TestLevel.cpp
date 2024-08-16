@@ -10,6 +10,7 @@ void TestLevel::Awake()
 	a->SetName("parent");
 	b->SetName("child");
 
+	b->Transform.SetPos({ 1,1 });
 	b->SetParent(a);
 
 }

@@ -5,7 +5,8 @@ void TestActor::Awake()
 {
 	EngineDirectory dir;
 
-	std::vector<EngineFile> ImageFile = dir.GetAllFileExt(".png");
+	std::vector<EngineFile> ImageFile;
+	ImageFile = dir.GetAllFileExt(".png");
 
 	if (MainD3DManager->Find(ResType::Texture, "Stand_000") == nullptr)
 	{

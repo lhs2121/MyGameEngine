@@ -166,17 +166,16 @@ void* EngineD3DManager::Find(ResType _Type, const char* _Name)
 
 IEngineInputLayout* EngineD3DManager::FindIA(IMesh* _Mesh, IMaterial* _Material)
 {
-	EngineVertexShader* vs = (EngineVertexShader*)_Material->GetVS();
-	//EngineString Sementics = vs->GetSementic();
-//	EngineInputLayout* layout = (EngineInputLayout * )Find(ResType::IA, Sementics.c_str());
-	//if (layout == nullptr)
-	//{
-	//	CreateResource(ResType::IA, Sementics);
-	//	layout->Setting(_Mesh->GetVB(), _Material->GetVS());
-	//}
+	EngineVertexShader* VSPtr = (EngineVertexShader*)_Material->GetVS();
+	EngineString Name = VSPtr->GetLayoutName();
+	std::vector<EngineString> Sementics = VSPtr->GetSementics();
 
+	EngineInputLayout* Result = (EngineInputLayout*)Find(ResType::IA, Name.c_str());
+	if (Result == nullptr)
+	{
+		Result = (EngineInputLayout * )CreateResource(ResType::IA, Name);
+		Result->Setting(_Mesh->GetVB(), _Material->GetVS());
+	}
 
-	/*return layout;*/
-
-	return nullptr;
+	return Result;
 }

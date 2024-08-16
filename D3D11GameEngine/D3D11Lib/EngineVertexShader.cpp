@@ -20,6 +20,25 @@ EngineVertexShader::~EngineVertexShader()
 	}
 }
 
+EngineString EngineVertexShader::GetLayoutName()
+{
+	EngineString Result;
+	
+	int Size = Sementics.size();
+	for (size_t i = 0; i < Size; i++)
+	{
+		Result += Sementics[i];
+
+		if (i == Size - 1)
+		{
+			break;
+		}
+		Result += "_";
+
+	}
+	return Result;
+}
+
 UINT EngineVertexShader::GetSlotNumber(const char* _BindingResName)
 {
 	ShaderFile.Move(_BindingResName);

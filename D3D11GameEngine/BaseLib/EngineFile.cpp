@@ -190,6 +190,7 @@ EngineString EngineFile::GetString( char _EndStr)
 	memcpy_s(str, _StrCount, CurFileStrPtr, _StrCount);
 	str[_StrCount] = '\0';
 	EngineString Result = str;
+	delete[] str;
 	return Result;
 }
 
