@@ -19,6 +19,9 @@
     <Filter Include="Transform">
       <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Natvis">
+      <UniqueIdentifier>{79ad5f50-f286-409a-901a-43c1d266f4ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSpriteRenderer.h">
@@ -54,7 +57,9 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="CoreAPI.h" />
-    <ClInclude Include="EngineCollision.h" />
+    <ClInclude Include="EngineCollision.h">
+      <Filter>Object\LevelObject\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineComponent.cpp">
@@ -90,6 +95,13 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="CoreAPI.cpp" />
-    <ClCompile Include="EngineCollision.cpp" />
+    <ClCompile Include="EngineCollision.cpp">
+      <Filter>Object\LevelObject\Component</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\common\BaseLib.natvis">
+      <Filter>Natvis</Filter>
+    </Natvis>
   </ItemGroup>
 </Project>

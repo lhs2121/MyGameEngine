@@ -8,21 +8,21 @@ void EngineTransform::TransformUpdate()
 	ChildTransform.GoFirst();
 	for (size_t i = 0; i < Count; i++)
 	{
-		EngineTransform* TransformData = (EngineTransform*)ChildTransform.Item();
-		TransformData->Scale = Scale;
-		TransformData->Rotation = Rotation;
-		TransformData->Position = Position;
-		TransformData->TransformUpdate();
+		EngineTransform* ChildTransformData = (EngineTransform*)ChildTransform.Item();
+		ChildTransformData->Scale = Scale * LocalScale;
+		ChildTransformData->Rotation = Rotation + LocalRotation;
+		ChildTransformData->Position = Position + LocalPosition;
+		ChildTransformData->TransformUpdate();
 		ChildTransform.GoNext();
 	}
 
-	Scale *= LocalScale;
-	Rotation += LocalRotation;
-	Position += LocalPosition;
+	float4 WorldScale = Scale * LocalScale;
+	float4 WorldRot = Rotation + LocalRotation;
+	float4 WorldPos = Position + LocalPosition;
 
-	ScaleMat.Scale(Scale);
-	RotationMat.Rotation(Rotation);
-	PositionMat.Position(Position);
+	ScaleMat.Scale(WorldScale);
+	RotationMat.Rotation(WorldRot);
+	PositionMat.Position(WorldPos);
 
 	WorldMat.Identity();
 	WorldMat = ScaleMat * RotationMat * PositionMat;
@@ -30,6 +30,42 @@ void EngineTransform::TransformUpdate()
 
 void EngineTransform::SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat)
 {
+}
+
+void EngineTransform::SetLocalPos(float4 Value)
+{
+	LocalPosition = Value;
+	TransformUpdate();
+}
+
+void EngineTransform::SetLocalScale(float4 Value)
+{
+	LocalScale = Value;
+	TransformUpdate();
+}
+
+void EngineTransform::SetLocalRotation(float4 Value)
+{
+	LocalRotation = Value;
+	TransformUpdate();
+}
+
+void EngineTransform::AddLocalPos(float4 Value)
+{
+	LocalPosition += Value;
+	TransformUpdate();
+}
+
+void EngineTransform::AddLocalScale(float4 Value)
+{
+	LocalScale += Value;
+	TransformUpdate();
+}
+
+void EngineTransform::AddLocalRotation(float4 Value)
+{
+	LocalRotation += Value;
+	TransformUpdate();
 }
 
 void EngineTransform::SetPos(float4 Value)

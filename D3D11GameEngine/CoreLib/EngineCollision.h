@@ -6,11 +6,17 @@ enum class Colype
 	Rect,
 	Circle,
 };
-class EngineCollision : public EngineComponent
+class CoreAPI EngineCollision : public EngineComponent
 {
+public:
 	void Awake() override;
 	void Update(float _Delta) override;
+	bool AABB(EngineCollision* _Other);
 
-	float4 RectCorners;
+	float left;
+	float right;
+	float top;
+	float bottom;
+	float4 ColScale = { 100,100 };
 	Colype Type = Colype::Rect;
 };

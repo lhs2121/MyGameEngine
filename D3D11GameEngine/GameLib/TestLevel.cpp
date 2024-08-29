@@ -5,16 +5,15 @@
 void TestLevel::Awake()
 {
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
-	TestActor* a = (TestActor*)CreateActor(new TestActor());
-	TestActor* b = (TestActor * )CreateActor(new TestActor());
-	a->SetName("parent");
-	b->SetName("child");
+	a = (TestActor*)CreateActor(new TestActor());
+	b = (TestActor*)CreateActor(new TestActor());
 
-	b->Transform.SetPos({ 1,1 });
-	b->SetParent(a);
-
+	b->Transform.SetLocalPos({ 101,100 });
 }
 
 void TestLevel::Update(float _Delta)
 {
+	EngineLevel::Update(_Delta);
+	float4x4 at = a->Transform.WorldMat;
+	float4x4 bt = b->Transform.WorldMat;
 }

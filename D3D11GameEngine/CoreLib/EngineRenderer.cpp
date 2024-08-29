@@ -48,7 +48,7 @@ void EngineRenderer::SetTexture(const char* _Name)
 	Material->SetTexture(_Name);
 	IEngineTexture* Texture = (IEngineTexture*)MainD3DManager->Find(ResType::Texture, _Name);
 	float4 ImageScale = Texture->GetImageScale();
-	Transform.SetScale(ImageScale); 
+	Transform.SetLocalScale(ImageScale); 
 }
 
 void EngineRenderer::SetSampler(const char* _Name)

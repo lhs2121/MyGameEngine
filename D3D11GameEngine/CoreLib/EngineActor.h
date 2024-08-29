@@ -11,5 +11,8 @@ public:
 		_NewActor->Awake();
 		return _NewActor;
 	}
+
+	void EnableInput();
+	void DisableInput();
 };
 

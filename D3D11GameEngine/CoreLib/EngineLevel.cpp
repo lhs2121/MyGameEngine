@@ -1,6 +1,7 @@
 #include "Pre.h"
 #include "EngineLevel.h"
 #include "EngineCamera.h"
+#include "EngineCollision.h"
 
 EngineLevel::EngineLevel()
 {
@@ -21,12 +22,33 @@ void* EngineLevel::CreateActor(void* _NewActor)
 	return _NewActor;
 }
 
+void EngineLevel::AddCollision(EngineCollision* _Col)
+{
+	CollisionList.Add(_Col);
+}
+
 void EngineLevel::Start()
 {
 }
 
 void EngineLevel::Update(float _Delta)
 {
+	UINT Count = CollisionList.GetCount();
+	EngineCollision* Col1 = nullptr;
+	EngineCollision* Col2 = nullptr;
+	for (size_t i = 0; i < Count; i++)
+	{
+		if (i == 0)
+		{
+			Col1 = (EngineCollision*)CollisionList.Item();
+		}
+		if (i == 1)
+		{
+			Col2 = (EngineCollision*)CollisionList.Item();
+		}
+		CollisionList.GoNext();
+	}
+	Col1->AABB(Col2);
 }
 
 void EngineLevel::Render()

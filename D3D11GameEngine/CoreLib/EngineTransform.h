@@ -5,6 +5,15 @@ class CoreAPI EngineTransform
 {
 public:
 	void SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat);
+
+	void SetLocalPos(float4 Value);
+	void SetLocalScale(float4 Value);
+	void SetLocalRotation(float4 Value);
+
+	void AddLocalPos(float4 Value);
+	void AddLocalScale(float4 Value);
+	void AddLocalRotation(float4 Value);
+
 	void SetPos(float4 Value);
 	void SetScale(float4 Value);
 	void SetRotation(float4 Value);
