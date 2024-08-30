@@ -18,7 +18,7 @@ void TestActor::Awake()
 	Renderer->SetTexture("Stand_000");
 	Renderer->CreateAnimation(2, 2, 1.0f);
 
-	(EngineCollision*)CreateComponent(new EngineCollision());
+	Col = (EngineCollision*)CreateComponent(new EngineCollision());
 }
 
 void TestActor::Update(float _Delta)
@@ -64,4 +64,9 @@ void TestActor::Update(float _Delta)
 		Renderer->Transform.SetPos({ 0,0,0 });
 		Renderer->Transform.SetRotation({ 0,0,0 });
 	}
+}
+
+void TestActor::SetColScale(float4 _Scale)
+{
+	Col->ColScale = _Scale;
 }

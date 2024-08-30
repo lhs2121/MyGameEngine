@@ -34,21 +34,37 @@ void EngineLevel::Start()
 void EngineLevel::Update(float _Delta)
 {
 	UINT Count = CollisionList.GetCount();
-	EngineCollision* Col1 = nullptr;
-	EngineCollision* Col2 = nullptr;
+
+	UINT OtherColCount = Count - 1;
+	EngineCollision* CurCol = nullptr;
+	EngineCollision* OtherCol = nullptr;
+
 	for (size_t i = 0; i < Count; i++)
 	{
-		if (i == 0)
-		{
-			Col1 = (EngineCollision*)CollisionList.Item();
-		}
-		if (i == 1)
-		{
-			Col2 = (EngineCollision*)CollisionList.Item();
-		}
+		CurCol = (EngineCollision*)CollisionList.Item();
 		CollisionList.GoNext();
+		for (size_t j = 0; j < OtherColCount; j++)
+		{
+			OtherCol = (EngineCollision*)CollisionList.Item();
+			CurCol->AABB(OtherCol);
+			CollisionList.GoNext();
+		}
+
+		OtherColCount--;
+		if (OtherColCount == 0)
+		{
+			break;
+		}
+
+
+		CollisionList.GoFirst();
+		for (size_t k = 0; k < i + 1; k++)
+		{
+			CollisionList.GoNext();
+		}
+		
 	}
-	Col1->AABB(Col2);
+
 }
 
 void EngineLevel::Render()

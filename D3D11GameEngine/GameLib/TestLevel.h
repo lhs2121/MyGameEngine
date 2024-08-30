@@ -10,5 +10,7 @@ public:
 
 	TestActor* a = nullptr;
 	TestActor* b = nullptr;
+	TestActor* c = nullptr;
+	TestActor* d = nullptr;
 };
 
