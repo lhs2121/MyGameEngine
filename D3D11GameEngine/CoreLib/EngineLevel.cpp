@@ -5,9 +5,6 @@
 
 EngineLevel::EngineLevel()
 {
-	EngineCamera* NewCamera = (EngineCamera*)CreateActor(new EngineCamera());
-
-	CameraList.Add(NewCamera);
 }
 
 EngineLevel::~EngineLevel()
@@ -17,9 +14,20 @@ EngineLevel::~EngineLevel()
 
 void* EngineLevel::CreateActor(void* _NewActor)
 {
-	((EngineObject*)_NewActor)->SetParent(this);
-	((EngineObject*)_NewActor)->Awake();
+	EngineLevelObject* NewActor = (EngineLevelObject*)_NewActor;
+	NewActor->Input = Input;
+	NewActor->Window = Window;
+	NewActor->Device = Device;
+	NewActor->D3DManager = D3DManager;
+	NewActor->SetParent(this);
+	NewActor->Awake();
 	return _NewActor;
+}
+
+void EngineLevel::CreateCamera()
+{
+	EngineCamera* NewCamera = (EngineCamera*)CreateActor(new EngineCamera());
+	CameraList.Add(NewCamera);
 }
 
 void EngineLevel::AddCollision(EngineCollision* _Col)
@@ -33,20 +41,21 @@ void EngineLevel::Start()
 
 void EngineLevel::Update(float _Delta)
 {
-	UINT Count = CollisionList.GetCount();
+	UINT AllColCount = CollisionList.GetCount();
 
-	UINT OtherColCount = Count - 1;
+	UINT OtherColCount = AllColCount - 1;
 	EngineCollision* CurCol = nullptr;
 	EngineCollision* OtherCol = nullptr;
 
-	for (size_t i = 0; i < Count; i++)
+	CollisionList.GoFirst();
+	for (size_t i = 0; i < AllColCount; i++)
 	{
 		CurCol = (EngineCollision*)CollisionList.Item();
 		CollisionList.GoNext();
 		for (size_t j = 0; j < OtherColCount; j++)
 		{
 			OtherCol = (EngineCollision*)CollisionList.Item();
-			CurCol->AABB(OtherCol);
+			CurCol->Collision(OtherCol);
 			CollisionList.GoNext();
 		}
 
@@ -56,22 +65,19 @@ void EngineLevel::Update(float _Delta)
 			break;
 		}
 
-
 		CollisionList.GoFirst();
 		for (size_t k = 0; k < i + 1; k++)
 		{
 			CollisionList.GoNext();
 		}
-		
 	}
-
 }
 
 void EngineLevel::Render()
 {
 	CameraList.GoFirst();
-
-	for (size_t i = 0; i < CameraList.GetCount(); i++)
+	UINT CameraCount = CameraList.GetCount();
+	for (UINT i = 0; i < CameraCount; i++)
 	{
 		EngineCamera* CurCamera = (EngineCamera*)CameraList.Item();
 		CurCamera->Render();
@@ -80,8 +86,8 @@ void EngineLevel::Render()
 	}
 }
 
-
 EngineCamera* EngineLevel::GetMainCamera()
 {
 	return (EngineCamera*)CameraList.Item();
 }
+

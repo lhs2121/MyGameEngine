@@ -55,7 +55,6 @@
       <Filter>Transform</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="Singleton.h" />
     <ClInclude Include="CoreAPI.h" />
     <ClInclude Include="EngineCollision.h">
       <Filter>Object\LevelObject\Component</Filter>
@@ -93,7 +92,6 @@
       <Filter>Transform</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="CoreAPI.cpp" />
     <ClCompile Include="EngineCollision.cpp">
       <Filter>Object\LevelObject\Component</Filter>

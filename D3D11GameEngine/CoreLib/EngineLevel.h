@@ -15,8 +15,15 @@ public:
 	void Render();
 
 	void*           CreateActor(void* _NewActor);
+	void            CreateCamera();
 	void            AddCollision(EngineCollision* _Col);
 	EngineCamera*   GetMainCamera();
+
+	IEngineInput* Input = nullptr;
+	IEngineWindow* Window = nullptr;
+	IEngineDevice* Device = nullptr;
+	IEngineD3DManager* D3DManager = nullptr;
+
 private:
 	EngineList CameraList;
 	EngineList CollisionList;

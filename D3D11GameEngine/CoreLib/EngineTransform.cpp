@@ -4,9 +4,9 @@
 void EngineTransform::TransformUpdate()
 {
 	//로컬 좌표계산하기전에 
-	int Count = ChildTransform.GetCount();
+	UINT Count = ChildTransform.GetCount();
 	ChildTransform.GoFirst();
-	for (size_t i = 0; i < Count; i++)
+	for (UINT i = 0; i < Count; i++)
 	{
 		EngineTransform* ChildTransformData = (EngineTransform*)ChildTransform.Item();
 		ChildTransformData->Scale = Scale * LocalScale;

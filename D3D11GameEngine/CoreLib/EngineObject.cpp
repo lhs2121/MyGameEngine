@@ -12,7 +12,7 @@ EngineObject::~EngineObject()
 void EngineObject::DeleteAllChild()
 {
 	ChildList.GoFirst();
-	int Count = ChildList.GetCount();
+	UINT Count = ChildList.GetCount();
 	for (size_t i = 0; i < Count; i++)
 	{
 		EngineObject* CurChild = (EngineObject*)ChildList.Item();
@@ -69,7 +69,7 @@ void EngineObject::ChildUpdate(float _Delta)
 {
 	ChildList.GoFirst();
 
-	int Count = ChildList.GetCount();
+	UINT Count = ChildList.GetCount();
 	for (size_t i = 0; i < Count; i++)
 	{
 		EngineObject* CurChild = (EngineObject*)ChildList.Item();

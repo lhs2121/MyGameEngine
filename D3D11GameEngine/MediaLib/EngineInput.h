@@ -21,11 +21,13 @@ public:
 	void Init() override;
 	void SetAllKeyState() override;
 
-	bool IsDown(int KeyCode) override;
-	bool IsPress(int KeyCode) override;
-	bool IsUp(int KeyCode) override;
-	bool IsFree(int KeyCode) override;
+	bool IsDown(int KeyCode, void* _UserPtr) override;
+	bool IsPress(int KeyCode, void* _UserPtr) override;
+	bool IsUp(int KeyCode, void* _UserPtr) override;
+	bool IsFree(int KeyCode, void* _UserPtr) override;
 
+	void AddUser(void* _UserPtr) override;
 	EngineIntHashMap AllKey;
+	std::vector<void*> Users;
 };
 

@@ -1,11 +1,10 @@
 #include "Pre.h"
 #include "EngineCamera.h"
 #include "EngineRenderer.h"
-#include "Singleton.h"
 
 void EngineCamera::Awake()
 {
-	WindowSize = MainWindow->GetWindowSize();
+	WindowSize = Window->GetWindowSize();
 }
 
 void EngineCamera::PushRenderer(EngineRenderer* Renderer)
@@ -33,7 +32,8 @@ void EngineCamera::Render()
 	}
 
 	RendererList.GoFirst();
-	for (size_t i = 0; i < RendererList.GetCount(); i++)
+	UINT RendererCount = RendererList.GetCount();
+	for (UINT i = 0; i < RendererCount; i++)
 	{
 		EngineRenderer* Renderer = (EngineRenderer*)RendererList.Item();
 

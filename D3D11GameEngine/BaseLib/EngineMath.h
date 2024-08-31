@@ -357,6 +357,8 @@ struct BaseAPI float4
 
 	void Normalize();
 
+	float Distance(float4& Other);
+
 	static float4 Normalize(float4& Other);
 
 	static float Dot(float4& Left, float4& Right);

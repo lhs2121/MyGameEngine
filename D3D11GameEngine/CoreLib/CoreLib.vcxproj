@@ -166,7 +166,6 @@
     <ClInclude Include="EngineSpriteRenderer.h" />
     <ClInclude Include="EngineTransform.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="Singleton.h" />
     <ClInclude Include="CoreAPI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +189,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="CoreAPI.cpp" />
   </ItemGroup>
   <ItemGroup>

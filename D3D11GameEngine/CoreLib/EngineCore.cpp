@@ -5,11 +5,15 @@
 #include <GameLib/GameAPI.h>
 #include "EngineCore.h"
 #include "EngineLevel.h"
-#include "Singleton.h"
 
 EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
 {
+    _NewLevel->Input = MainInput;
+    _NewLevel->Window = MainWindow;
+    _NewLevel->Device = MainDevice;
+    _NewLevel->D3DManager = MainD3DManager;
 	_NewLevel->SetName(_Name);
+    _NewLevel->CreateCamera();
 	_NewLevel->Awake();
 
 	AllLevel.Add(_Name, _NewLevel);
@@ -45,14 +49,14 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
     MainDevice->Init(MainWindow->GethWnd(), _WindowSize);
     MainDevice->ResourceInit(MainD3DManager);
 
-	Starter = _Starter;
-	Starter->GameStart();
-
 	CreateEngineTime(&MainTime);
     MainTime->Init();
     
     CreateEngineInput(&MainInput);
     MainInput->Init();
+
+    Starter = _Starter;
+    Starter->GameStart(this);
 
     MainTime->CountStart();
 

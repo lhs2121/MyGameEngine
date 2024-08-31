@@ -1,13 +1,10 @@
 #include "Pre.h"
 #include "CoreAPI.h"
 #include "EngineCore.h"
-#include "Singleton.h"
 
 void CreateEngineCore(ICore** ppInterface)
 {
-	MainCore = new EngineCore();
-	*ppInterface = MainCore;
-
+	*ppInterface = new EngineCore();
 }
 
 void DeleteEngineCore(ICore* pInterface)

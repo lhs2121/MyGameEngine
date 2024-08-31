@@ -1,9 +1,11 @@
 #include "Pre.h"
 #include "GameStarter.h"
+#include <CoreLib/EngineCore.h>
 #include "TestLevel.h"
 
-void GameStarter::GameStart()
+void GameStarter::GameStart(ICore* MainCore)
 {
-	MainCore->CreateLevel("TestLevel", new TestLevel());
-	MainCore->ChangeLevel("TestLevel");
+	EngineCore* Core = (EngineCore*)MainCore;
+	Core->CreateLevel("TestLevel", new TestLevel());
+	Core->ChangeLevel("TestLevel");
 }

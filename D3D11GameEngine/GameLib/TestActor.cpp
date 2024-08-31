@@ -8,9 +8,9 @@ void TestActor::Awake()
 	std::vector<EngineFile> ImageFile;
 	ImageFile = dir.GetAllFileExt(".png");
 
-	if (MainD3DManager->Find(ResType::Texture, "Stand_000") == nullptr)
+	if (D3DManager->Find(ResType::Texture, "Stand_000") == nullptr)
 	{
-		IEngineTexture* tex = (IEngineTexture*)MainD3DManager->CreateResource(ResType::Texture, "Stand_000");
+		IEngineTexture* tex = (IEngineTexture*)D3DManager->CreateResource(ResType::Texture, "Stand_000");
 		tex->Setting(ImageFile[0]);
 	}
 
@@ -19,54 +19,64 @@ void TestActor::Awake()
 	Renderer->CreateAnimation(2, 2, 1.0f);
 
 	Col = (EngineCollision*)CreateComponent(new EngineCollision());
+	Col->ColScale = Renderer->Transform.LocalScale;
 }
 
 void TestActor::Update(float _Delta)
 {
-	if (MainInput->IsPress('Z'))
+	if (Col->IsCollision)
 	{
-		Renderer->Transform.AddRotation({ 100 * _Delta,0,0 });
+		int a = 0;
 	}
-	if (MainInput->IsPress('X'))
+	if (Input->IsPress('Z', this))
 	{
-		Renderer->Transform.AddRotation({ 0,100 * _Delta,0 });
+		Transform.AddRotation({ 100 * _Delta,0,0 });
 	}
-	if (MainInput->IsPress('C'))
+	if (Input->IsPress('X', this))
 	{
-		Renderer->Transform.AddRotation({ 0,0,100 * _Delta });
+		Transform.AddRotation({ 0,100 * _Delta,0 });
 	}
-	if (MainInput->IsPress('W'))
+	if (Input->IsPress('C', this))
 	{
-		Renderer->Transform.AddPos({ 0,100 * _Delta,0 });
+		Transform.AddRotation({ 0,0,100 * _Delta });
 	}
-	if (MainInput->IsPress('A'))
+	if (Input->IsPress('W', this))
 	{
-		Renderer->Transform.AddPos({ -100 * _Delta,0,0 });
+		Transform.AddPos({ 0,100 * _Delta,0 });
 	}
-	if (MainInput->IsPress('S'))
+	if (Input->IsPress('A', this))
 	{
-		Renderer->Transform.AddPos({ 0,-100 * _Delta,0 });
+		Transform.AddPos({ -100 * _Delta,0,0 });
 	}
-	if (MainInput->IsPress('D'))
+	if (Input->IsPress('S', this))
 	{
-		Renderer->Transform.AddPos({ 100 * _Delta,0,0 });
+		Transform.AddPos({ 0,-100 * _Delta,0 });
 	}
-	if (MainInput->IsPress('Q'))
+	if (Input->IsPress('D', this))
 	{
-		Renderer->Transform.AddPos({ 0,0,100 * _Delta });
+		Transform.AddPos({ 100 * _Delta,0,0 });
 	}
-	if (MainInput->IsPress('E'))
+	if (Input->IsPress('Q', this))
 	{
-		Renderer->Transform.AddPos({ 0,0,-100 * _Delta });
+		Transform.AddPos({ 0,0,100 * _Delta });
 	}
-	if (MainInput->IsDown('R'))
+	if (Input->IsPress('E', this))
 	{
-		Renderer->Transform.SetPos({ 0,0,0 });
-		Renderer->Transform.SetRotation({ 0,0,0 });
+		Transform.AddPos({ 0,0,-100 * _Delta });
+	}
+	if (Input->IsDown('R', this))
+	{
+		Transform.SetPos({ 0,0,0 });
+		Transform.SetRotation({ 0,0,0 });
 	}
 }
 
 void TestActor::SetColScale(float4 _Scale)
 {
 	Col->ColScale = _Scale;
+}
+
+void TestActor::SetColType(ColType _Type)
+{
+	Col->SetColType(_Type);
 }

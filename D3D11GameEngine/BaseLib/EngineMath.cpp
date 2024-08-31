@@ -44,6 +44,13 @@ void float4::Normalize()
 	z /= length;
 }
 
+float float4::Distance(float4& Other)
+{
+	float4 Distance = *this - Other;
+
+	return sqrt(pow(Distance.x, 2) + pow(Distance.y, 2));
+}
+
 float float4::Dot(float4& Left, float4& Right)
 {
 	return Left.x * Right.x + Left.y * Right.y + Left.z * Right.z;

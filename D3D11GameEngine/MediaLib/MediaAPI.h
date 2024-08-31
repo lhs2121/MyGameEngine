@@ -10,10 +10,11 @@ struct IEngineInput
 	virtual void Init() = 0;
 	virtual void SetAllKeyState() = 0;
 
-	virtual bool IsDown(int KeyCode) = 0;
-	virtual bool IsPress(int KeyCode) = 0;
-	virtual bool IsUp(int KeyCode) = 0;
-	virtual bool IsFree(int KeyCode) = 0;
+	virtual bool IsDown(int KeyCode, void* _UserPtr) = 0;
+	virtual bool IsPress(int KeyCode, void* _UserPtr) = 0;
+	virtual bool IsUp(int KeyCode, void* _UserPtr) = 0;
+	virtual bool IsFree(int KeyCode, void* _UserPtr) = 0;
+	virtual void AddUser(void* _UserPtr) = 0;
 };
 
 struct IEngineWindow

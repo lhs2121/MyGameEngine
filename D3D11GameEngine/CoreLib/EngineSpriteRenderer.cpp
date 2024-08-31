@@ -1,12 +1,11 @@
 #include "Pre.h"
 #include "EngineSpriteRenderer.h"
-#include "Singleton.h"
 
 EngineSpriteRenderer::~EngineSpriteRenderer()
 {
 	if (SpriteDatas != nullptr)
 	{
-		for (size_t i = 0; i < SpriteCountY; i++)
+		for (int i = 0; i < SpriteCountY; i++)
 		{
 			delete[] SpriteDatas[i];
 			SpriteDatas[i] = nullptr;
@@ -19,6 +18,7 @@ EngineSpriteRenderer::~EngineSpriteRenderer()
 void EngineSpriteRenderer::Awake()
 {
 	EngineRenderer::Awake();
+	Name = "SpriteRenderer";
 }
 
 void EngineSpriteRenderer::Update(float _Delta)
@@ -56,7 +56,7 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 {
 	SpriteDatas = new SpriteData * [_SpriteCountY];
 
-	for (size_t i = 0; i < _SpriteCountY; i++)
+	for (int i = 0; i < _SpriteCountY; i++)
 	{
 		SpriteDatas[i] = new SpriteData[_SpriteCountX];
 	}
@@ -90,7 +90,7 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 	EngineString BufferName = "SpriteData_";
 	BufferName += SpriteDataBufferCount;
 	SpriteDataBufferCount++;
-	SpriteDataBuffer = (IEngineConstantBuffer*)MainD3DManager->CreateResource(ResType::CB, BufferName);
+	SpriteDataBuffer = (IEngineConstantBuffer*)D3DManager->CreateResource(ResType::CB, BufferName);
 	SpriteDataBuffer->Setting(&CurSpriteData, sizeof(SpriteData));
 }
 

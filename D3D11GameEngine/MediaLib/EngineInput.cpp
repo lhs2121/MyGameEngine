@@ -3,6 +3,7 @@
 
 EngineInput::EngineInput()
 {
+	Users.reserve(100);
 }
 
 EngineInput::~EngineInput()
@@ -208,19 +209,85 @@ void EngineInput::SetAllKeyState()
 	}
 }
 
-bool EngineInput::IsDown(int KeyCode)
+bool EngineInput::IsDown(int KeyCode, void* _UserPtr)
 {
+	bool IsUser = false;
+	for (void* UserPtr : Users)
+	{
+		if (UserPtr == _UserPtr)
+		{
+			IsUser = true;
+			break;
+		}
+	}
+
+	if (IsUser == false)
+	{
+		return false;
+	}
+
 	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsDown;
+	
 }
-bool EngineInput::IsPress(int KeyCode)
+bool EngineInput::IsPress(int KeyCode, void* _UserPtr)
 {
+	bool IsUser = false;
+	for (void* UserPtr : Users)
+	{
+		if (UserPtr == _UserPtr)
+		{
+			IsUser = true;
+			break;
+		}
+	}
+
+	if (IsUser == false)
+	{
+		return false;
+	}
+
 	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsPress;
 }
-bool EngineInput::IsUp(int KeyCode)
+bool EngineInput::IsUp(int KeyCode, void* _UserPtr)
 {
+	bool IsUser = false;
+	for (void* UserPtr : Users)
+	{
+		if (UserPtr == _UserPtr)
+		{
+			IsUser = true;
+			break;
+		}
+	}
+
+	if (IsUser == false)
+	{
+		return false;
+	}
+
 	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsUp;
 }
-bool EngineInput::IsFree(int KeyCode)
+bool EngineInput::IsFree(int KeyCode, void* _UserPtr)
 {
+	bool IsUser = false;
+	for (void* UserPtr : Users)
+	{
+		if (UserPtr == _UserPtr)
+		{
+			IsUser = true;
+			break;
+		}
+	}
+
+	if (IsUser == false)
+	{
+		return false;
+	}
+
 	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsFree;
+}
+
+void EngineInput::AddUser(void* _UserPtr)
+{
+	Users.push_back(_UserPtr);
 }
