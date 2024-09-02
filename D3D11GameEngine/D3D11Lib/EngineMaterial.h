@@ -11,11 +11,12 @@
 class EngineMaterial : public IMaterial
 {
 public:
-	void Setting(const char* _ShaderName) override;
-	void IntoPipeline() override;
-
+	void SetShader(const char* _ShaderName) override;
+	void SetRS(const char* _RSName) override;
+	void SetDS(const char* _DSName) override;
 	void SetSampler(const char* _SamplerName) override;
 	void SetTexture(const char* _TextureName) override;
+	void IntoPipeline() override;
 
 	void SetDevice(ID3D11Device* _DevicePtr) override { }
 	void SetContext(ID3D11DeviceContext* _ContextPtr) override {}

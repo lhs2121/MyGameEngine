@@ -128,12 +128,14 @@ struct IMesh : public IEnginePipeLineRes
 
 struct IMaterial : public IEnginePipeLineRes
 {
-	virtual void Setting(const char* _ShaderName) = 0;
-	virtual void IntoPipeline() = 0;
-
-	virtual IEngineVertexShader* GetVS() = 0;
+	virtual void SetShader(const char* _ShaderName) = 0;
+	virtual void SetRS(const char* _RSName) = 0;
+	virtual void SetDS(const char* _DSName) = 0;
 	virtual void SetSampler(const char* _SamplerName) = 0;
 	virtual void SetTexture(const char* _TextureName) = 0;
+	virtual IEngineVertexShader* GetVS() = 0;
+
+	virtual void IntoPipeline() = 0;
 };
 
 struct IEngineD3DManager

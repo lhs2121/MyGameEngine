@@ -1,18 +1,10 @@
 #pragma once
 #include <BaseLib\EngineMath.h>
 
-struct POSITION
-{
-	float4 POSITION;
-};
-
-struct POSITION_COLOR
-{
-	float4 POSITION;
-	float4 COLOR;
-};
-struct POSITION_TEXCOORD
+struct Vertex
 {
 	float4 POSITION;
 	float2 TEXCOORD;
+	float4 COLOR;
+	float4 Normal;
 };

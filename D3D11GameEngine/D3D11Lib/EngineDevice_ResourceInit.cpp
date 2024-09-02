@@ -26,15 +26,15 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 
 	//Box2D
 	{
-		float4 Box2D[] =
+		Vertex Box2D[] =
 		{
-			float4(-0.5f, 0.5f),
-			float4(0.5f, 0.5f),
-			float4(0.5f, -0.5f),
-			float4(-0.5f, -0.5f)
+			{float4(-0.5f, 0.5f), float2(0,0)},
+			{float4( 0.5f, 0.5f), float2(1,0)},
+			{float4( 0.5f,-0.5f), float2(1,1)},
+			{float4(-0.5f,-0.5f), float2(0,1)}
 		};
 		IEngineVertexBuffer* pVertexBuffer = (IEngineVertexBuffer*)pManager->CreateResource(ResType::VB, "Box2D");
-		pVertexBuffer->Setting(Box2D, sizeof(float4), sizeof(Box2D), 0);
+		pVertexBuffer->Setting(Box2D, sizeof(Vertex), sizeof(Box2D), 0);
 	}
 
 	{
@@ -47,88 +47,75 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 		pIndexBuffer->Setting(Box2D, sizeof(Box2D));
 	}
 
-	//Box2D with Tex
-	{
-		POSITION_TEXCOORD Box2D[] =
-		{
-			{float4(-0.5f, 0.5f), float2(0,0)},
-			{float4( 0.5f, 0.5f), float2(1,0)},
-			{float4( 0.5f,-0.5f), float2(1,1)},
-			{float4(-0.5f,-0.5f), float2(0,1)}
-		};
-		IEngineVertexBuffer* pVertexBuffer = (IEngineVertexBuffer*)pManager->CreateResource(ResType::VB, "Box2DTex");
-		pVertexBuffer->Setting(Box2D, sizeof(POSITION_TEXCOORD), sizeof(Box2D), 1);
-	}
-
 	//Box3D
 	{
-		POSITION_COLOR Box3D[] =
+		Vertex Box3D[] =
 		{
-			//앞면                              //빨강
-			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4(0.5f, 0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4(0.5f,-0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
-			{ float4(-0.5f,-0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 0.0f, 1.0f) },
+			// Front                      
+			{ float4(-0.5f, 0.5f,-0.5f, 1.0f), float2(0,0) },
+			{ float4( 0.5f, 0.5f,-0.5f, 1.0f), float2(1,0) },
+			{ float4( 0.5f,-0.5f,-0.5f, 1.0f), float2(1,1) },
+			{ float4(-0.5f,-0.5f,-0.5f, 1.0f), float2(0,1) },
 
-			//뒷면                              //파랑
-			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 0.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(0.0f, 0.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(0.0f, 0.0f, 1.0f, 1.0f) },
-			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(0.0f, 0.0f, 1.0f, 1.0f) },
+			// Back                 
+			{ float4(-0.5f, 0.5f, 0.5f, 1.0f), float2(0,0) },
+			{ float4( 0.5f, 0.5f, 0.5f, 1.0f), float2(1,0) },
+			{ float4( 0.5f,-0.5f, 0.5f, 1.0f), float2(1,1) },
+			{ float4(-0.5f,-0.5f, 0.5f, 1.0f), float2(0,1) },
 
-			//왼쪽                              //초록
-			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(0.0f, 1.0f, 0.0f, 1.0f) },
-			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 0.0f, 1.0f) },
-			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(0.0f, 1.0f, 0.0f, 1.0f) },
-			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(0.0f, 1.0f, 0.0f, 1.0f) },
+			// Left                           
+			{ float4(-0.5f, 0.5f,-0.5f, 1.0f), float2(0,0) },
+			{ float4(-0.5f, 0.5f, 0.5f, 1.0f), float2(1,0) },
+			{ float4(-0.5f,-0.5f, 0.5f, 1.0f), float2(1,1) },
+			{ float4(-0.5f,-0.5f,-0.5f, 1.0f), float2(0,1) },
 
-			//오른쪽                             //마젠타
-			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(1.0f, 0.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(1.0f, 0.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 0.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 0.0f, 1.0f, 1.0f) },
+			// Right                          
+			{ float4(0.5f, 0.5f,-0.5f, 1.0f),  float2(0,0) },
+			{ float4(0.5f, 0.5f, 0.5f, 1.0f),  float2(1,0) },
+			{ float4(0.5f,-0.5f, 0.5f, 1.0f),  float2(1,1) },
+			{ float4(0.5f,-0.5f,-0.5f, 1.0f),  float2(0,1) },
 
-			//윗면                               //하늘
-			{ float4(-0.5f, 0.5f, -0.5f, 1.0f), float4(0.0f, 1.0f, 1.0f, 1.0f) },
-			{ float4(-0.5f, 0.5f, 0.5f, 1.0f),  float4(0.0f, 1.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, 0.5f, 0.5f, 1.0f),   float4(0.0f, 1.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, 0.5f, -0.5f, 1.0f),  float4(0.0f, 1.0f, 1.0f, 1.0f) },
+			// Top                            
+			{ float4(-0.5f, 0.5f,-0.5f, 1.0f), float2(0,0) },
+			{ float4(-0.5f, 0.5f, 0.5f, 1.0f), float2(1,0) },
+			{ float4( 0.5f, 0.5f, 0.5f, 1.0f), float2(1,1) },
+			{ float4( 0.5f, 0.5f,-0.5f, 1.0f), float2(0,1) },
 
-			//아랫면                            //흰색
-			{ float4(-0.5f, -0.5f, -0.5f, 1.0f),float4(1.0f, 1.0f, 1.0f, 1.0f) },
-			{ float4(-0.5f, -0.5f, 0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, -0.5f, 0.5f, 1.0f),  float4(1.0f, 1.0f, 1.0f, 1.0f) },
-			{ float4(0.5f, -0.5f, -0.5f, 1.0f), float4(1.0f, 1.0f, 1.0f, 1.0f) } ,
+			// Bottom                         
+			{ float4(-0.5f,-0.5f,-0.5f, 1.0f), float2(0,0) },
+			{ float4(-0.5f,-0.5f, 0.5f, 1.0f), float2(1,0) },
+			{ float4( 0.5f,-0.5f, 0.5f, 1.0f), float2(1,1) },
+			{ float4( 0.5f,-0.5f,-0.5f, 1.0f), float2(0,1) }
 		};
 
 		IEngineVertexBuffer* pVertexBuffer = (IEngineVertexBuffer*)pManager->CreateResource(ResType::VB, "Box3D");
-		pVertexBuffer->Setting(Box3D, sizeof(POSITION_COLOR), sizeof(Box3D), 2);
+		pVertexBuffer->Setting(Box3D, sizeof(Vertex), sizeof(Box3D), 1);
 	}
 
 	{
 		UINT Box3D[]
 		{
-			//앞면
+			// Front
 			0,1,2,
 			2,3,0,
 
-			//뒷면
+			// Back
 			4,5,6,
 			6,7,4,
 
-			//왼쪽
+			// Left
 			8,9,10,
 			10,11,8,
 
-			//오른쪽
+			// Right
 			12,13,14,
 			14,15,12,
 
-			//위쪽
+			// Top
 			16,17,18,
 			18,19,16,
 
-			//아래쪽
+			// Bottom
 			20,21,22,
 			22,23,20
 		};
@@ -156,6 +143,24 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 	}
 
 	{
+		D3D11_RASTERIZER_DESC Desc;
+
+		Desc.FillMode = D3D11_FILL_WIREFRAME;
+		Desc.CullMode = D3D11_CULL_NONE;
+		Desc.FrontCounterClockwise = false;
+		Desc.DepthBias = 0;
+		Desc.DepthBiasClamp = 0;
+		Desc.SlopeScaledDepthBias = 0;
+		Desc.DepthClipEnable = false;
+		Desc.ScissorEnable = false;
+		Desc.MultisampleEnable = false;
+		Desc.AntialiasedLineEnable = false;
+
+		IEngineRasterizer* pRasterizer = (IEngineRasterizer*)pManager->CreateResource(ResType::RS, "Wire");
+		pRasterizer->Setting(Desc);
+	}
+
+	{
 		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
 		Desc.DepthEnable = true;
 		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
@@ -168,21 +173,21 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 
 	{
 		D3D11_SAMPLER_DESC Desc = {};
-		Desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT; // 선형 필터링
-		Desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;    // U 방향으로 랩 어드레싱
-		Desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;    // V 방향으로 랩 어드레싱
-		Desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;    // W 방향으로 랩 어드레싱
-		Desc.MipLODBias = 0.0f;                        // Mipmap 수준 오프셋
-		Desc.MaxAnisotropy = 1;                        // 최대 이방성 필터링 수준 (1은 이방성 필터링 비활성화)
-		Desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS; // 비교 함수
-		Desc.BorderColor[0] = 1.0f;                    // 테두리 색상 (RGBA)
+		Desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT; 
+		Desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;  
+		Desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;  
+		Desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;  
+		Desc.MipLODBias = 0.0f;                      
+		Desc.MaxAnisotropy = 1;                      
+		Desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		Desc.BorderColor[0] = 1.0f;                   
 		Desc.BorderColor[1] = 1.0f;
 		Desc.BorderColor[2] = 1.0f;
 		Desc.BorderColor[3] = 1.0f;
-		Desc.MinLOD = 0;                               // 최소 Mipmap 수준
-		Desc.MaxLOD = D3D11_FLOAT32_MAX;               // 최대 Mipmap 수준
+		Desc.MinLOD = 0;                              
+		Desc.MaxLOD = D3D11_FLOAT32_MAX;              
 
-		IEngineSampler* NewSampler = (IEngineSampler*)pManager->CreateResource(ResType::Sampler, "Default");
+		IEngineSampler* NewSampler = (IEngineSampler*)pManager->CreateResource(ResType::Sampler, "Point");
 		NewSampler->Setting(&Desc);
 	}
 
@@ -198,9 +203,27 @@ void EngineDevice::ResourceInit(IEngineD3DManager* pManager)
 
 	{
 		IMesh* NewMesh = (IMesh*)pManager->CreateResource(ResType::Mesh, "Box2D");
-		NewMesh->Setting("Box2DTex", "Box2D");
-
-		IMaterial* NewMat = (IMaterial*)pManager->CreateResource(ResType::Material, "Default");
-		NewMat->Setting("TestSpriteShader");
+		NewMesh->Setting("Box2D", "Box2D");
 	}
+
+	{
+		IMaterial* NewMat = (IMaterial*)pManager->CreateResource(ResType::Material, "Sprite2D");
+		NewMat->SetShader("Sprite2D");
+		NewMat->SetRS("Default");
+		NewMat->SetDS("Default");
+		NewMat->SetSampler("Point");
+		NewMat->SetTexture("Default");
+
+	}
+
+	{
+		IMaterial* NewMat = (IMaterial*)pManager->CreateResource(ResType::Material, "DebugLine");
+		NewMat->SetShader("DebugLine");
+		NewMat->SetRS("Wire");
+		NewMat->SetDS("Default");
+		NewMat->SetSampler("Point");
+		NewMat->SetTexture("Default");
+
+	}
+
 }

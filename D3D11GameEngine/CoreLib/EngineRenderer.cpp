@@ -20,12 +20,9 @@ void EngineRenderer::Awake()
 	TransformBuffer->Setting(&Transform.WorldViewProjectionMat, sizeof(float4x4));
 
 	Mesh = (IMesh*)D3DManager->Find(ResType::Mesh,"Box2D");
-	Material = (IMaterial*)D3DManager->Find(ResType::Material, "Default");
+	Material = (IMaterial*)D3DManager->Find(ResType::Material, "Sprite2D");
 
 	pIA = D3DManager->FindIA(Mesh, Material);
-
-	SetTexture("Default");
-	SetSampler("Default");
 }
 
 void EngineRenderer::Update(float _Delta)

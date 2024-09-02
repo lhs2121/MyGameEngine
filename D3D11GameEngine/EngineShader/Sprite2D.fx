@@ -6,7 +6,7 @@ struct VS_INPUT
 
 struct VS_OUTPUT
 {
-    float4 POS : SV_Position;
+    float4 POS : SV_POSITION;
     float2 TEX : TEXCOORD;
 };
 
@@ -16,7 +16,7 @@ cbuffer Transform : register(b0)
 };
 
 
-VS_OUTPUT TestSpriteShader_VS(VS_INPUT input)
+VS_OUTPUT Sprite2D_VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     
@@ -34,7 +34,7 @@ cbuffer SpriteData : register(b5)
 Texture2D Texture : register(t0);
 SamplerState Sampler : register(s0);
 
-float4 TestSpriteShader_PS(VS_OUTPUT input) : SV_Target
+float4 Sprite2D_PS(VS_OUTPUT input) : SV_Target
 {
     float2 TexLocation = input.TEX * ResizeRatio;
     TexLocation.x += Offset.x;
