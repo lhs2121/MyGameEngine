@@ -15,6 +15,7 @@ public:
 	bool Collision(EngineCollision* _Other);
 	bool AABB(EngineCollision* _Other);
 	bool Circle(EngineCollision* _Other);
+	bool AABBvsCircle(EngineCollision* _Other);
 
 	bool IsCollision = false;
 	float left;

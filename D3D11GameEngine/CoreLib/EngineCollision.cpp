@@ -2,6 +2,7 @@
 #include "EngineLevel.h"
 #include "EngineCollision.h"
 
+
 void EngineCollision::Awake()
 {
 	GetLevel()->AddCollision(this);
@@ -26,6 +27,14 @@ bool EngineCollision::Collision(EngineCollision* _Other)
 	if (Type == ColType::Circle && _Other->Type == ColType::Circle)
 	{
 		Circle(_Other);
+	}
+	if (Type == ColType::Rect && _Other->Type == ColType::Circle)
+	{
+		AABBvsCircle(_Other);
+	}
+	if (Type == ColType::Circle && _Other->Type == ColType::Rect)
+	{
+		_Other->AABBvsCircle(this);
 	}
 	return false;
 }
@@ -75,4 +84,21 @@ bool EngineCollision::Circle(EngineCollision* _Other)
 		return true;
 	}
 	
+}
+
+bool EngineCollision::AABBvsCircle(EngineCollision* _Other)
+{
+	float4 CirclePos = _Other->Transform.Position + _Other->Transform.LocalPosition;
+	
+	float4 Near;
+	Near.x = EngineMath::Clamp(CirclePos.x, right, left);
+	Near.y = EngineMath::Clamp(CirclePos.y, top, bottom);
+
+	float D = Near.Distance(CirclePos);
+	
+	if (D <= _Other->Radius)
+	{
+		return true;
+	}
+	return false;
 }

@@ -173,6 +173,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="CollisionShader.fx" />
     <None Include="TestSpriteShader.fx" />
     <None Include="Test2DShader.fx" />
   </ItemGroup>

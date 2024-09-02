@@ -48,7 +48,7 @@ float float4::Distance(float4& Other)
 {
 	float4 Distance = *this - Other;
 
-	return sqrt(pow(Distance.x, 2) + pow(Distance.y, 2));
+	return sqrt((Distance.x * Distance.x) + (Distance.y * Distance.y));
 }
 
 float float4::Dot(float4& Left, float4& Right)
@@ -260,3 +260,17 @@ int EngineMath::GetDigitCount(unsigned long long Num)
 	}
 	return Result;
 }
+
+float EngineMath::Clamp(float _Num, float _Max, float _Min)
+{
+	if (_Num >= _Max)
+	{
+		return _Max;
+	}
+	if (_Num <= _Min)
+	{
+		return _Min;
+	}
+	return _Num;
+}
+

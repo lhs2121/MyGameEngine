@@ -9,7 +9,7 @@ void TestLevel::Awake()
 	b = (TestActor*)CreateActor(new TestActor());
 	b->Transform.SetPos({ 100,100 });
 
-	a->SetColType(ColType::Circle);
+	a->SetColType(ColType::Rect);
 	b->SetColType(ColType::Circle);
 
 	Input->AddUser(a);
