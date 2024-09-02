@@ -16,5 +16,7 @@ public:
 		_NewActor->Awake();
 		return _NewActor;
 	}
+
+	EngineComponent* GetComponent(const char* _Name);
 };
 

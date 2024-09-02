@@ -32,10 +32,10 @@ public:
 	virtual void Release();
 
 	EngineTransform Transform;
+	EngineString Name;
 protected:
 	EngineList ChildList;
 	EngineObject* Parent = nullptr;
-	EngineString Name;
 
 	bool Death = false;
 };
