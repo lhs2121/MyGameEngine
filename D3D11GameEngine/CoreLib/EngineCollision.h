@@ -1,12 +1,13 @@
 #pragma once
-#include "EngineComponent.h"
+#include "EngineObject.h"
 
 enum class ColType
 {
 	Rect,
 	Circle,
 };
-class CoreAPI EngineCollision : public EngineComponent
+class EngineRenderer;
+class CoreAPI EngineCollision : public EngineObject
 {
 public:
 	void Awake() override;
@@ -25,4 +26,6 @@ public:
 	float Radius;
 	float4 ColScale = { 100,100 };
 	ColType Type = ColType::Rect;
+private:
+	EngineRenderer* DebugRenderer;
 };

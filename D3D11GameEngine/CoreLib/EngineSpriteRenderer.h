@@ -31,7 +31,7 @@ private:
 
 	SpriteData** SpriteDatas = nullptr;
 	SpriteData CurSpriteData;
-	IEngineConstantBuffer* SpriteDataBuffer = nullptr;
+	IConstantBuffer* SpriteDataBuffer = nullptr;
 };
 
 

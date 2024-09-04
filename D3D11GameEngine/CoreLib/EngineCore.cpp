@@ -11,7 +11,7 @@ EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
     _NewLevel->Input = MainInput;
     _NewLevel->Window = MainWindow;
     _NewLevel->Device = MainDevice;
-    _NewLevel->D3DManager = MainD3DManager;
+    _NewLevel->ResManager = MainResManager;
 	_NewLevel->SetName(_Name);
     _NewLevel->CreateCamera();
 	_NewLevel->Awake();
@@ -43,11 +43,13 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
     CreateEngineWindow(&MainWindow);
     MainWindow->Init(_WindowTitle, _WindowPos, _WindowSize, _hInstance, this);
 
-    CreateEngineD3DManager(&MainD3DManager);    
+    CreateResManager(&MainResManager);
 
-    MainDevice = MainD3DManager->CreateDevice();
+    CreateDevice(&MainDevice);
+
     MainDevice->Init(MainWindow->GethWnd(), _WindowSize);
-    MainDevice->ResourceInit(MainD3DManager);
+    MainDevice->InitMesh(MainResManager);
+    MainDevice->InitMaterial(MainResManager);
 
 	CreateEngineTime(&MainTime);
     MainTime->Init();
@@ -89,7 +91,8 @@ void EngineCore::EngineRelease()
 	DeleteAllLevel();
 	DeleteEngineTime(MainTime);
 	DeleteEngineInput(MainInput);
-	DeleteEngineD3DManager(MainD3DManager);
+    DeleteDevice(MainDevice);
+	DeleteResManager(MainResManager);
     DeleteEngineWindow(MainWindow);
     EngineString::DeleteAllStringPool();
 }

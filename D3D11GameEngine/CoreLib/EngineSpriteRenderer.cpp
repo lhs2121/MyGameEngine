@@ -48,7 +48,7 @@ void EngineSpriteRenderer::Update(float _Delta)
 
 void EngineSpriteRenderer::Render()
 {
-	SpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
+	SpriteDataBuffer->IntoPipeline(Device->GetContext(),ShaderType::PS, 5);
 	EngineRenderer::Render();
 } 
  
@@ -90,8 +90,8 @@ void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY,
 	EngineString BufferName = "SpriteData_";
 	BufferName += SpriteDataBufferCount;
 	SpriteDataBufferCount++;
-	SpriteDataBuffer = (IEngineConstantBuffer*)D3DManager->CreateResource(ResType::CB, BufferName);
-	SpriteDataBuffer->Setting(&CurSpriteData, sizeof(SpriteData));
+	SpriteDataBuffer = (IConstantBuffer*)ResManager->CreateResource(Device, ResType::CB, BufferName);
+	SpriteDataBuffer->Setting(Device->GetDevice(), & CurSpriteData, sizeof(SpriteData));
 }
 
 

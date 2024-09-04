@@ -16,13 +16,13 @@ void EngineRenderer::Awake()
 	BufferName += RendererTransformBufferCount;
 	RendererTransformBufferCount++;
 
-	TransformBuffer = (IEngineConstantBuffer*)D3DManager->CreateResource(ResType::CB, BufferName);
-	TransformBuffer->Setting(&Transform.WorldViewProjectionMat, sizeof(float4x4));
+	TransformBuffer = (IConstantBuffer*)ResManager->CreateResource(Device, ResType::CB, BufferName);
+	TransformBuffer->Setting(Device->GetDevice(), &Transform.WorldViewProjectionMat, sizeof(float4x4));
 
-	Mesh = (IMesh*)D3DManager->Find(ResType::Mesh,"Box2D");
-	Material = (IMaterial*)D3DManager->Find(ResType::Material, "Sprite2D");
+	Mesh = (IMesh*)ResManager->Find(ResType::Mesh, "Box2D");
+	Material = (IMaterial*)ResManager->Find(ResType::Material, "Sprite2D");
 
-	pIA = D3DManager->FindIA(Mesh, Material);
+	pIA = ResManager->FindIA(Device, Mesh, Material);
 }
 
 void EngineRenderer::Update(float _Delta)
@@ -30,25 +30,30 @@ void EngineRenderer::Update(float _Delta)
 }
 void EngineRenderer::Render()
 {
-	TransformBuffer->IntoPipeline(ShaderType::VS);
-	pIA->IntoPipeline();
+	TransformBuffer->IntoPipeline(Device->GetContext(), ShaderType::VS);
+	pIA->IntoPipeline(Device->GetContext());
 	Mesh->IntoPipeline();
 	Material->IntoPipeline();
 
 	Device->GetContext()->DrawIndexed(Mesh->GetIndexCount(), 0, 0);
 }
 
-
-void EngineRenderer::SetTexture(const char* _Name)
+void EngineRenderer::SetMesh(const char* _Name)
 {
-	Material->SetTexture(_Name);
-	IEngineTexture* Texture = (IEngineTexture*)D3DManager->Find(ResType::Texture, _Name);
-	float4 ImageScale = Texture->GetImageScale();
-	Transform.SetLocalScale(ImageScale); 
+	Mesh = (IMesh*)ResManager->Find(ResType::Mesh, _Name);
+	pIA = ResManager->FindIA(Device, Mesh, Material);
 }
 
-void EngineRenderer::SetSampler(const char* _Name)
+void EngineRenderer::SetMaterial(const char* _Name)
 {
-	Material->SetSampler(_Name);
-	IEngineSampler* Sampler = (IEngineSampler*)D3DManager->Find(ResType::Sampler, _Name);
+	Material = (IMaterial*)ResManager->Find(ResType::Material, _Name);
+	pIA = ResManager->FindIA(Device, Mesh, Material);
 }
+
+void EngineRenderer::SetTexture(const char* _TextureName)
+{
+	ITexture* Texture = (ITexture*)ResManager->Find(ResType::Texture, _TextureName);
+	Transform.SetLocalScale(Texture->GetImageScale());
+	Material->SetTexture(_TextureName);
+}
+

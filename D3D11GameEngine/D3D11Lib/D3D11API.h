@@ -1,7 +1,7 @@
 #pragma once
 #include <common\declspec.h>
 #include <d3d11.h>
-struct IEngineD3DManager;
+struct IResManager;
 
 enum class ResType
 {
@@ -29,122 +29,116 @@ enum class ShaderType
 	GS
 };
 
-enum class ShaderInput
-{
-	POSITION,
-	TEXCOORD,
-	COLOR,
-	NORMAL,
-};
 
-struct IEngineDevice
+struct IDevice
 {
 	virtual void Init(void* pHwnd, float4 WindowSize) = 0;
-	virtual void ResourceInit(IEngineD3DManager* pManager) = 0;
+	virtual void InitMesh(IResManager* pManager) = 0;
+	virtual void InitMaterial(IResManager* pManager) = 0;
 	virtual void Clear() = 0;
 	virtual void Present() = 0;
 	virtual ID3D11Device* GetDevice() = 0;
 	virtual ID3D11DeviceContext* GetContext() = 0;
 };
 
-struct IEngineUnknown
+struct IResBase
 {
-	virtual ~IEngineUnknown() {};
-	virtual void SetDevice(ID3D11Device* _DevicePtr) = 0;
-	virtual void SetContext(ID3D11DeviceContext* _ContextPtr) = 0;
+	virtual ~IResBase() {};
 };
 
-struct IEnginePipeLineRes : public IEngineUnknown
+struct IRes : public IResBase
 {
-	virtual void IntoPipeline() = 0;
+	virtual void IntoPipeline(ID3D11DeviceContext* ContextPtr) = 0;
 };
 
-struct IEngineShaderResource : public IEngineUnknown
+struct IShaderRes : public IResBase
 {
-	virtual void IntoPipeline(ShaderType _Type, int SlotNum = 0) = 0;
+	virtual void IntoPipeline(ID3D11DeviceContext* ContextPtr, ShaderType _Type, int SlotNum = 0) = 0;
 };
 
-struct IEngineVertexBuffer : public IEnginePipeLineRes
+struct IVertexBuffer : public IRes
 {
-	virtual void Setting(void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) = 0;
 };
 
-struct IEngineIndexBuffer : public IEnginePipeLineRes
+struct IIndexBuffer : public IRes
 {
-	virtual void Setting(UINT* Indices, int IndexSize) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, UINT* Indices, int IndexSize) = 0;
 };
 
-struct IEngineVertexShader : public IEnginePipeLineRes
+struct IVertexShader : public IRes
 {
-	virtual void Setting(EngineString _Name, EngineString _Path) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineString _Path) = 0;
 };
 
-struct IEngineInputLayout : public IEnginePipeLineRes
+struct IInputLayout : public IRes
 {
-	virtual void Setting(IEngineVertexBuffer* _pVB, IEngineVertexShader* _pVS) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, IVertexBuffer* _pVB, IVertexShader* _pVS) = 0;
 };
 
-struct IEnginePixelShader : public IEnginePipeLineRes
+struct IPixelShader : public IRes
 {
-	virtual void Setting(EngineString _Name, EngineString _Path) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineString _Path) = 0;
 };
 
-struct IEngineRasterizer : public IEnginePipeLineRes
+struct IRasterizer : public IRes
 {
-	virtual void Setting(D3D11_RASTERIZER_DESC _Desc) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, D3D11_RASTERIZER_DESC _Desc) = 0;
 };
 
-struct IEngineDepthStencil : public IEnginePipeLineRes
+struct IDepthStencil : public IRes
 {
-	virtual void Setting(D3D11_DEPTH_STENCIL_DESC _Desc) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, D3D11_DEPTH_STENCIL_DESC _Desc) = 0;
 };
 
-struct IEngineTexture : public IEngineShaderResource
+struct ITexture : public IShaderRes
 {
 	virtual ID3D11ShaderResourceView* GetSRV() = 0;
 	virtual float4 GetImageScale() = 0;
-	virtual void Setting(EngineFile& _File) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, EngineFile& _File) = 0;
 };
 
-struct IEngineSampler : public IEngineShaderResource
+struct ISampler : public IShaderRes
 {
 	virtual ID3D11SamplerState* GetState() = 0;
-	virtual void Setting(D3D11_SAMPLER_DESC* DescPtr) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, D3D11_SAMPLER_DESC* DescPtr) = 0;
 };
 
-struct IEngineConstantBuffer : public IEngineShaderResource
+struct IConstantBuffer : public IShaderRes
 {
-	virtual void Setting(void* _DataPtr, int _sizeofData) = 0;
+	virtual void Setting(ID3D11Device* DevicePtr, void* _DataPtr, int _sizeofData) = 0;
 };
 
-struct IMesh : public IEnginePipeLineRes
+struct IMesh : public IResBase
 {
 	virtual void Setting(const char* _VBName, const char* _IBName) = 0;
-	virtual void IntoPipeline() = 0;
-
-	virtual IEngineVertexBuffer* GetVB() = 0;
+	virtual IVertexBuffer* GetVB() = 0;
 	virtual UINT GetIndexCount() = 0;
+
+	virtual void IntoPipeline() = 0;
 };
 
-struct IMaterial : public IEnginePipeLineRes
+struct IMaterial : public IResBase
 {
 	virtual void SetShader(const char* _ShaderName) = 0;
 	virtual void SetRS(const char* _RSName) = 0;
 	virtual void SetDS(const char* _DSName) = 0;
 	virtual void SetSampler(const char* _SamplerName) = 0;
 	virtual void SetTexture(const char* _TextureName) = 0;
-	virtual IEngineVertexShader* GetVS() = 0;
+	virtual IVertexShader* GetVS() = 0;
 
 	virtual void IntoPipeline() = 0;
 };
 
-struct IEngineD3DManager
+struct IResManager
 {
-	virtual IEngineDevice* CreateDevice() = 0;
-	virtual void* CreateResource(ResType _Type, EngineString _Name) = 0;
+	virtual void* CreateResource(IDevice* DevicePtr, ResType _Type, EngineString _Name) = 0;
 	virtual void* Find(ResType _Type, const char* _Name) = 0;
-	virtual IEngineInputLayout* FindIA(IMesh* _Mesh, IMaterial* _Material) = 0;
+	virtual IInputLayout* FindIA(IDevice* DevicePtr, IMesh* _Mesh, IMaterial* _Material) = 0;
 };
 
-extern "C" D3D11API void CreateEngineD3DManager(IEngineD3DManager * *ppEngineManager);
-extern "C" D3D11API void DeleteEngineD3DManager(IEngineD3DManager * pEngineManager);
+extern "C" D3D11API void CreateDevice(IDevice * *ppIDevice);
+extern "C" D3D11API void DeleteDevice(IDevice * pIDevice);
+
+extern "C" D3D11API void CreateResManager(IResManager** ppIResManager);
+extern "C" D3D11API void DeleteResManager(IResManager* pIResManager);

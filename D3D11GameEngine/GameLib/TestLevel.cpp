@@ -5,11 +5,11 @@
 void TestLevel::Awake()
 {
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
-	a = (TestActor*)CreateActor(new TestActor());
-	b = (TestActor*)CreateActor(new TestActor());
+	a = (TestActor*)CreateObject(new TestActor());
+	b = (TestActor*)CreateObject(new TestActor());
 	b->Transform.SetPos({ 100,100 });
 
-	a->SetColType(ColType::Rect);
+	a->SetColType(ColType::Circle);
 	b->SetColType(ColType::Circle);
 
 	Input->AddUser(a);

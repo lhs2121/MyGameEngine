@@ -1,8 +1,8 @@
 #pragma once
-#include "EngineComponent.h"
+#include "EngineObject.h"
 #include <D3D11Lib\D3D11API.h>
 
-class CoreAPI EngineRenderer : public EngineComponent
+class CoreAPI EngineRenderer : public EngineObject
 {
 public:
 	~EngineRenderer();
@@ -12,14 +12,17 @@ public:
 
 	virtual void Render();
 
-	void SetTexture(const char* _Name);
-	void SetSampler(const char* _Name);
+	IMesh* GetMesh() { return Mesh; }
+	IMaterial* GetMaterial() { return Material; }
+	void SetMesh(const char* _Name);
+	void SetMaterial(const char* _Name);
+	void SetTexture(const char* _TextureName);
 
 protected:
 	IMesh* Mesh = nullptr;
 	IMaterial* Material = nullptr;
-	IEngineInputLayout* pIA = nullptr;
-	IEngineConstantBuffer* TransformBuffer = nullptr;
+	IInputLayout* pIA = nullptr;
+	IConstantBuffer* TransformBuffer = nullptr;
 };	
 
 

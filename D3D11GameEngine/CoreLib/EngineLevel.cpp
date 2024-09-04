@@ -12,21 +12,9 @@ EngineLevel::~EngineLevel()
 	DeleteAllChild();
 }
 
-void* EngineLevel::CreateActor(void* _NewActor)
-{
-	EngineLevelObject* NewActor = (EngineLevelObject*)_NewActor;
-	NewActor->Input = Input;
-	NewActor->Window = Window;
-	NewActor->Device = Device;
-	NewActor->D3DManager = D3DManager;
-	NewActor->SetParent(this);
-	NewActor->Awake();
-	return _NewActor;
-}
-
 void EngineLevel::CreateCamera()
 {
-	EngineCamera* NewCamera = (EngineCamera*)CreateActor(new EngineCamera());
+	EngineCamera* NewCamera = (EngineCamera*)CreateObject(new EngineCamera());
 	CameraList.Add(NewCamera);
 }
 

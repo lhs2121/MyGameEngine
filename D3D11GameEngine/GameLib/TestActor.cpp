@@ -4,21 +4,18 @@
 void TestActor::Awake()
 {
 	EngineDirectory dir;
+	std::vector<EngineFile> files = dir.GetAllFileExt(".png");
 
-	std::vector<EngineFile> ImageFile;
-	ImageFile = dir.GetAllFileExt(".png");
-
-	if (D3DManager->Find(ResType::Texture, "Stand_000") == nullptr)
+	if(nullptr == ResManager->Find(ResType::Texture, "TestTexture"))
 	{
-		IEngineTexture* tex = (IEngineTexture*)D3DManager->CreateResource(ResType::Texture, "Stand_000");
-		tex->Setting(ImageFile[0]);
+		ITexture* tex = (ITexture*)ResManager->CreateResource(Device,ResType::Texture, "TestTexture");
+		tex->Setting(Device->GetDevice(),files[0]);
 	}
-
-	Renderer = (EngineSpriteRenderer*)CreateComponent(new EngineSpriteRenderer());
-	Renderer->SetTexture("Stand_000");
+	Renderer = (EngineSpriteRenderer*)CreateObject(new EngineSpriteRenderer());
+	Renderer->SetTexture("TestTexture");
 	Renderer->CreateAnimation(2, 2, 1.0f);
 
-	Col = (EngineCollision*)CreateComponent(new EngineCollision());
+	Col = (EngineCollision*)CreateObject(new EngineCollision());
 	Col->ColScale = Renderer->Transform.LocalScale;
 }
 

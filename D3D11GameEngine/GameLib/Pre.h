@@ -9,12 +9,12 @@
 
 #include <CoreLib/EngineCore.h>
 #include <CoreLib/EngineTransform.h>
+
 #include <CoreLib/EngineObject.h>
 #include <CoreLib/EngineLevel.h>
-#include <CoreLib/EngineLevelObject.h>
-#include <CoreLib/EngineActor.h>
+
+//Component
 #include <CoreLib/EngineCamera.h>
-#include <CoreLib/EngineComponent.h>
 #include <CoreLib/EngineRenderer.h>
 #include <CoreLib/EngineSpriteRenderer.h>
 #include <CoreLib/EngineCollision.h>

@@ -154,13 +154,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EngineActor.h" />
     <ClInclude Include="EngineCamera.h" />
     <ClInclude Include="EngineCollision.h" />
-    <ClInclude Include="EngineComponent.h" />
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EngineLevel.h" />
-    <ClInclude Include="EngineLevelObject.h" />
     <ClInclude Include="EngineObject.h" />
     <ClInclude Include="EngineRenderer.h" />
     <ClInclude Include="EngineSpriteRenderer.h" />
@@ -169,13 +166,10 @@
     <ClInclude Include="CoreAPI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineActor.cpp" />
     <ClCompile Include="EngineCamera.cpp" />
     <ClCompile Include="EngineCollision.cpp" />
-    <ClCompile Include="EngineComponent.cpp" />
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineLevel.cpp" />
-    <ClCompile Include="EngineLevelObject.cpp" />
     <ClCompile Include="EngineObject.cpp" />
     <ClCompile Include="EngineRenderer.cpp" />
     <ClCompile Include="EngineSpriteRenderer.cpp" />

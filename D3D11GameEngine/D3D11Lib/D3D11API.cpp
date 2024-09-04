@@ -1,15 +1,27 @@
 #include "Pre.h"
 #include "D3D11API.h"
-#include "EngineD3DManager.h"
+#include "ResManager.h"
+#include "Device.h"
 
-void CreateEngineD3DManager(IEngineD3DManager** ppEngineManager)
+void CreateDevice(IDevice** ppIDevice)
 {
-	*ppEngineManager = new EngineD3DManager();
+	*ppIDevice = new Device();
 }
 
-void DeleteEngineD3DManager(IEngineD3DManager* pEngineManager)
+void DeleteDevice(IDevice* pIDevice)
 {
-	EngineD3DManager* castPtr = (EngineD3DManager*)pEngineManager;
+	Device* castPtr = (Device*)pIDevice;
+	delete castPtr;
+}
+
+void CreateResManager(IResManager** ppIResManager)
+{
+	*ppIResManager = new ResManager();
+}
+
+void DeleteResManager(IResManager* pIResManager)
+{
+	ResManager* castPtr = (ResManager*)pIResManager;
 	delete castPtr;
 }
 	

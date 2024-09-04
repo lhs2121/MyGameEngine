@@ -1,7 +1,6 @@
 #pragma once
 
-class EngineSpriteRenderer;
-class TestActor : public EngineActor
+class TestActor : public EngineObject
 {
 public:
 	void Awake() override;

@@ -2,6 +2,7 @@
 #include <common\declspec.h>
 #include "EngineTransform.h"
 // Ό³Έν :
+class EngineLevel;
 class CoreAPI EngineObject
 {
 public:
@@ -13,7 +14,7 @@ public:
 
 	void SetParent(EngineObject* _Parent);
 
-	EngineObject* GetTopParent();
+	EngineLevel* GetLevel();
 
 	void Destroy();
 
@@ -31,11 +32,19 @@ public:
 
 	virtual void Release();
 
+	EngineObject* CreateObject(EngineObject* _NewActor);
+
 	EngineTransform Transform;
 	EngineString Name;
+
+
+	IEngineInput* Input = nullptr;
+	IEngineWindow* Window = nullptr;
+	IDevice* Device = nullptr;
+	IResManager* ResManager = nullptr;
 protected:
+	bool Death = false;
+
 	EngineList ChildList;
 	EngineObject* Parent = nullptr;
-
-	bool Death = false;
 };

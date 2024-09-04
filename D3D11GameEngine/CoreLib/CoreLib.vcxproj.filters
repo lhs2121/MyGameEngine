@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Object">
-      <UniqueIdentifier>{a070356d-b6e6-4e91-b765-71bb56df77d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Level">
-      <UniqueIdentifier>{c114dd13-6d06-42ab-b5a2-a3ac8edd8ec7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\LevelObject">
-      <UniqueIdentifier>{1a5968f8-fb60-4455-ad5e-8459db36b384}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\LevelObject\Component">
-      <UniqueIdentifier>{1eb67ec0-3a2b-49e1-832c-709a89f4304a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{27cbf18e-e187-4098-babe-62acddfb5b1d}</UniqueIdentifier>
     </Filter>
@@ -22,31 +10,25 @@
     <Filter Include="Natvis">
       <UniqueIdentifier>{79ad5f50-f286-409a-901a-43c1d266f4ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{1a5968f8-fb60-4455-ad5e-8459db36b384}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{1eb67ec0-3a2b-49e1-832c-709a89f4304a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Level">
+      <UniqueIdentifier>{c114dd13-6d06-42ab-b5a2-a3ac8edd8ec7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineSpriteRenderer.h">
-      <Filter>Object\LevelObject\Component</Filter>
+      <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="EngineRenderer.h">
-      <Filter>Object\LevelObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineComponent.h">
-      <Filter>Object\LevelObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineObject.h">
-      <Filter>Object</Filter>
+      <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="EngineLevel.h">
       <Filter>Object\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineActor.h">
-      <Filter>Object\LevelObject</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCamera.h">
-      <Filter>Object\LevelObject</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineLevelObject.h">
-      <Filter>Object\LevelObject</Filter>
     </ClInclude>
     <ClInclude Include="EngineCore.h">
       <Filter>Core</Filter>
@@ -57,33 +39,24 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="CoreAPI.h" />
     <ClInclude Include="EngineCollision.h">
-      <Filter>Object\LevelObject\Component</Filter>
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineCamera.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineComponent.cpp">
-      <Filter>Object\LevelObject\Component</Filter>
-    </ClCompile>
     <ClCompile Include="EngineRenderer.cpp">
-      <Filter>Object\LevelObject\Component</Filter>
+      <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="EngineSpriteRenderer.cpp">
-      <Filter>Object\LevelObject\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineObject.cpp">
-      <Filter>Object</Filter>
+      <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="EngineLevel.cpp">
       <Filter>Object\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineActor.cpp">
-      <Filter>Object\LevelObject</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCamera.cpp">
-      <Filter>Object\LevelObject</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineLevelObject.cpp">
-      <Filter>Object\LevelObject</Filter>
     </ClCompile>
     <ClCompile Include="EngineCore.cpp">
       <Filter>Core</Filter>
@@ -94,7 +67,13 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="CoreAPI.cpp" />
     <ClCompile Include="EngineCollision.cpp">
-      <Filter>Object\LevelObject\Component</Filter>
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineCamera.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

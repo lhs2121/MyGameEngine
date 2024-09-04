@@ -1,11 +1,16 @@
 #include "Pre.h"
 #include "EngineLevel.h"
 #include "EngineCollision.h"
+#include "EngineRenderer.h"
 
 
 void EngineCollision::Awake()
 {
 	GetLevel()->AddCollision(this);
+	DebugRenderer = (EngineRenderer*)CreateObject(new EngineRenderer());
+	DebugRenderer->SetMesh("Circle2D");
+	DebugRenderer->SetMaterial("DebugLine");
+	DebugRenderer->Transform.SetLocalScale({ 100,100 });
 }
 
 void EngineCollision::Update(float _Delta)
@@ -22,33 +27,31 @@ bool EngineCollision::Collision(EngineCollision* _Other)
 {
 	if (Type == ColType::Rect && _Other->Type == ColType::Rect)
 	{
-		AABB(_Other);
+		IsCollision = AABB(_Other);
 	}
 	if (Type == ColType::Circle && _Other->Type == ColType::Circle)
 	{
-		Circle(_Other);
+		IsCollision = Circle(_Other);
 	}
 	if (Type == ColType::Rect && _Other->Type == ColType::Circle)
 	{
-		AABBvsCircle(_Other);
+		IsCollision = AABBvsCircle(_Other);
 	}
 	if (Type == ColType::Circle && _Other->Type == ColType::Rect)
 	{
-		_Other->AABBvsCircle(this);
+		IsCollision = _Other->AABBvsCircle(this);
 	}
-	return false;
+	return IsCollision;
 }
 
 bool EngineCollision::AABB(EngineCollision* _Other)
 { 
 	if (_Other->right < this->left)
 	{
-		IsCollision = false;
 		return false;
 	}
 	if (_Other->left > this->right)
 	{
-		IsCollision = false;
 		return false;
 	}
 
@@ -56,16 +59,13 @@ bool EngineCollision::AABB(EngineCollision* _Other)
 
 	if (_Other->top < this->bottom)
 	{
-		IsCollision = false;
 		return false;
 	}
 	if (_Other->bottom > this->top)
 	{
-		IsCollision = false;
 		return false;
 	}
 
-	IsCollision = true;
 	return true;
 }
 

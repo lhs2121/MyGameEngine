@@ -164,20 +164,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EngineConstantBuffer.cpp" />
-    <ClCompile Include="EngineD3DManager.cpp" />
-    <ClCompile Include="EngineDepthStencil.cpp" />
-    <ClCompile Include="EngineDevice.cpp" />
-    <ClCompile Include="EngineDevice_ResourceInit.cpp" />
-    <ClCompile Include="EngineIndexBuffer.cpp" />
-    <ClCompile Include="EngineInputLayout.cpp" />
-    <ClCompile Include="EngineMesh.cpp" />
-    <ClCompile Include="EnginePixelShader.cpp" />
-    <ClCompile Include="EngineRasterizer.cpp" />
-    <ClCompile Include="EngineSampler.cpp" />
-    <ClCompile Include="EngineTexture.cpp" />
-    <ClCompile Include="EngineVertexBuffer.cpp" />
-    <ClCompile Include="EngineVertexShader.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="ResManager.cpp" />
+    <ClCompile Include="DepthStencil.cpp" />
+    <ClCompile Include="Device.cpp" />
+    <ClCompile Include="InitMesh.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="InputLayout.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="Rasterizer.cpp" />
+    <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="D3D11API.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -185,26 +185,27 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="EngineMaterial.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="InitMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineConstantBuffer.h" />
-    <ClInclude Include="EngineD3DManager.h" />
-    <ClInclude Include="EngineDepthStencil.h" />
-    <ClInclude Include="EngineDevice.h" />
-    <ClInclude Include="EngineIndexBuffer.h" />
-    <ClInclude Include="EngineInputLayout.h" />
-    <ClInclude Include="EnginePixelShader.h" />
-    <ClInclude Include="EngineRasterizer.h" />
-    <ClInclude Include="EngineSampler.h" />
-    <ClInclude Include="EngineTexture.h" />
-    <ClInclude Include="EngineVertexBuffer.h" />
-    <ClInclude Include="EngineVertexFormat.h" />
-    <ClInclude Include="EngineVertexShader.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="ResManager.h" />
+    <ClInclude Include="DepthStencil.h" />
+    <ClInclude Include="Device.h" />
+    <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="Rasterizer.h" />
+    <ClInclude Include="Sampler.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexFormat.h" />
+    <ClInclude Include="VertexShader.h" />
     <ClInclude Include="D3D11API.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineMesh.h" />
-    <ClInclude Include="EngineMaterial.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Material.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineLevelObject.h"
+#include "EngineObject.h"
 #include "EngineRenderer.h"
 
 enum class ProjectionType
@@ -7,7 +7,7 @@ enum class ProjectionType
 	Perspective,
 	Orthographic
 };
-class CoreAPI EngineCamera : public EngineLevelObject
+class CoreAPI EngineCamera : public EngineObject
 {
 public:
 	void Awake() override;

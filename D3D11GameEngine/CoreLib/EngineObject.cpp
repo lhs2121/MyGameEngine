@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "EngineObject.h"
+#include "EngineLevel.h"
 
 EngineObject::EngineObject()
 {
@@ -46,13 +47,13 @@ void EngineObject::SetParent(EngineObject* _Parent)
 	Transform.ParentTransform = &_Parent->Transform;
 }
 
-EngineObject* EngineObject::GetTopParent()
+EngineLevel* EngineObject::GetLevel()
 {
 	if (Parent != nullptr)
 	{
-		return Parent->GetTopParent();
+		return Parent->GetLevel();
 	}
-	return this;
+	return (EngineLevel*)this;
 }
 
 void EngineObject::Destroy()
@@ -99,6 +100,17 @@ void EngineObject::End()
 
 void EngineObject::Release()
 {
+}
+
+EngineObject* EngineObject::CreateObject(EngineObject* _NewActor)
+{
+	_NewActor->Input = Input;
+	_NewActor->Window = Window;
+	_NewActor->Device = Device;
+	_NewActor->ResManager = ResManager;
+	_NewActor->SetParent(this);
+	_NewActor->Awake();
+	return _NewActor;
 }
 
 
