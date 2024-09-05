@@ -8,8 +8,8 @@ void TestActor::Awake()
 
 	if(nullptr == ResManager->Find(ResType::Texture, "TestTexture"))
 	{
-		ITexture* tex = (ITexture*)ResManager->CreateResource(Device,ResType::Texture, "TestTexture");
-		tex->Setting(Device->GetDevice(),files[0]);
+		ITexture* tex = (ITexture*)ResManager->CreateResource(ResType::Texture, "TestTexture");
+		tex->Setting(files[0]);
 	}
 	Renderer = (EngineSpriteRenderer*)CreateObject(new EngineSpriteRenderer());
 	Renderer->SetTexture("TestTexture");

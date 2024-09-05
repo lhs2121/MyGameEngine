@@ -14,8 +14,8 @@ void Device::InitMesh(IResManager* pManager)
 			{float4( 0.5f,-0.5f), float2(1,1)},
 			{float4(-0.5f,-0.5f), float2(0,1)}
 		};
-		IVertexBuffer* pVertexBuffer = (IVertexBuffer*)pManager->CreateResource(this, ResType::VB, "Box2D");
-		pVertexBuffer->Setting(DevicePtr, Box2D, sizeof(Vertex), sizeof(Box2D), 0);
+		IVertexBuffer* pVertexBuffer = (IVertexBuffer*)pManager->CreateResource( ResType::VB, "Box2D");
+		pVertexBuffer->Setting( Box2D, sizeof(Vertex), sizeof(Box2D), 0);
 	}
 
 	{
@@ -24,8 +24,8 @@ void Device::InitMesh(IResManager* pManager)
 			0,1,2,
 			0,2,3
 		};
-		IIndexBuffer* pIndexBuffer = (IIndexBuffer*)pManager->CreateResource(this, ResType::IB, "Box2D");
-		pIndexBuffer->Setting(DevicePtr, Box2D, sizeof(Box2D));
+		IIndexBuffer* pIndexBuffer = (IIndexBuffer*)pManager->CreateResource( ResType::IB, "Box2D");
+		pIndexBuffer->Setting(Box2D, sizeof(Box2D));
 	}
 
 	//Box3D
@@ -69,8 +69,8 @@ void Device::InitMesh(IResManager* pManager)
 			{ float4( 0.5f,-0.5f,-0.5f, 1.0f), float2(0,1) }
 		};
 
-		IVertexBuffer* pVertexBuffer = (IVertexBuffer*)pManager->CreateResource(this, ResType::VB, "Box3D");
-		pVertexBuffer->Setting(DevicePtr, Box3D, sizeof(Vertex), sizeof(Box3D), 1);
+		IVertexBuffer* pVertexBuffer = (IVertexBuffer*)pManager->CreateResource(ResType::VB, "Box3D");
+		pVertexBuffer->Setting(Box3D, sizeof(Vertex), sizeof(Box3D), 1);
 	}
 
 	{
@@ -101,8 +101,8 @@ void Device::InitMesh(IResManager* pManager)
 			22,23,20
 		};
 
-		IIndexBuffer* pIndexBuffer = (IIndexBuffer*)pManager->CreateResource(this, ResType::IB, "Box3D");
-		pIndexBuffer->Setting(DevicePtr, Box3D, sizeof(Box3D));
+		IIndexBuffer* pIndexBuffer = (IIndexBuffer*)pManager->CreateResource( ResType::IB, "Box3D");
+		pIndexBuffer->Setting( Box3D, sizeof(Box3D));
 	}
 
 	// Circle2D
@@ -136,11 +136,11 @@ void Device::InitMesh(IResManager* pManager)
 			First++;
 			Second++;
 		}
-		IVertexBuffer* pVertexBuffer = (IVertexBuffer*)pManager->CreateResource(this, ResType::VB, "Circle2D");
-		pVertexBuffer->Setting(DevicePtr, &Vertiecs[0], sizeof(Vertex),Vertiecs.size() * sizeof(Vertex),0);
+		IVertexBuffer* pVertexBuffer = (IVertexBuffer*)pManager->CreateResource( ResType::VB, "Circle2D");
+		pVertexBuffer->Setting( &Vertiecs[0], sizeof(Vertex),static_cast<int>(Vertiecs.size() * sizeof(Vertex)),0);
 
-		IIndexBuffer* pIndexBuffer = (IIndexBuffer*)pManager->CreateResource(this, ResType::IB, "Circle2D");
-		pIndexBuffer->Setting(DevicePtr, &Indices[0], Indices.size() * sizeof(UINT));
+		IIndexBuffer* pIndexBuffer = (IIndexBuffer*)pManager->CreateResource( ResType::IB, "Circle2D");
+		pIndexBuffer->Setting( &Indices[0], static_cast<int>(Indices.size() * sizeof(UINT)));
 	}
 
 }

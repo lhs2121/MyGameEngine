@@ -15,11 +15,11 @@ void Device::InitMaterial(IResManager* pManager)
 			EngineString FileName = ShaderFile.GetFileName();
 			EngineString FilePath = ShaderFile.GetPath();
 
-			IVertexShader* pVS = (IVertexShader*)pManager->CreateResource(this, ResType::VS, FileName);
-			pVS->Setting(DevicePtr, FileName, FilePath);
+			IVertexShader* pVS = (IVertexShader*)pManager->CreateResource( ResType::VS, FileName);
+			pVS->Setting( FileName, FilePath);
 
-			IPixelShader* pPS = (IPixelShader*)pManager->CreateResource(this, ResType::PS, FileName);
-			pPS->Setting(DevicePtr, FileName, FilePath);
+			IPixelShader* pPS = (IPixelShader*)pManager->CreateResource(ResType::PS, FileName);
+			pPS->Setting(FileName, FilePath);
 		}
 	}
 
@@ -37,8 +37,8 @@ void Device::InitMaterial(IResManager* pManager)
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
 
-		IRasterizer* pRasterizer = (IRasterizer*)pManager->CreateResource(this, ResType::RS, "Default");
-		pRasterizer->Setting(DevicePtr, Desc);
+		IRasterizer* pRasterizer = (IRasterizer*)pManager->CreateResource(ResType::RS, "Default");
+		pRasterizer->Setting( Desc);
 	}
 
 	{
@@ -55,8 +55,8 @@ void Device::InitMaterial(IResManager* pManager)
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
 
-		IRasterizer* pRasterizer = (IRasterizer*)pManager->CreateResource(this, ResType::RS, "WireFrame");
-		pRasterizer->Setting(DevicePtr, Desc);
+		IRasterizer* pRasterizer = (IRasterizer*)pManager->CreateResource(ResType::RS, "WireFrame");
+		pRasterizer->Setting( Desc);
 	}
 
 	{
@@ -66,8 +66,8 @@ void Device::InitMaterial(IResManager* pManager)
 		Desc.DepthFunc = D3D11_COMPARISON_LESS;
 		Desc.StencilEnable = false;
 
-		IDepthStencil* pDepthStencil = (IDepthStencil*)pManager->CreateResource(this, ResType::DS, "Default");
-		pDepthStencil->Setting(DevicePtr, Desc);
+		IDepthStencil* pDepthStencil = (IDepthStencil*)pManager->CreateResource(ResType::DS, "Default");
+		pDepthStencil->Setting( Desc);
 	}
 
 	{
@@ -86,8 +86,8 @@ void Device::InitMaterial(IResManager* pManager)
 		Desc.MinLOD = 0;
 		Desc.MaxLOD = D3D11_FLOAT32_MAX;
 
-		ISampler* NewSampler = (ISampler*)pManager->CreateResource(this, ResType::Sampler, "Point");
-		NewSampler->Setting(DevicePtr, &Desc);
+		ISampler* NewSampler = (ISampler*)pManager->CreateResource(ResType::Sampler, "Point");
+		NewSampler->Setting( &Desc);
 	}
 
 	{
@@ -96,22 +96,23 @@ void Device::InitMaterial(IResManager* pManager)
 		Dir.GoChild("Assets");
 		std::vector<EngineFile> Files = Dir.GetAllFileExt(".png");
 
-		ITexture* NewTexture = (ITexture*)pManager->CreateResource(this, ResType::Texture, "Default");
-		NewTexture->Setting(DevicePtr, Files[0]);
+		ITexture* NewTexture = (ITexture*)pManager->CreateResource( ResType::Texture, "Default");
+		NewTexture->Setting( Files[0]);
 	}
 
 	{
-		IMesh* NewMesh = (IMesh*)pManager->CreateResource(this, ResType::Mesh, "Box2D");
+		IMesh* NewMesh = (IMesh*)pManager->CreateResource( ResType::Mesh, "Box2D");
 		NewMesh->Setting("Box2D", "Box2D");
 	}
 
+
 	{
-		IMesh* NewMesh = (IMesh*)pManager->CreateResource(this, ResType::Mesh, "Circle2D");
+		IMesh* NewMesh = (IMesh*)pManager->CreateResource( ResType::Mesh, "Circle2D");
 		NewMesh->Setting("Circle2D", "Circle2D");
 	}
 
 	{
-		IMaterial* NewMat = (IMaterial*)pManager->CreateResource(this, ResType::Material, "Sprite2D");
+		IMaterial* NewMat = (IMaterial*)pManager->CreateResource( ResType::Material, "Sprite2D");
 		NewMat->SetShader("Sprite2D");
 		NewMat->SetRS("Default");
 		NewMat->SetDS("Default");
@@ -121,7 +122,7 @@ void Device::InitMaterial(IResManager* pManager)
 	}
 
 	{
-		IMaterial* NewMat = (IMaterial*)pManager->CreateResource(this, ResType::Material, "DebugLine");
+		IMaterial* NewMat = (IMaterial*)pManager->CreateResource( ResType::Material, "DebugLine");
 		NewMat->SetShader("DebugLine");
 		NewMat->SetRS("Default");
 		NewMat->SetDS("Default");

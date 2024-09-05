@@ -11,11 +11,13 @@ public:
 	EngineString GetLayoutName();
 	UINT GetSlotNumber(const char* _BindingResName);
 
-	void Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineString _Path) override;
-	void IntoPipeline(ID3D11DeviceContext* ContextPtr) override;
+	void Setting(EngineString _Name, EngineString _Path) override;
+	void IntoPipeline() override;
 	void* GetShaderByteCode();
 	SIZE_T GetShaderByteLength();
 
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 private:
 	ID3DBlob* BlobPtr = nullptr;
 	ID3D11VertexShader* ShaderPtr = nullptr;

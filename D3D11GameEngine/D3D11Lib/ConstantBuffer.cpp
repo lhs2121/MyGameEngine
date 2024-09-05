@@ -14,7 +14,7 @@ ConstantBuffer::~ConstantBuffer()
 	}
 }
 
-void ConstantBuffer::Setting(ID3D11Device* DevicePtr, void* _DataPtr, int _sizeofData)
+void ConstantBuffer::Setting( void* _DataPtr, int _sizeofData)
 {
 	D3D11_BUFFER_DESC Desc = { 0 };
 	Desc.Usage = D3D11_USAGE_DYNAMIC;
@@ -29,7 +29,7 @@ void ConstantBuffer::Setting(ID3D11Device* DevicePtr, void* _DataPtr, int _sizeo
 	DevicePtr->CreateBuffer(&Desc, nullptr, &BufferPtr);
 }
 
-void ConstantBuffer::IntoPipeline(ID3D11DeviceContext* ContextPtr, ShaderType _Type, int SlotNum)
+void ConstantBuffer::IntoPipeline( ShaderType _Type, int SlotNum)
 {
 	D3D11_MAPPED_SUBRESOURCE MappedRes;
 

@@ -4,12 +4,12 @@
 
 void Material::IntoPipeline()
 {
-	pVS->IntoPipeline(ContextPtr);
-	pPS->IntoPipeline(ContextPtr);
-	pRS->IntoPipeline(ContextPtr);
-	pDS->IntoPipeline(ContextPtr);
-	pSampler->IntoPipeline(ContextPtr, ShaderType::PS, 0);
-	pTexture->IntoPipeline(ContextPtr, ShaderType::PS, 0);
+	pVS->IntoPipeline();
+	pPS->IntoPipeline();
+	pRS->IntoPipeline();
+	pDS->IntoPipeline();
+	pSampler->IntoPipeline( ShaderType::PS, 0);
+	pTexture->IntoPipeline( ShaderType::PS, 0);
 }
 
 void Material::SetShader(const char* _ShaderName)

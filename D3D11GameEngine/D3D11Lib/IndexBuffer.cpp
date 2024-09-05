@@ -16,7 +16,7 @@ IndexBuffer::~IndexBuffer()
 	}
 }
 
-void IndexBuffer::Setting(ID3D11Device* DevicePtr, UINT* Indices, int IndexSize)
+void IndexBuffer::Setting( UINT* Indices, int IndexSize)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;
@@ -38,7 +38,7 @@ void IndexBuffer::Setting(ID3D11Device* DevicePtr, UINT* Indices, int IndexSize)
 	HRESULT Result = DevicePtr->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 
-void IndexBuffer::IntoPipeline(ID3D11DeviceContext* ContextPtr)
+void IndexBuffer::IntoPipeline()
 {
 	ContextPtr->IASetIndexBuffer(BufferPtr, DXGI_FORMAT_R32_UINT, 0);
 }

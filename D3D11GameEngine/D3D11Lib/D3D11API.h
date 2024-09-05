@@ -48,65 +48,65 @@ struct IResBase
 
 struct IRes : public IResBase
 {
-	virtual void IntoPipeline(ID3D11DeviceContext* ContextPtr) = 0;
+	virtual void IntoPipeline() = 0;
 };
 
 struct IShaderRes : public IResBase
 {
-	virtual void IntoPipeline(ID3D11DeviceContext* ContextPtr, ShaderType _Type, int SlotNum = 0) = 0;
+	virtual void IntoPipeline(ShaderType _Type, int SlotNum = 0) = 0;
 };
 
 struct IVertexBuffer : public IRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) = 0;
+	virtual void Setting(void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) = 0;
 };
 
 struct IIndexBuffer : public IRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, UINT* Indices, int IndexSize) = 0;
+	virtual void Setting(UINT* Indices, int IndexSize) = 0;
 };
 
 struct IVertexShader : public IRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineString _Path) = 0;
+	virtual void Setting(EngineString _Name, EngineString _Path) = 0;
 };
 
 struct IInputLayout : public IRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, IVertexBuffer* _pVB, IVertexShader* _pVS) = 0;
+	virtual void Setting(IVertexBuffer* _pVB, IVertexShader* _pVS) = 0;
 };
 
 struct IPixelShader : public IRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineString _Path) = 0;
+	virtual void Setting(EngineString _Name, EngineString _Path) = 0;
 };
 
 struct IRasterizer : public IRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, D3D11_RASTERIZER_DESC _Desc) = 0;
+	virtual void Setting(D3D11_RASTERIZER_DESC _Desc) = 0;
 };
 
 struct IDepthStencil : public IRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, D3D11_DEPTH_STENCIL_DESC _Desc) = 0;
+	virtual void Setting(D3D11_DEPTH_STENCIL_DESC _Desc) = 0;
 };
 
 struct ITexture : public IShaderRes
 {
 	virtual ID3D11ShaderResourceView* GetSRV() = 0;
 	virtual float4 GetImageScale() = 0;
-	virtual void Setting(ID3D11Device* DevicePtr, EngineFile& _File) = 0;
+	virtual void Setting(EngineFile& _File) = 0;
 };
 
 struct ISampler : public IShaderRes
 {
 	virtual ID3D11SamplerState* GetState() = 0;
-	virtual void Setting(ID3D11Device* DevicePtr, D3D11_SAMPLER_DESC* DescPtr) = 0;
+	virtual void Setting(D3D11_SAMPLER_DESC* DescPtr) = 0;
 };
 
 struct IConstantBuffer : public IShaderRes
 {
-	virtual void Setting(ID3D11Device* DevicePtr, void* _DataPtr, int _sizeofData) = 0;
+	virtual void Setting(void* _DataPtr, int _sizeofData) = 0;
 };
 
 struct IMesh : public IResBase
@@ -132,13 +132,11 @@ struct IMaterial : public IResBase
 
 struct IResManager
 {
-	virtual void* CreateResource(IDevice* DevicePtr, ResType _Type, EngineString _Name) = 0;
+	virtual void  CreateDevice(IDevice** ppIDevice) = 0;
+	virtual void* CreateResource(ResType _Type, EngineString _Name) = 0;
 	virtual void* Find(ResType _Type, const char* _Name) = 0;
-	virtual IInputLayout* FindIA(IDevice* DevicePtr, IMesh* _Mesh, IMaterial* _Material) = 0;
+	virtual IInputLayout* GenerateInputLayout(IMesh* _Mesh, IMaterial* _Material) = 0;
 };
-
-extern "C" D3D11API void CreateDevice(IDevice * *ppIDevice);
-extern "C" D3D11API void DeleteDevice(IDevice * pIDevice);
 
 extern "C" D3D11API void CreateResManager(IResManager** ppIResManager);
 extern "C" D3D11API void DeleteResManager(IResManager* pIResManager);

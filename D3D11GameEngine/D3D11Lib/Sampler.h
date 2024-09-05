@@ -7,10 +7,12 @@ public:
 	Sampler();
 	~Sampler();
 	
-	void Setting(ID3D11Device* DevicePtr, D3D11_SAMPLER_DESC* DescPtr) override;
-	void IntoPipeline(ID3D11DeviceContext* ContextPtr, ShaderType _Type, int SlotNum = 0) override;
+	void Setting(D3D11_SAMPLER_DESC* DescPtr) override;
+	void IntoPipeline(ShaderType _Type, int SlotNum = 0) override;
     ID3D11SamplerState* GetState() override;
 
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 private:
 	ID3D11SamplerState* StatePtr;
 };

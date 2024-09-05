@@ -15,13 +15,13 @@ DepthStencil::~DepthStencil()
 	}
 }
 
-void DepthStencil::Setting(ID3D11Device* DevicePtr, D3D11_DEPTH_STENCIL_DESC _Desc)
+void DepthStencil::Setting(D3D11_DEPTH_STENCIL_DESC _Desc)
 {
 	Desc = _Desc;
 	DevicePtr->CreateDepthStencilState(&Desc, &StatePtr);
 }
 
-void DepthStencil::IntoPipeline(ID3D11DeviceContext* ContextPtr)
+void DepthStencil::IntoPipeline()
 {
 	ContextPtr->OMSetDepthStencilState(StatePtr, 1);
 }

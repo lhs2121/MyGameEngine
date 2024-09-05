@@ -7,8 +7,11 @@ public:
 	DepthStencil();
 	~DepthStencil();
 
-	void Setting(ID3D11Device* DevicePtr, D3D11_DEPTH_STENCIL_DESC _Desc) override;
-	void IntoPipeline(ID3D11DeviceContext* ContextPtr);
+	void Setting( D3D11_DEPTH_STENCIL_DESC _Desc) override;
+	void IntoPipeline();
+
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	ID3D11DepthStencilState* GetStatePtr() const { return StatePtr; }
 
 private:

@@ -16,13 +16,13 @@ void EngineRenderer::Awake()
 	BufferName += RendererTransformBufferCount;
 	RendererTransformBufferCount++;
 
-	TransformBuffer = (IConstantBuffer*)ResManager->CreateResource(Device, ResType::CB, BufferName);
-	TransformBuffer->Setting(Device->GetDevice(), &Transform.WorldViewProjectionMat, sizeof(float4x4));
+	TransformBuffer = (IConstantBuffer*)ResManager->CreateResource(ResType::CB, BufferName);
+	TransformBuffer->Setting(&Transform.WorldViewProjectionMat, sizeof(float4x4));
 
 	Mesh = (IMesh*)ResManager->Find(ResType::Mesh, "Box2D");
 	Material = (IMaterial*)ResManager->Find(ResType::Material, "Sprite2D");
 
-	pIA = ResManager->FindIA(Device, Mesh, Material);
+	pIA = ResManager->GenerateInputLayout(Mesh, Material);
 }
 
 void EngineRenderer::Update(float _Delta)
@@ -30,8 +30,8 @@ void EngineRenderer::Update(float _Delta)
 }
 void EngineRenderer::Render()
 {
-	TransformBuffer->IntoPipeline(Device->GetContext(), ShaderType::VS);
-	pIA->IntoPipeline(Device->GetContext());
+	TransformBuffer->IntoPipeline(ShaderType::VS);
+	pIA->IntoPipeline();
 	Mesh->IntoPipeline();
 	Material->IntoPipeline();
 
@@ -41,13 +41,13 @@ void EngineRenderer::Render()
 void EngineRenderer::SetMesh(const char* _Name)
 {
 	Mesh = (IMesh*)ResManager->Find(ResType::Mesh, _Name);
-	pIA = ResManager->FindIA(Device, Mesh, Material);
+	pIA = ResManager->GenerateInputLayout(Mesh, Material);
 }
 
 void EngineRenderer::SetMaterial(const char* _Name)
 {
 	Material = (IMaterial*)ResManager->Find(ResType::Material, _Name);
-	pIA = ResManager->FindIA(Device, Mesh, Material);
+	pIA = ResManager->GenerateInputLayout(Mesh, Material);
 }
 
 void EngineRenderer::SetTexture(const char* _TextureName)

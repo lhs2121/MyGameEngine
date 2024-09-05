@@ -8,7 +8,6 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "DepthStencil.h"
-#include "VertexFormat.h"
 #include "Texture.h"
 #include "Sampler.h"
 #include "ConstantBuffer.h"
@@ -29,9 +28,21 @@ ResManager::~ResManager()
 		delete CurItem;
 		ResourceMap.GoNext();
 	}
+
+	if (DevicePtr != nullptr)
+	{
+		delete DevicePtr;
+	}
+
 }
 
-void* ResManager::CreateResource(IDevice* DevicePtr, ResType _Type, EngineString _Name)
+void ResManager::CreateDevice(IDevice** ppIDevice)
+{
+	DevicePtr = new Device();
+	*ppIDevice = DevicePtr;
+}
+
+void* ResManager::CreateResource(ResType _Type, EngineString _Name)
 {
 	IResBase* Res = nullptr;
 	EngineString Name;
@@ -42,65 +53,122 @@ void* ResManager::CreateResource(IDevice* DevicePtr, ResType _Type, EngineString
 	{
 		Name += "Mesh_";
 
-		Mesh* MeshPtr = new Mesh();
-		MeshPtr->ContextPtr = DevicePtr->GetContext();
-		MeshPtr->ManagerPtr = this;
-
-		Res = MeshPtr;
+		Mesh* NewRes = new Mesh();
+		NewRes->ManagerPtr = this;
+		Res = NewRes;
 		break;
 	}
 	case ResType::Material:
 	{
 		Name += "Material_";
 
-		Material* MaterialPtr = new Material();
-		MaterialPtr->ContextPtr = DevicePtr->GetContext();
-		MaterialPtr->ManagerPtr = this;
-
-		Res = MaterialPtr;
-
+		Material* NewRes = new Material();
+		NewRes->ManagerPtr = this;
+		Res = NewRes;
 		break;
 	}
 	case ResType::VB:
+	{
 		Name += "VB_";
-		Res = new VertexBuffer();
+
+		VertexBuffer* NewRes = new VertexBuffer();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	case ResType::IB:
+	{
 		Name += "IB_";
-		Res = new IndexBuffer();
+
+		IndexBuffer* NewRes = new IndexBuffer();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	case ResType::CB:
+	{
 		Name += "CB_";
-		Res = new ConstantBuffer();
+
+		ConstantBuffer* NewRes = new ConstantBuffer();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	case ResType::IA:
+	{
 		Name += "IA_";
-		Res = new InputLayout();
+
+		InputLayout* NewRes = new InputLayout();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	case ResType::VS:
+	{
 		Name += "VS_";
-		Res = new VertexShader();
+
+		VertexShader* NewRes = new VertexShader();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	case ResType::PS:
+	{
 		Name += "PS_";
-		Res = new PixelShader();
+
+		PixelShader* NewRes = new PixelShader();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	case ResType::RS:
+	{
 		Name += "RS_";
-		Res = new Rasterizer();
+
+		Rasterizer* NewRes = new Rasterizer();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+
+	}
 	case ResType::DS:
+	{
 		Name += "DS_";
-		Res = new DepthStencil();
+
+		DepthStencil* NewRes = new DepthStencil();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	case ResType::Sampler:
+	{
 		Name += "Sampler_";
-		Res = new Sampler();
+
+		Sampler* NewRes = new Sampler();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+
+	}
 	case ResType::Texture:
+	{
 		Name += "Texture_";
-		Res = new Texture();
+
+		Texture* NewRes = new Texture();
+		NewRes->DevicePtr = DevicePtr->GetDevice();
+		NewRes->ContextPtr = DevicePtr->GetContext();
+		Res = NewRes;
 		break;
+	}
 	}
 
 	Name += _Name;
@@ -157,7 +225,7 @@ void* ResManager::Find(ResType _Type, const char* _Name)
 	return ResourceMap.Get(Name.c_str());;
 }
 
-IInputLayout* ResManager::FindIA(IDevice* DevicePtr, IMesh* _Mesh, IMaterial* _Material)
+IInputLayout* ResManager::GenerateInputLayout(IMesh* _Mesh, IMaterial* _Material)
 {
 	VertexShader* VSPtr = (VertexShader*)_Material->GetVS();
 	EngineString Name = VSPtr->GetLayoutName();
@@ -166,8 +234,8 @@ IInputLayout* ResManager::FindIA(IDevice* DevicePtr, IMesh* _Mesh, IMaterial* _M
 	InputLayout* Result = (InputLayout*)Find(ResType::IA, Name.c_str());
 	if (Result == nullptr)
 	{
-		Result = (InputLayout*)CreateResource(DevicePtr, ResType::IA, Name);
-		Result->Setting(DevicePtr->GetDevice(), _Mesh->GetVB(), _Material->GetVS());
+		Result = (InputLayout*)CreateResource(ResType::IA, Name);
+		Result->Setting(_Mesh->GetVB(), _Material->GetVS());
 	}
 
 	return Result;

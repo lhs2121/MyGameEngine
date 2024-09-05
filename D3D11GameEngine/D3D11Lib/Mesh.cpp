@@ -20,6 +20,6 @@ void Mesh::Setting(const char* _VBName, const char* _IBName)
 
 void Mesh::IntoPipeline()
 {
-	pVB->IntoPipeline(ContextPtr);
-	pIB->IntoPipeline(ContextPtr);
+	pVB->IntoPipeline();
+	pIB->IntoPipeline();
 }

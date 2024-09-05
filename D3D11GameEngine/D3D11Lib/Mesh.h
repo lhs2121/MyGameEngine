@@ -12,7 +12,6 @@ public:
 	UINT GetIndexCount() override;
     IVertexBuffer* GetVB() override;
 
-	ID3D11DeviceContext* ContextPtr = nullptr;
 	IResManager* ManagerPtr = nullptr;
 private:
 	VertexBuffer* pVB = nullptr;

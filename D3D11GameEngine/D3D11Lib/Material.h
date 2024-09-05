@@ -19,8 +19,7 @@ public:
 	void IntoPipeline() override;
 	IVertexShader* GetVS() override;
 
-	ID3D11DeviceContext* ContextPtr = nullptr;
-	IResManager*         ManagerPtr = nullptr;
+	IResManager* ManagerPtr = nullptr;
 
 	InputLayout*         pIA = nullptr;
 	VertexShader*        pVS = nullptr;

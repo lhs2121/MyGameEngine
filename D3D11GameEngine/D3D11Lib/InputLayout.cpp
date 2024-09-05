@@ -22,13 +22,13 @@ InputLayout::~InputLayout()
 	}
 }
 
-void InputLayout::Setting(ID3D11Device* DevicePtr, IVertexBuffer* _pVB, IVertexShader* _pVS)
+void InputLayout::Setting( IVertexBuffer* _pVB, IVertexShader* _pVS)
 {
 	VertexShader* pVS = (VertexShader*)_pVS;
 	VertexBuffer* pVB = (VertexBuffer*)_pVB;
 	UINT VBSlotNum = pVB->GetSlotNumber();
 	std::vector<EngineString> Sementics = pVS->GetSementics();
-	int Size = Sementics.size();
+	UINT Size = (UINT)Sementics.size();
 	Desc = new D3D11_INPUT_ELEMENT_DESC[Size];
 	
 	UINT ByteOffset = 0;
@@ -36,7 +36,7 @@ void InputLayout::Setting(ID3D11Device* DevicePtr, IVertexBuffer* _pVB, IVertexS
 	for (size_t i = 0; i < Size; i++)
 	{
 		EngineString Sementic = Sementics[i].c_str();
-		DXGI_FORMAT Format;
+		DXGI_FORMAT Format = DXGI_FORMAT_UNKNOWN;
 		if (Sementic == "POSITION")
 		{
 			Desc[i].SemanticName = "POSITION";
@@ -68,7 +68,7 @@ void InputLayout::Setting(ID3D11Device* DevicePtr, IVertexBuffer* _pVB, IVertexS
 	HRESULT Result = DevicePtr->CreateInputLayout(Desc, Size, pVS->GetShaderByteCode(), pVS->GetShaderByteLength(), &LayoutPtr);
 }
 
-void InputLayout::IntoPipeline(ID3D11DeviceContext* ContextPtr)
+void InputLayout::IntoPipeline()
 {
 	ContextPtr->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	ContextPtr->IASetInputLayout(LayoutPtr);

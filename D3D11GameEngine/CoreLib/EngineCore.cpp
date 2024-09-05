@@ -44,8 +44,7 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
     MainWindow->Init(_WindowTitle, _WindowPos, _WindowSize, _hInstance, this);
 
     CreateResManager(&MainResManager);
-
-    CreateDevice(&MainDevice);
+    MainResManager->CreateDevice(&MainDevice);
 
     MainDevice->Init(MainWindow->GethWnd(), _WindowSize);
     MainDevice->InitMesh(MainResManager);
@@ -91,7 +90,6 @@ void EngineCore::EngineRelease()
 	DeleteAllLevel();
 	DeleteEngineTime(MainTime);
 	DeleteEngineInput(MainInput);
-    DeleteDevice(MainDevice);
 	DeleteResManager(MainResManager);
     DeleteEngineWindow(MainWindow);
     EngineString::DeleteAllStringPool();

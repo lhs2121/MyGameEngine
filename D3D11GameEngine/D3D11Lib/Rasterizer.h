@@ -7,9 +7,11 @@ public:
 	Rasterizer();
 	~Rasterizer();
 
-	void Setting(ID3D11Device* DevicePtr, D3D11_RASTERIZER_DESC _Desc) override;
-	void IntoPipeline(ID3D11DeviceContext* ContextPtr) override;
+	void Setting(D3D11_RASTERIZER_DESC _Desc) override;
+	void IntoPipeline() override;
 
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 private:
 	D3D11_RASTERIZER_DESC Desc;
 	ID3D11RasterizerState* RasterizePtr;

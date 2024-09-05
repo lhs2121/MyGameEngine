@@ -20,7 +20,7 @@ PixelShader::~PixelShader()
 	}
 }
 
-void PixelShader::Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineString _Path)
+void PixelShader::Setting( EngineString _Name, EngineString _Path)
 {
 	EngineString MainFuncName = _Name;
 	MainFuncName += "_PS";
@@ -61,7 +61,7 @@ void PixelShader::Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineStr
 	}
 }
 
-void PixelShader::IntoPipeline(ID3D11DeviceContext* ContextPtr)
+void PixelShader::IntoPipeline()
 {
 	ContextPtr->PSSetShader(ShaderPtr, nullptr, 0);
 }

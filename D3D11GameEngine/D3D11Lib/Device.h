@@ -18,8 +18,8 @@ public:
 private:
 	ID3D11Device* DevicePtr = nullptr;
 	ID3D11DeviceContext* ContextPtr = nullptr;
-	IDXGISwapChain* SwapChain = nullptr;
 
+	IDXGISwapChain* SwapChain = nullptr;
 	ID3D11Texture2D* BackTexture = nullptr;
 	ID3D11Texture2D* DepthTexture = nullptr;
 

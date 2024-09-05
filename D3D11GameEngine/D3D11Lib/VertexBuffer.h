@@ -7,9 +7,11 @@ public:
 	VertexBuffer();
 	~VertexBuffer();
 
-	void Setting(ID3D11Device* DevicePtr, void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) override;
-	void IntoPipeline(ID3D11DeviceContext* ContextPtr) override;
+	void Setting( void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) override;
+	void IntoPipeline() override;
 
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	UINT GetSlotNumber() const { return SlotNumber; }
 private:
 	ID3D11Buffer* BufferPtr;

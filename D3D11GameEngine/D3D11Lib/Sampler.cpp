@@ -18,12 +18,12 @@ ID3D11SamplerState* Sampler::GetState()
 	return StatePtr;
 }
 
-void Sampler::Setting(ID3D11Device* DevicePtr, D3D11_SAMPLER_DESC* DescPtr)
+void Sampler::Setting(D3D11_SAMPLER_DESC* DescPtr)
 {
 	DevicePtr->CreateSamplerState(DescPtr, &StatePtr);
 }
 
-void Sampler::IntoPipeline(ID3D11DeviceContext* ContextPtr, ShaderType _Type, int SlotNum)
+void Sampler::IntoPipeline( ShaderType _Type, int SlotNum)
 {
 	switch (_Type)
 	{

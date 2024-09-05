@@ -12,7 +12,7 @@ Texture::~Texture()
 	ScratchImage.Release();
 }
 
-void Texture::Setting(ID3D11Device* DevicePtr, EngineFile& _File)
+void Texture::Setting(EngineFile& _File)
 {
 	wchar_t* UniPath = nullptr;
 	EngineString Ext = _File.GetExt();
@@ -58,7 +58,7 @@ float4 Texture::GetImageScale()
 	return Scale;
 }
 
-void Texture::IntoPipeline(ID3D11DeviceContext* ContextPtr, ShaderType _Type, int SlotNum)
+void Texture::IntoPipeline( ShaderType _Type, int SlotNum)
 {
 	switch (_Type)
 	{

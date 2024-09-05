@@ -8,9 +8,11 @@ public:
 	ResManager();
 	~ResManager();
 
-	void* CreateResource(IDevice* DevicePtr, ResType _Type, EngineString _Name) override;
+	void CreateDevice(IDevice** ppIDevice) override;
+	void* CreateResource(ResType _Type, EngineString _Name) override;
 	void* Find(ResType _Type, const char* _Name) override;
-    IInputLayout* FindIA(IDevice* DevicePtr, IMesh* _Mesh, IMaterial* _Material) override;
+    IInputLayout* GenerateInputLayout(IMesh* _Mesh, IMaterial* _Material) override;
 private:
+	Device* DevicePtr;
 	EngineHashMap ResourceMap;
 };

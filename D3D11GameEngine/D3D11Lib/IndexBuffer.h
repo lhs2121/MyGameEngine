@@ -7,9 +7,11 @@ public:
 	IndexBuffer();
 	~IndexBuffer();
 
-	void Setting(ID3D11Device* DevicePtr, UINT* Indices, int IndexSize) override;
-	void IntoPipeline(ID3D11DeviceContext* ContextPtr) override;
+	void Setting( UINT* Indices, int IndexSize) override;
+	void IntoPipeline() override;
 
+	ID3D11Device* DevicePtr = nullptr;
+	ID3D11DeviceContext* ContextPtr = nullptr;
 	UINT                 IndexCount;
 private:
 	ID3D11Buffer*        BufferPtr;

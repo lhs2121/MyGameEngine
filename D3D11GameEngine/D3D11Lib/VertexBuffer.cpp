@@ -14,7 +14,7 @@ VertexBuffer::~VertexBuffer()
 	}
 }
 
-void VertexBuffer::Setting(ID3D11Device* DevicePtr, void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber)
+void VertexBuffer::Setting( void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;
@@ -36,7 +36,7 @@ void VertexBuffer::Setting(ID3D11Device* DevicePtr, void* pVertices, int VertexF
 	HRESULT Result = DevicePtr->CreateBuffer(&Desc, &Data, &BufferPtr);
 }
 
-void VertexBuffer::IntoPipeline(ID3D11DeviceContext* ContextPtr)
+void VertexBuffer::IntoPipeline()
 {
 	ContextPtr->IASetVertexBuffers(SlotNumber, 1, &BufferPtr, &Strides, &Offsets);
 }

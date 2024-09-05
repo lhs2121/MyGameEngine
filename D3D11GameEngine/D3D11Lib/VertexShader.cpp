@@ -24,7 +24,7 @@ EngineString VertexShader::GetLayoutName()
 {
 	EngineString Result;
 	
-	int Size = Sementics.size();
+	size_t Size = Sementics.size();
 	for (size_t i = 0; i < Size; i++)
 	{
 		Result += Sementics[i];
@@ -51,7 +51,7 @@ UINT VertexShader::GetSlotNumber(const char* _BindingResName)
 	return (UINT)(atoi(&SlotNumber));
 }
 
-void VertexShader::Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineString _Path)
+void VertexShader::Setting( EngineString _Name, EngineString _Path)
 {
 	ShaderFile.SetPath(_Path.c_str());
 	ShaderFile.ReadFileToMemory();
@@ -116,7 +116,7 @@ void VertexShader::Setting(ID3D11Device* DevicePtr, EngineString _Name, EngineSt
 	}
 }
 
-void VertexShader::IntoPipeline(ID3D11DeviceContext* ContextPtr)
+void VertexShader::IntoPipeline()
 {
 	ContextPtr->VSSetShader(ShaderPtr, nullptr, 0);
 }
