@@ -18,7 +18,7 @@ EngineSpriteRenderer::~EngineSpriteRenderer()
 void EngineSpriteRenderer::Awake()
 {
 	EngineRenderer::Awake();
-	Name = "SpriteRenderer";
+	Name = "EngineSpriteRenderer";
 }
 
 void EngineSpriteRenderer::Update(float _Delta)

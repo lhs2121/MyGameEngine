@@ -19,7 +19,7 @@ public:
 	void CreateKey(int KeyCode) override;
 
 	void Init() override;
-	void SetAllKeyState() override;
+	void UpdateKeyStates() override;
 
 	bool IsDown(int KeyCode, void* _UserPtr) override;
 	bool IsPress(int KeyCode, void* _UserPtr) override;

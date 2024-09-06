@@ -14,15 +14,18 @@ public:
 
 	IMesh* GetMesh() { return Mesh; }
 	IMaterial* GetMaterial() { return Material; }
+	float4 GetImagerScale() const { return ImageScale; }
+
 	void SetMesh(const char* _Name);
 	void SetMaterial(const char* _Name);
 	void SetTexture(const char* _TextureName);
 
 protected:
+	float4 ImageScale;
 	IMesh* Mesh = nullptr;
 	IMaterial* Material = nullptr;
 	IInputLayout* pIA = nullptr;
 	IConstantBuffer* TransformBuffer = nullptr;
-};	
+};
 
 

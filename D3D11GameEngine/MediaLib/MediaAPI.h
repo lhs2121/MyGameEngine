@@ -8,7 +8,7 @@ struct IEngineInput
 	virtual void CreateKey(int KeyCode) = 0;
 
 	virtual void Init() = 0;
-	virtual void SetAllKeyState() = 0;
+	virtual void UpdateKeyStates() = 0;
 
 	virtual bool IsDown(int KeyCode, void* _UserPtr) = 0;
 	virtual bool IsPress(int KeyCode, void* _UserPtr) = 0;

@@ -9,6 +9,7 @@ EngineRenderer::~EngineRenderer()
 
 void EngineRenderer::Awake()
 {
+	Name = "EngineRenderer";
 	GetLevel()->GetMainCamera()->PushRenderer(this);
 
 	static int RendererTransformBufferCount = 0;
@@ -53,7 +54,8 @@ void EngineRenderer::SetMaterial(const char* _Name)
 void EngineRenderer::SetTexture(const char* _TextureName)
 {
 	ITexture* Texture = (ITexture*)ResManager->Find(ResType::Texture, _TextureName);
-	Transform.SetLocalScale(Texture->GetImageScale());
+	ImageScale = Texture->GetImageScale();
+	Transform.SetLocalScale(ImageScale);
 	Material->SetTexture(_TextureName);
 }
 

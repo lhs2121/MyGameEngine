@@ -33,6 +33,8 @@ public:
 	virtual void Release();
 
 	EngineObject* CreateObject(EngineObject* _NewActor);
+	EngineObject* GetChild(int _ChildNumber);
+	EngineObject* GetChild(const char* _ChildName);
 
 	EngineTransform Transform;
 	EngineString Name;

@@ -185,9 +185,6 @@
     </ClCompile>
     <ClCompile Include="CoreAPI.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\common\BaseLib.natvis" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

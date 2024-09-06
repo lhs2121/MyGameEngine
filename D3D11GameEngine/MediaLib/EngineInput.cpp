@@ -154,7 +154,7 @@ void EngineInput::CreateKey(int KeyCode)
 	AllKey.Add(KeyCode, NewKey);
 }
 
-void EngineInput::SetAllKeyState()
+void EngineInput::UpdateKeyStates()
 {
 	AllKey.GoFirst();
 	for (size_t i = 0; i < AllKey.Count(); i++)

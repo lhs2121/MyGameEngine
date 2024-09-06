@@ -3,8 +3,8 @@
 
 enum class ColType
 {
-	Rect,
-	Circle,
+	AABB2D,
+	Circle2D,
 };
 class EngineRenderer;
 class CoreAPI EngineCollision : public EngineObject
@@ -12,11 +12,15 @@ class CoreAPI EngineCollision : public EngineObject
 public:
 	void Awake() override;
 	void Update(float _Delta) override;
+
 	void SetColType(ColType _Type) { Type = _Type; }
+	void SetColScale(float4 _Scale);
+
 	bool Collision(EngineCollision* _Other);
-	bool AABB(EngineCollision* _Other);
-	bool Circle(EngineCollision* _Other);
-	bool AABBvsCircle(EngineCollision* _Other);
+
+	bool AABB2DAABB2D(EngineCollision* _Other);
+	bool Circle2DCircle2D(EngineCollision* _Other);
+	bool AABB2DCircle2D(EngineCollision* _Other);
 
 	bool IsCollision = false;
 	float left;
@@ -24,8 +28,8 @@ public:
 	float top;
 	float bottom;
 	float Radius;
-	float4 ColScale = { 100,100 };
-	ColType Type = ColType::Rect;
+	float4 ColScale;
+	ColType Type = ColType::AABB2D;
 private:
 	EngineRenderer* DebugRenderer;
 };

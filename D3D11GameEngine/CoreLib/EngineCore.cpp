@@ -71,7 +71,7 @@ void EngineCore::EngineUpdate()
         return;
     }
 
-    MainInput->SetAllKeyState();
+    MainInput->UpdateKeyStates();
 
     float Delta = MainTime->CountEnd();
     MainTime->CountStart();

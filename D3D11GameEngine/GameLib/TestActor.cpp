@@ -14,9 +14,10 @@ void TestActor::Awake()
 	Renderer = (EngineSpriteRenderer*)CreateObject(new EngineSpriteRenderer());
 	Renderer->SetTexture("TestTexture");
 	Renderer->CreateAnimation(2, 2, 1.0f);
-
+	
 	Col = (EngineCollision*)CreateObject(new EngineCollision());
-	Col->ColScale = Renderer->Transform.LocalScale;
+	Col->SetColScale({64,64,1,1});
+
 }
 
 void TestActor::Update(float _Delta)

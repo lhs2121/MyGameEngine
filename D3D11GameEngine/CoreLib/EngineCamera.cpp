@@ -4,6 +4,7 @@
 
 void EngineCamera::Awake()
 {
+	Name = "EngineCamera";
 	WindowSize = Window->GetWindowSize();
 }
 

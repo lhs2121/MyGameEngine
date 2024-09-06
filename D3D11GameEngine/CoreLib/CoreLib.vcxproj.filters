@@ -7,9 +7,6 @@
     <Filter Include="Transform">
       <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Natvis">
-      <UniqueIdentifier>{79ad5f50-f286-409a-901a-43c1d266f4ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{1a5968f8-fb60-4455-ad5e-8459db36b384}</UniqueIdentifier>
     </Filter>
@@ -75,10 +72,5 @@
     <ClCompile Include="EngineObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\common\BaseLib.natvis">
-      <Filter>Natvis</Filter>
-    </Natvis>
   </ItemGroup>
 </Project>

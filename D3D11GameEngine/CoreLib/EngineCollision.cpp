@@ -6,45 +6,52 @@
 
 void EngineCollision::Awake()
 {
+	Name = "EngineCollision";
 	GetLevel()->AddCollision(this);
 	DebugRenderer = (EngineRenderer*)CreateObject(new EngineRenderer());
 	DebugRenderer->SetMesh("Circle2D");
 	DebugRenderer->SetMaterial("DebugLine");
-	DebugRenderer->Transform.SetLocalScale({ 100,100 });
+	int a = 0;
 }
 
 void EngineCollision::Update(float _Delta)
 {
+	DebugRenderer->Transform;
 	Radius = ColScale.hx();
-	float4 WorldPos = Transform.Position + Transform.LocalPosition;
-	right = WorldPos.x + ColScale.hx();
-	left = WorldPos.x - ColScale.hx();
-	top = WorldPos.y + ColScale.hy();
-	bottom = WorldPos.y - ColScale.hy();
+	right = Transform.WorldPosition.x + ColScale.hx();
+	left = Transform.WorldPosition.x - ColScale.hx();
+	top = Transform.WorldPosition.y + ColScale.hy();
+	bottom = Transform.WorldPosition.y - ColScale.hy();
+}
+
+void EngineCollision::SetColScale(float4 _Scale)
+{
+	ColScale = _Scale;
+	DebugRenderer->Transform.SetLocalScale(ColScale);
 }
 
 bool EngineCollision::Collision(EngineCollision* _Other)
 {
-	if (Type == ColType::Rect && _Other->Type == ColType::Rect)
+	if (Type == ColType::AABB2D && _Other->Type == ColType::AABB2D)
 	{
-		IsCollision = AABB(_Other);
+		IsCollision = AABB2DAABB2D(_Other);
 	}
-	if (Type == ColType::Circle && _Other->Type == ColType::Circle)
+	if (Type == ColType::Circle2D && _Other->Type == ColType::Circle2D)
 	{
-		IsCollision = Circle(_Other);
+		IsCollision = Circle2DCircle2D(_Other);
 	}
-	if (Type == ColType::Rect && _Other->Type == ColType::Circle)
+	if (Type == ColType::AABB2D && _Other->Type == ColType::Circle2D)
 	{
-		IsCollision = AABBvsCircle(_Other);
+		IsCollision = AABB2DCircle2D(_Other);
 	}
-	if (Type == ColType::Circle && _Other->Type == ColType::Rect)
+	if (Type == ColType::Circle2D && _Other->Type == ColType::AABB2D)
 	{
-		IsCollision = _Other->AABBvsCircle(this);
+		IsCollision = _Other->AABB2DCircle2D(this);
 	}
 	return IsCollision;
 }
 
-bool EngineCollision::AABB(EngineCollision* _Other)
+bool EngineCollision::AABB2DAABB2D(EngineCollision* _Other)
 { 
 	if (_Other->right < this->left)
 	{
@@ -69,7 +76,7 @@ bool EngineCollision::AABB(EngineCollision* _Other)
 	return true;
 }
 
-bool EngineCollision::Circle(EngineCollision* _Other)
+bool EngineCollision::Circle2DCircle2D(EngineCollision* _Other)
 {
 	float Sum = _Other->Radius + Radius;
 	float4 Pos1 = _Other->Transform.Position + _Other->Transform.LocalPosition;
@@ -86,7 +93,7 @@ bool EngineCollision::Circle(EngineCollision* _Other)
 	
 }
 
-bool EngineCollision::AABBvsCircle(EngineCollision* _Other)
+bool EngineCollision::AABB2DCircle2D(EngineCollision* _Other)
 {
 	float4 CirclePos = _Other->Transform.Position + _Other->Transform.LocalPosition;
 	

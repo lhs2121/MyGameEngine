@@ -113,4 +113,37 @@ EngineObject* EngineObject::CreateObject(EngineObject* _NewActor)
 	return _NewActor;
 }
 
+EngineObject* EngineObject::GetChild(int _ChildNumber)
+{
+	ChildList.GoFirst();
+	UINT Count = ChildList.GetCount();
+
+	if (Count < _ChildNumber)
+	{
+		return nullptr;
+	}
+
+	for (UINT i = 0; i < _ChildNumber; i++)
+	{
+		ChildList.GoNext();
+	}
+
+	return (EngineObject*)ChildList.Item();
+}
+
+EngineObject* EngineObject::GetChild(const char* _ChildName)
+{
+	ChildList.GoFirst();
+	UINT Count = ChildList.GetCount();
+	for (UINT i = 0; i < Count; i++)
+	{
+		EngineObject* ChildObject = (EngineObject*)ChildList.Item();
+		if (ChildObject->Name == _ChildName)
+		{
+			return ChildObject;
+		}
+		ChildList.GoNext();
+	}
+}
+
 

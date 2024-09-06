@@ -14,7 +14,7 @@ VertexBuffer::~VertexBuffer()
 	}
 }
 
-void VertexBuffer::Setting( void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber)
+void VertexBuffer::Setting(void* pVertices, int _Stride, int _ByteWidth, UINT _SlotNumber)
 {
 	D3D11_BUFFER_DESC Desc;
 	D3D11_SUBRESOURCE_DATA Data;
@@ -23,14 +23,14 @@ void VertexBuffer::Setting( void* pVertices, int VertexFormatSize, int VertexSiz
 	Data.SysMemPitch = 0;
 	Data.SysMemSlicePitch = 0;
 
-	Desc.ByteWidth = VertexSize;
+	Desc.ByteWidth = _ByteWidth;
 	Desc.Usage = D3D11_USAGE_DEFAULT;
 	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	Desc.CPUAccessFlags = 0;
 	Desc.StructureByteStride = 0;
 	Desc.MiscFlags = 0;
 
-	Strides = VertexFormatSize;
+	Strides = _Stride;
 	Offsets = 0;
 	SlotNumber = _SlotNumber;
 	HRESULT Result = DevicePtr->CreateBuffer(&Desc, &Data, &BufferPtr);

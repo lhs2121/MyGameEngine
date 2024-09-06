@@ -58,7 +58,7 @@ struct IShaderRes : public IResBase
 
 struct IVertexBuffer : public IRes
 {
-	virtual void Setting(void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) = 0;
+	virtual void Setting(void* pVertices, int _Stride, int _ByteWidth, UINT _SlotNumber) = 0;
 };
 
 struct IIndexBuffer : public IRes

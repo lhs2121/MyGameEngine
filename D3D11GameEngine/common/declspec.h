@@ -23,8 +23,15 @@
 #define CoreAPI __declspec(dllimport)
 #endif
 
+#ifdef CollisionLib
+#define CollisionAPI __declspec(dllexport)
+#else 
+#define CollisionAPI __declspec(dllimport)
+#endif
+
 #ifdef GameLib
 #define GameAPI __declspec(dllexport)
 #else 
 #define GameAPI __declspec(dllimport)
 #endif
+

@@ -7,7 +7,7 @@ public:
 	VertexBuffer();
 	~VertexBuffer();
 
-	void Setting( void* pVertices, int VertexFormatSize, int VertexSize, UINT _SlotNumber) override;
+	void Setting(void* pVertices, int _Stride, int _ByteWidth, UINT _SlotNumber = 0) override;
 	void IntoPipeline() override;
 
 	ID3D11Device* DevicePtr = nullptr;

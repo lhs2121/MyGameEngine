@@ -16,13 +16,13 @@ void EngineTransform::TransformUpdate()
 		ChildTransform.GoNext();
 	}
 
-	float4 WorldScale = Scale * LocalScale;
-	float4 WorldRot = Rotation + LocalRotation;
-	float4 WorldPos = Position + LocalPosition;
+	WorldScale = Scale * LocalScale;
+	WorldRotation = Rotation + LocalRotation;
+	WorldPosition = Position + LocalPosition;
 
 	ScaleMat.Scale(WorldScale);
-	RotationMat.Rotation(WorldRot);
-	PositionMat.Position(WorldPos);
+	RotationMat.Rotation(WorldRotation);
+	PositionMat.Position(WorldPosition);
 
 	WorldMat.Identity();
 	WorldMat = ScaleMat * RotationMat * PositionMat;

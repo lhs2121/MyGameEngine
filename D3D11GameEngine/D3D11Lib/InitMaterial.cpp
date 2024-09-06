@@ -124,7 +124,7 @@ void Device::InitMaterial(IResManager* pManager)
 	{
 		IMaterial* NewMat = (IMaterial*)pManager->CreateResource( ResType::Material, "DebugLine");
 		NewMat->SetShader("DebugLine");
-		NewMat->SetRS("Default");
+		NewMat->SetRS("WireFrame");
 		NewMat->SetDS("Default");
 		NewMat->SetSampler("Point");
 		NewMat->SetTexture("Default");

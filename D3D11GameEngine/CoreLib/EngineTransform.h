@@ -24,17 +24,21 @@ public:
 
 	void TransformUpdate();
 
-	float4 LocalPosition = { 0,0,0,1 };
-	float4 LocalScale = { 1,1,1,1 };
-	float4 LocalRotation = { 0,0,0,1 };;
+	float4 LocalScale = { 1.0f,1.0f,1.0f,1.0f };
+	float4 LocalRotation;
+	float4 LocalPosition;
 
-	float4 Position;
-	float4 Scale = { 1,1,1,1 };
+	float4 Scale = { 1.0f,1.0f,1.0f,1.0f };
 	float4 Rotation;
+	float4 Position;
 
-	float4x4 PositionMat;
+	float4 WorldScale = { 1.0f,1.0f,1.0f,1.0f };
+	float4 WorldRotation;
+	float4 WorldPosition;
+
 	float4x4 ScaleMat;
 	float4x4 RotationMat;
+	float4x4 PositionMat;
 
 	float4x4 WorldMat;
 	float4x4 ViewMat;
