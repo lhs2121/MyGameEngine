@@ -9,7 +9,6 @@ Renderer::~Renderer()
 
 void Renderer::Awake()
 {
-	Name = "Renderer";
 	GetLevel()->GetMainCamera()->PushRenderer(this);
 
 	static int RendererTransformBufferCount = 0;
@@ -17,45 +16,45 @@ void Renderer::Awake()
 	BufferName += RendererTransformBufferCount;
 	RendererTransformBufferCount++;
 
-	TransformBuffer = (IConstantBuffer*)ResManager->CreateResource(ResType::CB, BufferName);
-	TransformBuffer->Setting(&Transform.WorldViewProjectionMat, sizeof(float4x4));
+	pTransformBuffer = (IConstantBuffer*)mainResManager->CreateResource(ResType::CB, BufferName);
+	pTransformBuffer->Setting(&transform.worldViewProjectionMat, sizeof(float4x4));
 
-	Mesh = (IMesh*)ResManager->Find(ResType::Mesh, "Box2D");
-	Material = (IMaterial*)ResManager->Find(ResType::Material, "Sprite2D");
+	pMesh = (IMesh*)mainResManager->Find(ResType::Mesh, "Box2D");
+	pMaterial = (IMaterial*)mainResManager->Find(ResType::Material, "Sprite2D");
 
-	pIA = ResManager->GenerateInputLayout(Mesh, Material);
+	pIA = mainResManager->GenerateInputLayout(pMesh, pMaterial);
 }
 
-void Renderer::Update(float _Delta)
+void Renderer::Update(float _deltaTime)
 {
 }
 void Renderer::Render()
 {
-	TransformBuffer->IntoPipeline(ShaderType::VS);
+	pTransformBuffer->IntoPipeline(ShaderType::VS);
 	pIA->IntoPipeline();
-	Mesh->IntoPipeline();
-	Material->IntoPipeline();
+	pMesh->IntoPipeline();
+	pMaterial->IntoPipeline();
 
-	Device->GetContext()->DrawIndexed(Mesh->GetIndexCount(), 0, 0);
+	mainDevice->GetContext()->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
 }
 
-void Renderer::SetMesh(const char* _Name)
+void Renderer::SetMesh(const char* _name)
 {
-	Mesh = (IMesh*)ResManager->Find(ResType::Mesh, _Name);
-	pIA = ResManager->GenerateInputLayout(Mesh, Material);
+	pMesh = (IMesh*)mainResManager->Find(ResType::Mesh, _name);
+	pIA = mainResManager->GenerateInputLayout(pMesh, pMaterial);
 }
 
-void Renderer::SetMaterial(const char* _Name)
+void Renderer::SetMaterial(const char* _name)
 {
-	Material = (IMaterial*)ResManager->Find(ResType::Material, _Name);
-	pIA = ResManager->GenerateInputLayout(Mesh, Material);
+	pMaterial = (IMaterial*)mainResManager->Find(ResType::Material, _name);
+	pIA = mainResManager->GenerateInputLayout(pMesh, pMaterial);
 }
 
-void Renderer::SetTexture(const char* _TextureName)
+void Renderer::SetTexture(const char* _name)
 {
-	ITexture* Texture = (ITexture*)ResManager->Find(ResType::Texture, _TextureName);
-	ImageScale = Texture->GetImageScale();
-	Transform.SetLocalScale(ImageScale);
-	Material->SetTexture(_TextureName);
+	ITexture* Texture = (ITexture*)mainResManager->Find(ResType::Texture, _name);
+	imageScale = Texture->GetImageScale();
+	transform.SetlocalScale(imageScale);
+	pMaterial->SetTexture(_name);
 }
 

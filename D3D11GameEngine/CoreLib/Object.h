@@ -1,7 +1,7 @@
 #pragma once
 #include <common\declspec.h>
 #include "Transform.h"
-// Ό³Έν :
+
 class Level;
 class Object
 {
@@ -9,50 +9,42 @@ public:
 	Object();
 	virtual ~Object();
 
-	void DeleteAllChild();
-	void SetName(EngineString _Name)
+	void SetMainObject(IEngineInput* _mainInput, IEngineWindow* _mainWindow, IDevice* _mainDevice, IResManager* _mainResManager)
 	{
-		Name = _Name;
+		mainInput = _mainInput;
+		mainWindow = _mainWindow;
+		mainDevice = _mainDevice;
+		mainResManager = _mainResManager;
 	}
 
-	void SetParent(Object* _Parent);
+	void SetName(EngineString _name) { name = _name; }
 
 	Level* GetLevel();
 
-	void Destroy() 
-	{ 
-		Death = true; 
-	}
+	void Destroy() { death = true; }
 
-	bool IsDeath() { return Death; }
+	bool IsDeath() { return death; }
 
-	void ChildUpdate(float _Delta);
+	virtual void Awake() {}
 
-	virtual void Awake(){}
+	virtual void Start() {}
 
-	virtual void Start(){}
+	virtual void Update(float _deltaTime) {}
 
-	virtual void Update(float _Delta){}
+	virtual void End() {}
 
-	virtual void End(){}
+	virtual void Release() {}
 
-	virtual void Release(){}
+	EngineString name;
+	Transform transform;
+	Object* pParent = nullptr;
 
-	Object* CreateObject(Object* _NewActor);
-	Object* GetChild(int _ChildNumber);
-	Object* GetChild(const char* _ChildName);
-
-	Transform Transform;
-	EngineString Name;
-
-
-	IEngineInput* Input = nullptr;
-	IEngineWindow* Window = nullptr;
-	IDevice* Device = nullptr;
-	IResManager* ResManager = nullptr;
 protected:
-	bool Death = false;
+	IEngineInput* mainInput = nullptr;
+	IEngineWindow* mainWindow = nullptr;
+	IDevice* mainDevice = nullptr;
+	IResManager* mainResManager = nullptr;
 
-	std::list<Object*> ChildList;
-	Object* Parent = nullptr;
+	bool death = false;
 };
+

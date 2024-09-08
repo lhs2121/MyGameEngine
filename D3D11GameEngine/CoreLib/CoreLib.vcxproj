@@ -164,12 +164,14 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="CoreAPI.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Component.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Colider2D.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Level..cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -184,6 +186,8 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="CoreAPI.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Component.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

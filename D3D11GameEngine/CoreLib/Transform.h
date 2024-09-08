@@ -1,51 +1,51 @@
 #pragma once
 #include <BaseLib\BaseAPI.h>
 
-class  Transform
+class Transform
 {
 public:
-	void SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat);
+	void SetWorldViewProjection(float4x4& _viewMat, float4x4& _projectionMat);
 
-	void SetLocalPos(float4 Value);
-	void SetLocalScale(float4 Value);
-	void SetLocalRotation(float4 Value);
+	void SetlocalScale(float4 _scale);
+	void SetlocalRotation(float4 _rotation);
+	void SetLocalPos(float4 _pos);
 
-	void AddLocalPos(float4 Value);
-	void AddLocalScale(float4 Value);
-	void AddLocalRotation(float4 Value);
+	void AddlocalScale(float4 _scale);
+	void AddlocalRotation(float4 _rotation);
+	void AddLocalPos(float4 _pos);
 
-	void SetPos(float4 Value);
-	void SetScale(float4 Value);
-	void SetRotation(float4 Value);
+	void SetScale(float4 _scale);
+	void SetRotation(float4 _rotation);
+	void SetPos(float4 _pos);
 
-	void AddPos(float4 Value);
-	void AddScale(float4 Value);
-	void AddRotation(float4 Value);
+	void AddScale(float4 _scale);
+	void AddRotation(float4 _rotation);
+	void AddPos(float4 _pos);
 
 	void TransformUpdate();
 
-	float4 LocalScale = { 1.0f,1.0f,1.0f,1.0f };
-	float4 LocalRotation;
-	float4 LocalPosition;
+	float4 localScale = { 1.0f,1.0f,1.0f,1.0f };
+	float4 localRotation;
+	float4 localPosition;
 
-	float4 Scale = { 1.0f,1.0f,1.0f,1.0f };
-	float4 Rotation;
-	float4 Position;
+	float4 scale = { 1.0f,1.0f,1.0f,1.0f };
+	float4 rotation;
+	float4 position;
 
-	float4 WorldScale = { 1.0f,1.0f,1.0f,1.0f };
-	float4 WorldRotation;
-	float4 WorldPosition;
+	float4 worldScale = { 1.0f,1.0f,1.0f,1.0f };
+	float4 worldRotation;
+	float4 worldPosition;
 
-	float4x4 ScaleMat;
-	float4x4 RotationMat;
-	float4x4 PositionMat;
+	float4x4 scaleMat;
+	float4x4 rotationMat;
+	float4x4 positionMat;
 
-	float4x4 WorldMat;
-	float4x4 ViewMat;
-	float4x4 ProjectionMat;
+	float4x4 worldMat;
+	float4x4 viewMat;
+	float4x4 projectionMat;
 
-	float4x4 WorldViewProjectionMat;
+	float4x4 worldViewProjectionMat;
 
-	Transform* ParentTransform = nullptr;
-	std::list<Transform*> ChildTransformList;
+	Transform* parentTransform = nullptr;
+	std::list<Transform*> childTransformList;
 };

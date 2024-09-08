@@ -3,72 +3,64 @@
 #include "Colider2D.h"
 #include "Renderer.h"
 
-
 void Colider2D::Awake()
 {
-	Name = "Colider2D";
 	GetLevel()->AddCollision(this);
-	DebugRenderer = (Renderer*)CreateObject(new Renderer());
-	DebugRenderer->SetMesh("Circle2D");
-	DebugRenderer->SetMaterial("DebugLine");
-	int a = 0;
 }
 
-void Colider2D::Update(float _Delta)
+void Colider2D::Update(float _deltaTime)
 {
-	DebugRenderer->Transform;
-	Radius = ColScale.hx();
-	right = Transform.WorldPosition.x + ColScale.hx();
-	left = Transform.WorldPosition.x - ColScale.hx();
-	top = Transform.WorldPosition.y + ColScale.hy();
-	bottom = Transform.WorldPosition.y - ColScale.hy();
+	radius = colScale.hx();
+	right = transform.worldPosition.x + colScale.hx();
+	left = transform.worldPosition.x - colScale.hx();
+	top = transform.worldPosition.y + colScale.hy();
+	bottom = transform.worldPosition.y - colScale.hy();
 }
 
-void Colider2D::SetColScale(float4 _Scale)
+void Colider2D::SetColScale(float4 _scale)
 {
-	ColScale = _Scale;
-	DebugRenderer->Transform.SetLocalScale(ColScale);
+	colScale = _scale;
 }
 
 bool Colider2D::Collision(Colider2D* _Other)
 {
-	if (Type == ColType::AABB2D && _Other->Type == ColType::AABB2D)
+	if (colType == ColType::AABB2D && _Other->colType == ColType::AABB2D)
 	{
-		IsCollision = AABB2DAABB2D(_Other);
+		isCollision = AABB2DAABB2D(_Other);
 	}
-	if (Type == ColType::Circle2D && _Other->Type == ColType::Circle2D)
+	if (colType == ColType::Circle2D && _Other->colType == ColType::Circle2D)
 	{
-		IsCollision = Circle2DCircle2D(_Other);
+		isCollision = Circle2DCircle2D(_Other);
 	}
-	if (Type == ColType::AABB2D && _Other->Type == ColType::Circle2D)
+	if (colType == ColType::AABB2D && _Other->colType == ColType::Circle2D)
 	{
-		IsCollision = AABB2DCircle2D(_Other);
+		isCollision = AABB2DCircle2D(_Other);
 	}
-	if (Type == ColType::Circle2D && _Other->Type == ColType::AABB2D)
+	if (colType == ColType::Circle2D && _Other->colType == ColType::AABB2D)
 	{
-		IsCollision = _Other->AABB2DCircle2D(this);
+		isCollision = _Other->AABB2DCircle2D(this);
 	}
-	return IsCollision;
+	return isCollision;
 }
 
-bool Colider2D::AABB2DAABB2D(Colider2D* _Other)
-{ 
-	if (_Other->right < this->left)
+bool Colider2D::AABB2DAABB2D(Colider2D* _other) const
+{
+	if (_other->right < this->left)
 	{
 		return false;
 	}
-	if (_Other->left > this->right)
+	if (_other->left > this->right)
 	{
 		return false;
 	}
 
 	//여기까지 왔으면 x축은 충돌했다
 
-	if (_Other->top < this->bottom)
+	if (_other->top < this->bottom)
 	{
 		return false;
 	}
-	if (_Other->bottom > this->top)
+	if (_other->bottom > this->top)
 	{
 		return false;
 	}
@@ -76,11 +68,11 @@ bool Colider2D::AABB2DAABB2D(Colider2D* _Other)
 	return true;
 }
 
-bool Colider2D::Circle2DCircle2D(Colider2D* _Other)
+bool Colider2D::Circle2DCircle2D(Colider2D* _other) const
 {
-	float Sum = _Other->Radius + Radius;
-	float4 Pos1 = _Other->Transform.Position + _Other->Transform.LocalPosition;
-	float4 Pos2 = Transform.Position + Transform.LocalPosition;
+	float Sum = _other->radius + radius;
+	float4 Pos1 = _other->transform.position + _other->transform.localPosition;
+	float4 Pos2 = transform.position + transform.localPosition;
 	float Distance = Pos1.Distance(Pos2);
 	if (Distance > Sum)
 	{
@@ -90,20 +82,20 @@ bool Colider2D::Circle2DCircle2D(Colider2D* _Other)
 	{
 		return true;
 	}
-	
+
 }
 
-bool Colider2D::AABB2DCircle2D(Colider2D* _Other)
+bool Colider2D::AABB2DCircle2D(Colider2D* _other)
 {
-	float4 CirclePos = _Other->Transform.Position + _Other->Transform.LocalPosition;
-	
-	float4 Near;
-	Near.x = EngineMath::Clamp(CirclePos.x, right, left);
-	Near.y = EngineMath::Clamp(CirclePos.y, top, bottom);
+	float4 circlePos = _other->transform.position + _other->transform.localPosition;
 
-	float D = Near.Distance(CirclePos);
-	
-	if (D <= _Other->Radius)
+	float4 Near;
+	Near.x = EngineMath::Clamp(circlePos.x, right, left);
+	Near.y = EngineMath::Clamp(circlePos.y, top, bottom);
+
+	float distance = Near.Distance(circlePos);
+
+	if (distance <= _other->radius)
 	{
 		return true;
 	}

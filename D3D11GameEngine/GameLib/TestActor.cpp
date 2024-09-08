@@ -6,75 +6,65 @@ void TestActor::Awake()
 	EngineDirectory dir;
 	std::vector<EngineFile> files = dir.GetAllFileExt(".png");
 
-	if(nullptr == ResManager->Find(ResType::Texture, "TestTexture"))
+	if (nullptr == mainResManager->Find(ResType::Texture, "TestTexture"))
 	{
-		ITexture* tex = (ITexture*)ResManager->CreateResource(ResType::Texture, "TestTexture");
+		ITexture* tex = (ITexture*)mainResManager->CreateResource(ResType::Texture, "TestTexture");
 		tex->Setting(files[0]);
 	}
-	m_pSpriteRenderer = (SpriteRenderer*)CreateObject(new SpriteRenderer());
-	m_pSpriteRenderer->SetTexture("TestTexture");
-	m_pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
-	
-	m_pColider2D = (Colider2D*)CreateObject(new Colider2D());
-	m_pColider2D->SetColScale({64,64,1,1});
+	pSpriteRenderer = AddComponent<SpriteRenderer>();
+	pSpriteRenderer->SetTexture("TestTexture");
+	pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
+
+	pColider2D = AddComponent<Colider2D>();
+	pColider2D->SetColScale({ 64,64,1,1 });
 
 }
 
-void TestActor::Update(float _Delta)
+void TestActor::Update(float _deltaTime)
 {
-	if (m_pColider2D->IsCollision)
+	if (pColider2D->isCollision)
 	{
 		int a = 0;
 	}
-	if (Input->IsPress('Z', this))
+	if (GetKeyPress('Z'))
 	{
-		Transform.AddRotation({ 100 * _Delta,0,0 });
+		transform.AddRotation({ 100 * _deltaTime,0,0 });
 	}
-	if (Input->IsPress('X', this))
+	if (GetKeyPress('X'))
 	{
-		Transform.AddRotation({ 0,100 * _Delta,0 });
+		transform.AddRotation({ 0,100 * _deltaTime,0 });
 	}
-	if (Input->IsPress('C', this))
+	if (GetKeyPress('C'))
 	{
-		Transform.AddRotation({ 0,0,100 * _Delta });
+		transform.AddRotation({ 0,0,100 * _deltaTime });
 	}
-	if (Input->IsPress('W', this))
+	if (GetKeyPress('W'))
 	{
-		Transform.AddPos({ 0,100 * _Delta,0 });
+		transform.AddPos({ 0,100 * _deltaTime,0 });
 	}
-	if (Input->IsPress('A', this))
+	if (GetKeyPress('A'))
 	{
-		Transform.AddPos({ -100 * _Delta,0,0 });
+		transform.AddPos({ -100 * _deltaTime,0,0 });
 	}
-	if (Input->IsPress('S', this))
+	if (GetKeyPress('S'))
 	{
-		Transform.AddPos({ 0,-100 * _Delta,0 });
+		transform.AddPos({ 0,-100 * _deltaTime,0 });
 	}
-	if (Input->IsPress('D', this))
+	if (GetKeyPress('D'))
 	{
-		Transform.AddPos({ 100 * _Delta,0,0 });
+		transform.AddPos({ 100 * _deltaTime,0,0 });
 	}
-	if (Input->IsPress('Q', this))
+	if (GetKeyPress('Q'))
 	{
-		Transform.AddPos({ 0,0,100 * _Delta });
+		transform.AddPos({ 0,0,100 * _deltaTime });
 	}
-	if (Input->IsPress('E', this))
+	if (GetKeyPress('E'))
 	{
-		Transform.AddPos({ 0,0,-100 * _Delta });
+		transform.AddPos({ 0,0,-100 * _deltaTime });
 	}
-	if (Input->IsDown('R', this))
+	if (GetKeyDown('R'))
 	{
-		Transform.SetPos({ 0,0,0 });
-		Transform.SetRotation({ 0,0,0 });
+		transform.SetPos({ 0,0,0 });
+		transform.SetRotation({ 0,0,0 });
 	}
-}
-
-void TestActor::SetColScale(float4 _Scale)
-{
-	m_pColider2D->ColScale = _Scale;
-}
-
-void TestActor::SetColType(ColType _Type)
-{
-	m_pColider2D->SetColType(_Type);
 }

@@ -1,31 +1,32 @@
 #pragma once
-#include "Object.h"
 #include <D3D11Lib\D3D11API.h>
+#include "Object.h"
+#include "Component.h"
 
-class  Renderer : public Object
+class  Renderer : public Component
 {
 public:
 	~Renderer();
 
 	void Awake() override;
-	void Update(float _Delta) override;
+	void Update(float _deltaTime) override;
 
 	virtual void Render();
 
-	IMesh* GetMesh() { return Mesh; }
-	IMaterial* GetMaterial() { return Material; }
-	float4 GetImagerScale() const { return ImageScale; }
+	IMesh* GetMesh() { return pMesh; }
+	IMaterial* GetMaterial() { return pMaterial; }
+	float4 GetImagerScale() const { return imageScale; }
 
-	void SetMesh(const char* _Name);
-	void SetMaterial(const char* _Name);
-	void SetTexture(const char* _TextureName);
+	void SetMesh(const char* _name);
+	void SetMaterial(const char* _name);
+	void SetTexture(const char* _Name);
 
 protected:
-	float4 ImageScale;
-	IMesh* Mesh = nullptr;
-	IMaterial* Material = nullptr;
+	float4 imageScale;
+	IMesh* pMesh = nullptr;
+	IMaterial* pMaterial = nullptr;
 	IInputLayout* pIA = nullptr;
-	IConstantBuffer* TransformBuffer = nullptr;
+	IConstantBuffer* pTransformBuffer = nullptr;
 };
 
 

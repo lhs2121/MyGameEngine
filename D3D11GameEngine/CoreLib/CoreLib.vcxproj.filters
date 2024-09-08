@@ -16,6 +16,9 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{27cbf18e-e187-4098-babe-62acddfb5b1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\GameObject">
+      <UniqueIdentifier>{41306330-90a4-4278-b251-ec3c22308a67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpriteRenderer.h">
@@ -38,11 +41,17 @@
     <ClInclude Include="Colider2D.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +61,7 @@
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Level..cpp">
+    <ClCompile Include="Level.cpp">
       <Filter>Object\Level</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
@@ -66,11 +75,17 @@
     <ClCompile Include="Colider2D.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

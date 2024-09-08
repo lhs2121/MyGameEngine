@@ -3,99 +3,100 @@
 
 void Transform::TransformUpdate()
 {
-	for (Transform* ChildTransform: ChildTransformList)
+	for (Transform* childTransform: childTransformList)
 	{
-		ChildTransform->Scale = Scale * LocalScale;
-		ChildTransform->Rotation = Rotation + LocalRotation;
-		ChildTransform->Position = Position + LocalPosition;
-		ChildTransform->TransformUpdate();
+		childTransform->scale = scale * localScale;
+		childTransform->rotation = rotation + localRotation;
+		childTransform->position = position + localPosition;
+		childTransform->TransformUpdate();
 	}
 
-	WorldScale = Scale * LocalScale;
-	WorldRotation = Rotation + LocalRotation;
-	WorldPosition = Position + LocalPosition;
+	worldScale = scale * localScale;
+	worldRotation = rotation + localRotation;
+	worldPosition = position + localPosition;
 
-	ScaleMat.Scale(WorldScale);
-	RotationMat.Rotation(WorldRotation);
-	PositionMat.Position(WorldPosition);
+	scaleMat.Scale(worldScale);
+	rotationMat.Rotation(worldRotation);
+	positionMat.Position(worldPosition);
 
-	WorldMat.Identity();
-	WorldMat = ScaleMat * RotationMat * PositionMat;
+	worldMat.Identity();
+	worldMat = scaleMat * rotationMat * positionMat;
 }
 
-void Transform::SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat)
+void Transform::SetWorldViewProjection(float4x4& _viewMat, float4x4& _projectionMat)
 {
+	worldViewProjectionMat = worldMat* _viewMat * _projectionMat;
 }
 
-void Transform::SetLocalPos(float4 Value)
+void Transform::SetLocalPos(float4 _pos)
 {
-	LocalPosition = Value;
+	localPosition = _pos;
 	TransformUpdate();
 }
 
-void Transform::SetLocalScale(float4 Value)
+void Transform::SetlocalScale(float4 _scale)
 {
-	LocalScale = Value;
+	localScale = _scale;
 	TransformUpdate();
 }
 
-void Transform::SetLocalRotation(float4 Value)
+void Transform::SetlocalRotation(float4 _rotation)
 {
-	LocalRotation = Value;
+	localRotation = _rotation;
 	TransformUpdate();
 }
 
-void Transform::AddLocalPos(float4 Value)
+void Transform::AddLocalPos(float4 _pos)
 {
-	LocalPosition += Value;
+	localPosition += _pos;
 	TransformUpdate();
 }
 
-void Transform::AddLocalScale(float4 Value)
+void Transform::AddlocalScale(float4 _scale)
 {
-	LocalScale += Value;
+	localScale += _scale;
 	TransformUpdate();
 }
 
-void Transform::AddLocalRotation(float4 Value)
+void Transform::AddlocalRotation(float4 _rotation)
 {
-	LocalRotation += Value;
+	localRotation += _rotation;
 	TransformUpdate();
 }
 
-void Transform::SetPos(float4 Value)
+void Transform::SetPos(float4 _pos)
 {
-	Position = Value;
+	position = _pos;
 	TransformUpdate();
 }
 
-void Transform::SetScale(float4 Value)
+void Transform::SetScale(float4 _scale)
 {
-	Scale = Value;
+	scale = _scale;
 	TransformUpdate();
 }
 
-void Transform::SetRotation(float4 Value)
+void Transform::SetRotation(float4 _rotation)
 {
-	Rotation = Value;
+	rotation = _rotation;
 	TransformUpdate();
 }
 
-void Transform::AddPos(float4 Value)
+void Transform::AddPos(float4 _pos)
 {
-	Position += Value;
+	position += _pos;
 	TransformUpdate();
 }
 
-void Transform::AddScale(float4 Value)
+void Transform::AddScale(float4 _scale)
 {
-	Scale += Value;
+	scale += _scale;
 	TransformUpdate();
 }
 
 void Transform::AddRotation(float4 Value)
 {
-	Rotation += Value;
+	rotation += Value;
 	TransformUpdate();
 }
 

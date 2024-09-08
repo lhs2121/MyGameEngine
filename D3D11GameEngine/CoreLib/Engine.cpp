@@ -6,93 +6,86 @@
 #include "Engine.h"
 #include "Level.h"
 
-Level* Engine::CreateLevel(const char* _Name, Level* _NewLevel)
+Level* Engine::CreateLevel(const char* _name, Level* _newLevel)
 {
-    _NewLevel->Input = MainInput;
-    _NewLevel->Window = MainWindow;
-    _NewLevel->Device = MainDevice;
-    _NewLevel->ResManager = MainResManager;
-	_NewLevel->SetName(_Name);
-    _NewLevel->CreateCamera();
-	_NewLevel->Awake();
+	_newLevel->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
+	_newLevel->SetName(_name);
+	_newLevel->CreateCamera();
+	_newLevel->Awake();
 
-	AllLevel.Add(_Name, _NewLevel);
-	return _NewLevel;
+	allLevel.insert({ _name, _newLevel });
+	return _newLevel;
 }
 
-void Engine::ChangeLevel(const char* _Name)
+void Engine::ChangeLevel(const char* _name)
 {
-	CurLevel = (Level*)AllLevel.Get(_Name);
-}
-
-void Engine::DeleteAllLevel()
-{
-	AllLevel.GoFirst();
-	UINT Count = AllLevel.Count();
-
-	for (UINT i = 0; i < Count; i++)
+	if (allLevel.end() != allLevel.find(_name))
 	{
-		Level* CurLevel = (Level*)AllLevel.GetCurItem();
-		delete CurLevel;
-		AllLevel.GoNext();
+		pCurLevel = allLevel[_name];
 	}
 }
 
-void Engine::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IGameStarter* _Starter)
+void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance, IGameStarter* _Starter)
 {
-    CreateEngineWindow(&MainWindow);
-    MainWindow->Init(_WindowTitle, _WindowPos, _WindowSize, _hInstance, this);
+	CreateEngineWindow(&mainWindow);
+	mainWindow->Init(_windowTitle, _windowPos, _windowSize, _hInstance, this);
 
-    CreateResManager(&MainResManager);
-    MainResManager->CreateDevice(&MainDevice);
+	CreateResManager(&mainResManager);
+	mainResManager->CreateDevice(&mainDevice);
 
-    MainDevice->Init(MainWindow->GethWnd(), _WindowSize);
-    MainDevice->InitMesh(MainResManager);
-    MainDevice->InitMaterial(MainResManager);
+	mainDevice->Init(mainWindow->GethWnd(), _windowSize);
+	mainDevice->InitMesh(mainResManager);
+	mainDevice->InitMaterial(mainResManager);
 
-	CreateEngineTime(&MainTime);
-    MainTime->Init();
-    
-    CreateEngineInput(&MainInput);
-    MainInput->Init();
+	CreateEngineTime(&mainTime);
+	mainTime->Init();
 
-    Starter = _Starter;
-    Starter->GameStart(this);
+	CreateEngineInput(&mainInput);
+	mainInput->Init();
 
-    MainTime->CountStart();
+	pGameStarter = _Starter;
+	pGameStarter->GameStart(this);
 
-    MainWindow->MessageLoop();
+	mainTime->CountStart();
+
+	mainWindow->MessageLoop();
 }
 
 void Engine::EngineUpdate()
 {
-    if (CurLevel == nullptr)
-    {
-        return;
-    }
+	if (pCurLevel == nullptr)
+	{
+		return;
+	}
 
-    MainInput->UpdateKeyStates();
+	mainInput->UpdateKeyStates();
 
-    float Delta = MainTime->CountEnd();
-    MainTime->CountStart();
-	CurLevel->ChildUpdate(Delta);
-    CurLevel->Update(Delta);
+	float deltaTime = mainTime->CountEnd();
+	mainTime->CountStart();
 
-    MainDevice->Clear();
+	pCurLevel->Update(deltaTime);
+	pCurLevel->AllGameObjectUpdate(deltaTime);
 
-    CurLevel->Render();
+	mainDevice->Clear();
 
-    MainDevice->Present();
+	pCurLevel->Render();
+
+	mainDevice->Present();
 }
 
 void Engine::EngineRelease()
 {
-	DeleteAllLevel();
-	DeleteEngineTime(MainTime);
-	DeleteEngineInput(MainInput);
-	DeleteResManager(MainResManager);
-    DeleteEngineWindow(MainWindow);
-    EngineString::DeleteAllStringPool();
+	for (auto& level : allLevel)
+	{
+		delete level.second;
+	}
+	allLevel.clear();
+	
+	DeleteEngineTime(mainTime);
+	DeleteEngineInput(mainInput);
+	DeleteResManager(mainResManager);
+	DeleteEngineWindow(mainWindow);
+	EngineString::DeleteAllStringPool();
 }
 
 

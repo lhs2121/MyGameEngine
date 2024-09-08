@@ -4,7 +4,7 @@ struct IGameStarter;
 struct float4;
 struct ICore
 {
-	virtual void EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IGameStarter* _Starter) = 0;
+	virtual void EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance, IGameStarter* _pStarter) = 0;
 
 	virtual void EngineUpdate() = 0;
 

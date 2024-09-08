@@ -1,15 +1,13 @@
 #pragma once
 
-class TestActor : public Object
+class TestActor : public GameObject
 {
 public:
 	void Awake() override;
-	void Update(float _Delta) override;
-	void SetColScale(float4 _Scale);
-	void SetColType(ColType _Type);
-protected:
-	SpriteRenderer* m_pSpriteRenderer;
-	Colider2D* m_pColider2D;
+	void Update(float _deltaTime) override;
 
+protected:
+	SpriteRenderer* pSpriteRenderer;
+	Colider2D* pColider2D;
 };
 

@@ -13,25 +13,25 @@ public:
 	~SpriteRenderer();
 
 	void Awake() override;
-	void Update(float _Delta) override;
+	void Update(float _deltaTime) override;
 	void Render() override;
 
 	void CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime);
 private:
-	int SpriteCountX;
-	int SpriteCountY;
+	int spriteCountX;
+	int spriteCountY;
 
-	int CurSpriteX;
-	int CurSpriteY;
+	int curSpriteX;
+	int curSpriteY;
 
-	int CurFrame;
+	int curFrame;
 
-	float InterTime = 0.05f;
-	float CurTime;
+	float interTime = 0.05f;
+	float curTime;
 
-	SpriteData** SpriteDatas = nullptr;
-	SpriteData CurSpriteData;
-	IConstantBuffer* SpriteDataBuffer = nullptr;
+	SpriteData** ppSpriteDatas = nullptr;
+	SpriteData curSpriteData;
+	IConstantBuffer* pSpriteDataBuffer = nullptr;
 };
 
 

@@ -14,9 +14,11 @@
 
 #include <CoreLib/Object.h>
 #include <CoreLib/Level.h>
+#include <CoreLib/GameObject.h>
+#include <CoreLib/Camera.h>
 
 //Component
-#include <CoreLib/Camera.h>
+#include <CoreLib/Component.h>
 #include <CoreLib/Renderer.h>
 #include <CoreLib/SpriteRenderer.h>
 #include <CoreLib/Colider2D.h>

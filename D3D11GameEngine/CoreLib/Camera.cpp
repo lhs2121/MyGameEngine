@@ -4,38 +4,35 @@
 
 void Camera::Awake()
 {
-	Name = "Camera";
-	WindowSize = Window->GetWindowSize();
+	windowSize = mainWindow->GetWindowSize();
 }
 
 void Camera::PushRenderer(Renderer* Renderer)
 {
-	RendererList.push_back(Renderer);
+	rendererList.push_back(Renderer);
 }
 
-void Camera::Update(float _Delta)
+void Camera::Update(float _deltaTime)
 {
-
 }
 
 void Camera::Render()
 {
-	Transform.ViewMat.View(EyePos, EyeDir, EyeUp);
+	transform.viewMat.View(eyePos, eyeDir, eyeUp);
 
-	switch (m_ProjectionType)
+	switch (projectionType)
 	{
 	case ProjectionType::Perspective:
-		Transform.ProjectionMat.Perspective(FovY, WindowSize.x, WindowSize.y, Near, Far);
+		transform.projectionMat.Perspective(fovY, windowSize.x, windowSize.y, Near, Far);
 		break;
 	case ProjectionType::Orthographic:
-		Transform.ProjectionMat.Orthographic(WindowSize.x, WindowSize.y, Near, Far);
+		transform.projectionMat.Orthographic(windowSize.x, windowSize.y, Near, Far);
 		break;
 	}
 
-	for (auto Renderer : RendererList)
+	for (auto renderer : rendererList)
 	{
-		float4x4 world = Renderer->Transform.WorldMat;
-		Renderer->Transform.WorldViewProjectionMat = world * Transform.ViewMat * Transform.ProjectionMat;
-		Renderer->Render();
+		renderer->transform.SetWorldViewProjection(transform.viewMat, transform.projectionMat);
+		renderer->Render();
 	}
 }

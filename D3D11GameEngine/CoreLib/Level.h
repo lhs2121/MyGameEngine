@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "GameObject.h"
 #include "Camera.h"
 #include "Colider2D.h"
 
@@ -10,14 +11,30 @@ public:
 	~Level();
 
 	void Start() override;
-	void Update(float _Delta) override;
+	void AllGameObjectUpdate(float _deltaTime);
+	void Update(float _deltaTime) override;
 	void Render();
 
-	void            CreateCamera();
-	void            AddCollision(Colider2D* _Col);
+	template<class T>
+	T* CreateGameObject(int _order = 0)
+	{
+		GameObject* newGameObject = new T();
+		newGameObject->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
+		newGameObject->pParent = this;
+		newGameObject->Awake();
+
+		allGameObject.insert({ _order,newGameObject });
+
+		return (T*)newGameObject;
+	}
+
+	void      CreateCamera();
+	void      AddCollision(Colider2D* _col);
 	Camera*   GetMainCamera();
 private:
-	std::list<Camera*> CameraList;
-	std::list<Colider2D*> CollisionList;
+
+	std::map<int, GameObject*> allGameObject;
+	std::list<Camera*> cameraList;
+	std::list<Colider2D*> collisionList;
 };
 

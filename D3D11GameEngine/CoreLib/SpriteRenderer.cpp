@@ -3,75 +3,74 @@
 
 SpriteRenderer::~SpriteRenderer()
 {
-	if (SpriteDatas != nullptr)
+	if (ppSpriteDatas != nullptr)
 	{
-		for (int i = 0; i < SpriteCountY; i++)
+		for (int i = 0; i < spriteCountY; i++)
 		{
-			delete[] SpriteDatas[i];
-			SpriteDatas[i] = nullptr;
+			delete[] ppSpriteDatas[i];
+			ppSpriteDatas[i] = nullptr;
 		}
-		delete[] SpriteDatas;
-		SpriteDatas = nullptr;
+		delete[] ppSpriteDatas;
+		ppSpriteDatas = nullptr;
 	}
 }
 
 void SpriteRenderer::Awake()
 {
 	Renderer::Awake();
-	Name = "SpriteRenderer";
 }
 
-void SpriteRenderer::Update(float _Delta)
+void SpriteRenderer::Update(float _deltaTime)
 {
-	CurTime += _Delta;
-	if (CurTime >= InterTime)
+	curTime += _deltaTime;
+	if (curTime >= interTime)
 	{
-		CurSpriteData = SpriteDatas[CurSpriteY][CurSpriteX];
+		curSpriteData = ppSpriteDatas[curSpriteY][curSpriteX];
 
-		CurSpriteX++;
-		CurFrame++;
-		CurTime = 0.0f;
+		curSpriteX++;
+		curFrame++;
+		curTime = 0.0f;
 	}
 
-	if (CurSpriteX == SpriteCountX)
+	if (curSpriteX == spriteCountX)
 	{
-		CurSpriteY++;
-		CurSpriteX = 0;
+		curSpriteY++;
+		curSpriteX = 0;
 	}
 
-	if (CurSpriteY == SpriteCountY)
+	if (curSpriteY == spriteCountY)
 	{
-		CurSpriteY = 0;
-		CurFrame = 0;
+		curSpriteY = 0;
+		curFrame = 0;
 	}
 }
 
 void SpriteRenderer::Render()
 {
-	SpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
+	pSpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
 	Renderer::Render();
-} 
- 
+}
+
 void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
 {
-	SpriteDatas = new SpriteData * [_SpriteCountY];
+	ppSpriteDatas = new SpriteData * [_SpriteCountY];
 
 	for (int i = 0; i < _SpriteCountY; i++)
 	{
-		SpriteDatas[i] = new SpriteData[_SpriteCountX];
+		ppSpriteDatas[i] = new SpriteData[_SpriteCountX];
 	}
 
-	SpriteCountX = _SpriteCountX;
-	SpriteCountY = _SpriteCountY;
+	spriteCountX = _SpriteCountX;
+	spriteCountY = _SpriteCountY;
 
 
-	float2 Ratio = { 1 / static_cast<float>(SpriteCountX), 1 / static_cast<float>(SpriteCountY) };
+	float2 Ratio = { 1 / static_cast<float>(spriteCountX), 1 / static_cast<float>(spriteCountY) };
 
-	for (int y = 0; y < SpriteCountY; y++)
+	for (int y = 0; y < spriteCountY; y++)
 	{
-		for (int x = 0; x < SpriteCountX; x++)
+		for (int x = 0; x < spriteCountX; x++)
 		{
-			SpriteData& Data = SpriteDatas[y][x];
+			SpriteData& Data = ppSpriteDatas[y][x];
 
 			Data.ResizeRatio = Ratio;
 			Data.Offset.x = Ratio.x * x;
@@ -79,19 +78,19 @@ void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float
 		}
 	}
 
-	CurSpriteX = 0;
-	CurSpriteY = 0;
-	CurFrame = 0;
-	CurTime = 0.0f;
-	CurSpriteData = SpriteDatas[0][0];
-	InterTime = _InterTime;
+	curSpriteX = 0;
+	curSpriteY = 0;
+	curFrame = 0;
+	curTime = 0.0f;
+	curSpriteData = ppSpriteDatas[0][0];
+	interTime = _InterTime;
 
 	static int SpriteDataBufferCount = 0;
 	EngineString BufferName = "SpriteData_";
 	BufferName += SpriteDataBufferCount;
 	SpriteDataBufferCount++;
-	SpriteDataBuffer = (IConstantBuffer*)ResManager->CreateResource(ResType::CB, BufferName);
-	SpriteDataBuffer->Setting(& CurSpriteData, sizeof(SpriteData));
+	pSpriteDataBuffer = (IConstantBuffer*)mainResManager->CreateResource(ResType::CB, BufferName);
+	pSpriteDataBuffer->Setting(&curSpriteData, sizeof(SpriteData));
 }
 
 

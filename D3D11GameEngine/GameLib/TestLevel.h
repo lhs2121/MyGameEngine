@@ -6,7 +6,7 @@ class TestLevel : public Level
 {
 public:
 	void Awake() override;
-	void Update(float _Delta) override;
+	void Update(float _deltaTime) override;
 
 	TestActor* a = nullptr;
 	TestActor* b = nullptr;
