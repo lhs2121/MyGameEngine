@@ -7,7 +7,7 @@ enum class ColType
 	Circle2D,
 };
 class EngineRenderer;
-class CoreAPI EngineCollision : public EngineObject
+class  EngineCollision : public EngineObject
 {
 public:
 	void Awake() override;

@@ -12,38 +12,24 @@ EngineObject::~EngineObject()
 
 void EngineObject::DeleteAllChild()
 {
-	ChildList.GoFirst();
-	UINT Count = ChildList.GetCount();
-	for (size_t i = 0; i < Count; i++)
+	for (EngineObject* Child : ChildList)
 	{
-		EngineObject* CurChild = (EngineObject*)ChildList.Item();
-		CurChild->DeleteAllChild();
-
-		delete CurChild;
-
-		ChildList.GoNext();
+		Child->DeleteAllChild();
+		delete Child;
 	}
-}
-
-void EngineObject::SetName(EngineString _Name)
-{
-	Name = _Name;
 }
 
 void EngineObject::SetParent(EngineObject* _Parent)
 {
 	if (Parent != nullptr)
 	{
-		Parent->ChildList.Delete(this);
-		Parent->Transform.ChildTransform.Delete(this);
-
-		Parent = nullptr;
-		Transform.ParentTransform = nullptr;
+		Parent->ChildList.remove(this);
+		Parent->Transform.ChildTransformList.remove(&this->Transform);
 	}
-	_Parent->ChildList.Add(this);
+	_Parent->ChildList.push_back(this);
 	Parent = _Parent;
 
-	_Parent->Transform.ChildTransform.Add(&Transform);
+	_Parent->Transform.ChildTransformList.push_back(&Transform);
 	Transform.ParentTransform = &_Parent->Transform;
 }
 
@@ -56,50 +42,13 @@ EngineLevel* EngineObject::GetLevel()
 	return (EngineLevel*)this;
 }
 
-void EngineObject::Destroy()
-{
-	Death = true;
-}
-
-bool EngineObject::IsDeath()
-{
-	return Death;
-}
-
 void EngineObject::ChildUpdate(float _Delta)
 {
-	ChildList.GoFirst();
-
-	UINT Count = ChildList.GetCount();
-	for (size_t i = 0; i < Count; i++)
+	for (EngineObject* Child : ChildList)
 	{
-		EngineObject* CurChild = (EngineObject*)ChildList.Item();
-		CurChild->ChildUpdate(_Delta);
-		CurChild->Update(_Delta);
-
-		ChildList.GoNext();
+		Child->ChildUpdate(_Delta);
+		Child->Update(_Delta);
 	}
-}
-
-void EngineObject::Awake()
-{
-}
-
-void EngineObject::Start()
-{
-}
-
-void EngineObject::Update(float _Delta)
-{
-}
-
-void EngineObject::End()
-{
-	// 레벨이 끝나는 시점
-}
-
-void EngineObject::Release()
-{
 }
 
 EngineObject* EngineObject::CreateObject(EngineObject* _NewActor)
@@ -115,35 +64,35 @@ EngineObject* EngineObject::CreateObject(EngineObject* _NewActor)
 
 EngineObject* EngineObject::GetChild(int _ChildNumber)
 {
-	ChildList.GoFirst();
-	UINT Count = ChildList.GetCount();
+	size_t Count = ChildList.size();
+
+	if (Count == 0)
+	{
+		return nullptr;
+	}
 
 	if (Count < _ChildNumber)
 	{
 		return nullptr;
 	}
 
-	for (UINT i = 0; i < _ChildNumber; i++)
-	{
-		ChildList.GoNext();
-	}
+	auto iter = ChildList.begin();
+	std::advance(iter, _ChildNumber);
 
-	return (EngineObject*)ChildList.Item();
+	return *iter;
 }
 
 EngineObject* EngineObject::GetChild(const char* _ChildName)
 {
-	ChildList.GoFirst();
-	UINT Count = ChildList.GetCount();
-	for (UINT i = 0; i < Count; i++)
+	for (EngineObject* Child : ChildList)
 	{
-		EngineObject* ChildObject = (EngineObject*)ChildList.Item();
-		if (ChildObject->Name == _ChildName)
+		if (Child->Name == _ChildName)
 		{
-			return ChildObject;
+			return Child;
 		}
-		ChildList.GoNext();
 	}
+
+	return nullptr;
 }
 
 

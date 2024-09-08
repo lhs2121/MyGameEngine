@@ -1,4 +1,6 @@
 #pragma once
+#include <common/declspec.h>
+#include <Windows.h>
 class  EngineString;
 class  EngineObject;
 struct IGameStarter;
@@ -12,6 +14,3 @@ struct ICore
 
 	virtual void EngineRelease() = 0;
 };
-
-extern "C" CoreAPI void CreateEngineCore(ICore** ppInterface);
-extern "C" CoreAPI void DeleteEngineCore(ICore* pInterface);

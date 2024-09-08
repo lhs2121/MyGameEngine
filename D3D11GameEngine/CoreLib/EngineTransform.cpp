@@ -3,17 +3,12 @@
 
 void EngineTransform::TransformUpdate()
 {
-	//로컬 좌표계산하기전에 
-	UINT Count = ChildTransform.GetCount();
-	ChildTransform.GoFirst();
-	for (UINT i = 0; i < Count; i++)
+	for (EngineTransform* ChildTransform: ChildTransformList)
 	{
-		EngineTransform* ChildTransformData = (EngineTransform*)ChildTransform.Item();
-		ChildTransformData->Scale = Scale * LocalScale;
-		ChildTransformData->Rotation = Rotation + LocalRotation;
-		ChildTransformData->Position = Position + LocalPosition;
-		ChildTransformData->TransformUpdate();
-		ChildTransform.GoNext();
+		ChildTransform->Scale = Scale * LocalScale;
+		ChildTransform->Rotation = Rotation + LocalRotation;
+		ChildTransform->Position = Position + LocalPosition;
+		ChildTransform->TransformUpdate();
 	}
 
 	WorldScale = Scale * LocalScale;

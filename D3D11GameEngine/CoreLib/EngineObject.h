@@ -3,34 +3,40 @@
 #include "EngineTransform.h"
 // Ό³Έν :
 class EngineLevel;
-class CoreAPI EngineObject
+class EngineObject
 {
 public:
 	EngineObject();
 	virtual ~EngineObject();
 
 	void DeleteAllChild();
-	void SetName(EngineString _Name);
+	void SetName(EngineString _Name)
+	{
+		Name = _Name;
+	}
 
 	void SetParent(EngineObject* _Parent);
 
 	EngineLevel* GetLevel();
 
-	void Destroy();
+	void Destroy() 
+	{ 
+		Death = true; 
+	}
 
-	bool IsDeath();
+	bool IsDeath() { return Death; }
 
 	void ChildUpdate(float _Delta);
 
-	virtual void Awake();
+	virtual void Awake(){}
 
-	virtual void Start();
+	virtual void Start(){}
 
-	virtual void Update(float _Delta);
+	virtual void Update(float _Delta){}
 
-	virtual void End();
+	virtual void End(){}
 
-	virtual void Release();
+	virtual void Release(){}
 
 	EngineObject* CreateObject(EngineObject* _NewActor);
 	EngineObject* GetChild(int _ChildNumber);
@@ -47,6 +53,6 @@ public:
 protected:
 	bool Death = false;
 
-	EngineList ChildList;
+	std::list<EngineObject*> ChildList;
 	EngineObject* Parent = nullptr;
 };

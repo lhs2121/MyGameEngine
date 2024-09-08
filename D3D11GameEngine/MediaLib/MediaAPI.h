@@ -1,6 +1,6 @@
 #pragma once
 
-class float4;
+struct float4;
 class EngineCore;
 struct ICore;
 struct IEngineInput

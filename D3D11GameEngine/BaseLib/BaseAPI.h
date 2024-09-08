@@ -9,6 +9,7 @@
 #include "EngineFile.h"
 #include "EngineList.h"
 #include "EngineHashMap.h"
+#include "EngineMap.h"
 
 struct IEngineStaticPool
 { 	    

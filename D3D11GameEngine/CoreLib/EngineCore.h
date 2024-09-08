@@ -3,7 +3,7 @@
 #include "EngineLevel.h"
 
 struct IGameStarter;
-class CoreAPI EngineCore : public ICore
+class  EngineCore : public ICore
 {
 public:
 	EngineLevel*   CreateLevel(const char* _Name, EngineLevel* _NewLevel);

@@ -15,12 +15,12 @@ EngineLevel::~EngineLevel()
 void EngineLevel::CreateCamera()
 {
 	EngineCamera* NewCamera = (EngineCamera*)CreateObject(new EngineCamera());
-	CameraList.Add(NewCamera);
+	CameraList.push_back(NewCamera);
 }
 
 void EngineLevel::AddCollision(EngineCollision* _Col)
 {
-	CollisionList.Add(_Col);
+	CollisionList.push_back(_Col);
 }
 
 void EngineLevel::Start()
@@ -29,53 +29,30 @@ void EngineLevel::Start()
 
 void EngineLevel::Update(float _Delta)
 {
-	UINT AllColCount = CollisionList.GetCount();
-
-	UINT OtherColCount = AllColCount - 1;
 	EngineCollision* CurCol = nullptr;
 	EngineCollision* OtherCol = nullptr;
 
-	CollisionList.GoFirst();
-	for (size_t i = 0; i < AllColCount; i++)
+	for (auto col : CollisionList)
 	{
-		CurCol = (EngineCollision*)CollisionList.Item();
-		CollisionList.GoNext();
-		for (size_t j = 0; j < OtherColCount; j++)
-		{
-			OtherCol = (EngineCollision*)CollisionList.Item();
-			CurCol->Collision(OtherCol);
-			CollisionList.GoNext();
-		}
+		CurCol = col;
 
-		OtherColCount--;
-		if (OtherColCount == 0)
+		for (auto col2 : CollisionList)
 		{
-			break;
-		}
 
-		CollisionList.GoFirst();
-		for (size_t k = 0; k < i + 1; k++)
-		{
-			CollisionList.GoNext();
 		}
 	}
 }
 
 void EngineLevel::Render()
 {
-	CameraList.GoFirst();
-	UINT CameraCount = CameraList.GetCount();
-	for (UINT i = 0; i < CameraCount; i++)
+	for (auto ele : CameraList)
 	{
-		EngineCamera* CurCamera = (EngineCamera*)CameraList.Item();
-		CurCamera->Render();
-
-		CameraList.GoNext();
+		ele->Render();
 	}
 }
 
 EngineCamera* EngineLevel::GetMainCamera()
 {
-	return (EngineCamera*)CameraList.Item();
+	return CameraList.front();
 }
 

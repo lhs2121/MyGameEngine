@@ -2,7 +2,7 @@
 #include "EngineObject.h"
 #include <D3D11Lib\D3D11API.h>
 
-class CoreAPI EngineRenderer : public EngineObject
+class  EngineRenderer : public EngineObject
 {
 public:
 	~EngineRenderer();

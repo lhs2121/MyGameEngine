@@ -48,7 +48,7 @@ float float4::Distance(float4& Other)
 {
 	float4 Distance = *this - Other;
 
-	return sqrt((Distance.x * Distance.x) + (Distance.y * Distance.y));
+	return (float)sqrt((Distance.x * Distance.x) + (Distance.y * Distance.y));
 }
 
 float float4::Dot(float4& Left, float4& Right)

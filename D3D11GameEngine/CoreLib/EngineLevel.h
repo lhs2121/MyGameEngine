@@ -1,9 +1,9 @@
 #pragma once
 #include "EngineObject.h"
+#include "EngineCamera.h"
+#include "EngineCollision.h"
 
-class EngineCollision;
-class EngineCamera;
-class CoreAPI EngineLevel : public EngineObject
+class EngineLevel : public EngineObject
 {
 public:
 	EngineLevel();
@@ -17,7 +17,7 @@ public:
 	void            AddCollision(EngineCollision* _Col);
 	EngineCamera*   GetMainCamera();
 private:
-	EngineList CameraList;
-	EngineList CollisionList;
+	std::list<EngineCamera*> CameraList;
+	std::list<EngineCollision*> CollisionList;
 };
 

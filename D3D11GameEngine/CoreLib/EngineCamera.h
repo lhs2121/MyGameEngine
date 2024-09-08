@@ -7,7 +7,7 @@ enum class ProjectionType
 	Perspective,
 	Orthographic
 };
-class CoreAPI EngineCamera : public EngineObject
+class  EngineCamera : public EngineObject
 {
 public:
 	void Awake() override;
@@ -25,7 +25,7 @@ private:
 	float Near = 0.1f;
 	float Far  = 10000.0f;
 
-	EngineList RendererList;
+	std::list<EngineRenderer*> RendererList;
 	float4 EyePos = { 0.0f, 0.0f, -500.0f, 1.0f };
 	float4 EyeDir = { 0.0f, 0.0f, 1.0f, 1.0f };
 	float4 EyeUp  = { 0.0f, 1.0f, 0.0f, 1.0f };

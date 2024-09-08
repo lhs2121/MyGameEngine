@@ -7,7 +7,7 @@ struct SpriteData
 	float2 Offset = { 0.0f,0.0f };
 };
 
-class CoreAPI EngineSpriteRenderer : public EngineRenderer
+class  EngineSpriteRenderer : public EngineRenderer
 {
 public:
 	~EngineSpriteRenderer();

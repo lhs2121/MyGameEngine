@@ -163,6 +163,7 @@
     <ClInclude Include="EngineDirectory.h" />
     <ClInclude Include="EngineFile.h" />
     <ClInclude Include="EngineHashMap.h" />
+    <ClInclude Include="EngineMap.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="EngineStaticPool.h" />
     <ClInclude Include="EngineString.h" />
