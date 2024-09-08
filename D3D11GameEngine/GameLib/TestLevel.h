@@ -2,7 +2,7 @@
 
 // Ό³Έν :
 class TestActor;
-class TestLevel : public EngineLevel
+class TestLevel : public Level
 {
 public:
 	void Awake() override;

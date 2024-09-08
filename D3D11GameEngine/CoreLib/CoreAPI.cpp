@@ -1,14 +1,14 @@
 #include "Pre.h"
 #include "CoreAPI.h"
-#include "EngineCore.h"
+#include "Engine.h"
 
-void CreateEngineCore(ICore** ppInterface)
+void CreateEngine(ICore** ppInterface)
 {
-	*ppInterface = new EngineCore();
+	*ppInterface = new Engine();
 }
 
-void DeleteEngineCore(ICore* pInterface)
+void DeleteEngine(ICore* pInterface)
 {
-	EngineCore* castptr = (EngineCore*)pInterface;
+	Engine* castptr = (Engine*)pInterface;
 	delete castptr;
 }

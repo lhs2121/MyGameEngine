@@ -1,7 +1,7 @@
 #pragma once
 #include <BaseLib\BaseAPI.h>
 
-class  EngineTransform
+class  Transform
 {
 public:
 	void SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat);
@@ -46,6 +46,6 @@ public:
 
 	float4x4 WorldViewProjectionMat;
 
-	EngineTransform* ParentTransform = nullptr;
-	std::list<EngineTransform*> ChildTransformList;
+	Transform* ParentTransform = nullptr;
+	std::list<Transform*> ChildTransformList;
 };

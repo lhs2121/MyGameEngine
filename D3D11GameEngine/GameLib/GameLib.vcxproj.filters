@@ -14,7 +14,4 @@
     <ClCompile Include="TestActor.cpp" />
     <ClCompile Include="GameAPI.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\common\BaseLib.natvis" />
-  </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@
 #include <CoreLib/CoreAPI.h>
 #include <GameLib/GameAPI.h>
 
-#include <CoreLib/EngineCore.h>
+#include <CoreLib/Engine.h>
 #pragma comment(lib,"BaseLib.lib")
 #pragma comment(lib,"CoreLib.lib")
 #pragma comment(lib,"GameLib.lib")
@@ -23,8 +23,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	IGameStarter* Starter;
 	CreateGameStarter(&Starter);
 
-	EngineCore MainCore;
-	MainCore.EngineStart("GameEngine", { 50,50 }, { 1366,789 }, hInstance, Starter);
+	Engine MainEngine;
+	MainEngine.EngineStart("GameEngine", { 50,50 }, { 1366,789 }, hInstance, Starter);
 
 	DeleteGameStarter(Starter);
 }

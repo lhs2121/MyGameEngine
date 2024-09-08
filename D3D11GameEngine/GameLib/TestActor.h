@@ -1,6 +1,6 @@
 #pragma once
 
-class TestActor : public EngineObject
+class TestActor : public Object
 {
 public:
 	void Awake() override;
@@ -8,8 +8,8 @@ public:
 	void SetColScale(float4 _Scale);
 	void SetColType(ColType _Type);
 protected:
-	EngineSpriteRenderer* Renderer;
-	EngineCollision* Col;
+	SpriteRenderer* m_pSpriteRenderer;
+	Colider2D* m_pColider2D;
 
 };
 

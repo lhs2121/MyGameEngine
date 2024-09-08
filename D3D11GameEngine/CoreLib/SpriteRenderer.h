@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineRenderer.h"
+#include "Renderer.h"
 
 struct SpriteData
 {
@@ -7,10 +7,10 @@ struct SpriteData
 	float2 Offset = { 0.0f,0.0f };
 };
 
-class  EngineSpriteRenderer : public EngineRenderer
+class  SpriteRenderer : public Renderer
 {
 public:
-	~EngineSpriteRenderer();
+	~SpriteRenderer();
 
 	void Awake() override;
 	void Update(float _Delta) override;

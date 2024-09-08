@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{27cbf18e-e187-4098-babe-62acddfb5b1d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Transform">
       <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
     </Filter>
@@ -16,60 +13,63 @@
     <Filter Include="Object\Level">
       <UniqueIdentifier>{c114dd13-6d06-42ab-b5a2-a3ac8edd8ec7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{27cbf18e-e187-4098-babe-62acddfb5b1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineSpriteRenderer.h">
+    <ClInclude Include="SpriteRenderer.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="EngineRenderer.h">
+    <ClInclude Include="Renderer.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="EngineLevel.h">
+    <ClInclude Include="Level.h">
       <Filter>Object\Level</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="EngineTransform.h">
+    <ClInclude Include="Transform.h">
       <Filter>Transform</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
     <ClInclude Include="CoreAPI.h" />
-    <ClInclude Include="EngineCollision.h">
+    <ClInclude Include="Colider2D.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCamera.h">
+    <ClInclude Include="Camera.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="EngineObject.h">
+    <ClInclude Include="Object.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineRenderer.cpp">
+    <ClCompile Include="Renderer.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="EngineSpriteRenderer.cpp">
+    <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="EngineLevel.cpp">
+    <ClCompile Include="Level..cpp">
       <Filter>Object\Level</Filter>
     </ClCompile>
-    <ClCompile Include="EngineCore.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="EngineTransform.cpp">
+    <ClCompile Include="Transform.cpp">
       <Filter>Transform</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="CoreAPI.cpp" />
-    <ClCompile Include="EngineCollision.cpp">
+    <ClCompile Include="Colider2D.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="EngineCamera.cpp">
+    <ClCompile Include="Camera.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="EngineObject.cpp">
+    <ClCompile Include="Object.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>

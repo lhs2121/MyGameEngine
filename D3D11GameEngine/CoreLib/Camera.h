@@ -1,18 +1,18 @@
 #pragma once
-#include "EngineObject.h"
-#include "EngineRenderer.h"
+#include "Object.h"
+#include "Renderer.h"
 
 enum class ProjectionType
 {
 	Perspective,
 	Orthographic
 };
-class  EngineCamera : public EngineObject
+class  Camera : public Object
 {
 public:
 	void Awake() override;
 	void Update(float _Delta) override;
-	void PushRenderer(EngineRenderer* Renderer);
+	void PushRenderer(Renderer* Renderer);
 	void SetProjectionType(ProjectionType _Type)
 	{
 		m_ProjectionType = _Type;
@@ -25,7 +25,7 @@ private:
 	float Near = 0.1f;
 	float Far  = 10000.0f;
 
-	std::list<EngineRenderer*> RendererList;
+	std::list<Renderer*> RendererList;
 	float4 EyePos = { 0.0f, 0.0f, -500.0f, 1.0f };
 	float4 EyeDir = { 0.0f, 0.0f, 1.0f, 1.0f };
 	float4 EyeUp  = { 0.0f, 1.0f, 0.0f, 1.0f };

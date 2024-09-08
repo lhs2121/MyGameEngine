@@ -154,26 +154,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EngineCamera.h" />
-    <ClInclude Include="EngineCollision.h" />
-    <ClInclude Include="EngineCore.h" />
-    <ClInclude Include="EngineLevel.h" />
-    <ClInclude Include="EngineObject.h" />
-    <ClInclude Include="EngineRenderer.h" />
-    <ClInclude Include="EngineSpriteRenderer.h" />
-    <ClInclude Include="EngineTransform.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Colider2D.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="CoreAPI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineCamera.cpp" />
-    <ClCompile Include="EngineCollision.cpp" />
-    <ClCompile Include="EngineCore.cpp" />
-    <ClCompile Include="EngineLevel.cpp" />
-    <ClCompile Include="EngineObject.cpp" />
-    <ClCompile Include="EngineRenderer.cpp" />
-    <ClCompile Include="EngineSpriteRenderer.cpp" />
-    <ClCompile Include="EngineTransform.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Colider2D.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Level..cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pre.h</PrecompiledHeaderFile>

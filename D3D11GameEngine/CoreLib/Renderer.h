@@ -1,11 +1,11 @@
 #pragma once
-#include "EngineObject.h"
+#include "Object.h"
 #include <D3D11Lib\D3D11API.h>
 
-class  EngineRenderer : public EngineObject
+class  Renderer : public Object
 {
 public:
-	~EngineRenderer();
+	~Renderer();
 
 	void Awake() override;
 	void Update(float _Delta) override;

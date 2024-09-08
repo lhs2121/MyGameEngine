@@ -1,24 +1,24 @@
 #include "Pre.h"
-#include "EngineCamera.h"
-#include "EngineRenderer.h"
+#include "Camera.h"
+#include "Renderer.h"
 
-void EngineCamera::Awake()
+void Camera::Awake()
 {
-	Name = "EngineCamera";
+	Name = "Camera";
 	WindowSize = Window->GetWindowSize();
 }
 
-void EngineCamera::PushRenderer(EngineRenderer* Renderer)
+void Camera::PushRenderer(Renderer* Renderer)
 {
 	RendererList.push_back(Renderer);
 }
 
-void EngineCamera::Update(float _Delta)
+void Camera::Update(float _Delta)
 {
 
 }
 
-void EngineCamera::Render()
+void Camera::Render()
 {
 	Transform.ViewMat.View(EyePos, EyeDir, EyeUp);
 

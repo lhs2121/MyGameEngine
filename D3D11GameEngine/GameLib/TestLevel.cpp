@@ -17,7 +17,7 @@ void TestLevel::Awake()
 
 void TestLevel::Update(float _Delta)
 {
-	EngineLevel::Update(_Delta);
+	Level::Update(_Delta);
 	float4x4 at = a->Transform.WorldMat;
 	float4x4 bt = b->Transform.WorldMat;
 }

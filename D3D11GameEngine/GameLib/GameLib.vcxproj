@@ -179,9 +179,6 @@
     <ClCompile Include="TestLevel.cpp" />
     <ClCompile Include="GameAPI.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\common\BaseLib.natvis" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

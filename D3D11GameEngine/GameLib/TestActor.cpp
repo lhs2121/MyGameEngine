@@ -11,18 +11,18 @@ void TestActor::Awake()
 		ITexture* tex = (ITexture*)ResManager->CreateResource(ResType::Texture, "TestTexture");
 		tex->Setting(files[0]);
 	}
-	Renderer = (EngineSpriteRenderer*)CreateObject(new EngineSpriteRenderer());
-	Renderer->SetTexture("TestTexture");
-	Renderer->CreateAnimation(2, 2, 1.0f);
+	m_pSpriteRenderer = (SpriteRenderer*)CreateObject(new SpriteRenderer());
+	m_pSpriteRenderer->SetTexture("TestTexture");
+	m_pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
 	
-	Col = (EngineCollision*)CreateObject(new EngineCollision());
-	Col->SetColScale({64,64,1,1});
+	m_pColider2D = (Colider2D*)CreateObject(new Colider2D());
+	m_pColider2D->SetColScale({64,64,1,1});
 
 }
 
 void TestActor::Update(float _Delta)
 {
-	if (Col->IsCollision)
+	if (m_pColider2D->IsCollision)
 	{
 		int a = 0;
 	}
@@ -71,10 +71,10 @@ void TestActor::Update(float _Delta)
 
 void TestActor::SetColScale(float4 _Scale)
 {
-	Col->ColScale = _Scale;
+	m_pColider2D->ColScale = _Scale;
 }
 
 void TestActor::SetColType(ColType _Type)
 {
-	Col->SetColType(_Type);
+	m_pColider2D->SetColType(_Type);
 }

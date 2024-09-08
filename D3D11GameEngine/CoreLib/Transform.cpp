@@ -1,9 +1,9 @@
 #include "Pre.h"
-#include "EngineTransform.h"
+#include "Transform.h"
 
-void EngineTransform::TransformUpdate()
+void Transform::TransformUpdate()
 {
-	for (EngineTransform* ChildTransform: ChildTransformList)
+	for (Transform* ChildTransform: ChildTransformList)
 	{
 		ChildTransform->Scale = Scale * LocalScale;
 		ChildTransform->Rotation = Rotation + LocalRotation;
@@ -23,77 +23,77 @@ void EngineTransform::TransformUpdate()
 	WorldMat = ScaleMat * RotationMat * PositionMat;
 }
 
-void EngineTransform::SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat)
+void Transform::SetWorldViewProjection(float4x4& ViewMat, float4x4& ProjectionMat)
 {
 }
 
-void EngineTransform::SetLocalPos(float4 Value)
+void Transform::SetLocalPos(float4 Value)
 {
 	LocalPosition = Value;
 	TransformUpdate();
 }
 
-void EngineTransform::SetLocalScale(float4 Value)
+void Transform::SetLocalScale(float4 Value)
 {
 	LocalScale = Value;
 	TransformUpdate();
 }
 
-void EngineTransform::SetLocalRotation(float4 Value)
+void Transform::SetLocalRotation(float4 Value)
 {
 	LocalRotation = Value;
 	TransformUpdate();
 }
 
-void EngineTransform::AddLocalPos(float4 Value)
+void Transform::AddLocalPos(float4 Value)
 {
 	LocalPosition += Value;
 	TransformUpdate();
 }
 
-void EngineTransform::AddLocalScale(float4 Value)
+void Transform::AddLocalScale(float4 Value)
 {
 	LocalScale += Value;
 	TransformUpdate();
 }
 
-void EngineTransform::AddLocalRotation(float4 Value)
+void Transform::AddLocalRotation(float4 Value)
 {
 	LocalRotation += Value;
 	TransformUpdate();
 }
 
-void EngineTransform::SetPos(float4 Value)
+void Transform::SetPos(float4 Value)
 {
 	Position = Value;
 	TransformUpdate();
 }
 
-void EngineTransform::SetScale(float4 Value)
+void Transform::SetScale(float4 Value)
 {
 	Scale = Value;
 	TransformUpdate();
 }
 
-void EngineTransform::SetRotation(float4 Value)
+void Transform::SetRotation(float4 Value)
 {
 	Rotation = Value;
 	TransformUpdate();
 }
 
-void EngineTransform::AddPos(float4 Value)
+void Transform::AddPos(float4 Value)
 {
 	Position += Value;
 	TransformUpdate();
 }
 
-void EngineTransform::AddScale(float4 Value)
+void Transform::AddScale(float4 Value)
 {
 	Scale += Value;
 	TransformUpdate();
 }
 
-void EngineTransform::AddRotation(float4 Value)
+void Transform::AddRotation(float4 Value)
 {
 	Rotation += Value;
 	TransformUpdate();

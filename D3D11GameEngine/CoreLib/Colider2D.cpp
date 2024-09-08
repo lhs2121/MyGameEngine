@@ -1,20 +1,20 @@
 #include "Pre.h"
-#include "EngineLevel.h"
-#include "EngineCollision.h"
-#include "EngineRenderer.h"
+#include "Level.h"
+#include "Colider2D.h"
+#include "Renderer.h"
 
 
-void EngineCollision::Awake()
+void Colider2D::Awake()
 {
-	Name = "EngineCollision";
+	Name = "Colider2D";
 	GetLevel()->AddCollision(this);
-	DebugRenderer = (EngineRenderer*)CreateObject(new EngineRenderer());
+	DebugRenderer = (Renderer*)CreateObject(new Renderer());
 	DebugRenderer->SetMesh("Circle2D");
 	DebugRenderer->SetMaterial("DebugLine");
 	int a = 0;
 }
 
-void EngineCollision::Update(float _Delta)
+void Colider2D::Update(float _Delta)
 {
 	DebugRenderer->Transform;
 	Radius = ColScale.hx();
@@ -24,13 +24,13 @@ void EngineCollision::Update(float _Delta)
 	bottom = Transform.WorldPosition.y - ColScale.hy();
 }
 
-void EngineCollision::SetColScale(float4 _Scale)
+void Colider2D::SetColScale(float4 _Scale)
 {
 	ColScale = _Scale;
 	DebugRenderer->Transform.SetLocalScale(ColScale);
 }
 
-bool EngineCollision::Collision(EngineCollision* _Other)
+bool Colider2D::Collision(Colider2D* _Other)
 {
 	if (Type == ColType::AABB2D && _Other->Type == ColType::AABB2D)
 	{
@@ -51,7 +51,7 @@ bool EngineCollision::Collision(EngineCollision* _Other)
 	return IsCollision;
 }
 
-bool EngineCollision::AABB2DAABB2D(EngineCollision* _Other)
+bool Colider2D::AABB2DAABB2D(Colider2D* _Other)
 { 
 	if (_Other->right < this->left)
 	{
@@ -76,7 +76,7 @@ bool EngineCollision::AABB2DAABB2D(EngineCollision* _Other)
 	return true;
 }
 
-bool EngineCollision::Circle2DCircle2D(EngineCollision* _Other)
+bool Colider2D::Circle2DCircle2D(Colider2D* _Other)
 {
 	float Sum = _Other->Radius + Radius;
 	float4 Pos1 = _Other->Transform.Position + _Other->Transform.LocalPosition;
@@ -93,7 +93,7 @@ bool EngineCollision::Circle2DCircle2D(EngineCollision* _Other)
 	
 }
 
-bool EngineCollision::AABB2DCircle2D(EngineCollision* _Other)
+bool Colider2D::AABB2DCircle2D(Colider2D* _Other)
 {
 	float4 CirclePos = _Other->Transform.Position + _Other->Transform.LocalPosition;
 	

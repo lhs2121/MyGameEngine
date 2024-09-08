@@ -1,15 +1,15 @@
 #include "Pre.h"
-#include "EngineCore.h"
-#include "EngineRenderer.h"
-#include "EngineCamera.h"
+#include "Engine.h"
+#include "Renderer.h"
+#include "Camera.h"
 
-EngineRenderer::~EngineRenderer()
+Renderer::~Renderer()
 {
 }
 
-void EngineRenderer::Awake()
+void Renderer::Awake()
 {
-	Name = "EngineRenderer";
+	Name = "Renderer";
 	GetLevel()->GetMainCamera()->PushRenderer(this);
 
 	static int RendererTransformBufferCount = 0;
@@ -26,10 +26,10 @@ void EngineRenderer::Awake()
 	pIA = ResManager->GenerateInputLayout(Mesh, Material);
 }
 
-void EngineRenderer::Update(float _Delta)
+void Renderer::Update(float _Delta)
 {
 }
-void EngineRenderer::Render()
+void Renderer::Render()
 {
 	TransformBuffer->IntoPipeline(ShaderType::VS);
 	pIA->IntoPipeline();
@@ -39,19 +39,19 @@ void EngineRenderer::Render()
 	Device->GetContext()->DrawIndexed(Mesh->GetIndexCount(), 0, 0);
 }
 
-void EngineRenderer::SetMesh(const char* _Name)
+void Renderer::SetMesh(const char* _Name)
 {
 	Mesh = (IMesh*)ResManager->Find(ResType::Mesh, _Name);
 	pIA = ResManager->GenerateInputLayout(Mesh, Material);
 }
 
-void EngineRenderer::SetMaterial(const char* _Name)
+void Renderer::SetMaterial(const char* _Name)
 {
 	Material = (IMaterial*)ResManager->Find(ResType::Material, _Name);
 	pIA = ResManager->GenerateInputLayout(Mesh, Material);
 }
 
-void EngineRenderer::SetTexture(const char* _TextureName)
+void Renderer::SetTexture(const char* _TextureName)
 {
 	ITexture* Texture = (ITexture*)ResManager->Find(ResType::Texture, _TextureName);
 	ImageScale = Texture->GetImageScale();

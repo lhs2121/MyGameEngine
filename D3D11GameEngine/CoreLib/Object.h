@@ -1,13 +1,13 @@
 #pragma once
 #include <common\declspec.h>
-#include "EngineTransform.h"
+#include "Transform.h"
 // Ό³Έν :
-class EngineLevel;
-class EngineObject
+class Level;
+class Object
 {
 public:
-	EngineObject();
-	virtual ~EngineObject();
+	Object();
+	virtual ~Object();
 
 	void DeleteAllChild();
 	void SetName(EngineString _Name)
@@ -15,9 +15,9 @@ public:
 		Name = _Name;
 	}
 
-	void SetParent(EngineObject* _Parent);
+	void SetParent(Object* _Parent);
 
-	EngineLevel* GetLevel();
+	Level* GetLevel();
 
 	void Destroy() 
 	{ 
@@ -38,11 +38,11 @@ public:
 
 	virtual void Release(){}
 
-	EngineObject* CreateObject(EngineObject* _NewActor);
-	EngineObject* GetChild(int _ChildNumber);
-	EngineObject* GetChild(const char* _ChildName);
+	Object* CreateObject(Object* _NewActor);
+	Object* GetChild(int _ChildNumber);
+	Object* GetChild(const char* _ChildName);
 
-	EngineTransform Transform;
+	Transform Transform;
 	EngineString Name;
 
 
@@ -53,6 +53,6 @@ public:
 protected:
 	bool Death = false;
 
-	std::list<EngineObject*> ChildList;
-	EngineObject* Parent = nullptr;
+	std::list<Object*> ChildList;
+	Object* Parent = nullptr;
 };

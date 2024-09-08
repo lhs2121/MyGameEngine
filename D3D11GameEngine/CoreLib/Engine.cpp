@@ -3,10 +3,10 @@
 #include <MediaLib/MediaAPI.h>
 #include <D3D11Lib/D3D11API.h>
 #include <GameLib/GameAPI.h>
-#include "EngineCore.h"
-#include "EngineLevel.h"
+#include "Engine.h"
+#include "Level.h"
 
-EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
+Level* Engine::CreateLevel(const char* _Name, Level* _NewLevel)
 {
     _NewLevel->Input = MainInput;
     _NewLevel->Window = MainWindow;
@@ -20,25 +20,25 @@ EngineLevel* EngineCore::CreateLevel(const char* _Name, EngineLevel* _NewLevel)
 	return _NewLevel;
 }
 
-void EngineCore::ChangeLevel(const char* _Name)
+void Engine::ChangeLevel(const char* _Name)
 {
-	CurLevel = (EngineLevel*)AllLevel.Get(_Name);
+	CurLevel = (Level*)AllLevel.Get(_Name);
 }
 
-void EngineCore::DeleteAllLevel()
+void Engine::DeleteAllLevel()
 {
 	AllLevel.GoFirst();
 	UINT Count = AllLevel.Count();
 
 	for (UINT i = 0; i < Count; i++)
 	{
-		EngineLevel* CurLevel = (EngineLevel*)AllLevel.GetCurItem();
+		Level* CurLevel = (Level*)AllLevel.GetCurItem();
 		delete CurLevel;
 		AllLevel.GoNext();
 	}
 }
 
-void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IGameStarter* _Starter)
+void Engine::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IGameStarter* _Starter)
 {
     CreateEngineWindow(&MainWindow);
     MainWindow->Init(_WindowTitle, _WindowPos, _WindowSize, _hInstance, this);
@@ -64,7 +64,7 @@ void EngineCore::EngineStart(const char* _WindowTitle, float4 _WindowPos, float4
     MainWindow->MessageLoop();
 }
 
-void EngineCore::EngineUpdate()
+void Engine::EngineUpdate()
 {
     if (CurLevel == nullptr)
     {
@@ -85,7 +85,7 @@ void EngineCore::EngineUpdate()
     MainDevice->Present();
 }
 
-void EngineCore::EngineRelease()
+void Engine::EngineRelease()
 {
 	DeleteAllLevel();
 	DeleteEngineTime(MainTime);

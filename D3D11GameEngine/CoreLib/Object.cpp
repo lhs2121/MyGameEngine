@@ -1,25 +1,25 @@
 #include "Pre.h"
-#include "EngineObject.h"
-#include "EngineLevel.h"
+#include "Object.h"
+#include "Level.h"
 
-EngineObject::EngineObject()
+Object::Object()
 {
 }
 
-EngineObject::~EngineObject()
+Object::~Object()
 {
 }
 
-void EngineObject::DeleteAllChild()
+void Object::DeleteAllChild()
 {
-	for (EngineObject* Child : ChildList)
+	for (Object* Child : ChildList)
 	{
 		Child->DeleteAllChild();
 		delete Child;
 	}
 }
 
-void EngineObject::SetParent(EngineObject* _Parent)
+void Object::SetParent(Object* _Parent)
 {
 	if (Parent != nullptr)
 	{
@@ -33,25 +33,25 @@ void EngineObject::SetParent(EngineObject* _Parent)
 	Transform.ParentTransform = &_Parent->Transform;
 }
 
-EngineLevel* EngineObject::GetLevel()
+Level* Object::GetLevel()
 {
 	if (Parent != nullptr)
 	{
 		return Parent->GetLevel();
 	}
-	return (EngineLevel*)this;
+	return (Level*)this;
 }
 
-void EngineObject::ChildUpdate(float _Delta)
+void Object::ChildUpdate(float _Delta)
 {
-	for (EngineObject* Child : ChildList)
+	for (Object* Child : ChildList)
 	{
 		Child->ChildUpdate(_Delta);
 		Child->Update(_Delta);
 	}
 }
 
-EngineObject* EngineObject::CreateObject(EngineObject* _NewActor)
+Object* Object::CreateObject(Object* _NewActor)
 {
 	_NewActor->Input = Input;
 	_NewActor->Window = Window;
@@ -62,7 +62,7 @@ EngineObject* EngineObject::CreateObject(EngineObject* _NewActor)
 	return _NewActor;
 }
 
-EngineObject* EngineObject::GetChild(int _ChildNumber)
+Object* Object::GetChild(int _ChildNumber)
 {
 	size_t Count = ChildList.size();
 
@@ -82,9 +82,9 @@ EngineObject* EngineObject::GetChild(int _ChildNumber)
 	return *iter;
 }
 
-EngineObject* EngineObject::GetChild(const char* _ChildName)
+Object* Object::GetChild(const char* _ChildName)
 {
-	for (EngineObject* Child : ChildList)
+	for (Object* Child : ChildList)
 	{
 		if (Child->Name == _ChildName)
 		{

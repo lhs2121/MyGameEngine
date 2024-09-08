@@ -1,7 +1,7 @@
 #include "Pre.h"
-#include "EngineSpriteRenderer.h"
+#include "SpriteRenderer.h"
 
-EngineSpriteRenderer::~EngineSpriteRenderer()
+SpriteRenderer::~SpriteRenderer()
 {
 	if (SpriteDatas != nullptr)
 	{
@@ -15,13 +15,13 @@ EngineSpriteRenderer::~EngineSpriteRenderer()
 	}
 }
 
-void EngineSpriteRenderer::Awake()
+void SpriteRenderer::Awake()
 {
-	EngineRenderer::Awake();
-	Name = "EngineSpriteRenderer";
+	Renderer::Awake();
+	Name = "SpriteRenderer";
 }
 
-void EngineSpriteRenderer::Update(float _Delta)
+void SpriteRenderer::Update(float _Delta)
 {
 	CurTime += _Delta;
 	if (CurTime >= InterTime)
@@ -46,13 +46,13 @@ void EngineSpriteRenderer::Update(float _Delta)
 	}
 }
 
-void EngineSpriteRenderer::Render()
+void SpriteRenderer::Render()
 {
 	SpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
-	EngineRenderer::Render();
+	Renderer::Render();
 } 
  
-void EngineSpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
+void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
 {
 	SpriteDatas = new SpriteData * [_SpriteCountY];
 

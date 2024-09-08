@@ -5,16 +5,18 @@
 #include <BaseLib/BaseAPI.h>
 #include <D3D11Lib/D3D11API.h>
 #include <MediaLib/MediaAPI.h>
+
+//Core
 #include <CoreLib/CoreAPI.h>
 
-#include <CoreLib/EngineCore.h>
-#include <CoreLib/EngineTransform.h>
+#include <CoreLib/Engine.h>
+#include <CoreLib/Transform.h>
 
-#include <CoreLib/EngineObject.h>
-#include <CoreLib/EngineLevel.h>
+#include <CoreLib/Object.h>
+#include <CoreLib/Level.h>
 
 //Component
-#include <CoreLib/EngineCamera.h>
-#include <CoreLib/EngineRenderer.h>
-#include <CoreLib/EngineSpriteRenderer.h>
-#include <CoreLib/EngineCollision.h>
+#include <CoreLib/Camera.h>
+#include <CoreLib/Renderer.h>
+#include <CoreLib/SpriteRenderer.h>
+#include <CoreLib/Colider2D.h>
