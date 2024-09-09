@@ -70,7 +70,7 @@ void Device::InitMesh(IResManager* pManager)
 		};
 
 		IVertexBuffer* pVertexBuffer = (IVertexBuffer*)pManager->CreateResource(ResType::VB, "Box3D");
-		pVertexBuffer->Setting(Box3D, sizeof(Vertex), sizeof(Box3D), 1);
+		pVertexBuffer->Setting(Box3D, sizeof(Vertex), sizeof(Box3D), 0);
 	}
 
 	{

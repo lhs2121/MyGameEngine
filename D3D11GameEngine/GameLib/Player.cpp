@@ -12,12 +12,12 @@ void Player::Awake()
 		tex->Setting(files[0]);
 	}
 	pSpriteRenderer = AddComponent<SpriteRenderer>();
-	pSpriteRenderer->SetMesh("Box2D");
+	pSpriteRenderer->SetMesh("Box3D");
 	pSpriteRenderer->SetTexture("TestTexture");
 	pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
 
 	pColider2D = AddComponent<Colider2D>();
-	pColider2D->SetColScale({ 64,64,1,1 });
+	pColider2D->SetColScale({ 1,1,1,1 });
 
 	pRigid = AddComponent<RigidBody2D>();
 }
@@ -42,27 +42,27 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyPress('W'))
 	{
-		transform.AddPos({ 0,100 * _deltaTime,0 });
+		transform.AddPos({ 0,10 * _deltaTime,0 });
 	}
 	if (GetKeyPress('A'))
 	{
-		transform.AddPos({ -100 * _deltaTime,0,0 });
+		transform.AddPos({ -10 * _deltaTime,0,0 });
 	}
 	if (GetKeyPress('S'))
 	{
-		transform.AddPos({ 0,-100 * _deltaTime,0 });
+		transform.AddPos({ 0,-10 * _deltaTime,0 });
 	}
 	if (GetKeyPress('D'))
 	{
-		transform.AddPos({ 100 * _deltaTime,0,0 });
+		transform.AddPos({ 10 * _deltaTime,0,0 });
 	}
 	if (GetKeyPress('Q'))
 	{
-		transform.AddPos({ 0,0,100 * _deltaTime });
+		transform.AddPos({ 0,0,10 * _deltaTime });
 	}
 	if (GetKeyPress('E'))
 	{
-		transform.AddPos({ 0,0,-100 * _deltaTime });
+		transform.AddPos({ 0,0,-10 * _deltaTime });
 	}
 	if (GetKeyDown('R'))
 	{

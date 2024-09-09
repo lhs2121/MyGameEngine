@@ -54,8 +54,6 @@ void Renderer::SetMaterial(const char* _name)
 void Renderer::SetTexture(const char* _name)
 {
 	ITexture* Texture = (ITexture*)mainResManager->Find(ResType::Texture, _name);
-	imageScale = Texture->GetImageScale();
-	transform.SetlocalScale(imageScale);
 	pMaterial->SetTexture(_name);
 }
 
