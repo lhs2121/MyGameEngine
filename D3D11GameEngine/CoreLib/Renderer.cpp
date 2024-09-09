@@ -9,7 +9,7 @@ Renderer::~Renderer()
 
 void Renderer::Awake()
 {
-	pCamera = GetScene()->GetMainCamera(); 
+	pCamera = scene->GetMainCamera();
 	pCamera->AddRenderer(this);
 
 	static int RendererTransformBufferCount = 0;

@@ -101,17 +101,6 @@ void Device::InitMaterial(IResManager* pManager)
 	}
 
 	{
-		IMesh* NewMesh = (IMesh*)pManager->CreateResource( ResType::Mesh, "Box2D");
-		NewMesh->Setting("Box2D", "Box2D");
-	}
-
-
-	{
-		IMesh* NewMesh = (IMesh*)pManager->CreateResource( ResType::Mesh, "Circle2D");
-		NewMesh->Setting("Circle2D", "Circle2D");
-	}
-
-	{
 		IMaterial* NewMat = (IMaterial*)pManager->CreateResource( ResType::Material, "Sprite2D");
 		NewMat->SetShader("Sprite2D");
 		NewMat->SetRS("Default");

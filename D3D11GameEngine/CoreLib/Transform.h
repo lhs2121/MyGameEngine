@@ -22,6 +22,8 @@ public:
 	void AddRotation(float4 _rotation);
 	void AddPos(float4 _pos);
 
+	void SetParent(Transform* _parentTransform);
+
 	void TransformUpdate();
 
 	float4 localScale = { 1.0f,1.0f,1.0f,1.0f };

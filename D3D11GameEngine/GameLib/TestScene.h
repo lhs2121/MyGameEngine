@@ -10,5 +10,6 @@ public:
 
 	Player* a = nullptr;
 	Player* b = nullptr;
+	Player* c = nullptr;
 };
 

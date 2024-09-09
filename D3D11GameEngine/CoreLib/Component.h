@@ -8,5 +8,7 @@ public:
 	Component();
 	~Component();
 
-	GameObject* GetParent();
+	GameObject* GetParent() const { return (GameObject*)parentObject; }
+
+protected:
 };

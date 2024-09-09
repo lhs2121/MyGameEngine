@@ -11,17 +11,20 @@ public:
 	~Scene();
 
 	void Start() override;
+	void Update(float _deltaTime) override;
+	void Render();
+
 	void AllGameObjectStart();
 	void AllGameObjectUpdate(float _deltaTime);
 	void AllCollisionUpdate(float _deltaTime);
-	void Update(float _deltaTime) override;
-	void Render();
 
 	template<class T>
 	T* CreateGameObject(int _order = 0)
 	{
 		GameObject* newGameObject = new T();
-		newGameObject->pParent = this;
+		newGameObject->parentObject = this;
+		newGameObject->scene = this;
+		newGameObject->objectOrder = _order;
 		newGameObject->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
 		newGameObject->Awake();
 
@@ -35,6 +38,7 @@ public:
 		return (T*)newGameObject;
 	}
 
+	void      DeleteGameObject(GameObject* _gameObject);
 	void      CreateCamera();
 	void      AddCollision(Colider2D* _col);
 	Camera*   GetMainCamera();

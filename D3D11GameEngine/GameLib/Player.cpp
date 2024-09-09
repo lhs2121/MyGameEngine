@@ -12,6 +12,7 @@ void Player::Awake()
 		tex->Setting(files[0]);
 	}
 	pSpriteRenderer = AddComponent<SpriteRenderer>();
+	pSpriteRenderer->SetMesh("Box2D");
 	pSpriteRenderer->SetTexture("TestTexture");
 	pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
 

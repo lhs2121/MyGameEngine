@@ -5,12 +5,33 @@
 void TestScene::Awake()
 {
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
-	a = CreateGameObject<Player>();
-	b = CreateGameObject<Player>();
-	b->transform.SetPos({ 150,150 });
 
-	Renderer* c = a->GetComponent<Renderer>();
-	c->SetRenderOrder(500);
+	a = CreateGameObject<Player>();
+
+	std::vector<float4> poss = 
+	{
+		{100,0},
+		{100,100},
+		{100,-100},
+		{-100,0},
+		{-100,100},
+		{-100,-100},
+		{0,100},
+		{0,-100},
+	};
+
+	std::vector<Player*> players;
+	for (size_t i = 0; i < poss.size(); i++)
+	{
+		Player* player = CreateGameObject<Player>();
+		player->transform.SetLocalPos(poss[i]);
+		players.push_back(player);
+	}
+
+	for (size_t i = 0; i < poss.size(); i++)
+	{
+		players[i]->SetParent(a);
+	}
 
 	mainInput->AddUser(a);
 }

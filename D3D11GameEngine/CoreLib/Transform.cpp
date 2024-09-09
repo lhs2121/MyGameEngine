@@ -88,6 +88,16 @@ void Transform::AddPos(float4 _pos)
 	TransformUpdate();
 }
 
+void Transform::SetParent(Transform* _parentTransform)
+{
+	if (parentTransform != nullptr)
+	{
+		parentTransform->childTransformList.remove(this);
+	}
+	parentTransform = _parentTransform;
+	parentTransform->childTransformList.push_back(this);
+}
+
 void Transform::AddScale(float4 _scale)
 {
 	scale += _scale;

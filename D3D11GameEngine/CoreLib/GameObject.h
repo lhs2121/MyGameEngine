@@ -29,8 +29,9 @@ public:
 	T* AddComponent()
 	{
 		Component* newComp = new T();
+		newComp->parentObject = this;
+		newComp->scene = scene;
 		newComp->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
-		newComp->pParent = this;
 		newComp->Awake();
 
 		transform.childTransformList.push_back(&newComp->transform);
@@ -67,12 +68,14 @@ public:
 		return comps;
 	}
 
-	void ChildUpdate(float _deltaTime);
-	void SetParent(GameObject* _pParent);
+	void AllStart();
+	void AllUpdate(float _deltaTime);
+	void SetParent(GameObject* _parent);
 
 	GameObject* GetChild(int _num);
 	GameObject* GetChild(const char* _name);
 
+	int objectOrder;
 private:
 	std::list<Component*> componentList;
 	std::list<GameObject*> childList;

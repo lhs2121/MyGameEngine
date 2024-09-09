@@ -143,4 +143,19 @@ void Device::InitMesh(IResManager* pManager)
 		pIndexBuffer->Setting( &Indices[0], static_cast<int>(Indices.size() * sizeof(UINT)));
 	}
 
+	{
+		IMesh* NewMesh = (IMesh*)pManager->CreateResource(ResType::Mesh, "Box2D");
+		NewMesh->Setting("Box2D", "Box2D");
+	}
+
+	{
+		IMesh* NewMesh = (IMesh*)pManager->CreateResource(ResType::Mesh, "Box3D");
+		NewMesh->Setting("Box3D", "Box3D");
+	}
+
+	{
+		IMesh* NewMesh = (IMesh*)pManager->CreateResource(ResType::Mesh, "Circle2D");
+		NewMesh->Setting("Circle2D", "Circle2D");
+	}
+
 }

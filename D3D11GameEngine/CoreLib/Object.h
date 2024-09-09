@@ -19,11 +19,9 @@ public:
 
 	void SetName(EngineString _name) { name = _name; }
 
-	Scene* GetScene();
-
 	void Destroy() { death = true; }
 
-	bool IsDeath() { return death; }
+	bool IsDeath() const { return death; }
 
 	virtual void Awake() {}
 
@@ -37,8 +35,8 @@ public:
 
 	EngineString name;
 	Transform transform;
-	Object* pParent = nullptr;
-
+	Object* parentObject = nullptr;
+	Scene* scene = nullptr;
 protected:
 	IEngineInput* mainInput = nullptr;
 	IEngineWindow* mainWindow = nullptr;

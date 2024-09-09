@@ -12,6 +12,5 @@ public:
 	void Update(float _deltaTime) override;
 private:
 	float4 velocity;
-	GameObject* parentGameObject;
 	Colider2D* parentCol;
 };

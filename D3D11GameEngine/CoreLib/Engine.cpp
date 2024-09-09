@@ -66,9 +66,10 @@ void Engine::EngineUpdate()
 
 void Engine::EngineRelease()
 {
-	for (auto& scene : allScene)
+	for (auto& pair : allScene)
 	{
-		delete scene.second;
+		Scene* scene = pair.second;
+		delete scene;
 	}
 	allScene.clear();
 	

@@ -8,8 +8,3 @@ Component::Component()
 Component::~Component()
 {
 }
-
-GameObject* Component::GetParent()
-{
-	return (GameObject*)pParent;
-}

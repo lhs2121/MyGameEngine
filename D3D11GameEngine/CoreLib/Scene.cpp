@@ -21,6 +21,12 @@ Scene::~Scene()
 	allGameObject.clear();
 }
 
+void Scene::DeleteGameObject(GameObject* _gameObject)
+{
+	int order = _gameObject->objectOrder;
+	allGameObject[order].remove(_gameObject);
+}
+
 void Scene::CreateCamera()
 {
 	Camera* newCamera = CreateGameObject<Camera>();
@@ -43,12 +49,8 @@ void Scene::AllGameObjectStart()
 		std::list<GameObject*> curGameObjectList = pair.second;
 		for (GameObject* curGameObject : curGameObjectList)
 		{
-			auto allChildComp = curGameObject->GetComponents();
-			for (Component* comp : allChildComp)
-			{
-				comp->Start();
-			}
-			curGameObject->Start();
+			curGameObject->transform.TransformUpdate();
+			curGameObject->AllStart();
 		}
 	}
 }
@@ -60,7 +62,7 @@ void Scene::AllGameObjectUpdate(float _deltaTime)
 		std::list<GameObject*> curGameObjectList = pair.second;
 		for (GameObject* curGameObject : curGameObjectList)
 		{
-			curGameObject->ChildUpdate(_deltaTime);
+			curGameObject->AllUpdate(_deltaTime);
 		}
 	}
 }

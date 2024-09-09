@@ -5,7 +5,7 @@
 
 void Colider2D::Awake()
 {
-	GetScene()->AddCollision(this);
+	scene->AddCollision(this);
 }
 
 void Colider2D::Update(float _deltaTime)

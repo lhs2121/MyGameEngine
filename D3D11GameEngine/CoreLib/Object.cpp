@@ -10,14 +10,3 @@ Object::~Object()
 {
 }
 
-Scene* Object::GetScene()
-{
-	if (pParent != nullptr)
-	{
-		return pParent->GetScene();
-	}
-	return (Scene*)this;
-}
-
-
-

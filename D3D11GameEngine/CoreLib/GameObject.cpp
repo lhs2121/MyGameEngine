@@ -1,5 +1,6 @@
 #include "Pre.h"
 #include "GameObject.h"
+#include "Scene.h"
 
 GameObject::GameObject()
 {
@@ -17,7 +18,22 @@ GameObject::~GameObject()
 	}
 }
 
-void GameObject::ChildUpdate(float _deltaTime)
+void GameObject::AllStart()
+{
+	Start();
+
+	for (Object* Child : componentList)
+	{
+		Child->Start();
+	}
+
+	for (GameObject* Child : childList)
+	{
+		Child->AllStart();
+	}
+}
+
+void GameObject::AllUpdate(float _deltaTime)
 {
 	Update(_deltaTime);
 
@@ -28,28 +44,28 @@ void GameObject::ChildUpdate(float _deltaTime)
 
 	for (GameObject* Child : childList)
 	{
-		Child->ChildUpdate(_deltaTime);
+		Child->AllUpdate(_deltaTime);
 	}
 }
 
-void GameObject::SetParent(GameObject* _pParent)
+void GameObject::SetParent(GameObject* _parent)
 {
-	if (pParent != nullptr)
+	if (parentObject != nullptr)
 	{
-		GameObject* pCastParent = (GameObject*)pParent;
-
-		pCastParent->childList.remove(this);
-
-		pParent->transform.childTransformList.remove(&this->transform);
+		if ((void*)parentObject == (void*)scene)
+		{
+			scene->DeleteGameObject(this);
+		}
+		else
+		{
+			GameObject* castObj = (GameObject*)parentObject;
+			castObj->childList.remove(this);
+		}
 	}
 
-	_pParent->childList.push_back(this);
-
-	pParent = _pParent;
-
-	_pParent->transform.childTransformList.push_back(&transform);
-
-	transform.parentTransform = &_pParent->transform;
+	parentObject = (Object*)_parent;
+	_parent->childList.push_back(this);
+	transform.SetParent(&_parent->transform);
 }
 
 GameObject* GameObject::GetChild(int _num)
