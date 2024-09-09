@@ -2,7 +2,7 @@
 #include <common\declspec.h>
 #include "Transform.h"
 
-class Level;
+class Scene;
 class Object
 {
 public:
@@ -19,7 +19,7 @@ public:
 
 	void SetName(EngineString _name) { name = _name; }
 
-	Level* GetLevel();
+	Scene* GetScene();
 
 	void Destroy() { death = true; }
 

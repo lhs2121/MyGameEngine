@@ -10,7 +10,7 @@ EngineWindow::~EngineWindow()
 {
 }
 
-void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, ICore* _Core)
+void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, IEngine* _pMainEngine)
 {
 
 	WindowTitle = _WindowTile;
@@ -21,7 +21,7 @@ void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _Wind
 
 	hInst = _hInst;
 
-	Core = _Core;
+	pMainEngine = _pMainEngine;
 	
 	{
 		WNDCLASSEXA wcex;
@@ -86,11 +86,11 @@ void EngineWindow::MessageLoop()
 		}
 		else
 		{
-			Core->EngineUpdate();
+			pMainEngine->EngineUpdate();
 		}
 	}
 
-	Core->EngineRelease();
+	pMainEngine->EngineRelease();
 }
 
 const char* EngineWindow::GetWindowTitle()

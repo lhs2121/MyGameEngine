@@ -1,11 +1,11 @@
 #include "Pre.h"
 #include "GameStarter.h"
 #include <CoreLib/Engine.h>
-#include "TestLevel.h"
+#include "TestScene.h"
 
-void GameStarter::GameStart(ICore* MainCore)
+void GameStarter::GameStart(IEngine* MainCore)
 {
 	Engine* Core = (Engine*)MainCore;
-	Core->CreateLevel("TestLevel", new TestLevel());
-	Core->ChangeLevel("TestLevel");
+	Core->CreateScene<TestScene>("Scene001");
+	Core->LoadScene("Scene001");
 }

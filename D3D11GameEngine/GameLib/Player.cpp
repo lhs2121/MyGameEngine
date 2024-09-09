@@ -18,6 +18,7 @@ void Player::Awake()
 	pColider2D = AddComponent<Colider2D>();
 	pColider2D->SetColScale({ 64,64,1,1 });
 
+	pRigid = AddComponent<RigidBody2D>();
 }
 
 void Player::Update(float _deltaTime)

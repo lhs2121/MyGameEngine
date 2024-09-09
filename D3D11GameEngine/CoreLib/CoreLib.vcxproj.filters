@@ -27,7 +27,7 @@
     <ClInclude Include="Renderer.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
+    <ClInclude Include="Scene.h">
       <Filter>Object\Level</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
@@ -53,6 +53,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Object\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBody2D.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -61,7 +64,7 @@
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
+    <ClCompile Include="Scene.cpp">
       <Filter>Object\Level</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
@@ -71,7 +74,6 @@
       <Filter>Transform</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="CoreAPI.cpp" />
     <ClCompile Include="Colider2D.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
@@ -86,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody2D.cpp">
+      <Filter>Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

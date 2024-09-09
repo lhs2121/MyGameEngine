@@ -2,7 +2,7 @@
 
 // Ό³Έν :
 class Player;
-class TestLevel : public Level
+class TestScene : public Scene
 {
 public:
 	void Awake() override;
@@ -10,7 +10,5 @@ public:
 
 	Player* a = nullptr;
 	Player* b = nullptr;
-	Player* c = nullptr;
-	Player* d = nullptr;
 };
 

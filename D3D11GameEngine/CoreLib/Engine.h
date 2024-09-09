@@ -1,22 +1,33 @@
 #pragma once
 #include "CoreAPI.h"
-#include "Level.h"
+#include "Scene.h"
 
 struct IGameStarter;
-class  Engine : public ICore
+class  Engine : public IEngine
 {
 public:
-	Level*   CreateLevel(const char* _Name, Level* _NewLevel);
-	void     ChangeLevel(const char* _Name);
+	template<typename T>
+	T* CreateScene(const char* _name)
+	{
+		Scene* newScene = new T();
+		newScene->SetName(_name);
+		newScene->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
+		newScene->CreateCamera();
+		newScene->Awake();
 
-	void     EngineStart(const char* _WindowTitle, float4 _WindowPos, float4 _WindowSize, HINSTANCE _hInstance, IGameStarter* _Starter) override;
-	void     EngineUpdate() override;
-	void     EngineRelease() override;
+		allScene.insert({ _name,newScene });
+
+		return (T*)newScene;
+	}
+	void LoadScene(const char* _name);
+	void EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance, IGameStarter* _pGameStarter) override;
+	void EngineUpdate() override;
+	void EngineRelease() override;
 
 private:
 	IGameStarter* pGameStarter;
-	Level* pCurLevel;
-	std::map<EngineString, Level*> allLevel;
+	Scene* pCurScene;
+	std::unordered_map<const char*, Scene*> allScene;
 
 	IEngineTime* mainTime = nullptr;
 	IEngineWindow* mainWindow = nullptr;

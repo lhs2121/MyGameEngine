@@ -9,5 +9,6 @@ public:
 protected:
 	SpriteRenderer* pSpriteRenderer;
 	Colider2D* pColider2D;
+	RigidBody2D* pRigid;
 };
 

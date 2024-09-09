@@ -54,6 +54,19 @@ public:
 		return nullptr;
 	}
 
+	std::vector<Component*> GetComponents()
+	{
+		std::vector<Component*> comps;
+		size_t compSize = componentList.size();
+		comps.reserve(compSize);
+
+		for (Component* comp : componentList)
+		{
+			comps.push_back(comp);
+		}
+		return comps;
+	}
+
 	void ChildUpdate(float _deltaTime);
 	void SetParent(GameObject* _pParent);
 

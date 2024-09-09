@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Player.h" />
-    <ClInclude Include="TestLevel.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="GameStarter.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="GameAPI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestLevel.cpp" />
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="GameStarter.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Player.cpp" />

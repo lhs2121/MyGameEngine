@@ -4,5 +4,5 @@
 class GameStarter : public IGameStarter
 {
 public:
-	void GameStart(ICore* MainCore) override;
+	void GameStart(IEngine* MainCore) override;
 };

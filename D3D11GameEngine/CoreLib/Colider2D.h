@@ -19,10 +19,6 @@ public:
 
 	bool Collision(Colider2D* _Other);
 
-	bool AABB2DAABB2D(Colider2D* _Other) const;
-	bool Circle2DCircle2D(Colider2D* _Other) const;
-	bool AABB2DCircle2D(Colider2D* _Other);
-
 	bool isCollision = false;
 	float left;
 	float right;
@@ -30,7 +26,11 @@ public:
 	float bottom;
 	float radius;
 	float4 colScale;
-	ColType colType = ColType::AABB2D;
 private:
+	bool AABB2DAABB2D(Colider2D* _Other) const;
+	bool Circle2DCircle2D(Colider2D* _Other) const;
+	bool AABB2DCircle2D(Colider2D* _Other);
+
+	ColType colType = ColType::AABB2D;
 	Renderer* debugRenderer;
 };

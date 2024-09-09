@@ -13,7 +13,7 @@
 #include <CoreLib/Transform.h>
 
 #include <CoreLib/Object.h>
-#include <CoreLib/Level.h>
+#include <CoreLib/Scene.h>
 #include <CoreLib/GameObject.h>
 #include <CoreLib/Camera.h>
 
@@ -22,3 +22,4 @@
 #include <CoreLib/Renderer.h>
 #include <CoreLib/SpriteRenderer.h>
 #include <CoreLib/Colider2D.h>
+#include <CoreLib/RigidBody2D.h>

@@ -1,11 +1,11 @@
 #include "Pre.h"
-#include "Level.h"
+#include "Scene.h"
 #include "Colider2D.h"
 #include "Renderer.h"
 
 void Colider2D::Awake()
 {
-	GetLevel()->AddCollision(this);
+	GetScene()->AddCollision(this);
 }
 
 void Colider2D::Update(float _deltaTime)
@@ -40,6 +40,8 @@ bool Colider2D::Collision(Colider2D* _Other)
 	{
 		isCollision = _Other->AABB2DCircle2D(this);
 	}
+
+	_Other->isCollision = isCollision;
 	return isCollision;
 }
 

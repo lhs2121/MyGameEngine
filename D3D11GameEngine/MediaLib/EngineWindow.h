@@ -14,7 +14,7 @@ public:
 	EngineWindow& operator=(const EngineWindow& _Other) = delete;
 	EngineWindow& operator=(EngineWindow&& _Other) noexcept = delete;
 
-	void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, ICore* _Core) override;
+	void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, IEngine* _Core) override;
 	void MessageLoop() override;
 
 	const char* GetWindowTitle() override;
@@ -30,6 +30,6 @@ private:
 	float4       WindowSize;
 	HINSTANCE    hInst;
 	HWND         hWnd;
-	ICore*       Core;
+    IEngine*     pMainEngine;
 };
 

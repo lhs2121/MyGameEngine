@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "Object.h"
-#include "Level.h"
+#include "Scene.h"
 
 Object::Object()
 {
@@ -10,13 +10,13 @@ Object::~Object()
 {
 }
 
-Level* Object::GetLevel()
+Scene* Object::GetScene()
 {
 	if (pParent != nullptr)
 	{
-		return pParent->GetLevel();
+		return pParent->GetScene();
 	}
-	return (Level*)this;
+	return (Scene*)this;
 }
 
 

@@ -4,28 +4,18 @@
 #include <D3D11Lib/D3D11API.h>
 #include <GameLib/GameAPI.h>
 #include "Engine.h"
-#include "Level.h"
+#include "Scene.h"
 
-Level* Engine::CreateLevel(const char* _name, Level* _newLevel)
+void Engine::LoadScene(const char* _name)
 {
-	_newLevel->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
-	_newLevel->SetName(_name);
-	_newLevel->CreateCamera();
-	_newLevel->Awake();
-
-	allLevel.insert({ _name, _newLevel });
-	return _newLevel;
-}
-
-void Engine::ChangeLevel(const char* _name)
-{
-	if (allLevel.end() != allLevel.find(_name))
+	if (allScene.end() != allScene.find(_name))
 	{
-		pCurLevel = allLevel[_name];
+		pCurScene = allScene[_name];
+		pCurScene->AllGameObjectStart();
 	}
 }
 
-void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance, IGameStarter* _Starter)
+void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance, IGameStarter* _pGameStarter)
 {
 	CreateEngineWindow(&mainWindow);
 	mainWindow->Init(_windowTitle, _windowPos, _windowSize, _hInstance, this);
@@ -43,7 +33,7 @@ void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _wi
 	CreateEngineInput(&mainInput);
 	mainInput->Init();
 
-	pGameStarter = _Starter;
+	pGameStarter = _pGameStarter;
 	pGameStarter->GameStart(this);
 
 	mainTime->CountStart();
@@ -53,7 +43,7 @@ void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _wi
 
 void Engine::EngineUpdate()
 {
-	if (pCurLevel == nullptr)
+	if (pCurScene == nullptr)
 	{
 		return;
 	}
@@ -63,23 +53,24 @@ void Engine::EngineUpdate()
 	float deltaTime = mainTime->CountEnd();
 	mainTime->CountStart();
 
-	pCurLevel->Update(deltaTime);
-	pCurLevel->AllGameObjectUpdate(deltaTime);
+	pCurScene->Update(deltaTime);
+	pCurScene->AllGameObjectUpdate(deltaTime);
+	pCurScene->AllCollisionUpdate(deltaTime);
 
 	mainDevice->Clear();
 
-	pCurLevel->Render();
+	pCurScene->Render();
 
 	mainDevice->Present();
 }
 
 void Engine::EngineRelease()
 {
-	for (auto& level : allLevel)
+	for (auto& scene : allScene)
 	{
-		delete level.second;
+		delete scene.second;
 	}
-	allLevel.clear();
+	allScene.clear();
 	
 	DeleteEngineTime(mainTime);
 	DeleteEngineInput(mainInput);

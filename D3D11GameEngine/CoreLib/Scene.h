@@ -4,14 +4,16 @@
 #include "Camera.h"
 #include "Colider2D.h"
 
-class Level : public Object
+class Scene : public Object
 {
 public:
-	Level();
-	~Level();
+	Scene();
+	~Scene();
 
 	void Start() override;
+	void AllGameObjectStart();
 	void AllGameObjectUpdate(float _deltaTime);
+	void AllCollisionUpdate(float _deltaTime);
 	void Update(float _deltaTime) override;
 	void Render();
 
@@ -40,6 +42,6 @@ private:
 
 	std::map<int, std::list<GameObject*>> allGameObject;
 	std::list<Camera*> cameraList;
-	std::list<Colider2D*> collisionList;
+	std::vector<Colider2D*> collisionList;
 };
 

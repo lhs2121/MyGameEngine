@@ -164,7 +164,7 @@
     <ClInclude Include="GameStarter.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="TestLevel.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="GameAPI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +176,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="TestLevel.cpp" />
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="GameAPI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
