@@ -19,12 +19,17 @@ public:
 	T* CreateGameObject(int _order = 0)
 	{
 		GameObject* newGameObject = new T();
-		newGameObject->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
 		newGameObject->pParent = this;
+		newGameObject->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
 		newGameObject->Awake();
 
-		allGameObject.insert({ _order,newGameObject });
+		if (allGameObject.find(_order) == allGameObject.end())
+		{
+			std::list<GameObject*> newGameObjectList;
+			allGameObject.insert({ _order,std::move(newGameObjectList) });
+		}
 
+		allGameObject[_order].push_back(newGameObject);
 		return (T*)newGameObject;
 	}
 
@@ -33,7 +38,7 @@ public:
 	Camera*   GetMainCamera();
 private:
 
-	std::map<int, GameObject*> allGameObject;
+	std::map<int, std::list<GameObject*>> allGameObject;
 	std::list<Camera*> cameraList;
 	std::list<Colider2D*> collisionList;
 };

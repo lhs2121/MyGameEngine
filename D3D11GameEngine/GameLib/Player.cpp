@@ -1,7 +1,7 @@
 #include "Pre.h"
-#include "TestActor.h"
+#include "Player.h"
 
-void TestActor::Awake()
+void Player::Awake()
 {
 	EngineDirectory dir;
 	std::vector<EngineFile> files = dir.GetAllFileExt(".png");
@@ -20,7 +20,7 @@ void TestActor::Awake()
 
 }
 
-void TestActor::Update(float _deltaTime)
+void Player::Update(float _deltaTime)
 {
 	if (pColider2D->isCollision)
 	{

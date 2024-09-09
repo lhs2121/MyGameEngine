@@ -1,16 +1,16 @@
 #pragma once
 
 // Ό³Έν :
-class TestActor;
+class Player;
 class TestLevel : public Level
 {
 public:
 	void Awake() override;
 	void Update(float _deltaTime) override;
 
-	TestActor* a = nullptr;
-	TestActor* b = nullptr;
-	TestActor* c = nullptr;
-	TestActor* d = nullptr;
+	Player* a = nullptr;
+	Player* b = nullptr;
+	Player* c = nullptr;
+	Player* d = nullptr;
 };
 

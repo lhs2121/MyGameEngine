@@ -1,6 +1,6 @@
 #pragma once
 
-class TestActor : public GameObject
+class Player : public GameObject
 {
 public:
 	void Awake() override;

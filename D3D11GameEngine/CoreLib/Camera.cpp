@@ -7,9 +7,22 @@ void Camera::Awake()
 	windowSize = mainWindow->GetWindowSize();
 }
 
-void Camera::PushRenderer(Renderer* Renderer)
+void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)
 {
-	rendererList.push_back(Renderer);
+	if (rendererMap.find(_renderOrder) != rendererMap.end())
+	{
+		std::list<Renderer*> newRendererList;
+		rendererMap.insert({ _renderOrder, std::move(newRendererList) });
+	}
+	rendererMap[_renderOrder].push_back(_renderer);
+}
+
+void Camera::ChangeRenderOrder(Renderer* _renderer, int _afterOrder)
+{
+	int beforeOrder = _renderer->GetRenderOrder();
+	rendererMap[beforeOrder].remove(_renderer);
+
+	AddRenderer(_renderer, _afterOrder);
 }
 
 void Camera::Update(float _deltaTime)
@@ -30,9 +43,13 @@ void Camera::Render()
 		break;
 	}
 
-	for (auto renderer : rendererList)
+	for (auto& pair : rendererMap)
 	{
-		renderer->transform.SetWorldViewProjection(transform.viewMat, transform.projectionMat);
-		renderer->Render();
+		std::list<Renderer*> rendererList = pair.second;
+		for (Renderer* renderer : rendererList)
+		{
+			renderer->transform.SetWorldViewProjection(transform.viewMat, transform.projectionMat);
+			renderer->Render();
+		}
 	}
 }

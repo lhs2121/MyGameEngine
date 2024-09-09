@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "Component.h"
 
+class Camera;
 class  Renderer : public Component
 {
 public:
@@ -20,8 +21,12 @@ public:
 	void SetMesh(const char* _name);
 	void SetMaterial(const char* _name);
 	void SetTexture(const char* _Name);
-
+	void SetRenderOrder(int _order);
+	int GetRenderOrder() const { return renderOrder; }
 protected:
+	Camera* pCamera = nullptr;
+	int renderOrder = 0;
+
 	float4 imageScale;
 	IMesh* pMesh = nullptr;
 	IMaterial* pMaterial = nullptr;

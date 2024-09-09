@@ -9,7 +9,8 @@ Renderer::~Renderer()
 
 void Renderer::Awake()
 {
-	GetLevel()->GetMainCamera()->PushRenderer(this);
+	pCamera = GetLevel()->GetMainCamera(); 
+	pCamera->AddRenderer(this);
 
 	static int RendererTransformBufferCount = 0;
 	EngineString BufferName = "Transform_";
@@ -56,5 +57,11 @@ void Renderer::SetTexture(const char* _name)
 	imageScale = Texture->GetImageScale();
 	transform.SetlocalScale(imageScale);
 	pMaterial->SetTexture(_name);
+}
+
+void Renderer::SetRenderOrder(int _order)
+{
+	pCamera->ChangeRenderOrder(this, _order);
+	renderOrder = _order;
 }
 

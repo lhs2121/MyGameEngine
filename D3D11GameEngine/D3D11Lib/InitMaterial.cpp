@@ -61,7 +61,7 @@ void Device::InitMaterial(IResManager* pManager)
 
 	{
 		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
-		Desc.DepthEnable = true;
+		Desc.DepthEnable = false;
 		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 		Desc.DepthFunc = D3D11_COMPARISON_LESS;
 		Desc.StencilEnable = false;

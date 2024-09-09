@@ -1,12 +1,16 @@
 #include "Pre.h"
 #include "TestLevel.h"
-#include "TestActor.h"
+#include "Player.h"
 
 void TestLevel::Awake()
 {
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
-	a = CreateGameObject<TestActor>(1);
-	a->transform.SetPos({ 0,150 });
+	a = CreateGameObject<Player>();
+	b = CreateGameObject<Player>();
+	b->transform.SetPos({ 150,150 });
+
+	auto c = a->GetComponent<Renderer>();
+	c->SetRenderOrder(500);
 
 	mainInput->AddUser(a);
 }

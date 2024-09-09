@@ -7,11 +7,11 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	for (GameObject* Child : ChildList)
+	for (GameObject* Child : childList)
 	{
 		delete Child;
 	}
-	for (Object* Child : ComponentList)
+	for (Object* Child : componentList)
 	{
 		delete Child;
 	}
@@ -21,12 +21,12 @@ void GameObject::ChildUpdate(float _deltaTime)
 {
 	Update(_deltaTime);
 
-	for (Object* Child : ComponentList)
+	for (Object* Child : componentList)
 	{
 		Child->Update(_deltaTime);
 	}
 
-	for (GameObject* Child : ChildList)
+	for (GameObject* Child : childList)
 	{
 		Child->ChildUpdate(_deltaTime);
 	}
@@ -38,12 +38,12 @@ void GameObject::SetParent(GameObject* _pParent)
 	{
 		GameObject* pCastParent = (GameObject*)pParent;
 
-		pCastParent->ChildList.remove(this);
+		pCastParent->childList.remove(this);
 
 		pParent->transform.childTransformList.remove(&this->transform);
 	}
 
-	_pParent->ChildList.push_back(this);
+	_pParent->childList.push_back(this);
 
 	pParent = _pParent;
 
@@ -54,7 +54,7 @@ void GameObject::SetParent(GameObject* _pParent)
 
 GameObject* GameObject::GetChild(int _num)
 {
-	size_t Count = ChildList.size();
+	size_t Count = childList.size();
 
 	if (Count == 0)
 	{
@@ -66,7 +66,7 @@ GameObject* GameObject::GetChild(int _num)
 		return nullptr;
 	}
 
-	auto iter = ChildList.begin();
+	auto iter = childList.begin();
 	std::advance(iter, _num);
 
 	return *iter;
@@ -74,7 +74,7 @@ GameObject* GameObject::GetChild(int _num)
 
 GameObject* GameObject::GetChild(const char* _name)
 {
-	for (GameObject* Child : ChildList)
+	for (GameObject* Child : childList)
 	{
 		if (Child->name == _name)
 		{

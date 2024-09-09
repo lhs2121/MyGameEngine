@@ -11,8 +11,11 @@ Level::~Level()
 {
 	for (auto& pair: allGameObject)
 	{
-		GameObject* curGameObject = pair.second;
-		delete curGameObject;
+		std::list<GameObject*> curGameObjectList = pair.second;
+		for (GameObject* curGameObject : curGameObjectList)
+		{
+			delete curGameObject;
+		}
 	}
 	allGameObject.clear();
 }
@@ -36,8 +39,11 @@ void Level::AllGameObjectUpdate(float _deltaTime)
 {
 	for (auto& pair : allGameObject)
 	{
-		GameObject* curObject = pair.second;
-		curObject->ChildUpdate(_deltaTime);
+		std::list<GameObject*> curGameObjectList = pair.second;
+		for (GameObject* curGameObject : curGameObjectList)
+		{
+			curGameObject->ChildUpdate(_deltaTime);
+		}
 	}
 }
 

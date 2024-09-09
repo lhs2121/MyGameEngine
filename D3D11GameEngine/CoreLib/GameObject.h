@@ -28,16 +28,30 @@ public:
 	template<typename T>
 	T* AddComponent()
 	{
-		Component* newComponent = new T();
-		newComponent->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
-		newComponent->pParent = this;
-		newComponent->Awake();
+		Component* newComp = new T();
+		newComp->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
+		newComp->pParent = this;
+		newComp->Awake();
 
-		transform.childTransformList.push_back(&newComponent->transform);
-		newComponent->transform.parentTransform = &transform;
+		transform.childTransformList.push_back(&newComp->transform);
+		newComp->transform.parentTransform = &transform;
 
-		ComponentList.push_back(newComponent);
-		return (T*)newComponent;
+		componentList.push_back(newComp);
+		return (T*)newComp;
+	}
+
+	template<typename T>
+	T* GetComponent()
+	{
+		for(Component* comp : componentList)
+		{
+			T* castComp = dynamic_cast<T*>(comp);
+			if (nullptr != castComp)
+			{
+				return castComp;
+			}
+		}
+		return nullptr;
 	}
 
 	void ChildUpdate(float _deltaTime);
@@ -46,7 +60,7 @@ public:
 	GameObject* GetChild(int _num);
 	GameObject* GetChild(const char* _name);
 
-
-	std::list<Component*> ComponentList;
-	std::list<GameObject*> ChildList;
+private:
+	std::list<Component*> componentList;
+	std::list<GameObject*> childList;
 };
