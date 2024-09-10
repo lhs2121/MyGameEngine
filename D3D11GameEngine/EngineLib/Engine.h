@@ -1,5 +1,5 @@
 #pragma once
-#include "CoreAPI.h"
+#include "EngineAPI.h"
 #include "Scene.h"
 
 struct IGameStarter;
@@ -20,7 +20,7 @@ public:
 		return (T*)newScene;
 	}
 	void LoadScene(const char* _name);
-	void EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance, IGameStarter* _pGameStarter) override;
+	void EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance) override;
 	void EngineUpdate() override;
 	void EngineRelease() override;
 
@@ -34,4 +34,5 @@ private:
 	IEngineInput* mainInput = nullptr;
 	IDevice* mainDevice = nullptr;
 	IResManager* mainResManager = nullptr;
+
 };

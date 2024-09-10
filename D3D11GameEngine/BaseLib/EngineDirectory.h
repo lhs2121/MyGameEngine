@@ -12,9 +12,11 @@ public:
 	void GoChild(const char* ChildPath);
 	void GoBase();
 
+	EngineFile GetFile(const char* _name = nullptr);
 	std::vector<EngineFile> GetAllFile();
 	std::vector<EngineFile> GetAllFileExt(const char* _Ext);
 
+	void Normalize();
 private:
 	static EngineString BaseDir;
 	EngineString Path;

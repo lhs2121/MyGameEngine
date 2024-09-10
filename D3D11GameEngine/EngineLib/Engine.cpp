@@ -15,7 +15,7 @@ void Engine::LoadScene(const char* _name)
 	}
 }
 
-void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance, IGameStarter* _pGameStarter)
+void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance)
 {
 	CreateEngineWindow(&mainWindow);
 	mainWindow->Init(_windowTitle, _windowPos, _windowSize, _hInstance, this);
@@ -33,7 +33,7 @@ void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _wi
 	CreateEngineInput(&mainInput);
 	mainInput->Init();
 
-	pGameStarter = _pGameStarter;
+	CreateGameStarter(&pGameStarter);
 	pGameStarter->GameStart(this);
 
 	mainTime->CountStart();
@@ -77,6 +77,7 @@ void Engine::EngineRelease()
 	DeleteEngineInput(mainInput);
 	DeleteResManager(mainResManager);
 	DeleteEngineWindow(mainWindow);
+	DeleteGameStarter(pGameStarter);
 	EngineString::DeleteAllStringPool();
 }
 

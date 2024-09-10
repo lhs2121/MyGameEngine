@@ -51,6 +51,15 @@ void SpriteRenderer::Render()
 	Renderer::Render();
 }
 
+void SpriteRenderer::SetTexture(const char* _name)
+{
+	ITexture* texture = (ITexture*)mainResManager->Find(ResType::Texture, _name);
+	pMaterial->SetTexture(_name);
+
+	float4 imageScale = texture->GetImageScale();
+	transform.SetlocalScale(imageScale);
+}
+
 void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
 {
 	ppSpriteDatas = new SpriteData * [_SpriteCountY];

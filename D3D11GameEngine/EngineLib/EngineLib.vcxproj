@@ -24,6 +24,7 @@
     <ProjectGuid>{f66d3ead-9659-4fe3-a20f-f5555432d9ef}</ProjectGuid>
     <RootNamespace>CoreLib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>EngineLib</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -125,7 +126,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);CoreLib</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);EngineLib</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -163,7 +164,7 @@
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="CoreAPI.h" />
+    <ClInclude Include="EngineAPI.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="RigidBody2D.h" />

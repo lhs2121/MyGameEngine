@@ -17,10 +17,10 @@
 #define MediaAPI __declspec(dllimport)
 #endif
 
-#ifdef CoreLib
-#define CoreAPI __declspec(dllexport)
+#ifdef EngineLib
+#define EngineAPI __declspec(dllexport)
 #else 
-#define CoreAPI __declspec(dllimport)
+#define EngineAPI __declspec(dllimport)
 #endif
 
 #ifdef CollisionLib

@@ -10,7 +10,7 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{27cbf18e-e187-4098-babe-62acddfb5b1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ObjectExt">
+    <Filter Include="ObjectEssential">
       <UniqueIdentifier>{8e3d5268-68bf-4a19-a201-3cdf8abdf48b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -22,24 +22,24 @@
       <Filter>Transform</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="CoreAPI.h" />
+    <ClInclude Include="EngineAPI.h" />
     <ClInclude Include="Object.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Colider2D.h">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody2D.h">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Object</Filter>
@@ -63,19 +63,19 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Colider2D.cpp">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="RigidBody2D.cpp">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>ObjectExt</Filter>
+      <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Object</Filter>

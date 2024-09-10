@@ -51,12 +51,6 @@ void Renderer::SetMaterial(const char* _name)
 	pIA = mainResManager->GenerateInputLayout(pMesh, pMaterial);
 }
 
-void Renderer::SetTexture(const char* _name)
-{
-	ITexture* Texture = (ITexture*)mainResManager->Find(ResType::Texture, _name);
-	pMaterial->SetTexture(_name);
-}
-
 void Renderer::SetRenderOrder(int _order)
 {
 	pCamera->ChangeRenderOrder(this, _order);

@@ -1,19 +1,15 @@
 #include "Pre.h"
 #include "Player.h"
+#include "Resource.h"
 
 void Player::Awake()
 {
-	EngineDirectory dir;
-	std::vector<EngineFile> files = dir.GetAllFileExt(".png");
+	Resource::mainResourceManager = mainResManager;
+	ITexture* tex = Resource::Load<ITexture>("Sample.png");
 
-	if (nullptr == mainResManager->Find(ResType::Texture, "TestTexture"))
-	{
-		ITexture* tex = (ITexture*)mainResManager->CreateResource(ResType::Texture, "TestTexture");
-		tex->Setting(files[0]);
-	}
 	pSpriteRenderer = AddComponent<SpriteRenderer>();
 	pSpriteRenderer->SetMesh("Box3D");
-	pSpriteRenderer->SetTexture("TestTexture");
+	pSpriteRenderer->GetMaterial()->SetTexture("Sample");
 	pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
 
 	pColider2D = AddComponent<Colider2D>();
@@ -42,27 +38,27 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyPress('W'))
 	{
-		transform.AddPos({ 0,10 * _deltaTime,0 });
+		transform.AddPos({ 0,5 * _deltaTime,0 });
 	}
 	if (GetKeyPress('A'))
 	{
-		transform.AddPos({ -10 * _deltaTime,0,0 });
+		transform.AddPos({ -5 * _deltaTime,0,0 });
 	}
 	if (GetKeyPress('S'))
 	{
-		transform.AddPos({ 0,-10 * _deltaTime,0 });
+		transform.AddPos({ 0,-5 * _deltaTime,0 });
 	}
 	if (GetKeyPress('D'))
 	{
-		transform.AddPos({ 10 * _deltaTime,0,0 });
+		transform.AddPos({ 5 * _deltaTime,0,0 });
 	}
 	if (GetKeyPress('Q'))
 	{
-		transform.AddPos({ 0,0,10 * _deltaTime });
+		transform.AddPos({ 0,0,20 * _deltaTime });
 	}
 	if (GetKeyPress('E'))
 	{
-		transform.AddPos({ 0,0,-10 * _deltaTime });
+		transform.AddPos({ 0,0,-20 * _deltaTime });
 	}
 	if (GetKeyDown('R'))
 	{

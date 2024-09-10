@@ -60,6 +60,24 @@ void EngineDirectory::GoBase()
 
 }
 
+EngineFile EngineDirectory::GetFile(const char* _name)
+{
+	std::filesystem::path stdPath = Path.c_str();
+	if (_name != nullptr)
+	{
+		stdPath /= _name;
+	}
+
+	if (std::filesystem::exists(stdPath) == false)
+	{
+		EngineDebug::MsgBoxAssert("해당 파일이 없습니다");
+	}
+
+	Path = stdPath.string().c_str();
+	Normalize();
+	return EngineFile(Path.c_str());
+}
+
 std::vector<EngineFile> EngineDirectory::GetAllFile()
 {
 	std::vector<EngineFile> AllFile;
@@ -102,5 +120,18 @@ std::vector<EngineFile> EngineDirectory::GetAllFileExt(const char* _Ext)
 	}
 
 	return AllFile;
+}
+
+void EngineDirectory::Normalize()
+{
+	char* c = (char*)Path.c_str();
+	while (*c != '\0')
+	{
+		if (*c == '\\')
+		{
+			*c = '/';
+		}
+		c++;
+	}
 }
 

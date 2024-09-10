@@ -5,13 +5,13 @@
 #include <BaseLib/EngineMath.h> 
 #include <D3D11Lib/D3D11API.h>
 #include <MediaLib/MediaAPI.h>
-#include <CoreLib/CoreAPI.h>
+#include <EngineLib/EngineAPI.h>
 #include <GameLib/GameAPI.h>
 
-#include <CoreLib/Engine.h>
+#include <EngineLib/Engine.h>
 #pragma comment(lib,"BaseLib.lib")
-#pragma comment(lib,"CoreLib.lib")
 #pragma comment(lib,"GameLib.lib")
+#pragma comment(lib,"EngineLib.lib")
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -20,11 +20,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
 	//EngineDebug::CrtSetBreakAlloc(385);
 	EngineDebug::CrtSetDbgFlag();
-	IGameStarter* Starter;
-	CreateGameStarter(&Starter);
 
 	Engine MainEngine;
-	MainEngine.EngineStart("GameEngine", { 50,50 }, { 1366,789 }, hInstance, Starter);
-
-	DeleteGameStarter(Starter);
+	MainEngine.EngineStart("GameEngine", { 50,50 }, { 1366,789 }, hInstance);
 }

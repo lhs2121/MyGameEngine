@@ -1,5 +1,5 @@
 @echo off
-set SolutionFile=%~dp0\CoreLib\CoreLib.sln
+set SolutionFile=%~dp0\EngineLib\EngineLib.sln
 
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsMSBuildCmd.bat" -arch=x64
 msbuild "%SolutionFile%" /p:Configuration=Debug /p:Platform=x64

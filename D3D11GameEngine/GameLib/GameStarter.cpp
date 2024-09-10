@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "GameStarter.h"
-#include <CoreLib/Engine.h>
+#include <EngineLib/Engine.h>
 #include "TestScene.h"
 
 void GameStarter::GameStart(IEngine* MainCore)

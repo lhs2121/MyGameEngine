@@ -7,14 +7,16 @@ struct SpriteData
 	float2 Offset = { 0.0f,0.0f };
 };
 
-class  SpriteRenderer : public Renderer
+class SpriteRenderer : public Renderer
 {
 public:
+	SpriteRenderer() = default;
 	~SpriteRenderer();
 
 	void Awake() override;
 	void Update(float _deltaTime) override;
 	void Render() override;
+	void SetTexture(const char* _Name);
 
 	void CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime);
 private:

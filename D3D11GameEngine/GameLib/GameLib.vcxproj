@@ -164,6 +164,7 @@
     <ClInclude Include="GameStarter.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="GameAPI.h" />
   </ItemGroup>
@@ -176,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="GameAPI.cpp" />
   </ItemGroup>

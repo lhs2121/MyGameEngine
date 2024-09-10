@@ -27,7 +27,7 @@ EngineString EngineFile::GetFileName()
 	Header += ByteSize;
 	while (true)
 	{
-		if (*(Header - 1) == '\\')
+		if (*(Header - 1) == '\\' || *(Header - 1) == '/')
 		{
 			break;
 		}

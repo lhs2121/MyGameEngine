@@ -20,7 +20,7 @@ public:
 
 	void SetMesh(const char* _name);
 	void SetMaterial(const char* _name);
-	void SetTexture(const char* _Name);
+
 	void SetRenderOrder(int _order);
 	int GetRenderOrder() const { return renderOrder; }
 protected:
