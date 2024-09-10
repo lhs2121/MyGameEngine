@@ -138,5 +138,12 @@ struct IResManager
 	virtual IInputLayout* GenerateInputLayout(IMesh* _Mesh, IMaterial* _Material) = 0;
 };
 
+struct STexture;
+namespace Resource
+{
+	extern "C" D3D11API STexture* CreateTexture(const char* _path);
+}
+
+
 extern "C" D3D11API void CreateResManager(IResManager** ppIResManager);
 extern "C" D3D11API void DeleteResManager(IResManager* pIResManager);
