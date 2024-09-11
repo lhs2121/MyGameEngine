@@ -20,7 +20,7 @@ public:
 		return (T*)newScene;
 	}
 	void LoadScene(const char* _name);
-	void EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance) override;
+	void EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, SceneManager* _pManager) override;
 	void EngineUpdate() override;
 	void EngineRelease() override;
 

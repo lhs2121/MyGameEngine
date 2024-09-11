@@ -12,11 +12,9 @@ void Renderer::Awake()
 	pCamera = scene->GetMainCamera();
 	pCamera->AddRenderer(this);
 
-	static int tbCount = 0;
-	EngineString name = "Transform_";
-	name += tbCount;
-	tbCount++;
+	Naming::AddName("Transform");
 
+	EngineString name = Naming::GetName("Transform");
 	pTransformBuffer = Resource::CreateConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box3D");

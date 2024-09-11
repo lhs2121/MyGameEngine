@@ -4,3 +4,4 @@
 #include <BaseLib\BaseAPI.h>
 #include <ResourceLib\ResourceAPI.h>
 #include <MediaLib\MediaAPI.h>
+#include "Naming.h"

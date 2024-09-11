@@ -1,12 +1,13 @@
 #include <Windows.h>
 #include <common/declspec.h>
 #include <common/commonPre.h>
+
 #include <BaseLib/EngineDebug.h>
-#include <BaseLib/EngineMath.h> 
 #include <MediaLib/MediaAPI.h>
 #include <ResourceLib/ResourceAPI.h>
 #include <EngineLib/Engine.h>
-#pragma comment(lib,"BaseLib.lib")
+#include <GameLib/GameSceneManager.h>
+
 #pragma comment(lib,"MediaLib.lib")
 #pragma comment(lib,"EngineLib.lib")
 #pragma comment(lib,"GameLib.lib")
@@ -19,6 +20,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//EngineDebug::CrtSetBreakAlloc(761);
 	EngineDebug::CrtSetDbgFlag();
 
+	GameSceneManager sceneManager;
 	Engine mainEngine;
-	mainEngine.EngineStart("GameEngine", { 50,50 }, { 1366,789 }, hInstance);
+	mainEngine.EngineStart("GameEngine", 50, 50, 1366, 789, hInstance, &sceneManager);
 }

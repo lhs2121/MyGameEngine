@@ -13,6 +13,9 @@
     <Filter Include="ObjectEssential">
       <UniqueIdentifier>{8e3d5268-68bf-4a19-a201-3cdf8abdf48b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{5af607b8-8fe1-47e5-91be-f59b3057625e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -50,6 +53,12 @@
     <ClInclude Include="Scene.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="Naming.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -85,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Naming.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

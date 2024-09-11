@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -161,14 +161,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameStarter.h" />
+    <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestScene.h" />
-    <ClInclude Include="GameAPI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameStarter.cpp" />
+    <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -177,7 +176,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TestScene.cpp" />
-    <ClCompile Include="GameAPI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

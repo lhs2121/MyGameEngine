@@ -1,9 +1,10 @@
 #include "Pre.h"
 #include <BaseLib/BaseAPI.h>
 #include <MediaLib/MediaAPI.h>
-#include <GameLib/GameAPI.h>
 #include "Engine.h"
 #include "Scene.h"
+#include "Naming.h"
+#include "SceneManager.h"
 
 void Engine::LoadScene(const char* _name)
 {
@@ -14,14 +15,16 @@ void Engine::LoadScene(const char* _name)
 	}
 }
 
-void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _windowSize, HINSTANCE _hInstance)
+void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, SceneManager* _pSceneManager)
 {
+	Naming::Create();
+
 	CreateEngineWindow(&mainWindow);
-	mainWindow->Init(_windowTitle, _windowPos, _windowSize, _hInstance, this);
+	mainWindow->Init(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
 
 	
 	CreateDevice(&mainDevice);
-	mainDevice->Init(mainWindow->GethWnd(), _windowSize);
+	mainDevice->Init(mainWindow->GethWnd(), { _windowSizeX ,_windowSizeY });
 	mainDevice->InitMesh();
 	mainDevice->InitMaterial();
 
@@ -31,8 +34,7 @@ void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _wi
 	CreateEngineInput(&mainInput);
 	mainInput->Init();
 
-	CreateGameStarter(&pGameStarter);
-	pGameStarter->GameStart(this);
+	_pSceneManager->CreateAllScene(this);
 
 	mainTime->CountStart();
 
@@ -71,12 +73,12 @@ void Engine::EngineRelease()
 	}
 	allScene.clear();
 	
+	Naming::Delete();
 	DeleteEngineTime(mainTime);
 	DeleteEngineInput(mainInput);
 	DeleteDevice(mainDevice);
-	Resource::DeleteAllResource();
 	DeleteEngineWindow(mainWindow);
-	DeleteGameStarter(pGameStarter);
+ 	Resource::DeleteAllResource();
 	EngineString::DeleteAllStringPool();
 }
 
