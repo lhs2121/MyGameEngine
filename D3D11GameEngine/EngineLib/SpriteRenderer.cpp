@@ -59,6 +59,11 @@ void SpriteRenderer::SetTexture(const char* _name)
 
 void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
 {
+	if (pMaterial->pTexture == nullptr)
+	{
+		EngineDebug::MsgBoxAssert("먼저 텍스처를 세팅하세요.");
+	}
+
 	ppSpriteDatas = new SpriteData * [_SpriteCountY];
 
 	for (int i = 0; i < _SpriteCountY; i++)

@@ -6,7 +6,7 @@
 #include <MediaLib/MediaAPI.h>
 #include <ResourceLib/ResourceAPI.h>
 #include <EngineLib/Engine.h>
-#include <GameLib/GameSceneManager.h>
+#include <GameLib/GameInitializer.h>
 
 #pragma comment(lib,"MediaLib.lib")
 #pragma comment(lib,"EngineLib.lib")
@@ -20,7 +20,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//EngineDebug::CrtSetBreakAlloc(761);
 	EngineDebug::CrtSetDbgFlag();
 
-	GameSceneManager sceneManager;
+	GameInitializer gameInit;
 	Engine mainEngine;
-	mainEngine.EngineStart("GameEngine", 50, 50, 1366, 789, hInstance, &sceneManager);
+	mainEngine.EngineStart("GameEngine", 50, 50, 1366, 789, hInstance, &gameInit);
 }

@@ -4,7 +4,7 @@
 #include "Engine.h"
 #include "Scene.h"
 #include "Naming.h"
-#include "SceneManager.h"
+#include "Initializer.h"
 
 void Engine::LoadScene(const char* _name)
 {
@@ -15,7 +15,7 @@ void Engine::LoadScene(const char* _name)
 	}
 }
 
-void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, SceneManager* _pSceneManager)
+void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, Initializer* pGameInit)
 {
 	Naming::Create();
 
@@ -34,7 +34,7 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 	CreateEngineInput(&mainInput);
 	mainInput->Init();
 
-	_pSceneManager->CreateAllScene(this);
+	pGameInit->CreateAllScene(this);
 
 	mainTime->CountStart();
 

@@ -56,7 +56,7 @@
     <ClInclude Include="Naming.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
+    <ClInclude Include="Initializer.h">
       <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,5 +98,8 @@
     <ClCompile Include="Naming.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />
   </ItemGroup>
 </Project>

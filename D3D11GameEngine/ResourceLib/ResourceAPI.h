@@ -21,7 +21,7 @@ extern "C" ResourceAPI void DeleteDevice(IDevice* ppIDevice);
 
 namespace Resource
 {
-	extern "C" ResourceAPI Texture*        CreateTexture(const char* _path, const char* _name = nullptr);
+	extern "C" ResourceAPI Texture*        CreateTexture(const char* _path);
 	extern "C" ResourceAPI VertexBuffer*   CreateVertexBuffer(const char* _name, void* pVertexStruct, UINT _structSize, UINT _formatSize);
 	extern "C" ResourceAPI IndexBuffer*    CreateIndexBuffer(const char* _name, void* pIndexStruct, UINT _structSize);
 	extern "C" ResourceAPI InputLayout *   CreateInputLayout(const char* _name, VertexShader* _pShader);

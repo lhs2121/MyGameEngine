@@ -24,8 +24,27 @@ DepthStencil* Resource::CreateDepthStencil(const char* _name, D3D11_DEPTH_STENCI
 	return newDepthStencil;
 }
 
-Texture* Resource::CreateTexture(const char* _path, const char* _name)
+Texture* Resource::CreateTexture(const char* _path)
 {
+	char* name;
+
+
+		name = (char*)_path;
+		size_t len = strlen(_path);
+		name += len;
+		while (*name != '/')
+		{
+			name--;
+		}
+		name++;
+	
+
+	if (ResourceContainer<Texture>::Resources.find(name) != ResourceContainer<Texture>::Resources.end())
+	{
+		return ResourceContainer<Texture>::Find(name);
+	}
+
+
 	Texture* newTex = new Texture();
 
 	int wideStrSize = MultiByteToWideChar(CP_ACP, 0, _path, -1, NULL, 0);
@@ -44,24 +63,6 @@ Texture* Resource::CreateTexture(const char* _path, const char* _name)
 	}
 
 	delete[] wideStr;
-
-	char* name;
-
-	if (_name != nullptr)
-	{
-		name = (char*)_name;
-	}
-	else
-	{
-		name = (char*)_path;
-		size_t len = strlen(_path);
-		name += len;
-		while (*name != '/')
-		{
-			name--;
-		}
-		name++;
-	}
 
 	ResourceContainer<Texture>::Resources.insert({ name, newTex });
 	newTex->name = name;
@@ -120,4 +121,4 @@ Material* Resource::CreateMaterial(const char* _name)
 
 	ResourceContainer<Material>::Resources.insert({ _name, newMaterial });
 	return newMaterial;
-}
+}	

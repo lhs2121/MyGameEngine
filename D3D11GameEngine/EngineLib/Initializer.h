@@ -1,7 +1,7 @@
 #pragma once
 
 class Engine;
-struct SceneManager
+struct Initializer
 {
 	virtual void CreateAllScene(Engine* pMainEngine) = 0;
 };

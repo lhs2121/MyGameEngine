@@ -11,3 +11,4 @@ void Naming::Delete()
 {
 	delete mainNaming;
 }
+			

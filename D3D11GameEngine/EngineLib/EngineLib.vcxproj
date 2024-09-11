@@ -169,7 +169,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="Naming.h" />
-    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Initializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -193,6 +193,9 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="RigidBody2D.cpp" />
     <ClCompile Include="Naming.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

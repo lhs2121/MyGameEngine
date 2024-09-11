@@ -7,8 +7,8 @@ void Device::InitMaterial()
 {
 	{
 		EngineDirectory dir;
-
-		dir.GoChild("EngineShader");
+		dir.GoChild("Assets");
+		dir.GoChild("Shaders");
 		std::vector<EngineFile> allShaderFile = dir.GetAllFileExt(".fx");
 
 		for (EngineFile& shaderFile : allShaderFile)

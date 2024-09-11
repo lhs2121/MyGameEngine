@@ -38,7 +38,7 @@ public:
 		newComp->transform.parentTransform = &transform;
 
 		componentList.push_back(newComp);
-		return (T*)newComp;
+		return (T*)newComp; 
 	}
 
 	template<typename T>
