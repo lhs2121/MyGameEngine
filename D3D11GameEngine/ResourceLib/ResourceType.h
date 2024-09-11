@@ -9,8 +9,8 @@ struct Named
 
 struct CanDraw : public Named
 {
-	void SetContext(ID3D11DeviceContext* _pContext) { pContext = _pContext; }
 	virtual void Draw() {};
+	void SetContext(ID3D11DeviceContext* _pContext) { pContext = _pContext; }
 
 protected:
 	ID3D11DeviceContext* pContext = nullptr;
@@ -20,6 +20,12 @@ struct VertexBuffer : public Named
 	ID3D11Buffer* pBuffer = nullptr;
 	UINT strides;
 	UINT offsets;
+
+
+	~VertexBuffer()
+	{
+		pBuffer->Release();
+	}
 };
 
 struct IndexBuffer : public Named
@@ -28,18 +34,38 @@ struct IndexBuffer : public Named
 	UINT count;
 	UINT strides;
 	UINT offsets;
+
+
+	~IndexBuffer()
+	{
+		pBuffer->Release();
+	}
 };
 
 struct VertexShader : public Named
 {
 	ID3DBlob* pBlob = nullptr;
 	ID3D11VertexShader* pShader = nullptr;
+
+
+	~VertexShader()
+	{
+		pBlob->Release();
+		pShader->Release();
+	}
 };
 
 struct PixelShader : public Named
 {
 	ID3DBlob* pBlob = nullptr;
 	ID3D11PixelShader* pShader = nullptr;
+
+
+	~PixelShader()
+	{
+		pBlob->Release();
+		pShader->Release();
+	}
 };
 
 struct InputLayout : public CanDraw
@@ -50,18 +76,36 @@ struct InputLayout : public CanDraw
 	}
 	std::vector<D3D11_INPUT_ELEMENT_DESC> desc;
 	ID3D11InputLayout* pLayout = nullptr;
+
+
+	~InputLayout()
+	{
+		pLayout->Release();
+	}
 };
 
 struct Rasterizer : public Named
 {
 	D3D11_RASTERIZER_DESC desc;
 	ID3D11RasterizerState* pState = nullptr;
+
+
+	~Rasterizer()
+	{
+		pState->Release();
+	}
 };
 
 struct DepthStencil : public Named
 {
 	D3D11_DEPTH_STENCIL_DESC desc;
 	ID3D11DepthStencilState* pState = nullptr;
+
+
+	~DepthStencil()
+	{
+		pState->Release();
+	}
 };
 
 enum class ShaderType
@@ -98,6 +142,12 @@ struct ConstantBuffer : public CanDraw
 			break;
 		}
 	}
+
+
+	~ConstantBuffer()
+	{
+		pBuffer->Release();
+	}
 };
 
 struct Texture : public Named
@@ -105,11 +155,23 @@ struct Texture : public Named
 	ID3D11ShaderResourceView* pShaderResourceView = nullptr;
 	DirectX::ScratchImage scratchImage;
 	DirectX::TexMetadata metaData;
+
+
+	~Texture()
+	{
+		pShaderResourceView->Release();
+	}
 };
 
 struct Sampler : public Named
 {
 	ID3D11SamplerState* pState = nullptr;
+
+
+	~Sampler()
+	{
+		pState->Release();
+	}
 };
 
 struct Mesh : public CanDraw

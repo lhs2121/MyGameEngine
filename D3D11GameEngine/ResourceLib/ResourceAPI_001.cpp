@@ -71,7 +71,7 @@ InputLayout* Resource::CreateInputLayout(const char* _name, VertexShader* _pShad
 		EngineDebug::MsgBoxAssert("인풋레이아웃 생성 실패.");
 	}
 
-	ResourceContainer<InputLayout>::Resources.insert({ _name, newLayout });
+	ResourceContainer<InputLayout>::Resources.insert(std::make_pair(_name,newLayout));
 
 	return newLayout;
 }

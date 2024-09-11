@@ -6,7 +6,7 @@ void Player::Awake()
 	Texture* tex = Resource::CreateTexture("F:/MyGameEngine/D3D11GameEngine/Test.png");
 	pSpriteRenderer = AddComponent<SpriteRenderer>();
 	pSpriteRenderer->GetMaterial()->pTexture = tex;
-	pSpriteRenderer->CreateAnimation(1, 1, 1.0f);
+	pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
 	pColider2D = AddComponent<Colider2D>();
 	pColider2D->SetColScale({ 1,1,1,1 });
 

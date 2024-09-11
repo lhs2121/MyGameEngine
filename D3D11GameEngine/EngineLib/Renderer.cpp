@@ -12,17 +12,23 @@ void Renderer::Awake()
 	pCamera = scene->GetMainCamera();
 	pCamera->AddRenderer(this);
 
-	static int RendererTransformBufferCount = 0;
-	EngineString BufferName = "Transform_";
-	BufferName += RendererTransformBufferCount;
-	RendererTransformBufferCount++;
+	static int tbCount = 0;
+	EngineString name = "Transform_";
+	name += tbCount;
+	tbCount++;
 
-	pTransformBuffer = Resource::CreateConstantBuffer(BufferName.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
+	pTransformBuffer = Resource::CreateConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box3D");
 	pMaterial = Resource::FindMaterial("Sprite2D");
-
-	pIA = Resource::CreateInputLayout("POSITION_TEXCOORD", pMaterial->pVertexShader);
+	
+	
+	pIA = Resource::FindInputLayout("POSITION_TEXCOORD");
+	if (pIA == nullptr)
+	{
+		pIA = Resource::CreateInputLayout("POSITION_TEXCOORD", pMaterial->pVertexShader);
+	}
+	
 }
 
 void Renderer::Update(float _deltaTime)

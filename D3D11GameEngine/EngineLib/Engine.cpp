@@ -74,6 +74,7 @@ void Engine::EngineRelease()
 	DeleteEngineTime(mainTime);
 	DeleteEngineInput(mainInput);
 	DeleteDevice(mainDevice);
+	Resource::DeleteAllResource();
 	DeleteEngineWindow(mainWindow);
 	DeleteGameStarter(pGameStarter);
 	EngineString::DeleteAllStringPool();
