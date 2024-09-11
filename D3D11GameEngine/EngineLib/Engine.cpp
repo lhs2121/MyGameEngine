@@ -1,7 +1,6 @@
 #include "Pre.h"
 #include <BaseLib/BaseAPI.h>
 #include <MediaLib/MediaAPI.h>
-#include <D3D11Lib/D3D11API.h>
 #include <GameLib/GameAPI.h>
 #include "Engine.h"
 #include "Scene.h"
@@ -20,12 +19,11 @@ void Engine::EngineStart(const char* _windowTitle, float4 _windowPos, float4 _wi
 	CreateEngineWindow(&mainWindow);
 	mainWindow->Init(_windowTitle, _windowPos, _windowSize, _hInstance, this);
 
-	CreateResManager(&mainResManager);
-	mainResManager->CreateDevice(&mainDevice);
-
+	
+	CreateDevice(&mainDevice);
 	mainDevice->Init(mainWindow->GethWnd(), _windowSize);
-	mainDevice->InitMesh(mainResManager);
-	mainDevice->InitMaterial(mainResManager);
+	mainDevice->InitMesh();
+	mainDevice->InitMaterial();
 
 	CreateEngineTime(&mainTime);
 	mainTime->Init();
@@ -75,7 +73,7 @@ void Engine::EngineRelease()
 	
 	DeleteEngineTime(mainTime);
 	DeleteEngineInput(mainInput);
-	DeleteResManager(mainResManager);
+	DeleteDevice(mainDevice);
 	DeleteEngineWindow(mainWindow);
 	DeleteGameStarter(pGameStarter);
 	EngineString::DeleteAllStringPool();

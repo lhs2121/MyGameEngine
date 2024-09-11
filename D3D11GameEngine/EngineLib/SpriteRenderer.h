@@ -33,7 +33,7 @@ private:
 
 	SpriteData** ppSpriteDatas = nullptr;
 	SpriteData curSpriteData;
-	IConstantBuffer* pSpriteDataBuffer = nullptr;
+	ConstantBuffer* pSpriteDataBuffer = nullptr;
 };
 
 

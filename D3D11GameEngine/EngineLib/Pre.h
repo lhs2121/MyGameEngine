@@ -2,5 +2,5 @@
 #include <common\commonPre.h>
 #include <common\declspec.h>
 #include <BaseLib\BaseAPI.h>
-#include <D3D11Lib\D3D11API.h>
+#include <ResourceLib\ResourceAPI.h>
 #include <MediaLib\MediaAPI.h>

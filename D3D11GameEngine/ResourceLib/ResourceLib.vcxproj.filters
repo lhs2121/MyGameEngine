@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Pre.h" />
+    <ClInclude Include="VertexFormat.h" />
+    <ClInclude Include="Device.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceAPI.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceContainer.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceType.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="Device_InitMesh.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Device_InitMaterial.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceAPI_000.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceAPI_001.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceAPI_002.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Device">
+      <UniqueIdentifier>{40761253-3123-498f-9fd5-509a9d89662a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{c94a4e0c-39b4-4458-a3f0-a6ed00daef39}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

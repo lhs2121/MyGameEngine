@@ -47,17 +47,14 @@ void SpriteRenderer::Update(float _deltaTime)
 
 void SpriteRenderer::Render()
 {
-	pSpriteDataBuffer->IntoPipeline(ShaderType::PS, 5);
+	pSpriteDataBuffer->Draw();
 	Renderer::Render();
 }
 
 void SpriteRenderer::SetTexture(const char* _name)
 {
-	ITexture* texture = (ITexture*)mainResManager->Find(ResType::Texture, _name);
-	pMaterial->SetTexture(_name);
-
-	float4 imageScale = texture->GetImageScale();
-	transform.SetlocalScale(imageScale);
+	Texture* texture = Resource::FindTexture(_name);
+	pMaterial->pTexture = texture;
 }
 
 void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float _InterTime)
@@ -98,8 +95,7 @@ void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float
 	EngineString BufferName = "SpriteData_";
 	BufferName += SpriteDataBufferCount;
 	SpriteDataBufferCount++;
-	pSpriteDataBuffer = (IConstantBuffer*)mainResManager->CreateResource(ResType::CB, BufferName);
-	pSpriteDataBuffer->Setting(&curSpriteData, sizeof(SpriteData));
+	pSpriteDataBuffer = Resource::CreateConstantBuffer(BufferName.c_str(), &curSpriteData, sizeof(SpriteData), ShaderType::PS);
 }
 
 

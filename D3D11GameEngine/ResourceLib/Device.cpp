@@ -1,6 +1,9 @@
 #include "Pre.h"
 #include "Device.h"
 
+ID3D11Device* Device::mainDevice = nullptr;
+ID3D11DeviceContext* Device::mainContext = nullptr;
+
 Device::Device()
 {
 }
@@ -82,6 +85,8 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		EngineDebug::MsgBoxAssert("디바이스 생성 실패");
 	}
 
+	mainDevice = DevicePtr;
+	mainContext = ContextPtr;
 	{
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
 		Desc.BufferDesc.Width = WindowSize.ix();

@@ -25,7 +25,7 @@ public:
 		newGameObject->parentObject = this;
 		newGameObject->scene = this;
 		newGameObject->objectOrder = _order;
-		newGameObject->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
+		newGameObject->SetMainObject(mainInput, mainWindow, mainDevice);
 		newGameObject->Awake();
 
 		if (allGameObject.find(_order) == allGameObject.end())

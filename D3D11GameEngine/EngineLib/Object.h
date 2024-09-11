@@ -9,12 +9,11 @@ public:
 	Object();
 	virtual ~Object();
 
-	void SetMainObject(IEngineInput* _mainInput, IEngineWindow* _mainWindow, IDevice* _mainDevice, IResManager* _mainResManager)
+	void SetMainObject(IEngineInput* _mainInput, IEngineWindow* _mainWindow, IDevice* _mainDevice)
 	{
 		mainInput = _mainInput;
 		mainWindow = _mainWindow;
 		mainDevice = _mainDevice;
-		mainResManager = _mainResManager;
 	}
 
 	void SetName(EngineString _name) { name = _name; }
@@ -41,7 +40,7 @@ protected:
 	IEngineInput* mainInput = nullptr;
 	IEngineWindow* mainWindow = nullptr;
 	IDevice* mainDevice = nullptr;
-	IResManager* mainResManager = nullptr;
+	 
 
 	bool death = false;
 };

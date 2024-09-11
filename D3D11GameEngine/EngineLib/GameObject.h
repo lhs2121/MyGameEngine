@@ -31,7 +31,7 @@ public:
 		Component* newComp = new T();
 		newComp->parentObject = this;
 		newComp->scene = scene;
-		newComp->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
+		newComp->SetMainObject(mainInput, mainWindow, mainDevice);
 		newComp->Awake();
 
 		transform.childTransformList.push_back(&newComp->transform);

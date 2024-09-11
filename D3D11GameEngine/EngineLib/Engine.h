@@ -11,7 +11,7 @@ public:
 	{
 		Scene* newScene = new T();
 		newScene->SetName(_name);
-		newScene->SetMainObject(mainInput, mainWindow, mainDevice, mainResManager);
+		newScene->SetMainObject(mainInput, mainWindow, mainDevice);
 		newScene->CreateCamera();
 		newScene->Awake();
 
@@ -33,6 +33,6 @@ private:
 	IEngineWindow* mainWindow = nullptr;
 	IEngineInput* mainInput = nullptr;
 	IDevice* mainDevice = nullptr;
-	IResManager* mainResManager = nullptr;
+	 
 
 };

@@ -1,15 +1,17 @@
 #pragma once
-#include "D3D11API.h"
+#include "ResourceAPI.h"
 
 class Device : public IDevice
 {
 public:
+	static ID3D11Device* mainDevice;
+	static ID3D11DeviceContext* mainContext;
 	Device();
 	~Device();
 
 	void Init(void* pHwnd, float4 WindowSize) override;
-	void InitMesh(IResManager* pManager) override;
-	void InitMaterial(IResManager* pManager) override;
+	void InitMesh() override;
+	void InitMaterial() override;
 	void Clear() override;
 	void Present() override;
 	ID3D11Device* GetDevice() override { return DevicePtr; }

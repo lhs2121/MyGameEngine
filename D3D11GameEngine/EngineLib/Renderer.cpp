@@ -17,13 +17,12 @@ void Renderer::Awake()
 	BufferName += RendererTransformBufferCount;
 	RendererTransformBufferCount++;
 
-	pTransformBuffer = (IConstantBuffer*)mainResManager->CreateResource(ResType::CB, BufferName);
-	pTransformBuffer->Setting(&transform.worldViewProjectionMat, sizeof(float4x4));
+	pTransformBuffer = Resource::CreateConstantBuffer(BufferName.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
-	pMesh = (IMesh*)mainResManager->Find(ResType::Mesh, "Box2D");
-	pMaterial = (IMaterial*)mainResManager->Find(ResType::Material, "Sprite2D");
+	pMesh = Resource::FindMesh("Box3D");
+	pMaterial = Resource::FindMaterial("Sprite2D");
 
-	pIA = mainResManager->GenerateInputLayout(pMesh, pMaterial);
+	pIA = Resource::CreateInputLayout("POSITION_TEXCOORD", pMaterial->pVertexShader);
 }
 
 void Renderer::Update(float _deltaTime)
@@ -31,24 +30,22 @@ void Renderer::Update(float _deltaTime)
 }
 void Renderer::Render()
 {
-	pTransformBuffer->IntoPipeline(ShaderType::VS);
-	pIA->IntoPipeline();
-	pMesh->IntoPipeline();
-	pMaterial->IntoPipeline();
-
-	mainDevice->GetContext()->DrawIndexed(pMesh->GetIndexCount(), 0, 0);
+	pTransformBuffer->Draw();
+	pMesh->Draw();
+	pMaterial->Draw();
+	pIA->Draw();
+	mainDevice->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	mainDevice->GetContext()->DrawIndexed(pMesh->pIndexBuffer->count, 0, 0);
 }
 
 void Renderer::SetMesh(const char* _name)
 {
-	pMesh = (IMesh*)mainResManager->Find(ResType::Mesh, _name);
-	pIA = mainResManager->GenerateInputLayout(pMesh, pMaterial);
+	pMesh = Resource::FindMesh(_name);
 }
 
 void Renderer::SetMaterial(const char* _name)
 {
-	pMaterial = (IMaterial*)mainResManager->Find(ResType::Material, _name);
-	pIA = mainResManager->GenerateInputLayout(pMesh, pMaterial);
+	pMaterial = Resource::FindMaterial(_name);
 }
 
 void Renderer::SetRenderOrder(int _order)

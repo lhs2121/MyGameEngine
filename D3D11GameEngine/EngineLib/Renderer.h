@@ -1,5 +1,5 @@
 #pragma once
-#include <D3D11Lib\D3D11API.h>
+#include <ResourceLib\ResourceAPI.h>
 #include "Object.h"
 #include "Component.h"
 
@@ -14,8 +14,8 @@ public:
 
 	virtual void Render();
 
-	IMesh* GetMesh() { return pMesh; }
-	IMaterial* GetMaterial() { return pMaterial; }
+	Mesh* GetMesh() { return pMesh; }
+	Material* GetMaterial() { return pMaterial; }
 	float4 GetImagerScale() const { return imageScale; }
 
 	void SetMesh(const char* _name);
@@ -28,10 +28,10 @@ protected:
 	int renderOrder = 0;
 
 	float4 imageScale;
-	IMesh* pMesh = nullptr;
-	IMaterial* pMaterial = nullptr;
-	IInputLayout* pIA = nullptr;
-	IConstantBuffer* pTransformBuffer = nullptr;
+	Mesh* pMesh = nullptr;
+	Material* pMaterial = nullptr;
+	InputLayout* pIA = nullptr;
+	ConstantBuffer* pTransformBuffer = nullptr;
 };
 
 

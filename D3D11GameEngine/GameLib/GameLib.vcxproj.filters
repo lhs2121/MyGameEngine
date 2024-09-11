@@ -6,7 +6,6 @@
     <ClInclude Include="GameStarter.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="GameAPI.h" />
-    <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestScene.cpp" />
@@ -14,6 +13,5 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameAPI.cpp" />
-    <ClCompile Include="Resource.cpp" />
   </ItemGroup>
 </Project>

@@ -25,7 +25,7 @@ VS_OUTPUT Sprite2D_VS(VS_INPUT input)
     return output;
 }
 
-cbuffer SpriteData : register(b5)
+cbuffer SpriteData : register(b0)
 {
     float2 ResizeRatio;
     float2 Offset;

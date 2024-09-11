@@ -5,10 +5,10 @@
 #define BaseAPI __declspec(dllimport)
 #endif
 
-#ifdef D3D11Lib
-#define D3D11API __declspec(dllexport)
+#ifdef ResourceLib
+#define ResourceAPI __declspec(dllexport)
 #else 
-#define D3D11API __declspec(dllimport)
+#define ResourceAPI __declspec(dllimport)
 #endif
 
 #ifdef MediaLib
