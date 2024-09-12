@@ -168,7 +168,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 
 void Device::Clear()
 {
-	const FLOAT ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	const FLOAT ClearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	ContextPtr->ClearRenderTargetView(BackRenderTargetView, ClearColor);
 	ContextPtr->ClearDepthStencilView(DepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	ContextPtr->OMSetRenderTargets(1, &BackRenderTargetView, DepthView);

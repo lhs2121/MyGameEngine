@@ -73,11 +73,12 @@ void Engine::EngineRelease()
 	}
 	allScene.clear();
 	
-	Naming::Delete();
 	DeleteEngineTime(mainTime);
 	DeleteEngineInput(mainInput);
 	DeleteDevice(mainDevice);
 	DeleteEngineWindow(mainWindow);
+
+	Naming::Delete();
  	Resource::DeleteAllResource();
 	EngineString::DeleteAllStringPool();
 }

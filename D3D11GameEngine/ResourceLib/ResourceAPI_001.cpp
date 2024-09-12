@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "ResourceAPI.h"
-#include "ResourceContainer.h"
+#include "ResMap.h"
 #include "Device.h"
 
 VertexBuffer* Resource::CreateVertexBuffer(const char* _name, void* pVertexStruct, UINT _structSize, UINT _formatSize)
@@ -25,7 +25,7 @@ VertexBuffer* Resource::CreateVertexBuffer(const char* _name, void* pVertexStruc
 		EngineDebug::MsgBoxAssert("버텍스버퍼 생성 실패");
 	}
 
-	ResourceContainer<VertexBuffer>::Resources.insert({ _name, newBuffer });
+	ResMap<VertexBuffer>::map.insert({ _name, newBuffer });
 	return newBuffer;
 }
 
@@ -49,7 +49,7 @@ IndexBuffer* Resource::CreateIndexBuffer(const char* _name, void* pIndexStruct, 
 
 	Device::mainDevice->CreateBuffer(&desc, &subData, &newBuffer->pBuffer);
 
-	ResourceContainer<IndexBuffer>::Resources.insert({ _name, newBuffer });
+	ResMap<IndexBuffer>::map.insert({ _name, newBuffer });
 
 	return newBuffer;
 }
@@ -71,7 +71,7 @@ InputLayout* Resource::CreateInputLayout(const char* _name, VertexShader* _pShad
 		EngineDebug::MsgBoxAssert("인풋레이아웃 생성 실패.");
 	}
 
-	ResourceContainer<InputLayout>::Resources.insert(std::make_pair(_name,newLayout));
+	ResMap<InputLayout>::map.insert(std::make_pair(_name,newLayout));
 
 	return newLayout;
 }
@@ -112,7 +112,7 @@ VertexShader* Resource::CreateVertexShader(const char* _name, const char* _path)
 		path_wide = nullptr;
 	}
 
-	ResourceContainer<VertexShader>::Resources.insert({ _name, newShader });
+	ResMap<VertexShader>::map.insert({ _name, newShader });
 	return newShader;
 }
 
@@ -152,7 +152,7 @@ PixelShader* Resource::CreatePixelShader(const char* _name, const char* _path)
 		path_wide = nullptr;
 	}
 
-	ResourceContainer<PixelShader>::Resources.insert({ _name, newShader });
+	ResMap<PixelShader>::map.insert({ _name, newShader });
 	return newShader;
 }
 

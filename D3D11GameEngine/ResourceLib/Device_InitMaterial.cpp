@@ -1,7 +1,7 @@
 #include "Pre.h"
 #include "Device.h"
 #include "ResourceAPI.h"
-#include "ResourceContainer.h"
+#include "ResMap.h"
 
 void Device::InitMaterial()
 {
@@ -86,10 +86,10 @@ void Device::InitMaterial()
 
 	{
 		Material* newMaterial = Resource::CreateMaterial("Sprite2D");
-		newMaterial->pVertexShader = ResourceContainer<VertexShader>::Find("Sprite2D");
-		newMaterial->pPixelShader = ResourceContainer<PixelShader>::Find("Sprite2D");
-		newMaterial->pRasterizer = ResourceContainer<Rasterizer>::Find("Default");
-		newMaterial->pDepthStencil = ResourceContainer<DepthStencil>::Find("Default");
-		newMaterial->pSampler = ResourceContainer<Sampler>::Find("Point");
+		newMaterial->pVertexShader = ResMap<VertexShader>::Find("Sprite2D");
+		newMaterial->pPixelShader = ResMap<PixelShader>::Find("Sprite2D");
+		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("Default");
+		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("Default");
+		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
 	}
 }

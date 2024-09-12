@@ -2,7 +2,6 @@
 #include "EngineAPI.h"
 #include "Scene.h"
 
-struct IGameStarter;
 class  Engine : public IEngine
 {
 public:
@@ -25,7 +24,6 @@ public:
 	void EngineRelease() override;
 
 private:
-	IGameStarter* pGameStarter;
 	Scene* pCurScene;
 	std::unordered_map<const char*, Scene*> allScene;
 
@@ -33,6 +31,4 @@ private:
 	IEngineWindow* mainWindow = nullptr;
 	IEngineInput* mainInput = nullptr;
 	IDevice* mainDevice = nullptr;
-	 
-
 };

@@ -11,7 +11,7 @@ public:
 	void GoParent();
 	void GoChild(const char* ChildPath);
 	void GoBase();
-
+	EngineString GetString();
 	EngineFile GetFile(const char* _name = nullptr);
 	std::vector<EngineFile> GetAllFile();
 	std::vector<EngineFile> GetAllFileExt(const char* _Ext);

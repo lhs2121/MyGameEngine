@@ -9,7 +9,7 @@
     <ClInclude Include="ResourceAPI.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceContainer.h">
+    <ClInclude Include="ResMap.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="ResourceType.h">

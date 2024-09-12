@@ -4,7 +4,7 @@
 
 struct Named
 {
-	const char* name;
+	EngineString name;
 };
 
 struct CanDraw : public Named

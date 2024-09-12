@@ -4,9 +4,9 @@
 void Player::Awake()
 {
 	pSpriteRenderer = AddComponent<SpriteRenderer>();
-	pSpriteRenderer->GetMaterial()->pTexture = Resource::CreateTexture("F:/MyGameEngine/D3D11GameEngine/Test.png");;
-	pSpriteRenderer->GetMaterial()->pTexture = Resource::CreateTexture("F:/MyGameEngine/D3D11GameEngine/Test.png");;
-	pSpriteRenderer->CreateAnimation(2, 2, 1.0f);
+	Resource::CreateTexture("Character/stand.dds");
+	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
+	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
 	pColider2D = AddComponent<Colider2D>();
 	pRigid = AddComponent<RigidBody2D>();

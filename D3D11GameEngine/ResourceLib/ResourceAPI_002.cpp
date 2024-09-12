@@ -1,7 +1,9 @@
 #include "Pre.h"
 #include "ResourceAPI.h"
-#include "ResourceContainer.h"
+#include "ResMap.h"
 #include "Device.h"
+#include <direct.h>	//getcwd
+
 
 Rasterizer* Resource::CreateRasterizer(const char* _name, D3D11_RASTERIZER_DESC _desc)
 {
@@ -9,7 +11,7 @@ Rasterizer* Resource::CreateRasterizer(const char* _name, D3D11_RASTERIZER_DESC 
 	newRasterizer->name = _name;
 
 	Device::mainDevice->CreateRasterizerState(&_desc, &newRasterizer->pState);
-	ResourceContainer<Rasterizer>::Resources.insert({ _name, newRasterizer });
+	ResMap<Rasterizer>::map.insert({ _name, newRasterizer });
 	return newRasterizer;
 }
 
@@ -20,41 +22,60 @@ DepthStencil* Resource::CreateDepthStencil(const char* _name, D3D11_DEPTH_STENCI
 
 	Device::mainDevice->CreateDepthStencilState(&_desc, &newDepthStencil->pState);
 
-	ResourceContainer<DepthStencil>::Resources.insert({ _name, newDepthStencil });
+	ResMap<DepthStencil>::map.insert({ _name, newDepthStencil });
 	return newDepthStencil;
 }
 
 Texture* Resource::CreateTexture(const char* _path)
 {
-	char* name;
+	EngineDirectory dir;
+	dir.GoChild("Assets");
+	dir.GoChild(_path);
+	dir.Normalize();
+	EngineString path = dir.GetString();
 
+	EngineFile file;
+	file.SetPath(path.c_str());
+	EngineString filename = file.GetFileName();
+	const char* name = filename.c_str();
 
-		name = (char*)_path;
-		size_t len = strlen(_path);
-		name += len;
-		while (*name != '/')
-		{
-			name--;
-		}
-		name++;
-	
-
-	if (ResourceContainer<Texture>::Resources.find(name) != ResourceContainer<Texture>::Resources.end())
+	Texture* result = ResMap<Texture>::Find(name);
+	if (result != nullptr)
 	{
-		return ResourceContainer<Texture>::Find(name);
+		return result;
 	}
+
+	wchar_t* wideStr = new wchar_t[256];
+	path.GetUTF8(&wideStr);
 
 
 	Texture* newTex = new Texture();
 
-	int wideStrSize = MultiByteToWideChar(CP_ACP, 0, _path, -1, NULL, 0);
-	wchar_t* wideStr = new wchar_t[wideStrSize];
-	int result = MultiByteToWideChar(CP_ACP, 0, _path, -1, wideStr, wideStrSize);
 
-	if (S_OK != DirectX::LoadFromWICFile(wideStr, DirectX::WIC_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
+	EngineString ext = file.GetExt();
+	if (ext == ".dds")
 	{
-		EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
+		if (S_OK != DirectX::LoadFromDDSFile(wideStr, DirectX::DDS_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
+		{
+			EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
+		}
 	}
+	else if (ext == ".png")
+	{
+		if (S_OK != DirectX::LoadFromWICFile(wideStr, DirectX::WIC_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
+		{
+			EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
+		}
+	}
+	else if (ext == ".tga")
+	{
+		if (S_OK != DirectX::LoadFromTGAFile(wideStr, &newTex->metaData, newTex->scratchImage))
+		{
+			EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
+		}
+	}
+	delete[] wideStr;
+	
 
 	if (S_OK != DirectX::CreateShaderResourceView(Device::mainDevice, newTex->scratchImage.GetImages(),
 		newTex->scratchImage.GetImageCount(), newTex->metaData, &newTex->pShaderResourceView))
@@ -62,9 +83,8 @@ Texture* Resource::CreateTexture(const char* _path)
 		EngineDebug::MsgBoxAssert("SRV생성 실패.");
 	}
 
-	delete[] wideStr;
 
-	ResourceContainer<Texture>::Resources.insert({ name, newTex });
+	ResMap<Texture>::map.insert({ name, newTex });
 	newTex->name = name;
 	return newTex;
 }
@@ -76,7 +96,7 @@ Sampler* Resource::CreateSampler(const char* _name, D3D11_SAMPLER_DESC _desc)
 
 	Device::mainDevice->CreateSamplerState(&_desc, &newSampler->pState);
 
-	ResourceContainer<Sampler>::Resources.insert({ _name, newSampler });
+	ResMap<Sampler>::map.insert({ _name, newSampler });
 	return newSampler;
 }
 
@@ -97,7 +117,7 @@ ConstantBuffer* Resource::CreateConstantBuffer(const char* _name, void* _pData, 
 	newCB->dataSize = _dataSize;
 	Device::mainDevice->CreateBuffer(&desc, nullptr, &newCB->pBuffer);
 
-	ResourceContainer<ConstantBuffer>::Resources.insert({ _name, newCB });
+	ResMap<ConstantBuffer>::map.insert({ _name, newCB });
 	return newCB;
 }
 
@@ -108,7 +128,7 @@ Mesh* Resource::CreateMesh(const char* _name)
 
 	newMesh->SetContext(Device::mainContext);
 
-	ResourceContainer<Mesh>::Resources.insert({ _name, newMesh });
+	ResMap<Mesh>::map.insert({ _name, newMesh });
 	return newMesh;
 }
 
@@ -119,6 +139,6 @@ Material* Resource::CreateMaterial(const char* _name)
 
 	newMaterial->SetContext(Device::mainContext);
 
-	ResourceContainer<Material>::Resources.insert({ _name, newMaterial });
+	ResMap<Material>::map.insert({ _name, newMaterial });
 	return newMaterial;
-}	
+}

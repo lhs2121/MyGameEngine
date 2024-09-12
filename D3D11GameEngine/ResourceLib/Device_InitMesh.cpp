@@ -2,7 +2,7 @@
 #include "Device.h"
 #include "VertexFormat.h"
 #include "ResourceAPI.h"
-#include "ResourceContainer.h"
+#include "ResMap.h"
 
 void Device::InitMesh()
 {
@@ -146,20 +146,20 @@ void Device::InitMesh()
 
 	{
 		Mesh* newMesh = Resource::CreateMesh("Box2D");
-		newMesh->pVertexBuffer = ResourceContainer<VertexBuffer>::Find("Box2D");
-		newMesh->pIndexBuffer = ResourceContainer<IndexBuffer>::Find("Box2D");
+		newMesh->pVertexBuffer = ResMap<VertexBuffer>::Find("Box2D");
+		newMesh->pIndexBuffer = ResMap<IndexBuffer>::Find("Box2D");
 	}
 
 	{
 		Mesh* newMesh = Resource::CreateMesh("Box3D");
-		newMesh->pVertexBuffer = ResourceContainer<VertexBuffer>::Find("Box3D");
-		newMesh->pIndexBuffer = ResourceContainer<IndexBuffer>::Find("Box3D");
+		newMesh->pVertexBuffer = ResMap<VertexBuffer>::Find("Box3D");
+		newMesh->pIndexBuffer = ResMap<IndexBuffer>::Find("Box3D");
 	}
 
 	{
 		Mesh* newMesh = Resource::CreateMesh("Circle2D");
-		newMesh->pVertexBuffer = ResourceContainer<VertexBuffer>::Find("Circle2D");
-		newMesh->pIndexBuffer = ResourceContainer<IndexBuffer>::Find("Circle2D");
+		newMesh->pVertexBuffer = ResMap<VertexBuffer>::Find("Circle2D");
+		newMesh->pIndexBuffer = ResMap<IndexBuffer>::Find("Circle2D");
 	}
 
 }

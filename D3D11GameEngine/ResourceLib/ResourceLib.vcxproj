@@ -22,7 +22,7 @@
     <ClInclude Include="ResourceAPI.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="ResourceContainer.h" />
+    <ClInclude Include="ResMap.h" />
     <ClInclude Include="ResourceType.h" />
     <ClInclude Include="VertexFormat.h" />
   </ItemGroup>

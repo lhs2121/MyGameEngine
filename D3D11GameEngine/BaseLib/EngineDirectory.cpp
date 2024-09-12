@@ -60,6 +60,11 @@ void EngineDirectory::GoBase()
 
 }
 
+EngineString EngineDirectory::GetString()
+{
+	return Path;
+}
+
 EngineFile EngineDirectory::GetFile(const char* _name)
 {
 	std::filesystem::path stdPath = Path.c_str();
