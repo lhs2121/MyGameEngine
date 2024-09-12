@@ -25,7 +25,6 @@ public:
 		newGameObject->parentObject = this;
 		newGameObject->scene = this;
 		newGameObject->objectOrder = _order;
-		newGameObject->SetMainObject(mainInput, mainWindow, mainDevice);
 		newGameObject->Awake();
 
 		if (allGameObject.find(_order) == allGameObject.end())
@@ -38,14 +37,19 @@ public:
 		return (T*)newGameObject;
 	}
 
-	void      DeleteGameObject(GameObject* _gameObject);
 	void      CreateCamera();
 	void      AddCollision(Colider2D* _col);
+	void      DeleteGameObject(GameObject* _gameObject);
 	Camera*   GetMainCamera();
+
+	IEngineInput* input;
+	IEngineWindow* window;
+	IDevice* device;
 private:
 
 	std::map<int, std::list<GameObject*>> allGameObject;
 	std::list<Camera*> cameraList;
+	std::list<Renderer*> collisionDebugRenderers;
 	std::vector<Colider2D*> collisionList;
 };
 

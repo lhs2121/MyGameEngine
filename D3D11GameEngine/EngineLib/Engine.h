@@ -9,8 +9,11 @@ public:
 	T* CreateScene(const char* _name)
 	{
 		Scene* newScene = new T();
+		newScene->input = mainInput;
+		newScene->window = mainWindow;
+		newScene->device = mainDevice;
+
 		newScene->SetName(_name);
-		newScene->SetMainObject(mainInput, mainWindow, mainDevice);
 		newScene->CreateCamera();
 		newScene->Awake();
 
@@ -22,6 +25,10 @@ public:
 	void EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, Initializer* pGameInit) override;
 	void EngineUpdate() override;
 	void EngineRelease() override;
+
+	IEngineInput* GetMainInput() { return mainInput; }
+	IEngineWindow* GetMainWindow() { return mainWindow; }
+	IDevice* GetMainDevice() { return mainDevice; }
 
 private:
 	Scene* pCurScene;

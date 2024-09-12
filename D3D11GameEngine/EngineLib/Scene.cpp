@@ -10,6 +10,11 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	for(Renderer* r: collisionDebugRenderers)
+	{
+		delete r;
+	}
+
 	for (auto& pair: allGameObject)
 	{
 		std::list<GameObject*> curGameObjectList = pair.second;
@@ -36,6 +41,16 @@ void Scene::CreateCamera()
 void Scene::AddCollision(Colider2D* _col)
 {
 	collisionList.push_back(_col);
+	Renderer* debugRenderer = new Renderer();
+
+	debugRenderer->transform.SetParent(&_col->transform);
+	debugRenderer->scene = this;
+
+	debugRenderer->Awake();
+	debugRenderer->SetMesh("Circle2D");
+	debugRenderer->SetMaterial("WireFrame");
+
+	collisionDebugRenderers.push_back(debugRenderer);
 }
 
 void Scene::Start()
@@ -98,9 +113,14 @@ void Scene::Update(float _deltaTime)
 
 void Scene::Render()
 {
+
 	for (Camera* camera : cameraList)
 	{
 		camera->Render();
+	}
+	for (Renderer* debugRenderer : collisionDebugRenderers)
+	{
+		debugRenderer->Render();
 	}
 }
 

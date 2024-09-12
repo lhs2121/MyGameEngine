@@ -45,14 +45,12 @@ Texture* Resource::CreateTexture(const char* _path)
 		return result;
 	}
 
-	wchar_t* wideStr = new wchar_t[256];
+	wchar_t* wideStr;
 	path.GetUTF8(&wideStr);
 
-
 	Texture* newTex = new Texture();
-
-
 	EngineString ext = file.GetExt();
+
 	if (ext == ".dds")
 	{
 		if (S_OK != DirectX::LoadFromDDSFile(wideStr, DirectX::DDS_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
@@ -74,6 +72,7 @@ Texture* Resource::CreateTexture(const char* _path)
 			EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
+
 	delete[] wideStr;
 	
 

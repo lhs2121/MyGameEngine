@@ -62,7 +62,17 @@ void Device::InitMaterial()
 		Desc.DepthFunc = D3D11_COMPARISON_LESS;
 		Desc.StencilEnable = false;
 
-		Resource::CreateDepthStencil("Default", Desc);
+		Resource::CreateDepthStencil("DepthOn", Desc);
+	}
+
+	{
+		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
+		Desc.DepthEnable = false;
+		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		Desc.DepthFunc = D3D11_COMPARISON_LESS;
+		Desc.StencilEnable = false;
+
+		Resource::CreateDepthStencil("DepthOff", Desc);
 	}
 
 	{
@@ -89,7 +99,16 @@ void Device::InitMaterial()
 		newMaterial->pVertexShader = ResMap<VertexShader>::Find("Sprite2D");
 		newMaterial->pPixelShader = ResMap<PixelShader>::Find("Sprite2D");
 		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("Default");
-		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("Default");
+		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOn");
+		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
+	}
+
+	{
+		Material* newMaterial = Resource::CreateMaterial("WireFrame");
+		newMaterial->pVertexShader = ResMap<VertexShader>::Find("DebugLine");
+		newMaterial->pPixelShader = ResMap<PixelShader>::Find("DebugLine");
+		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("WireFrame");
+		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOff");
 		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
 	}
 }

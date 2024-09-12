@@ -196,11 +196,11 @@ bool EngineString::operator!=(const char* OtherString)
 	return true;
 }
 
-void EngineString::GetUTF8(wchar_t** WideString)
+void EngineString::GetUTF8(wchar_t** wideStr)
 {
-	int WideByteSize = MultiByteToWideChar(CP_UTF8, 0, String, -1, NULL, 0);
-	*WideString = new wchar_t[WideByteSize];
-	MultiByteToWideChar(CP_UTF8, 0, String, -1, *WideString, WideByteSize);
+	int size = MultiByteToWideChar(CP_UTF8, 0, String, -1, NULL, 0);
+	*wideStr = new wchar_t[size];
+	MultiByteToWideChar(CP_UTF8, 0, String, -1, *wideStr, size);
 }
 
 int EngineString::GetByte(const char* OtherString)

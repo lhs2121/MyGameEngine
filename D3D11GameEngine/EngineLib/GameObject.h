@@ -8,22 +8,10 @@ public:
 	GameObject();
 	~GameObject();
 
-	bool GetKeyDown(int _key)
-	{
-		return mainInput->IsDown(_key, this);
-	}
-	bool GetKeyPress(int _key)
-	{
-		return mainInput->IsPress(_key, this);
-	}
-	bool GetKeyUp(int _key)
-	{
-		return mainInput->IsUp(_key, this);
-	}
-	bool GetKeyFree(int _key)
-	{
-		return mainInput->IsFree(_key, this);
-	}
+	bool GetKeyDown(int _key);
+	bool GetKeyPress(int _key);
+	bool GetKeyUp(int _key);
+	bool GetKeyFree(int _key);
 
 	template<typename T>
 	T* AddComponent()
@@ -31,11 +19,9 @@ public:
 		Component* newComp = new T();
 		newComp->parentObject = this;
 		newComp->scene = scene;
-		newComp->SetMainObject(mainInput, mainWindow, mainDevice);
-		newComp->Awake();
 
-		transform.childTransformList.push_back(&newComp->transform);
-		newComp->transform.parentTransform = &transform;
+		newComp->Awake();
+		newComp->transform.SetParent(&transform);
 
 		componentList.push_back(newComp);
 		return (T*)newComp; 

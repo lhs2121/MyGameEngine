@@ -1,10 +1,11 @@
 #include "Pre.h"
 #include "Camera.h"
 #include "Renderer.h"
+#include "Scene.h"
 
 void Camera::Awake()
 {
-	windowSize = mainWindow->GetWindowSize();
+	windowSize = scene->window->GetWindowSize();
 }
 
 void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)

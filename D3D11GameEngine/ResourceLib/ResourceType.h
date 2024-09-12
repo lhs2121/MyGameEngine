@@ -200,7 +200,10 @@ struct Material : public CanDraw
 		pContext->VSSetShader(pVertexShader->pShader, nullptr, 0);
 		pContext->PSSetShader(pPixelShader->pShader, nullptr, 0);
 		pContext->PSSetSamplers(0,1,&pSampler->pState);
-		pContext->PSSetShaderResources(0,1,&pTexture->pShaderResourceView);
+		if (pTexture != nullptr)
+		{
+			pContext->PSSetShaderResources(0, 1, &pTexture->pShaderResourceView);
+		}
 		pContext->RSSetState(pRasterizer->pState);
 		pContext->OMSetDepthStencilState(pDepthStencil->pState,0);
 	}

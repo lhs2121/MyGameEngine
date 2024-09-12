@@ -17,7 +17,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	//EngineDebug::CrtSetBreakAlloc(761);
+	//EngineDebug::CrtSetBreakAlloc(819);
 	EngineDebug::CrtSetDbgFlag();
 
 	GameInitializer gameInit;

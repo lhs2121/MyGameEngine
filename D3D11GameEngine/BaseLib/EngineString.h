@@ -26,7 +26,7 @@ public:
 	int  stoi();
 	double stof();
 
-	void GetUTF8(wchar_t** WideString);	
+	void GetUTF8(wchar_t** wideStr);
 	const char* c_str();
 
 	void operator=(EngineString& OtherString);

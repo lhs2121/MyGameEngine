@@ -17,7 +17,7 @@ void Renderer::Awake()
 	EngineString name = Naming::GetName("Transform");
 	pTransformBuffer = Resource::CreateConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
-	pMesh = Resource::FindMesh("Box3D");
+	pMesh = Resource::FindMesh("Box2D");
 	pMaterial = Resource::FindMaterial("Sprite2D");
 	
 	
@@ -38,8 +38,8 @@ void Renderer::Render()
 	pMesh->Draw();
 	pMaterial->Draw();
 	pIA->Draw();
-	mainDevice->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	mainDevice->GetContext()->DrawIndexed(pMesh->pIndexBuffer->count, 0, 0);
+	scene->device->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	scene->device->GetContext()->DrawIndexed(pMesh->pIndexBuffer->count, 0, 0);
 }
 
 void Renderer::SetMesh(const char* _name)

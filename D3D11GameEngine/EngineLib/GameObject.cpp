@@ -18,6 +18,26 @@ GameObject::~GameObject()
 	}
 }
 
+bool GameObject::GetKeyDown(int _key)
+{
+	return scene->input->IsDown(_key, this);
+}
+
+bool GameObject::GetKeyPress(int _key)
+{
+	return scene->input->IsPress(_key, this);
+}
+
+bool GameObject::GetKeyUp(int _key)
+{
+	return scene->input->IsUp(_key, this);
+}
+
+bool GameObject::GetKeyFree(int _key)
+{
+	return scene->input->IsFree(_key,this);
+}
+
 void GameObject::AllStart()
 {
 	Start();
