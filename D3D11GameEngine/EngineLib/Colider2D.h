@@ -15,8 +15,6 @@ public:
 	void Update(float _deltaTime) override;
 
 	void SetColType(ColType _Type) { colType = _Type; }
-	void SetColScale(float4 _Scale);
-
 	bool Collision(Colider2D* _Other);
 
 	bool isCollision = false;
@@ -25,12 +23,11 @@ public:
 	float top;
 	float bottom;
 	float radius;
-	float4 colScale;
+
+	ColType colType = ColType::AABB2D;
 private:
 	bool AABB2DAABB2D(Colider2D* _Other) const;
 	bool Circle2DCircle2D(Colider2D* _Other) const;
 	bool AABB2DCircle2D(Colider2D* _Other);
 
-	ColType colType = ColType::AABB2D;
-	Renderer* debugRenderer;
 };

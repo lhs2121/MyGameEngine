@@ -49,6 +49,7 @@ void Engine::EngineUpdate()
 	mainTime->CountStart();
 
 	pCurScene->Update(deltaTime);
+
 	pCurScene->AllGameObjectUpdate(deltaTime);
 	pCurScene->AllCollisionUpdate(deltaTime);
 

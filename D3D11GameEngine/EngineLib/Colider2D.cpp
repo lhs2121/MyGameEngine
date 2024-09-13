@@ -10,16 +10,11 @@ void Colider2D::Awake()
 
 void Colider2D::Update(float _deltaTime)
 {
-	radius = colScale.hx();
-	right = transform.worldPosition.x + colScale.hx();
-	left = transform.worldPosition.x - colScale.hx();
-	top = transform.worldPosition.y + colScale.hy();
-	bottom = transform.worldPosition.y - colScale.hy();
-}
-
-void Colider2D::SetColScale(float4 _scale)
-{
-	colScale = _scale;
+	radius = transform.worldScale.hx();
+	right = transform.worldPosition.x + transform.worldScale.hx();
+	left = transform.worldPosition.x - transform.worldScale.hx();
+	top = transform.worldPosition.y + transform.worldScale.hy();
+	bottom = transform.worldPosition.y - transform.worldScale.hy();
 }
 
 bool Colider2D::Collision(Colider2D* _Other)

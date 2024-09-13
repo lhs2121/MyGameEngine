@@ -4,6 +4,7 @@
 
 Object::Object()
 {
+	transform.parentObject = this;
 }
 
 Object::~Object()

@@ -3,17 +3,17 @@
 
 void Transform::TransformUpdate()
 {
-	for (Transform* childTransform: childTransformList)
-	{
-		childTransform->scale = scale * localScale;
-		childTransform->rotation = rotation + localRotation;
-		childTransform->position = position + localPosition;
-		childTransform->TransformUpdate();
-	}
-
 	worldScale = scale * localScale;
 	worldRotation = rotation + localRotation;
 	worldPosition = position + localPosition;
+
+	for (Transform* childTransform: childTransformList)
+	{
+		childTransform->scale = worldScale;
+		childTransform->rotation = worldRotation;
+		childTransform->position = worldPosition;
+		childTransform->TransformUpdate();
+	}
 
 	scaleMat.Scale(worldScale);
 	rotationMat.Rotation(worldRotation);
@@ -34,13 +34,13 @@ void Transform::SetLocalPos(float4 _pos)
 	TransformUpdate();
 }
 
-void Transform::SetlocalScale(float4 _scale)
+void Transform::SetLocalScale(float4 _scale)
 {
 	localScale = _scale;
 	TransformUpdate();
 }
 
-void Transform::SetlocalRotation(float4 _rotation)
+void Transform::SetLocalRotation(float4 _rotation)
 {
 	localRotation = _rotation;
 	TransformUpdate();
@@ -52,13 +52,13 @@ void Transform::AddLocalPos(float4 _pos)
 	TransformUpdate();
 }
 
-void Transform::AddlocalScale(float4 _scale)
+void Transform::AddLocalScale(float4 _scale)
 {
 	localScale += _scale;
 	TransformUpdate();
 }
 
-void Transform::AddlocalRotation(float4 _rotation)
+void Transform::AddLocalRotation(float4 _rotation)
 {
 	localRotation += _rotation;
 	TransformUpdate();
@@ -88,16 +88,6 @@ void Transform::AddPos(float4 _pos)
 	TransformUpdate();
 }
 
-void Transform::SetParent(Transform* _parentTransform)
-{
-	if (parentTransform != nullptr)
-	{
-		parentTransform->childTransformList.remove(this);
-	}
-	parentTransform = _parentTransform;
-	parentTransform->childTransformList.push_back(this);
-}
-
 void Transform::AddScale(float4 _scale)
 {
 	scale += _scale;
@@ -110,3 +100,12 @@ void Transform::AddRotation(float4 Value)
 	TransformUpdate();
 }
 
+void Transform::SetParent(Transform* _parentTransform)
+{
+	if (parentTransform != nullptr)
+	{
+		parentTransform->childTransformList.remove(this);
+	}
+	parentTransform = _parentTransform;
+	parentTransform->childTransformList.push_back(this);
+}

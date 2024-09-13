@@ -115,7 +115,7 @@ void RenderManager::InitMaterial()
 		newMaterial->pVertexShader = ResMap<VertexShader>::Find("Sprite2D");
 		newMaterial->pPixelShader = ResMap<PixelShader>::Find("Sprite2D");
 		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("Default");
-		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOn");
+		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOff");
 		newMaterial->pBlend = ResMap<Blend>::Find("Default");
 		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
 	}

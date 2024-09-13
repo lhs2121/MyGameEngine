@@ -40,6 +40,18 @@ void Scene::CreateCamera()
 
 void Scene::AddCollision(Colider2D* _col)
 {
+	const char* meshName = nullptr;
+	switch (_col->colType)
+	{
+	case ColType::AABB2D :
+		meshName = "Box2D";
+		break;
+	case ColType::Circle2D :
+		meshName = "Circle2D";
+		break;
+	default:
+		break;
+	}
 	collisionList.push_back(_col);
 	Renderer* debugRenderer = new Renderer();
 
@@ -47,7 +59,8 @@ void Scene::AddCollision(Colider2D* _col)
 	debugRenderer->scene = this;
 
 	debugRenderer->Awake();
-	debugRenderer->SetMesh("Circle2D");
+	debugRenderer->SetRenderOrder(-5);
+	debugRenderer->SetMesh(meshName);
 	debugRenderer->SetMaterial("WireFrame");
 
 	collisionDebugRenderers.push_back(debugRenderer);
@@ -113,14 +126,9 @@ void Scene::Update(float _deltaTime)
 
 void Scene::Render()
 {
-
 	for (Camera* camera : cameraList)
 	{
 		camera->Render();
-	}
-	for (Renderer* debugRenderer : collisionDebugRenderers)
-	{
-		debugRenderer->Render();
 	}
 }
 

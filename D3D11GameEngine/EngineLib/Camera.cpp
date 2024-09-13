@@ -5,6 +5,7 @@
 
 void Camera::Awake()
 {
+	transform.SetPos({ 0,0,-500 });
 	windowSize = { Window::GetSizeX(),Window::GetSizeY()};
 }
 
@@ -32,7 +33,7 @@ void Camera::Update(float _deltaTime)
 
 void Camera::Render()
 {
-	transform.viewMat.View(eyePos, eyeDir, eyeUp);
+	transform.viewMat.View(transform.worldPosition, eyeDir, eyeUp);
 
 	switch (projectionType)
 	{

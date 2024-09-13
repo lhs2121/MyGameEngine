@@ -1,17 +1,18 @@
 #pragma once
 #include <BaseLib\BaseAPI.h>
 
+class Object;
 class Transform
 {
 public:
 	void SetWorldViewProjection(float4x4& _viewMat, float4x4& _projectionMat);
 
-	void SetlocalScale(float4 _scale);
-	void SetlocalRotation(float4 _rotation);
+	void SetLocalScale(float4 _scale);
+	void SetLocalRotation(float4 _rotation);
 	void SetLocalPos(float4 _pos);
 
-	void AddlocalScale(float4 _scale);
-	void AddlocalRotation(float4 _rotation);
+	void AddLocalScale(float4 _scale);
+	void AddLocalRotation(float4 _rotation);
 	void AddLocalPos(float4 _pos);
 
 	void SetScale(float4 _scale);
@@ -49,5 +50,6 @@ public:
 	float4x4 worldViewProjectionMat;
 
 	Transform* parentTransform = nullptr;
+	Object* parentObject = nullptr;
 	std::list<Transform*> childTransformList;
 };
