@@ -9,7 +9,6 @@ public:
 	T* CreateScene(const char* _name)
 	{
 		Scene* newScene = new T();
-		newScene->input = mainInput;
 		newScene->device = mainDevice;
 
 		newScene->SetName(_name);
@@ -25,7 +24,6 @@ public:
 	void EngineUpdate() override;
 	void EngineRelease() override;
 
-	IEngineInput* GetMainInput() { return mainInput; }
 	IDevice* GetMainDevice() { return mainDevice; }
 
 private:
@@ -33,6 +31,5 @@ private:
 	std::unordered_map<const char*, Scene*> allScene;
 
 	IEngineTime* mainTime = nullptr;
-	IEngineInput* mainInput = nullptr;
 	IDevice* mainDevice = nullptr;
 };

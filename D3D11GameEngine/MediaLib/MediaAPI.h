@@ -2,19 +2,25 @@
 #include "Windows.h"
 
 struct IEngine;
-struct IEngineInput
+
+namespace Input
 {
-	virtual void CreateKey(int KeyCode) = 0;
+	extern "C" MediaAPI void        CreateInput();
 
-	virtual void Init() = 0;
-	virtual void UpdateKeyStates() = 0;
+	extern "C" MediaAPI void        DeleteInput();
 
-	virtual bool IsDown(int KeyCode, void* _UserPtr) = 0;
-	virtual bool IsPress(int KeyCode, void* _UserPtr) = 0;
-	virtual bool IsUp(int KeyCode, void* _UserPtr) = 0;
-	virtual bool IsFree(int KeyCode, void* _UserPtr) = 0;
-	virtual void AddUser(void* _UserPtr) = 0;
-};
+	extern "C" MediaAPI void        UpdateKeyStates();
+
+	extern "C" MediaAPI bool        IsDown(int _key, void* pUser);
+
+	extern "C" MediaAPI bool        IsPress(int _key, void* pUser);
+
+	extern "C" MediaAPI bool        IsUp(int _key, void* pUser);
+
+	extern "C" MediaAPI bool        IsFree(int _key, void* pUser);
+
+	extern "C" MediaAPI void        AddUser(void* pUser);
+}
 
 namespace Window
 {
@@ -25,7 +31,7 @@ namespace Window
 	extern "C" MediaAPI void        MessageLoop();
 
 	extern "C" MediaAPI const char* GetTitle();
-	
+
 	extern "C" MediaAPI	float       GetSizeX();
 
 	extern "C" MediaAPI	float       GetSizeY();
@@ -38,7 +44,3 @@ namespace Window
 
 	extern "C" MediaAPI HWND*       GethWnd();
 }
-
-
-extern "C" MediaAPI void CreateEngineInput(IEngineInput** ppIEngineInput);
-extern "C" MediaAPI void DeleteEngineInput(IEngineInput* pIEngineInput);

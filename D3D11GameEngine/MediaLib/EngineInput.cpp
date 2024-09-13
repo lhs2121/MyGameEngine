@@ -1,10 +1,7 @@
 #include "Pre.h"
 #include "EngineInput.h"
 
-EngineInput::EngineInput()
-{
-	Users.reserve(100);
-}
+EngineInput* EngineInput::mainInput = nullptr;
 
 EngineInput::~EngineInput()
 {

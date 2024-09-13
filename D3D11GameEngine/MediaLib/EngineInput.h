@@ -10,23 +10,31 @@ public:
 	bool IsUp = false;
 	bool IsFree = false;
 };
-class EngineInput : public IEngineInput
+
+class EngineInput
 {
 public:
-	EngineInput();
+	EngineInput()
+	{
+		mainInput = this;
+		Users.reserve(100);
+	}
 	~EngineInput();
 
-	void CreateKey(int KeyCode) override;
+	static EngineInput* mainInput;
 
-	void Init() override;
-	void UpdateKeyStates() override;
+	void CreateKey(int KeyCode);
 
-	bool IsDown(int KeyCode, void* _UserPtr) override;
-	bool IsPress(int KeyCode, void* _UserPtr) override;
-	bool IsUp(int KeyCode, void* _UserPtr) override;
-	bool IsFree(int KeyCode, void* _UserPtr) override;
+	void Init();
+	void UpdateKeyStates();
 
-	void AddUser(void* _UserPtr) override;
+	bool IsDown(int KeyCode, void* _UserPtr);
+	bool IsPress(int KeyCode, void* _UserPtr);
+	bool IsUp(int KeyCode, void* _UserPtr);
+	bool IsFree(int KeyCode, void* _UserPtr);
+
+	void AddUser(void* _UserPtr);
+
 	EngineIntHashMap AllKey;
 	std::vector<void*> Users;
 };

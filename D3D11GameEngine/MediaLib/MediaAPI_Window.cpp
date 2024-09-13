@@ -1,18 +1,6 @@
 #include "Pre.h"
 #include "MediaAPI.h"
-#include "EngineInput.h"
 #include "EngineWindow.h"
-
-void CreateEngineInput(IEngineInput** ppIEngineInput)
-{
-	*ppIEngineInput = new EngineInput();
-}
-
-void DeleteEngineInput(IEngineInput* pIEngineInput)
-{
-	EngineInput* castptr = (EngineInput*)pIEngineInput;
-	delete castptr;
-}
 
 void Window::Create(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine)
 {

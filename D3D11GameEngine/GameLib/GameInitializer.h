@@ -1,14 +1,14 @@
 #pragma once
-#include <EngineLib/Initializer.h>
 #include <EngineLib/Engine.h>
 #include "TestScene.h"
 
 class GameInitializer : public Initializer
 {
 public:
-	void CreateAllScene(Engine* pMainEngine) override
+	void CreateAllScene(Engine* pEngine) override
 	{
-		pMainEngine->CreateScene<TestScene>("Scene001");
-		pMainEngine->LoadScene("Scene001");
+		pEngine->CreateScene<TestScene>("Scene001");
+		pEngine->LoadScene("Scene001");
+		
 	}
 };

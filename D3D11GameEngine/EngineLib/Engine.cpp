@@ -4,7 +4,6 @@
 #include "Engine.h"
 #include "Scene.h"
 #include "Naming.h"
-#include "Initializer.h"
 
 void Engine::LoadScene(const char* _name)
 {
@@ -30,8 +29,7 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 	CreateEngineTime(&mainTime);
 	mainTime->Init();
 
-	CreateEngineInput(&mainInput);
-	mainInput->Init();
+	Input::CreateInput();
 
 	pGameInit->CreateAllScene(this);
 
@@ -47,7 +45,7 @@ void Engine::EngineUpdate()
 		return;
 	}
 
-	mainInput->UpdateKeyStates();
+	Input::UpdateKeyStates();
 
 	float deltaTime = mainTime->CountEnd();
 	mainTime->CountStart();
@@ -73,11 +71,12 @@ void Engine::EngineRelease()
 	allScene.clear();
 	
 	DeleteEngineTime(mainTime);
-	DeleteEngineInput(mainInput);
 	DeleteDevice(mainDevice);
 
-	Naming::Delete();
+	Input::DeleteInput();
  	Resource::DeleteAllResource();
+	Window::Delete();
+	Naming::Delete();
 	EngineString::DeleteAllStringPool();
 }
 

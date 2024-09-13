@@ -42,7 +42,6 @@ public:
 	void      DeleteGameObject(GameObject* _gameObject);
 	Camera*   GetMainCamera();
 
-	IEngineInput* input;
 	IDevice* device;
 private:
 

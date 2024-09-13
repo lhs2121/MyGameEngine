@@ -56,9 +56,6 @@
     <ClInclude Include="Naming.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Initializer.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">

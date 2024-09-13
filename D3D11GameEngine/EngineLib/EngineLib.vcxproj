@@ -169,7 +169,6 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="Naming.h" />
-    <ClInclude Include="Initializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />

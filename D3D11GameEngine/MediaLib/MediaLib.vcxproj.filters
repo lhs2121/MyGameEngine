@@ -2,14 +2,26 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="EngineWindow.cpp" />
-    <ClCompile Include="MediaAPI.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineInput.cpp" />
+    <ClCompile Include="MediaAPI_Input.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaAPI_Window.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineWindow.h" />
-    <ClInclude Include="MediaAPI.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineInput.h" />
+    <ClInclude Include="MediaAPI.h">
+      <Filter>API</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="API">
+      <UniqueIdentifier>{81a73a8b-223a-4f0a-94a4-4bc441f13b59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

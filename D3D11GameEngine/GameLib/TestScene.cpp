@@ -7,7 +7,7 @@ void TestScene::Awake()
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
 	a = CreateGameObject<Player>();
-	input->AddUser(a);
+	Input::AddUser(a);
 }
 
 void TestScene::Update(float _deltaTime)
