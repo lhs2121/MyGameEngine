@@ -1,35 +1,24 @@
 #pragma once
 #include "MediaAPI.h"
 
-class EngineWindow : public IEngineWindow
+class EngineWindow
 {
 public:
-	// constrcuter destructer
-	EngineWindow();
-	~EngineWindow();
+	EngineWindow()
+	{
+		mainWindow = this;
+	}
+	static EngineWindow* mainWindow;
 
-	// constrcuter destructer
-	EngineWindow(const EngineWindow& _Other) = delete;
-	EngineWindow(EngineWindow&& _Other) noexcept = delete;
-	EngineWindow& operator=(const EngineWindow& _Other) = delete;
-	EngineWindow& operator=(EngineWindow&& _Other) noexcept = delete;
-
-	void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, IEngine* _Core) override;
-	void MessageLoop() override;
-
-	const char* GetWindowTitle() override;
-	float4 GetWindowSize() const override;
-	float4 GetWindowPos() const override;
-	HINSTANCE GethInst() const override;
-	HWND* GethWnd() override;
-
-private:
+	void Init(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* _pEngine);
+	void MessageLoop();
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-	const char*  WindowTitle;
-	float4       WindowPos;
-	float4       WindowSize;
-	HINSTANCE    hInst;
+
+	const char*  title;
+	float4       pos;
+	float4       size;
+	HINSTANCE    hInstance;
 	HWND         hWnd;
-    IEngine*     pMainEngine;
+    IEngine*     pEngine;
 };
 

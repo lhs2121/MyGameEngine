@@ -1,6 +1,6 @@
 #pragma once
+#include "Windows.h"
 
-struct float4;
 struct IEngine;
 struct IEngineInput
 {
@@ -16,21 +16,29 @@ struct IEngineInput
 	virtual void AddUser(void* _UserPtr) = 0;
 };
 
-struct IEngineWindow
+namespace Window
 {
-	virtual void Init(const char* _WindowTile, float4 _WindowPos, float4 _WindowSize, const HINSTANCE _hInst, IEngine* _pMainEngine) = 0;
-	virtual void MessageLoop() = 0;
+	extern "C" MediaAPI void        Create(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine);
 
-	virtual const char* GetWindowTitle() = 0;
+	extern "C" MediaAPI void        Delete();
 
-	virtual	float4 GetWindowSize() const = 0;
-	virtual	float4 GetWindowPos() const = 0;
-	virtual	HINSTANCE GethInst() const = 0;
-	virtual HWND* GethWnd() = 0;
-};
+	extern "C" MediaAPI void        MessageLoop();
+
+	extern "C" MediaAPI const char* GetTitle();
+	
+	extern "C" MediaAPI	float       GetSizeX();
+
+	extern "C" MediaAPI	float       GetSizeY();
+
+	extern "C" MediaAPI	float       GetPosX();
+
+	extern "C" MediaAPI	float       GetPosY();
+
+	extern "C" MediaAPI	HINSTANCE   GethInst();
+
+	extern "C" MediaAPI HWND*       GethWnd();
+}
+
 
 extern "C" MediaAPI void CreateEngineInput(IEngineInput** ppIEngineInput);
 extern "C" MediaAPI void DeleteEngineInput(IEngineInput* pIEngineInput);
-
-extern "C" MediaAPI void CreateEngineWindow(IEngineWindow** ppIEngineWindow);
-extern "C" MediaAPI void DeleteEngineWindow(IEngineWindow* pIEngineWindow);

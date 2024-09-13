@@ -10,7 +10,6 @@ public:
 	{
 		Scene* newScene = new T();
 		newScene->input = mainInput;
-		newScene->window = mainWindow;
 		newScene->device = mainDevice;
 
 		newScene->SetName(_name);
@@ -27,7 +26,6 @@ public:
 	void EngineRelease() override;
 
 	IEngineInput* GetMainInput() { return mainInput; }
-	IEngineWindow* GetMainWindow() { return mainWindow; }
 	IDevice* GetMainDevice() { return mainDevice; }
 
 private:
@@ -35,7 +33,6 @@ private:
 	std::unordered_map<const char*, Scene*> allScene;
 
 	IEngineTime* mainTime = nullptr;
-	IEngineWindow* mainWindow = nullptr;
 	IEngineInput* mainInput = nullptr;
 	IDevice* mainDevice = nullptr;
 };

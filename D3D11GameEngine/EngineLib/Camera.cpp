@@ -5,7 +5,7 @@
 
 void Camera::Awake()
 {
-	windowSize = scene->window->GetWindowSize();
+	windowSize = { Window::GetSizeX(),Window::GetSizeY()};
 }
 
 void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)

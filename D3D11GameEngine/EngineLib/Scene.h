@@ -43,7 +43,6 @@ public:
 	Camera*   GetMainCamera();
 
 	IEngineInput* input;
-	IEngineWindow* window;
 	IDevice* device;
 private:
 

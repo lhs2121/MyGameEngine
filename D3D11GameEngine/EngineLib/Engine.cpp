@@ -19,12 +19,11 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 {
 	Naming::Create();
 
-	CreateEngineWindow(&mainWindow);
-	mainWindow->Init(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
+	Window::Create(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
 
 	
 	CreateDevice(&mainDevice);
-	mainDevice->Init(mainWindow->GethWnd(), { _windowSizeX ,_windowSizeY });
+	mainDevice->Init(Window::GethWnd(), {_windowSizeX ,_windowSizeY});
 	mainDevice->InitMesh();
 	mainDevice->InitMaterial();
 
@@ -38,7 +37,7 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 
 	mainTime->CountStart();
 
-	mainWindow->MessageLoop();
+	Window::MessageLoop();
 }
 
 void Engine::EngineUpdate()
@@ -76,7 +75,6 @@ void Engine::EngineRelease()
 	DeleteEngineTime(mainTime);
 	DeleteEngineInput(mainInput);
 	DeleteDevice(mainDevice);
-	DeleteEngineWindow(mainWindow);
 
 	Naming::Delete();
  	Resource::DeleteAllResource();
