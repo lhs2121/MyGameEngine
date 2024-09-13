@@ -31,6 +31,7 @@ protected:
 	Mesh* pMesh = nullptr;
 	Material* pMaterial = nullptr;
 	InputLayout* pIA = nullptr;
+	ID3D11DeviceContext* pContext = nullptr;
 	ConstantBuffer* pTransformBuffer = nullptr;
 };
 

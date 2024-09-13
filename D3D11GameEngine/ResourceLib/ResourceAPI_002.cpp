@@ -1,7 +1,6 @@
 #include "Pre.h"
 #include "ResourceAPI.h"
 #include "ResMap.h"
-#include "Device.h"
 #include <direct.h>	//getcwd
 
 
@@ -10,7 +9,7 @@ Rasterizer* Resource::CreateRasterizer(const char* _name, D3D11_RASTERIZER_DESC 
 	Rasterizer* newRasterizer = new Rasterizer();
 	newRasterizer->name = _name;
 
-	Device::mainDevice->CreateRasterizerState(&_desc, &newRasterizer->pState);
+	Device::GetDevice()->CreateRasterizerState(&_desc, &newRasterizer->pState);
 	ResMap<Rasterizer>::map.insert({ _name, newRasterizer });
 	return newRasterizer;
 }
@@ -20,7 +19,7 @@ DepthStencil* Resource::CreateDepthStencil(const char* _name, D3D11_DEPTH_STENCI
 	DepthStencil* newDepthStencil = new DepthStencil();
 	newDepthStencil->name = _name;
 
-	Device::mainDevice->CreateDepthStencilState(&_desc, &newDepthStencil->pState);
+	Device::GetDevice()->CreateDepthStencilState(&_desc, &newDepthStencil->pState);
 
 	ResMap<DepthStencil>::map.insert({ _name, newDepthStencil });
 	return newDepthStencil;
@@ -76,7 +75,7 @@ Texture* Resource::CreateTexture(const char* _path)
 	delete[] wideStr;
 	
 
-	if (S_OK != DirectX::CreateShaderResourceView(Device::mainDevice, newTex->scratchImage.GetImages(),
+	if (S_OK != DirectX::CreateShaderResourceView(Device::GetDevice(), newTex->scratchImage.GetImages(),
 		newTex->scratchImage.GetImageCount(), newTex->metaData, &newTex->pShaderResourceView))
 	{
 		Debug::MsgBoxAssert("SRV생성 실패.");
@@ -93,7 +92,7 @@ Sampler* Resource::CreateSampler(const char* _name, D3D11_SAMPLER_DESC _desc)
 	Sampler* newSampler = new Sampler();
 	newSampler->name = _name;
 
-	Device::mainDevice->CreateSamplerState(&_desc, &newSampler->pState);
+	Device::GetDevice()->CreateSamplerState(&_desc, &newSampler->pState);
 
 	ResMap<Sampler>::map.insert({ _name, newSampler });
 	return newSampler;
@@ -104,7 +103,7 @@ ConstantBuffer* Resource::CreateConstantBuffer(const char* _name, void* _pData, 
 	ConstantBuffer* newCB = new ConstantBuffer();
 	newCB->name = _name;
 	newCB->Type = _type;
-	newCB->SetContext(Device::mainContext);
+	newCB->SetContext(Device::GetContext());
 
 	D3D11_BUFFER_DESC desc = { 0 };
 	desc.Usage = D3D11_USAGE_DYNAMIC;
@@ -114,7 +113,7 @@ ConstantBuffer* Resource::CreateConstantBuffer(const char* _name, void* _pData, 
 
 	newCB->pData = _pData;
 	newCB->dataSize = _dataSize;
-	Device::mainDevice->CreateBuffer(&desc, nullptr, &newCB->pBuffer);
+	Device::GetDevice()->CreateBuffer(&desc, nullptr, &newCB->pBuffer);
 
 	ResMap<ConstantBuffer>::map.insert({ _name, newCB });
 	return newCB;
@@ -125,7 +124,7 @@ Blend* Resource::CreateBlend(const char* _name, D3D11_BLEND_DESC _desc)
 	Blend* newBlend = new Blend();
 	newBlend->name = _name;
 
-	Device::mainDevice->CreateBlendState(&_desc, &newBlend->pState);
+	Device::GetDevice()->CreateBlendState(&_desc, &newBlend->pState);
 
 	ResMap<Blend>::map.insert({ _name, newBlend });
 	return newBlend;
@@ -136,7 +135,7 @@ Mesh* Resource::CreateMesh(const char* _name)
 	Mesh* newMesh = new Mesh();
 	newMesh->name = _name;
 
-	newMesh->SetContext(Device::mainContext);
+	newMesh->SetContext(Device::GetContext());
 
 	ResMap<Mesh>::map.insert({ _name, newMesh });
 	return newMesh;
@@ -147,7 +146,7 @@ Material* Resource::CreateMaterial(const char* _name)
 	Material* newMaterial = new Material();
 	newMaterial->name = _name;
 
-	newMaterial->SetContext(Device::mainContext);
+	newMaterial->SetContext(Device::GetContext());
 
 	ResMap<Material>::map.insert({ _name, newMaterial });
 	return newMaterial;

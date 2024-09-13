@@ -1,18 +1,6 @@
 #include "Pre.h"
 #include "ResourceAPI.h"
 #include "ResMap.h"
-#include "Device.h"
-
-void CreateDevice(IDevice** ppIDevice)
-{
-	*ppIDevice = new Device();
-}
-
-void DeleteDevice(IDevice* pIDevice)
-{
-	Device* pCast = (Device*)pIDevice;
-	delete pCast;
-}
 
 Texture* Resource::FindTexture(const char* _name)
 {

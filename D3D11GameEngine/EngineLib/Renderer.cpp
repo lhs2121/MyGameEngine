@@ -9,6 +9,8 @@ Renderer::~Renderer()
 
 void Renderer::Awake()
 {
+	pContext = Device::GetContext();
+
 	pCamera = scene->GetMainCamera();
 	pCamera->AddRenderer(this);
 
@@ -38,8 +40,8 @@ void Renderer::Render()
 	pMesh->Draw();
 	pMaterial->Draw();
 	pIA->Draw();
-	scene->device->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	scene->device->GetContext()->DrawIndexed(pMesh->pIndexBuffer->count, 0, 0);
+	pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	pContext->DrawIndexed(pMesh->pIndexBuffer->count, 0, 0);
 }
 
 void Renderer::SetMesh(const char* _name)

@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceAPI.h" />
-    <ClInclude Include="Device.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="ResMap.h" />
     <ClInclude Include="ResourceType.h" />
@@ -33,7 +33,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D3D11LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Device.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Device_InitMaterial.cpp" />
     <ClCompile Include="Device_InitMesh.cpp" />
     <ClCompile Include="Pre.cpp">
@@ -41,6 +41,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="ResourceType.cpp" />
+    <ClCompile Include="ResourceAPI_RenderManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

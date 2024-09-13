@@ -1,9 +1,9 @@
 #include "Pre.h"
-#include "Device.h"
+#include "RenderManager.h"
 #include "ResourceAPI.h"
 #include "ResMap.h"
 
-void Device::InitMaterial()
+void RenderManager::InitMaterial()
 {
 	{
 		EngineDirectory dir;

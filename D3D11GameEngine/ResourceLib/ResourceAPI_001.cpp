@@ -1,7 +1,6 @@
 #include "Pre.h"
 #include "ResourceAPI.h"
 #include "ResMap.h"
-#include "Device.h"
 
 VertexBuffer* Resource::CreateVertexBuffer(const char* _name, void* pVertexStruct, UINT _structSize, UINT _formatSize)
 {
@@ -20,7 +19,7 @@ VertexBuffer* Resource::CreateVertexBuffer(const char* _name, void* pVertexStruc
 	newBuffer->strides = _formatSize;
 	newBuffer->offsets = 0;
 
-	if (S_OK != Device::mainDevice->CreateBuffer(&desc, &subData, &newBuffer->pBuffer))
+	if (S_OK != Device::GetDevice()->CreateBuffer(&desc, &subData, &newBuffer->pBuffer))
 	{
 		Debug::MsgBoxAssert("버텍스버퍼 생성 실패");
 	}
@@ -47,7 +46,7 @@ IndexBuffer* Resource::CreateIndexBuffer(const char* _name, void* pIndexStruct, 
 	newBuffer->offsets = 0;
 	newBuffer->count = _structSize / sizeof(UINT);
 
-	Device::mainDevice->CreateBuffer(&desc, &subData, &newBuffer->pBuffer);
+	Device::GetDevice()->CreateBuffer(&desc, &subData, &newBuffer->pBuffer);
 
 	ResMap<IndexBuffer>::map.insert({ _name, newBuffer });
 
@@ -58,7 +57,7 @@ InputLayout* Resource::CreateInputLayout(const char* _name, VertexShader* _pShad
 {
 	InputLayout* newLayout = new InputLayout();
 	newLayout->name = _name;
-	newLayout->SetContext(Device::mainContext);
+	newLayout->SetContext(Device::GetContext());
 	D3D11_INPUT_ELEMENT_DESC desc[] =
 	{
 		{ "POSITION",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
@@ -66,7 +65,7 @@ InputLayout* Resource::CreateInputLayout(const char* _name, VertexShader* _pShad
 		{ "NORMAL",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,24,D3D11_INPUT_PER_VERTEX_DATA,0 },
 	};
 
-	if (S_OK != Device::mainDevice->CreateInputLayout(desc, 3, _pShader->pBlob->GetBufferPointer(), _pShader->pBlob->GetBufferSize(), &newLayout->pLayout))
+	if (S_OK != Device::GetDevice()->CreateInputLayout(desc, 3, _pShader->pBlob->GetBufferPointer(), _pShader->pBlob->GetBufferSize(), &newLayout->pLayout))
 	{
 		Debug::MsgBoxAssert("인풋레이아웃 생성 실패.");
 	}
@@ -103,7 +102,7 @@ VertexShader* Resource::CreateVertexShader(const char* _name, const char* _path)
 	HRESULT result0 = D3DCompileFromFile(path_wide,
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, fileName.c_str(), "vs_5_0", flag, 0, &newShader->pBlob, &pErrorBlob);
 
-	HRESULT result1 = Device::mainDevice->CreateVertexShader(newShader->pBlob->GetBufferPointer(),
+	HRESULT result1 = Device::GetDevice()->CreateVertexShader(newShader->pBlob->GetBufferPointer(),
 		newShader->pBlob->GetBufferSize(), nullptr, &newShader->pShader);
 
 	if (path_wide != nullptr)
@@ -143,7 +142,7 @@ PixelShader* Resource::CreatePixelShader(const char* _name, const char* _path)
 	HRESULT result0 = D3DCompileFromFile(path_wide,
 		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, fileName.c_str(), "ps_5_0", flag, 0, &newShader->pBlob, &pErrorBlob);
 
-	HRESULT result1 = Device::mainDevice->CreatePixelShader(newShader->pBlob->GetBufferPointer(),
+	HRESULT result1 = Device::GetDevice()->CreatePixelShader(newShader->pBlob->GetBufferPointer(),
 		newShader->pBlob->GetBufferSize(), nullptr, &newShader->pShader);
 
 	if (path_wide != nullptr)

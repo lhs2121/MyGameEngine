@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClInclude Include="Pre.h" />
     <ClInclude Include="VertexFormat.h" />
-    <ClInclude Include="Device.h">
+    <ClInclude Include="RenderManager.h">
       <Filter>Device</Filter>
     </ClInclude>
     <ClInclude Include="ResourceAPI.h">
@@ -12,9 +12,7 @@
     <ClInclude Include="ResMap.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceType.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
+    <ClInclude Include="ResourceType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp" />
@@ -24,7 +22,7 @@
     <ClCompile Include="Device_InitMaterial.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="Device.cpp">
+    <ClCompile Include="RenderManager.cpp">
       <Filter>Device</Filter>
     </ClCompile>
     <ClCompile Include="ResourceAPI_000.cpp">
@@ -37,6 +35,9 @@
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="ResourceType.cpp" />
+    <ClCompile Include="ResourceAPI_RenderManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Device">

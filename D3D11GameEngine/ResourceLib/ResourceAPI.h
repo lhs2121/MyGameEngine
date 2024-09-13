@@ -3,21 +3,17 @@
 #include <d3d11.h>
 #include "ResourceType.h"
 
-struct IDevice
+namespace Device
 {
-	virtual void Init(void* pHwnd, float4 WindowSize) = 0;
-	virtual void InitMesh() = 0;
-	virtual void InitMaterial() = 0;
-
-	virtual void Clear() = 0;
-	virtual void Present() = 0;
-
-	virtual ID3D11Device* GetDevice() = 0;
-	virtual ID3D11DeviceContext* GetContext() = 0;
+	extern "C" ResourceAPI void Create(HWND* pHwnd, float4 WindowSize);
+	extern "C" ResourceAPI void Delete();
+	extern "C" ResourceAPI void InitMesh();
+	extern "C" ResourceAPI void InitMaterial();
+	extern "C" ResourceAPI void Clear();
+	extern "C" ResourceAPI void Present();
+	extern "C" ResourceAPI ID3D11Device* GetDevice();
+	extern "C" ResourceAPI ID3D11DeviceContext* GetContext();
 };
-
-extern "C" ResourceAPI void CreateDevice(IDevice** ppIDevice);
-extern "C" ResourceAPI void DeleteDevice(IDevice* ppIDevice);
 
 namespace Resource
 {

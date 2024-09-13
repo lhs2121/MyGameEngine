@@ -41,8 +41,6 @@ public:
 	void      AddCollision(Colider2D* _col);
 	void      DeleteGameObject(GameObject* _gameObject);
 	Camera*   GetMainCamera();
-
-	IDevice* device;
 private:
 
 	std::map<int, std::list<GameObject*>> allGameObject;

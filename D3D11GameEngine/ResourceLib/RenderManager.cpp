@@ -1,19 +1,14 @@
 #include "Pre.h"
-#include "Device.h"
+#include "RenderManager.h"
 
-ID3D11Device* Device::mainDevice = nullptr;
-ID3D11DeviceContext* Device::mainContext = nullptr;
+RenderManager* RenderManager::Inst = nullptr;
 
-Device::Device()
+RenderManager::~RenderManager()
 {
-}
-
-Device::~Device()
-{
-	if (ContextPtr != nullptr)
+	if (mainContext != nullptr)
 	{
-		ContextPtr->Release();
-		ContextPtr = nullptr;
+		mainContext->Release();
+		mainContext = nullptr;
 	}
 	if (SwapChain != nullptr)
 	{
@@ -40,26 +35,25 @@ Device::~Device()
 		DepthTexture->Release();
 		DepthTexture = nullptr;
 	}
-	if (DevicePtr != nullptr)
+	if (mainDevice != nullptr)
 	{
 //#if defined(DEBUG) || defined(_DEBUG)
 //		ID3D11Debug* dxgiDebug;
 //
-//		if (S_OK == DevicePtr->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
+//		if (S_OK == mainDevice->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
 //		{
 //			dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
 //			dxgiDebug = nullptr;
 //		}
 //#endif
 
-		DevicePtr->Release();
-		DevicePtr = nullptr;
+		mainDevice->Release();
+		mainDevice = nullptr;
 	}
 }
 
-void Device::Init(void* pHwnd, float4 WindowSize)
+void RenderManager::Init(HWND* pHwnd, float4 WindowSize)
 {
-	HWND* CastPtr = (HWND*)pHwnd;
 	IDXGIFactory* FactoryPtr = nullptr;
 	IDXGIAdapter* AdapterPtr = nullptr;
 
@@ -77,16 +71,14 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		nullptr,
 		0,
 		D3D11_SDK_VERSION,
-		&DevicePtr,
+		&mainDevice,
 		&Level,
-		&ContextPtr
+		&mainContext
 	))
 	{
 		Debug::MsgBoxAssert("디바이스 생성 실패");
 	}
 
-	mainDevice = DevicePtr;
-	mainContext = ContextPtr;
 	{
 		DXGI_SWAP_CHAIN_DESC Desc = { 0 };
 		Desc.BufferDesc.Width = WindowSize.ix();
@@ -100,12 +92,12 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		Desc.SampleDesc.Quality = 0;
 		Desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 		Desc.BufferCount = 2;
-		Desc.OutputWindow = *CastPtr;
+		Desc.OutputWindow = *pHwnd;
 		Desc.Windowed = true;
 		Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		Desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-		if (S_OK != FactoryPtr->CreateSwapChain(DevicePtr, &Desc, &SwapChain))
+		if (S_OK != FactoryPtr->CreateSwapChain(mainDevice, &Desc, &SwapChain))
 		{
 			Debug::MsgBoxAssert("스왑체인 생성 실패");
 		}
@@ -115,7 +107,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 
 
 
-	if (S_OK != DevicePtr->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView))
+	if (S_OK != mainDevice->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView))
 	{
 		Debug::MsgBoxAssert("백버퍼 렌더타겟 생성 실패");
 	}
@@ -135,7 +127,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		Desc.CPUAccessFlags = 0;
 		Desc.MiscFlags = 0;
 
-		HRESULT Result = DevicePtr->CreateTexture2D(&Desc, nullptr, &DepthTexture);
+		HRESULT Result = mainDevice->CreateTexture2D(&Desc, nullptr, &DepthTexture);
 
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 		ZeroMemory(&descDSV, sizeof(descDSV));
@@ -144,7 +136,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		descDSV.Texture2D.MipSlice = 0;
 
 		// 깊이 스텐실 뷰 생성
-		if (S_OK != DevicePtr->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
+		if (S_OK != mainDevice->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
 		{
 			Debug::MsgBoxAssert("뎁스스텐실 생성 실패");
 		}
@@ -158,7 +150,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		Desc.MaxDepth = 1;
 		Desc.TopLeftX = 0;
 		Desc.TopLeftY = 0;
-		ContextPtr->RSSetViewports(1, &Desc);
+		mainContext->RSSetViewports(1, &Desc);
 		//일단 디바이스 초기화 할때 뷰포트 세팅해줌
 	}
 
@@ -166,15 +158,15 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 	AdapterPtr->Release();
 }
 
-void Device::Clear()
+void RenderManager::Clear()
 {
 	const FLOAT ClearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	ContextPtr->ClearRenderTargetView(BackRenderTargetView, ClearColor);
-	ContextPtr->ClearDepthStencilView(DepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-	ContextPtr->OMSetRenderTargets(1, &BackRenderTargetView, DepthView);
+	mainContext->ClearRenderTargetView(BackRenderTargetView, ClearColor);
+	mainContext->ClearDepthStencilView(DepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	mainContext->OMSetRenderTargets(1, &BackRenderTargetView, DepthView);
 }
 
-void Device::Present()
+void RenderManager::Present()
 {
 	SwapChain->Present(0, 0);
 }

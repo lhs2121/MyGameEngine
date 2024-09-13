@@ -3,12 +3,10 @@
 #include <common/commonPre.h>
 
 #include <BaseLib/BaseAPI.h>
-#include <MediaLib/MediaAPI.h>
 #include <ResourceLib/ResourceAPI.h>
 #include <EngineLib/Engine.h>
 #include <GameLib/GameInitializer.h>
 
-#pragma comment(lib,"MediaLib.lib")
 #pragma comment(lib,"EngineLib.lib")
 #pragma comment(lib,"GameLib.lib")
 

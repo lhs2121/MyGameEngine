@@ -24,9 +24,9 @@ namespace Input
 
 namespace Window
 {
-	extern "C" MediaAPI void        Create(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine);
+	extern "C" MediaAPI void        CreateWindowInst(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine);
 
-	extern "C" MediaAPI void        Delete();
+	extern "C" MediaAPI void        DeleteWindowInst();
 
 	extern "C" MediaAPI void        MessageLoop();
 

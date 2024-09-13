@@ -18,13 +18,12 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 {
 	Naming::Create();
 
-	Window::Create(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
+	Window::CreateWindowInst(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
 
-	
-	CreateDevice(&mainDevice);
-	mainDevice->Init(Window::GethWnd(), {_windowSizeX ,_windowSizeY});
-	mainDevice->InitMesh();
-	mainDevice->InitMaterial();
+	Device::Create(Window::GethWnd(), { _windowSizeX ,_windowSizeY });
+
+	Device::InitMesh();
+	Device::InitMaterial();
 
 	CreateEngineTime(&mainTime);
 	mainTime->Init();
@@ -54,11 +53,11 @@ void Engine::EngineUpdate()
 	pCurScene->AllGameObjectUpdate(deltaTime);
 	pCurScene->AllCollisionUpdate(deltaTime);
 
-	mainDevice->Clear();
+	Device::Clear();
 
 	pCurScene->Render();
 
-	mainDevice->Present();
+	Device::Present();
 }
 
 void Engine::EngineRelease()
@@ -71,11 +70,10 @@ void Engine::EngineRelease()
 	allScene.clear();
 	
 	DeleteEngineTime(mainTime);
-	DeleteDevice(mainDevice);
-
+	Device::Delete();
 	Input::DeleteInput();
  	Resource::DeleteAllResource();
-	Window::Delete();
+	Window::DeleteWindowInst();
 	Naming::Delete();
 	EngineString::DeleteAllStringPool();
 }

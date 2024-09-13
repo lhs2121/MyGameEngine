@@ -2,7 +2,7 @@
 #include "MediaAPI.h"
 #include "EngineWindow.h"
 
-void Window::Create(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine)
+void Window::CreateWindowInst(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine)
 {
 	if (EngineWindow::mainWindow != nullptr)
 	{
@@ -13,7 +13,7 @@ void Window::Create(const char* _title, float4 _pos, float4 _size, const HINSTAN
 	window->Init(_title, _pos, _size, _hInstance, pEngine);
 }
 
-void Window::Delete()
+void Window::DeleteWindowInst()
 {
 	delete EngineWindow::mainWindow;
 }

@@ -9,7 +9,6 @@ public:
 	T* CreateScene(const char* _name)
 	{
 		Scene* newScene = new T();
-		newScene->device = mainDevice;
 
 		newScene->SetName(_name);
 		newScene->CreateCamera();
@@ -24,12 +23,10 @@ public:
 	void EngineUpdate() override;
 	void EngineRelease() override;
 
-	IDevice* GetMainDevice() { return mainDevice; }
 
 private:
 	Scene* pCurScene;
 	std::unordered_map<const char*, Scene*> allScene;
 
 	IEngineTime* mainTime = nullptr;
-	IDevice* mainDevice = nullptr;
 };
