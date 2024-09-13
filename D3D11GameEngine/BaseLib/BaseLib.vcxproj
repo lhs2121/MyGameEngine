@@ -159,7 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EngineDebug.h" />
     <ClInclude Include="EngineDirectory.h" />
     <ClInclude Include="EngineFile.h" />
     <ClInclude Include="EngineHashMap.h" />
@@ -174,7 +173,6 @@
     <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="EngineDirectory.cpp" />
     <ClCompile Include="EngineFile.cpp" />
     <ClCompile Include="EngineHashMap.cpp" />
@@ -185,6 +183,7 @@
     <ClCompile Include="BaseAPI.cpp" />
     <ClCompile Include="EngineList.cpp" />
     <ClCompile Include="Pre.cpp" />
+    <ClCompile Include="Debug.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

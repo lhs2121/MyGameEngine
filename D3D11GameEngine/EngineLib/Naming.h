@@ -62,7 +62,7 @@ public:
 	{
 		if (mainNaming->allNameObject.find(_name) == mainNaming->allNameObject.end())
 		{
-			EngineDebug::MsgBoxAssert("해당 이름이 없습니다.");
+			Debug::MsgBoxAssert("해당 이름이 없습니다.");
 		}
 		
 		return mainNaming->allNameObject[_name]->GetName();

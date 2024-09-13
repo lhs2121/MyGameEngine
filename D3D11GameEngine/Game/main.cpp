@@ -2,7 +2,7 @@
 #include <common/declspec.h>
 #include <common/commonPre.h>
 
-#include <BaseLib/EngineDebug.h>
+#include <BaseLib/BaseAPI.h>
 #include <MediaLib/MediaAPI.h>
 #include <ResourceLib/ResourceAPI.h>
 #include <EngineLib/Engine.h>
@@ -17,8 +17,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	//EngineDebug::CrtSetBreakAlloc(819);
-	EngineDebug::CrtSetDbgFlag();
+	//Debug::CrtSetBreakAlloc(819);
+	Debug::CrtSetDbgFlag();
 
 	GameInitializer gameInit;
 	Engine mainEngine;

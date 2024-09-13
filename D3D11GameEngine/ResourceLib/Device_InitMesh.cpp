@@ -6,7 +6,7 @@
 
 void Device::InitMesh()
 {
-	//EngineDebug::CrtSetBreakAlloc(758);
+	//Debug::CrtSetBreakAlloc(758);
 	//Box2D
 	{
 		Vertex Box2D[] =

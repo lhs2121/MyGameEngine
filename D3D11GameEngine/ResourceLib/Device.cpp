@@ -82,7 +82,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		&ContextPtr
 	))
 	{
-		EngineDebug::MsgBoxAssert("디바이스 생성 실패");
+		Debug::MsgBoxAssert("디바이스 생성 실패");
 	}
 
 	mainDevice = DevicePtr;
@@ -107,7 +107,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 
 		if (S_OK != FactoryPtr->CreateSwapChain(DevicePtr, &Desc, &SwapChain))
 		{
-			EngineDebug::MsgBoxAssert("스왑체인 생성 실패");
+			Debug::MsgBoxAssert("스왑체인 생성 실패");
 		}
 
 		SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&BackTexture));
@@ -117,7 +117,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 
 	if (S_OK != DevicePtr->CreateRenderTargetView(BackTexture, nullptr, &BackRenderTargetView))
 	{
-		EngineDebug::MsgBoxAssert("백버퍼 렌더타겟 생성 실패");
+		Debug::MsgBoxAssert("백버퍼 렌더타겟 생성 실패");
 	}
 
 
@@ -146,7 +146,7 @@ void Device::Init(void* pHwnd, float4 WindowSize)
 		// 깊이 스텐실 뷰 생성
 		if (S_OK != DevicePtr->CreateDepthStencilView(DepthTexture, &descDSV, &DepthView))
 		{
-			EngineDebug::MsgBoxAssert("뎁스스텐실 생성 실패");
+			Debug::MsgBoxAssert("뎁스스텐실 생성 실패");
 		}
 	}
 

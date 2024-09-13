@@ -256,7 +256,7 @@ IEngineStaticPool* EngineString::GetStringPool(int ByteSize)
 	}
 	else
 	{
-		EngineDebug::MsgBoxAssert("바이트가 너무 큰데?");
+		Debug::MsgBoxAssert("바이트가 너무 큰데?");
 		return nullptr;
 	}
 	

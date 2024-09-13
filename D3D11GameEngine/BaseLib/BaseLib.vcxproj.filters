@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineDebug.h" />
     <ClInclude Include="EngineDirectory.h" />
     <ClInclude Include="EngineFile.h" />
     <ClInclude Include="EngineMath.h" />
@@ -16,7 +15,6 @@
     <ClInclude Include="EngineMap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="EngineDirectory.cpp" />
     <ClCompile Include="EngineFile.cpp" />
     <ClCompile Include="EngineMath.cpp" />
@@ -27,5 +25,6 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineList.cpp" />
     <ClCompile Include="EngineHashMap.cpp" />
+    <ClCompile Include="Debug.cpp" />
   </ItemGroup>
 </Project>

@@ -174,6 +174,16 @@ struct Sampler : public Named
 	}
 };
 
+struct Blend : public Named
+{
+	ID3D11BlendState* pState = nullptr;
+
+	~Blend()
+	{
+		pState->Release();
+	}
+};
+
 struct Mesh : public CanDraw
 {
 	VertexBuffer* pVertexBuffer = nullptr;
@@ -194,17 +204,32 @@ struct Material : public CanDraw
 	DepthStencil* pDepthStencil = nullptr;
 	Sampler* pSampler = nullptr;
 	Texture* pTexture = nullptr;
+	Blend* pBlend = nullptr;
 
 	void Draw() override
 	{
 		pContext->VSSetShader(pVertexShader->pShader, nullptr, 0);
 		pContext->PSSetShader(pPixelShader->pShader, nullptr, 0);
-		pContext->PSSetSamplers(0,1,&pSampler->pState);
+		if (pSampler != nullptr)
+		{
+			pContext->PSSetSamplers(0, 1, &pSampler->pState);
+		}
 		if (pTexture != nullptr)
 		{
 			pContext->PSSetShaderResources(0, 1, &pTexture->pShaderResourceView);
 		}
-		pContext->RSSetState(pRasterizer->pState);
-		pContext->OMSetDepthStencilState(pDepthStencil->pState,0);
+		if (pRasterizer != nullptr)
+		{
+			pContext->RSSetState(pRasterizer->pState);
+		}
+		if (pBlend != nullptr)
+		{
+			pContext->OMSetBlendState(pBlend->pState, nullptr, 0xFFFFFFFF);
+		}
+		if (pDepthStencil != nullptr)
+		{
+			pContext->OMSetDepthStencilState(pDepthStencil->pState, 0);
+		}
+		
 	}
 };

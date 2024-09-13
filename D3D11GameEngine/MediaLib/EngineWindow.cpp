@@ -48,7 +48,7 @@ void EngineWindow::Init(const char* _WindowTile, float4 _WindowPos, float4 _Wind
 
 		if (!hWnd)
 		{
-			EngineDebug::MsgBoxAssert("윈도우 만들기 실패");
+			Debug::MsgBoxAssert("윈도우 만들기 실패");
 		}
 
 		if (hWnd != 0)

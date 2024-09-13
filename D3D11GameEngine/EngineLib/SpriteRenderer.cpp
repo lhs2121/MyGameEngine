@@ -61,7 +61,7 @@ void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float
 {
 	if (pMaterial->pTexture == nullptr)
 	{
-		EngineDebug::MsgBoxAssert("먼저 텍스처를 세팅하세요.");
+		Debug::MsgBoxAssert("먼저 텍스처를 세팅하세요.");
 	}
 
 	ppSpriteDatas = new SpriteData * [_SpriteCountY];

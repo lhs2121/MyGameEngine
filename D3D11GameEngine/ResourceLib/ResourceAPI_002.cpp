@@ -55,21 +55,21 @@ Texture* Resource::CreateTexture(const char* _path)
 	{
 		if (S_OK != DirectX::LoadFromDDSFile(wideStr, DirectX::DDS_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
 		{
-			EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
+			Debug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
 	else if (ext == ".png")
 	{
 		if (S_OK != DirectX::LoadFromWICFile(wideStr, DirectX::WIC_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
 		{
-			EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
+			Debug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
 	else if (ext == ".tga")
 	{
 		if (S_OK != DirectX::LoadFromTGAFile(wideStr, &newTex->metaData, newTex->scratchImage))
 		{
-			EngineDebug::MsgBoxAssert("파일경로가 불일치합니다.");
+			Debug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
 
@@ -79,7 +79,7 @@ Texture* Resource::CreateTexture(const char* _path)
 	if (S_OK != DirectX::CreateShaderResourceView(Device::mainDevice, newTex->scratchImage.GetImages(),
 		newTex->scratchImage.GetImageCount(), newTex->metaData, &newTex->pShaderResourceView))
 	{
-		EngineDebug::MsgBoxAssert("SRV생성 실패.");
+		Debug::MsgBoxAssert("SRV생성 실패.");
 	}
 
 
@@ -118,6 +118,17 @@ ConstantBuffer* Resource::CreateConstantBuffer(const char* _name, void* _pData, 
 
 	ResMap<ConstantBuffer>::map.insert({ _name, newCB });
 	return newCB;
+}
+
+Blend* Resource::CreateBlend(const char* _name, D3D11_BLEND_DESC _desc)
+{
+	Blend* newBlend = new Blend();
+	newBlend->name = _name;
+
+	Device::mainDevice->CreateBlendState(&_desc, &newBlend->pState);
+
+	ResMap<Blend>::map.insert({ _name, newBlend });
+	return newBlend;
 }
 
 Mesh* Resource::CreateMesh(const char* _name)

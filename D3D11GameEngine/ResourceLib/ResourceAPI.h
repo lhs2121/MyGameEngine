@@ -41,6 +41,8 @@ namespace Resource
 
 	extern "C" ResourceAPI ConstantBuffer* CreateConstantBuffer(const char* _name, void* _pData, int _dataSize, ShaderType _type);
 
+	extern "C" ResourceAPI Blend*          CreateBlend(const char* _name, D3D11_BLEND_DESC _desc);
+
 	extern "C" ResourceAPI Mesh*           CreateMesh(const char* _name);
 
 	extern "C" ResourceAPI Material*       CreateMaterial(const char* _name);
@@ -66,6 +68,8 @@ namespace Resource
 	extern "C" ResourceAPI Sampler*        FindSampler(const char* _name);
 
 	extern "C" ResourceAPI ConstantBuffer* FindConstantBuffer(const char* _name);
+
+	extern "C" ResourceAPI Blend*          FindBlend(const char* _name);
 
 	extern "C" ResourceAPI Mesh*           FindMesh(const char* _name);
 

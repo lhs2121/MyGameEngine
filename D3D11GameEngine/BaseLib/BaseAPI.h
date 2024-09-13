@@ -2,14 +2,22 @@
 #pragma warning(disable:4099)
 
 #include <common/declspec.h>
+#include <Windows.h>
 #include "EngineString.h"
 #include "EngineMath.h"
-#include "EngineDebug.h"
+#include "BaseAPI.h"
 #include "EngineDirectory.h"
 #include "EngineFile.h"
 #include "EngineList.h"
 #include "EngineHashMap.h"
 #include "EngineMap.h"
+
+namespace Debug
+{
+	extern "C" BaseAPI void CrtSetBreakAlloc(UINT num);
+	extern "C" BaseAPI void CrtSetDbgFlag();
+	extern "C" BaseAPI void MsgBoxAssert(const char* errorMsg);
+}
 
 struct IEngineStaticPool
 { 	    

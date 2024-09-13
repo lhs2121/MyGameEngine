@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "HashNode.h"
-#include "EngineDebug.h"
+#include "BaseAPI.h"
 #include "EngineHashMap.h"
 #include "EngineString.h"
 #include <string>
@@ -111,7 +111,7 @@ bool EngineHashMap::Add(EngineString _Key, void* ItemPtr)
 	{
 		if (CurNode->Key == _Key)
 		{
-			EngineDebug::MsgBoxAssert("해쉬맵에 이미 동일한 키가 있습니다.");
+			Debug::MsgBoxAssert("해쉬맵에 이미 동일한 키가 있습니다.");
 			return false;	
 		}
 

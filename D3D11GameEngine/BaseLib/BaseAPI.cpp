@@ -15,6 +15,7 @@ void DeleteEngineStaticPool(IEngineStaticPool* pI)
 	delete castptr;
 }
 
+
 void CreateEngineTime(IEngineTime** ppI)
 {
 	*ppI = new EngineTime();

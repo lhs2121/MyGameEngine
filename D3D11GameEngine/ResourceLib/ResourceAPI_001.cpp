@@ -22,7 +22,7 @@ VertexBuffer* Resource::CreateVertexBuffer(const char* _name, void* pVertexStruc
 
 	if (S_OK != Device::mainDevice->CreateBuffer(&desc, &subData, &newBuffer->pBuffer))
 	{
-		EngineDebug::MsgBoxAssert("버텍스버퍼 생성 실패");
+		Debug::MsgBoxAssert("버텍스버퍼 생성 실패");
 	}
 
 	ResMap<VertexBuffer>::map.insert({ _name, newBuffer });
@@ -68,7 +68,7 @@ InputLayout* Resource::CreateInputLayout(const char* _name, VertexShader* _pShad
 
 	if (S_OK != Device::mainDevice->CreateInputLayout(desc, 3, _pShader->pBlob->GetBufferPointer(), _pShader->pBlob->GetBufferSize(), &newLayout->pLayout))
 	{
-		EngineDebug::MsgBoxAssert("인풋레이아웃 생성 실패.");
+		Debug::MsgBoxAssert("인풋레이아웃 생성 실패.");
 	}
 
 	ResMap<InputLayout>::map.insert(std::make_pair(_name,newLayout));

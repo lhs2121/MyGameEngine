@@ -64,6 +64,11 @@ ConstantBuffer* Resource::FindConstantBuffer(const char* _name)
 	return ResMap<ConstantBuffer>::Find(_name);
 }
 
+Blend* Resource::FindBlend(const char* _name)
+{
+	return ResMap<Blend>::Find(_name);
+}
+
 Mesh* Resource::FindMesh(const char* _name)
 {
 	return ResMap<Mesh>::Find(_name);
@@ -135,6 +140,12 @@ void Resource::DeleteAllResource()
 		delete pair.second;
 	}
 	ResMap<ConstantBuffer>::map.clear();
+
+	for (auto& pair : ResMap<Blend>::map)
+	{
+		delete pair.second;
+	}
+	ResMap<Blend>::map.clear();
 
 	for (auto& pair : ResMap<Mesh>::map)
 	{

@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include "EngineFile.h"
-#include "EngineDebug.h"
+#include "BaseAPI.h"
 
 EngineFile::EngineFile(const char* _Path)
 {
@@ -94,7 +94,7 @@ void EngineFile::Open(FileMode _Mode)
 	fopen_s(&FilePtr, Path.c_str(), Mode);
 	if (FilePtr == nullptr)
 	{
-		EngineDebug::MsgBoxAssert("파일을 여는데 실패했습니다");
+		Debug::MsgBoxAssert("파일을 여는데 실패했습니다");
 	}
 }
 
@@ -130,13 +130,13 @@ void EngineFile::Move(const char* _TargetStr, MoveMode _Mode)
 {
 	if (FileStr == nullptr)
 	{
-		EngineDebug::MsgBoxAssert("먼저 ReadFileToMemory()을 호출해주세요");
+		Debug::MsgBoxAssert("먼저 ReadFileToMemory()을 호출해주세요");
 	}
 
 	CurFileStrPtr = strstr(CurFileStrPtr, _TargetStr);
 	if (CurFileStrPtr == 0)
 	{
-		EngineDebug::MsgBoxAssert("파일안에서 문자열을 못찾았습니다");
+		Debug::MsgBoxAssert("파일안에서 문자열을 못찾았습니다");
 	}
 
 	if (_Mode == MoveMode::End)
@@ -178,7 +178,7 @@ EngineString EngineFile::GetString( char _EndStr)
 {
 	if (FileStr == nullptr)
 	{
-		EngineDebug::MsgBoxAssert("먼저 ReadFileToMemory()을 호출해주세요");
+		Debug::MsgBoxAssert("먼저 ReadFileToMemory()을 호출해주세요");
 	}
 	UINT _StrCount = 0;
 	char* temp = CurFileStrPtr;

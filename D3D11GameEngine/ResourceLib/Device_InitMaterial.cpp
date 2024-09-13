@@ -95,11 +95,28 @@ void Device::InitMaterial()
 	}
 
 	{
+		D3D11_BLEND_DESC desc = { 0 };
+		{
+			desc.AlphaToCoverageEnable = false;
+			desc.IndependentBlendEnable = false;
+			desc.RenderTarget[0].BlendEnable = true;
+			desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+			desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+			desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+			desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+			desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+			desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+			desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		}
+		Resource::CreateBlend("Default", desc);
+	}
+	{
 		Material* newMaterial = Resource::CreateMaterial("Sprite2D");
 		newMaterial->pVertexShader = ResMap<VertexShader>::Find("Sprite2D");
 		newMaterial->pPixelShader = ResMap<PixelShader>::Find("Sprite2D");
 		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("Default");
 		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOn");
+		newMaterial->pBlend = ResMap<Blend>::Find("Default");
 		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
 	}
 

@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include "EngineDebug.h"
+#include "BaseAPI.h"
 #include "EngineDirectory.h"
 #include "EngineFile.h"
 #include <iostream>
@@ -43,7 +43,7 @@ void EngineDirectory::GoBase()
 
 		if (CurDir == "")
 		{
-			EngineDebug::MsgBoxAssert("BaseDirectory를 찾을수없습니다");
+			Debug::MsgBoxAssert("BaseDirectory를 찾을수없습니다");
 		}
 		if (EngineDirectory::BaseDir == CurDir.c_str())
 		{
@@ -75,7 +75,7 @@ EngineFile EngineDirectory::GetFile(const char* _name)
 
 	if (std::filesystem::exists(stdPath) == false)
 	{
-		EngineDebug::MsgBoxAssert("해당 파일이 없습니다");
+		Debug::MsgBoxAssert("해당 파일이 없습니다");
 	}
 
 	Path = stdPath.string().c_str();
