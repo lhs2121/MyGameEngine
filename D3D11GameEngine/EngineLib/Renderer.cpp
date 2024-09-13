@@ -11,9 +11,9 @@ void Renderer::Awake()
 {
 	pContext = Device::GetContext();
 
-	pCamera = scene->GetMainCamera();
+	pCamera = GetScene()->GetMainCamera();
 	pCamera->AddRenderer(this);
-
+	
 	Naming::AddName("Transform");
 
 	EngineString name = Naming::GetName("Transform");
@@ -34,6 +34,12 @@ void Renderer::Awake()
 void Renderer::Update(float _deltaTime)
 {
 }
+
+void Renderer::Release()
+{
+	pCamera->DeleteRenderer(this);
+}
+
 void Renderer::Render()
 {
 	pTransformBuffer->Draw();

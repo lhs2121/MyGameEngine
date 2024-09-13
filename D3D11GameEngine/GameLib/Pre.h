@@ -13,11 +13,10 @@
 		  
 #include <EngineLib/Object.h>
 #include <EngineLib/Scene.h>
-#include <EngineLib/GameObject.h>
+#include <EngineLib/InputObject.h>
 #include <EngineLib/Camera.h>
 		  
 //Component
-#include <EngineLib/Component.h>
 #include <EngineLib/Renderer.h>
 #include <EngineLib/SpriteRenderer.h>
 #include <EngineLib/Colider2D.h>

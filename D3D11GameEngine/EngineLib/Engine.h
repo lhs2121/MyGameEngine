@@ -9,7 +9,6 @@ public:
 	T* CreateScene(const char* _name)
 	{
 		Scene* newScene = new T();
-
 		newScene->SetName(_name);
 		newScene->CreateCamera();
 		newScene->Awake();

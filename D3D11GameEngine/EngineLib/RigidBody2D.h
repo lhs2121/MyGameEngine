@@ -1,8 +1,8 @@
 #pragma once
-#include "Component.h"
+
 #include "Colider2D.h"
 
-class RigidBody2D : public Component
+class RigidBody2D : public Object
 {
 public:
 	RigidBody2D() = default;

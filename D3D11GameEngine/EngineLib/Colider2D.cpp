@@ -5,7 +5,25 @@
 
 void Colider2D::Awake()
 {
-	scene->AddCollision(this);
+	GetScene()->AddCollision(this);
+
+	const char* meshName = nullptr;
+	switch (colType)
+	{
+	case ColType::AABB2D:
+		meshName = "Box2D";
+		break;
+	case ColType::Circle2D:
+		meshName = "Circle2D";
+		break;
+	default:
+		break;
+	}
+
+	debugRenderer = CreateChild<Renderer>();
+	debugRenderer->SetRenderOrder(-5);
+	debugRenderer->SetMesh(meshName);
+	debugRenderer->SetMaterial("WireFrame");
 }
 
 void Colider2D::Update(float _deltaTime)
@@ -15,6 +33,11 @@ void Colider2D::Update(float _deltaTime)
 	left = transform.worldPosition.x - transform.worldScale.hx();
 	top = transform.worldPosition.y + transform.worldScale.hy();
 	bottom = transform.worldPosition.y - transform.worldScale.hy();
+}
+
+void Colider2D::Release()
+{
+	int a = 0;
 }
 
 bool Colider2D::Collision(Colider2D* _Other)

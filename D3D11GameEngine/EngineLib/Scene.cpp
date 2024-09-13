@@ -8,94 +8,18 @@ Scene::Scene()
 	collisionList.reserve(100);
 }
 
-Scene::~Scene()
-{
-	for(Renderer* r: collisionDebugRenderers)
-	{
-		delete r;
-	}
-
-	for (auto& pair: allGameObject)
-	{
-		std::list<GameObject*> curGameObjectList = pair.second;
-		for (GameObject* curGameObject : curGameObjectList)
-		{
-			delete curGameObject;
-		}
-	}
-	allGameObject.clear();
-}
-
-void Scene::DeleteGameObject(GameObject* _gameObject)
-{
-	int order = _gameObject->objectOrder;
-	allGameObject[order].remove(_gameObject);
-}
-
 void Scene::CreateCamera()
 {
-	Camera* newCamera = CreateGameObject<Camera>();
+	Camera* newCamera = CreateChild<Camera>();
 	cameraList.push_back(newCamera);
 }
 
 void Scene::AddCollision(Colider2D* _col)
 {
-	const char* meshName = nullptr;
-	switch (_col->colType)
-	{
-	case ColType::AABB2D :
-		meshName = "Box2D";
-		break;
-	case ColType::Circle2D :
-		meshName = "Circle2D";
-		break;
-	default:
-		break;
-	}
 	collisionList.push_back(_col);
-	Renderer* debugRenderer = new Renderer();
-
-	debugRenderer->transform.SetParent(&_col->transform);
-	debugRenderer->scene = this;
-
-	debugRenderer->Awake();
-	debugRenderer->SetRenderOrder(-5);
-	debugRenderer->SetMesh(meshName);
-	debugRenderer->SetMaterial("WireFrame");
-
-	collisionDebugRenderers.push_back(debugRenderer);
 }
 
-void Scene::Start()
-{
-}
-
-void Scene::AllGameObjectStart()
-{
-	for (auto& pair : allGameObject)
-	{
-		std::list<GameObject*> curGameObjectList = pair.second;
-		for (GameObject* curGameObject : curGameObjectList)
-		{
-			curGameObject->transform.TransformUpdate();
-			curGameObject->AllStart();
-		}
-	}
-}
-
-void Scene::AllGameObjectUpdate(float _deltaTime)
-{
-	for (auto& pair : allGameObject)
-	{
-		std::list<GameObject*> curGameObjectList = pair.second;
-		for (GameObject* curGameObject : curGameObjectList)
-		{
-			curGameObject->AllUpdate(_deltaTime);
-		}
-	}
-}
-
-void Scene::AllCollisionUpdate(float _deltaTime)
+void Scene::Collision(float _deltaTime)
 {
 	size_t colCount = collisionList.size();
 
@@ -117,11 +41,6 @@ void Scene::AllCollisionUpdate(float _deltaTime)
 			firstCol->Collision(otherCol);
 		}
 	}
-	
-}
-
-void Scene::Update(float _deltaTime)
-{
 }
 
 void Scene::Render()

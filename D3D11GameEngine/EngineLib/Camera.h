@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+
 #include "Renderer.h"
 
 enum class ProjectionType
@@ -7,12 +7,13 @@ enum class ProjectionType
 	Perspective,
 	Orthographic
 };
-class Camera : public GameObject
+class Camera : public Object
 {
 public:
 	void Awake() override;
 	void Update(float _deltaTime) override;
 	void AddRenderer(Renderer* _renderer, int _renderOrder = 0);
+	void DeleteRenderer(Renderer* _renderer);
 	void ChangeRenderOrder(Renderer* _renderer, int _afterOrder);
 	void SetProjectionType(ProjectionType _type) { projectionType = _type; }
 	void Render();

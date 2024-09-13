@@ -1,6 +1,6 @@
 #pragma once
 
-class Player : public GameObject
+class Player : public InputObject
 {
 public:
 	void Awake() override;

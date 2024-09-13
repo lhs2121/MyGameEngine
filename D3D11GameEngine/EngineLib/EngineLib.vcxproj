@@ -165,8 +165,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineAPI.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Component.h" />
+    <ClInclude Include="InputObject.h" />
     <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="Naming.h" />
   </ItemGroup>
@@ -188,8 +187,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="InputObject.cpp" />
     <ClCompile Include="RigidBody2D.cpp" />
     <ClCompile Include="Naming.cpp" />
   </ItemGroup>

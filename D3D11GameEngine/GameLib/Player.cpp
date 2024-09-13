@@ -3,14 +3,14 @@
 
 void Player::Awake()
 {
-	pSpriteRenderer = AddComponent<SpriteRenderer>();
+	pSpriteRenderer = CreateChild<SpriteRenderer>();
 	Resource::CreateTexture("Character/stand.dds");
 	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
-	pColider2D = AddComponent<Colider2D>();
-	transform.SetScale({ 64,64 });
-	pRigid = AddComponent<RigidBody2D>();
+	pColider2D = CreateChild<Colider2D>();
+	transform.SetScale({ 256,256 });
+	pRigid = CreateChild<RigidBody2D>();
 }
 
 void Player::Update(float _deltaTime)
@@ -49,14 +49,15 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyPress('Q'))
 	{
-		scene->GetMainCamera()->transform.AddPos({ 0,0,100 * _deltaTime });
+		GetScene()->GetMainCamera()->transform.AddPos({0,0,100 * _deltaTime});
 	}
 	if (GetKeyPress('E'))
 	{
-		scene->GetMainCamera()->transform.AddPos({ 0,0,-100 * _deltaTime });
+		GetScene()->GetMainCamera()->transform.AddPos({ 0,0,-100 * _deltaTime });
 	}
 	if (GetKeyDown('R'))
 	{
+		Destroy();
 		transform.SetPos({ 0,0,0 });
 		transform.SetRotation({ 0,0,0 });
 	}

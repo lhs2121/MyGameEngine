@@ -1,17 +1,17 @@
 #pragma once
 #include <ResourceLib\ResourceAPI.h>
 #include "Object.h"
-#include "Component.h"
+
 
 class Camera;
-class  Renderer : public Component
+class  Renderer : public Object
 {
 public:
 	~Renderer();
 
 	void Awake() override;
 	void Update(float _deltaTime) override;
-
+	void Release() override;
 	virtual void Render();
 
 	void SetMesh(const char* _name);

@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "Component.h"
+
 
 enum class ColType
 {
@@ -8,12 +8,12 @@ enum class ColType
 	Circle2D,
 };
 class Renderer;
-class  Colider2D : public Component
+class  Colider2D : public Object
 {
 public:
 	void Awake() override;
 	void Update(float _deltaTime) override;
-
+	void Release() override;
 	void SetColType(ColType _Type) { colType = _Type; }
 	bool Collision(Colider2D* _Other);
 
@@ -30,4 +30,5 @@ private:
 	bool Circle2DCircle2D(Colider2D* _Other) const;
 	bool AABB2DCircle2D(Colider2D* _Other);
 
+	Renderer* debugRenderer;
 };

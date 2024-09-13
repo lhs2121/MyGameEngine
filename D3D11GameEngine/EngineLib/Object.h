@@ -3,17 +3,12 @@
 #include "Transform.h"
 
 class Scene;
+class GameObject;
 class Object
 {
 public:
 	Object();
 	virtual ~Object();
-
-	void SetName(EngineString _name) { name = _name; }
-
-	void Destroy() { death = true; }
-
-	bool IsDeath() const { return death; }
 
 	virtual void Awake() {}
 
@@ -25,11 +20,65 @@ public:
 
 	virtual void Release() {}
 
+	void ChildStart();
+
+	void ChildUpdate(float _deltaTime);
+
+	void ChildEnd();
+
+	void ChildRelease();
+
+	void ChildDestroy();
+
+	void SetName(EngineString _name) { name = _name; }
+
+	void Destroy() { death = true; }
+
+	bool IsDeath() const { return death; }
+
+	void SetOrder(int _order);
+
+	void SetParent(Object* _parent);
+
+	Object* GetParent() { return parent; }
+
+	Scene* GetScene();
+
+	template<typename T>
+	T* CreateChild(int order = 0)
+	{
+		Object* newComp = new T();
+		newComp->SetOrder(order);
+		newComp->SetParent(this);
+		newComp->Awake();
+		return (T*)newComp;
+	}
+
+	template<typename T>
+	T* GetChild()
+	{
+		for (auto& pair : childs)
+		{
+			std::list<Object*> objectList = pair.second;
+
+			for (Object* object : objectList)
+			{
+				T* result = dynamic_cast<T*>(object);
+				if (result != nullptr)
+				{
+					return result;
+				}
+			}
+		}
+		return nullptr;
+	}
 	EngineString name;
 	Transform transform;
-	Object* parentObject = nullptr;
-	Scene* scene = nullptr;
-protected: 
+
+private:
+	int order = 0;
 	bool death = false;
+	Object* parent = nullptr;
+	std::map<int, std::list<Object*>> childs;
 };
 

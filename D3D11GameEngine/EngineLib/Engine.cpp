@@ -9,8 +9,14 @@ void Engine::LoadScene(const char* _name)
 {
 	if (allScene.end() != allScene.find(_name))
 	{
+		if (pCurScene != nullptr)
+		{
+			pCurScene->ChildEnd();
+		}
+		
+
 		pCurScene = allScene[_name];
-		pCurScene->AllGameObjectStart();
+		pCurScene->ChildStart();
 	}
 }
 
@@ -50,14 +56,16 @@ void Engine::EngineUpdate()
 
 	pCurScene->Update(deltaTime);
 
-	pCurScene->AllGameObjectUpdate(deltaTime);
-	pCurScene->AllCollisionUpdate(deltaTime);
+	pCurScene->ChildUpdate(deltaTime);
+	pCurScene->Collision(deltaTime);
 
 	Device::Clear();
 
 	pCurScene->Render();
 
 	Device::Present();
+
+	pCurScene->ChildDestroy();
 }
 
 void Engine::EngineRelease()

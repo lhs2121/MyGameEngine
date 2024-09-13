@@ -6,11 +6,13 @@ void TestScene::Awake()
 {
 	GetMainCamera()->SetProjectionType(ProjectionType::Orthographic);
 
-	a = CreateGameObject<Player>();
-	a->GetComponent<Renderer>()->SetRenderOrder(5);
+	a = CreateChild<Player>();
+	a->CreateChild<Renderer>()->SetRenderOrder(5);
 
-	Player* b = CreateGameObject<Player>();
+	Player* b = CreateChild<Player>();
 	b->transform.SetLocalPos({ 100,100 });
+
+	GetMainCamera()->transform.SetPos({ 0,0,-150 });
 	Input::AddUser(a);
 }
 

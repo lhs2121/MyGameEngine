@@ -44,10 +44,7 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>ObjectEssential</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="InputObject.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -83,10 +80,7 @@
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>ObjectEssential</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="InputObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">

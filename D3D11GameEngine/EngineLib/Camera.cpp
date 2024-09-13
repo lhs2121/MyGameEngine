@@ -19,6 +19,11 @@ void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)
 	rendererMap[_renderOrder].push_back(_renderer);
 }
 
+void Camera::DeleteRenderer(Renderer* _renderer)
+{
+	rendererMap[_renderer->GetRenderOrder()].remove(_renderer);
+}
+
 void Camera::ChangeRenderOrder(Renderer* _renderer, int _afterOrder)
 {
 	int beforeOrder = _renderer->GetRenderOrder();
