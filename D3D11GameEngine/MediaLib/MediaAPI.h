@@ -5,9 +5,9 @@ struct IEngine;
 
 namespace Input
 {
-	extern "C" MediaAPI void        CreateInput();
+	MediaAPI void        Create();
 
-	extern "C" MediaAPI void        DeleteInput();
+	MediaAPI void        Delete();
 
 	extern "C" MediaAPI void        UpdateKeyStates();
 
@@ -24,9 +24,9 @@ namespace Input
 
 namespace Window
 {
-	extern "C" MediaAPI void        CreateWindowInst(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine);
+	MediaAPI void        Create(const char* _title, float4 _pos, float4 _size, const HINSTANCE _hInstance, IEngine* pEngine);
 
-	extern "C" MediaAPI void        DeleteWindowInst();
+	MediaAPI void        Delete();
 
 	extern "C" MediaAPI void        MessageLoop();
 

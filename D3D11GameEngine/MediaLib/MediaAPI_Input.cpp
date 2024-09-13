@@ -2,7 +2,7 @@
 #include "MediaAPI.h"
 #include "EngineInput.h"
 
-void Input::CreateInput()
+void Input::Create()
 {
 	if (EngineInput::mainInput != nullptr)
 	{
@@ -13,7 +13,7 @@ void Input::CreateInput()
 	input->Init();
 }
 
-void Input::DeleteInput()
+void Input::Delete()
 {
 	delete EngineInput::mainInput;
 }
