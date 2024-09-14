@@ -7,12 +7,12 @@ void Transform::TransformUpdate()
 	worldRotation = rotation + localRotation;
 	worldPosition = position + localPosition;
 
-	for (Transform* childTransform: childTransformList)
+	for (Transform* child: childList)
 	{
-		childTransform->scale = worldScale;
-		childTransform->rotation = worldRotation;
-		childTransform->position = worldPosition;
-		childTransform->TransformUpdate();
+		child->scale = worldScale;
+		child->rotation = worldRotation;
+		child->position = worldPosition;
+		child->TransformUpdate();
 	}
 
 	scaleMat.Scale(worldScale);
@@ -64,48 +64,12 @@ void Transform::AddLocalRotation(float4 _rotation)
 	TransformUpdate();
 }
 
-void Transform::SetPos(float4 _pos)
+void Transform::SetParent(Transform* _parent)
 {
-	position = _pos;
-	TransformUpdate();
-}
-
-void Transform::SetScale(float4 _scale)
-{
-	scale = _scale;
-	TransformUpdate();
-}
-
-void Transform::SetRotation(float4 _rotation)
-{
-	rotation = _rotation;
-	TransformUpdate();
-}
-
-void Transform::AddPos(float4 _pos)
-{
-	position += _pos;
-	TransformUpdate();
-}
-
-void Transform::AddScale(float4 _scale)
-{
-	scale += _scale;
-	TransformUpdate();
-}
-
-void Transform::AddRotation(float4 Value)
-{
-	rotation += Value;
-	TransformUpdate();
-}
-
-void Transform::SetParent(Transform* _parentTransform)
-{
-	if (parentTransform != nullptr)
+	if (parent != nullptr)
 	{
-		parentTransform->childTransformList.remove(this);
+		parent->childList.remove(this);
 	}
-	parentTransform = _parentTransform;
-	parentTransform->childTransformList.push_back(this);
+	parent = _parent;
+	parent->childList.push_back(this);
 }

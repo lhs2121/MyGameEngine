@@ -4,7 +4,6 @@
 
 Object::Object()
 {
-	transform.parentObject = this;
 }
 
 Object::~Object()
@@ -135,10 +134,7 @@ Scene* Object::GetScene()
 	{
 		return (Scene*)this;
 	}
-	else
-	{
-		parent->GetScene();
-	}
 
+	parent->GetScene();
 }
 

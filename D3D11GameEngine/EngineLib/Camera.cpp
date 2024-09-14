@@ -5,7 +5,7 @@
 
 void Camera::Awake()
 {
-	transform.SetPos({ 0,0,-500 });
+	transform.SetLocalPos({ 0,0,-500 });
 	windowSize = { Window::GetSizeX(),Window::GetSizeY()};
 }
 

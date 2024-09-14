@@ -12,7 +12,6 @@ void TestScene::Awake()
 	Player* b = CreateChild<Player>();
 	b->transform.SetLocalPos({ 100,100 });
 
-	GetMainCamera()->transform.SetPos({ 0,0,-150 });
 	Input::AddUser(a);
 }
 

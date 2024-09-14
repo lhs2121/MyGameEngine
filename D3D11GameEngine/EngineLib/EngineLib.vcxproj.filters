@@ -44,14 +44,14 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>ObjectEssential</Filter>
     </ClInclude>
-    <ClInclude Include="InputObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Naming.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="InputObject.h">
+      <Filter>ObjectEssential</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,14 +80,14 @@
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>ObjectEssential</Filter>
     </ClCompile>
-    <ClCompile Include="InputObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Naming.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="InputObject.cpp">
+      <Filter>ObjectEssential</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,5 @@
 #pragma once
 #include "Object.h"
-
 #include "Camera.h"
 #include "Colider2D.h"
 

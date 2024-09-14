@@ -15,16 +15,7 @@ public:
 	void AddLocalRotation(float4 _rotation);
 	void AddLocalPos(float4 _pos);
 
-	void SetScale(float4 _scale);
-	void SetRotation(float4 _rotation);
-	void SetPos(float4 _pos);
-
-	void AddScale(float4 _scale);
-	void AddRotation(float4 _rotation);
-	void AddPos(float4 _pos);
-
-	void SetParent(Transform* _parentTransform);
-
+	void SetParent(Transform* _parent);
 	void TransformUpdate();
 
 	float4 localScale = { 1.0f,1.0f,1.0f,1.0f };
@@ -49,7 +40,7 @@ public:
 
 	float4x4 worldViewProjectionMat;
 
-	Transform* parentTransform = nullptr;
-	Object* parentObject = nullptr;
-	std::list<Transform*> childTransformList;
+private:
+	Transform* parent = nullptr;
+	std::list<Transform*> childList;
 };

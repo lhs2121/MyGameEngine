@@ -3,7 +3,6 @@
 #include "Transform.h"
 
 class Scene;
-class GameObject;
 class Object
 {
 public:
@@ -51,6 +50,7 @@ public:
 		newComp->SetOrder(order);
 		newComp->SetParent(this);
 		newComp->Awake();
+		newComp->transform.TransformUpdate();
 		return (T*)newComp;
 	}
 

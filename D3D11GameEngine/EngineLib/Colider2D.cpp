@@ -7,22 +7,9 @@ void Colider2D::Awake()
 {
 	GetScene()->AddCollision(this);
 
-	const char* meshName = nullptr;
-	switch (colType)
-	{
-	case ColType::AABB2D:
-		meshName = "Box2D";
-		break;
-	case ColType::Circle2D:
-		meshName = "Circle2D";
-		break;
-	default:
-		break;
-	}
-
 	debugRenderer = CreateChild<Renderer>();
 	debugRenderer->SetRenderOrder(-5);
-	debugRenderer->SetMesh(meshName);
+	debugRenderer->SetMesh("Box2D");
 	debugRenderer->SetMaterial("WireFrame");
 }
 
@@ -38,6 +25,22 @@ void Colider2D::Update(float _deltaTime)
 void Colider2D::Release()
 {
 	int a = 0;
+}
+
+void Colider2D::SetColType(ColType _Type)
+{
+	colType = _Type; 
+	const char* meshName = nullptr;
+	switch (colType)
+	{
+	case ColType::AABB2D:
+		meshName = "Box2D";
+		break;
+	case ColType::Circle2D:
+		meshName = "Circle2D";
+		break;
+	}
+	debugRenderer->SetMesh(meshName);
 }
 
 bool Colider2D::Collision(Colider2D* _Other)
@@ -59,6 +62,15 @@ bool Colider2D::Collision(Colider2D* _Other)
 		isCollision = _Other->AABB2DCircle2D(this);
 	}
 
+	if (isCollision)
+	{
+		dir = transform.worldPosition - _Other->transform.worldPosition;
+		dir.Normalize();
+	}
+	else
+	{
+		dir = { 0,0,0,1 };
+	}
 	_Other->isCollision = isCollision;
 	return isCollision;
 }
@@ -84,7 +96,7 @@ bool Colider2D::AABB2DAABB2D(Colider2D* _other) const
 	{
 		return false;
 	}
-
+	
 	return true;
 }
 
