@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClInclude Include="Pre.h" />
     <ClInclude Include="VertexFormat.h" />
-    <ClInclude Include="RenderManager.h">
+    <ClInclude Include="DeviceManager.h">
       <Filter>Device</Filter>
     </ClInclude>
     <ClInclude Include="ResourceAPI.h">
@@ -16,26 +16,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="Device_InitMesh.cpp">
+    <ClCompile Include="DeviceManager_InitMesh.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="Device_InitMaterial.cpp">
+    <ClCompile Include="DeviceManager_InitMaterial.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
+    <ClCompile Include="DeviceManager.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceAPI_000.cpp">
+    <ClCompile Include="ResourceAPI_Resource_Find_Delete.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceAPI_001.cpp">
+    <ClCompile Include="ResourceAPI_Resource_CreateVertexBuffer.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceAPI_002.cpp">
+    <ClCompile Include="ResourceAPI_Resource_CreateVertexRasterizer.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="ResourceType.cpp" />
-    <ClCompile Include="ResourceAPI_RenderManager.cpp">
+    <ClCompile Include="ResourceAPI_Device.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,5 +46,16 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{c94a4e0c-39b4-4458-a3f0-a6ed00daef39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{49296731-2599-461c-ad87-06e3028a6ea5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Assets\Shaders\SimpleColor.fx">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shaders\Sprite2D.fx">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 #include "Pre.h"
-#include "RenderManager.h"
+#include "DeviceManager.h"
 #include "VertexFormat.h"
 #include "ResourceAPI.h"
 #include "ResMap.h"
 
-void RenderManager::InitMesh()
+void DeviceManager::InitMesh()
 {
 	//Debug::CrtSetBreakAlloc(758);
 	//Box2D

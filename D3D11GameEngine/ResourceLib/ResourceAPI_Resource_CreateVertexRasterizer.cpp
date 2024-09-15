@@ -1,15 +1,14 @@
 #include "Pre.h"
 #include "ResourceAPI.h"
 #include "ResMap.h"
-#include <direct.h>	//getcwd
-
 
 Rasterizer* Resource::CreateRasterizer(const char* _name, D3D11_RASTERIZER_DESC _desc)
 {
 	Rasterizer* newRasterizer = new Rasterizer();
 	newRasterizer->name = _name;
+	newRasterizer->desc = _desc;
 
-	Device::GetDevice()->CreateRasterizerState(&_desc, &newRasterizer->pState);
+	Device::GetDevice()->CreateRasterizerState(&newRasterizer->desc, &newRasterizer->pState);
 	ResMap<Rasterizer>::map.insert({ _name, newRasterizer });
 	return newRasterizer;
 }
@@ -18,8 +17,9 @@ DepthStencil* Resource::CreateDepthStencil(const char* _name, D3D11_DEPTH_STENCI
 {
 	DepthStencil* newDepthStencil = new DepthStencil();
 	newDepthStencil->name = _name;
+	newDepthStencil->desc = _desc;
 
-	Device::GetDevice()->CreateDepthStencilState(&_desc, &newDepthStencil->pState);
+	Device::GetDevice()->CreateDepthStencilState(&newDepthStencil->desc, &newDepthStencil->pState);
 
 	ResMap<DepthStencil>::map.insert({ _name, newDepthStencil });
 	return newDepthStencil;
@@ -91,8 +91,9 @@ Sampler* Resource::CreateSampler(const char* _name, D3D11_SAMPLER_DESC _desc)
 {
 	Sampler* newSampler = new Sampler();
 	newSampler->name = _name;
+	newSampler->desc = _desc;
 
-	Device::GetDevice()->CreateSamplerState(&_desc, &newSampler->pState);
+	Device::GetDevice()->CreateSamplerState(&newSampler->desc, &newSampler->pState);
 
 	ResMap<Sampler>::map.insert({ _name, newSampler });
 	return newSampler;
@@ -123,8 +124,8 @@ Blend* Resource::CreateBlend(const char* _name, D3D11_BLEND_DESC _desc)
 {
 	Blend* newBlend = new Blend();
 	newBlend->name = _name;
-
-	Device::GetDevice()->CreateBlendState(&_desc, &newBlend->pState);
+	newBlend->desc = _desc;
+	Device::GetDevice()->CreateBlendState(&newBlend->desc, &newBlend->pState);
 
 	ResMap<Blend>::map.insert({ _name, newBlend });
 	return newBlend;

@@ -55,8 +55,11 @@ void Engine::EngineUpdate()
 	mainTime->CountStart();
 
 	pCurScene->Update(deltaTime);
-
 	pCurScene->ChildUpdate(deltaTime);
+
+	pCurScene->LateUpdate(deltaTime);
+	pCurScene->ChildLateUpdate(deltaTime);
+
 	pCurScene->Collision(deltaTime);
 
 	Device::Clear();

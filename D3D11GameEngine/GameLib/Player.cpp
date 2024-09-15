@@ -8,18 +8,20 @@ void Player::Awake()
 	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
-	transform.SetLocalScale({ 128,128 });
-	pColider2D = CreateChild<Colider2D>();
-	//pColider2D->SetColType(ColType::Circle2D);
 	pRigid = CreateChild<RigidBody2D>();
+	transform.SetLocalScale({ 128,128 });
+
+	pColider2D = CreateChild<Colider2D>();
+	pColider2D->SetColType(ColType::Circle2D);
 }
 
 void Player::Update(float _deltaTime)
 {
-	if (pColider2D->IsCollision())
-	{
-		int a = 0;
-	}
+	//if (pColider2D->IsCollision())
+	//{
+	//	int a = 0;
+	//}
+
 	if (GetKeyPress('Z'))
 	{
 		transform.AddLocalRotation({ 100 * _deltaTime,0,0 });
@@ -32,25 +34,32 @@ void Player::Update(float _deltaTime)
 	{
 		transform.AddLocalRotation({ 0,0,100 * _deltaTime });
 	}
+
+	float4 dir = { 0,0 };
 	if (GetKeyPress('W'))
 	{
-		transform.AddLocalPos({ 0, 100 * _deltaTime,0 });
+		dir += { 0,1 };
 	}
 	if (GetKeyPress('A'))
 	{
-		transform.AddLocalPos({ -100 * _deltaTime,0,0 });
+		dir += { -1,0 };
 	}
 	if (GetKeyPress('S'))
 	{
-		transform.AddLocalPos({ 0,-100 * _deltaTime,0 });
+		dir += { 0,-1 };
 	}
 	if (GetKeyPress('D'))
 	{
-		transform.AddLocalPos({ 100 * _deltaTime,0,0 });
+		dir += { 1,0 };
 	}
+	if (pRigid != nullptr)
+	{
+		pRigid->velocity = dir * _deltaTime * 100;
+	}
+
 	if (GetKeyPress('Q'))
 	{
-		GetScene()->GetMainCamera()->transform.AddLocalPos({0,0,100 * _deltaTime});
+		GetScene()->GetMainCamera()->transform.AddLocalPos({ 0,0,100 * _deltaTime });
 	}
 	if (GetKeyPress('E'))
 	{
@@ -58,7 +67,6 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyDown('R'))
 	{
-		Destroy();
 		transform.SetLocalPos({ 0,0,0 });
 		transform.SetLocalRotation({ 0,0,0 });
 	}

@@ -8,10 +8,10 @@ void RigidBody2D::Start()
 
 void RigidBody2D::Update(float _deltaTime)
 {
+}
 
-	float speed = 1000.0f;
-	if (parentCol->IsCollision())
-	{
-		GetParent()->transform.AddLocalPos(parentCol->dir * speed * _deltaTime);
-	}
+void RigidBody2D::LateUpdate(float _deltaTime)
+{
+
+	GetParent()->transform.AddLocalPos(velocity);
 }

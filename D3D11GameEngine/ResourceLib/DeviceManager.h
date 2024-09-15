@@ -2,15 +2,15 @@
 #include "ResourceAPI.h"
 #include "Windows.h"
 
-class RenderManager
+class DeviceManager
 {
 public:
-	static RenderManager* Inst;
-	RenderManager()
+	static DeviceManager* Inst;
+	DeviceManager()
 	{
 		Inst = this;
 	}
-	~RenderManager();
+	~DeviceManager();
 
 	void Init(HWND* pHwnd, float4 WindowSize);
 	void InitMesh();

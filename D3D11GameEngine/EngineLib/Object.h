@@ -15,19 +15,27 @@ public:
 
 	virtual void Update(float _deltaTime) {}
 
+	virtual void LateUpdate(float _deltaTime) {}
+
 	virtual void End() {}
 
 	virtual void Release() {}
 
+
+
 	void ChildStart();
 
 	void ChildUpdate(float _deltaTime);
+
+	void ChildLateUpdate(float _deltaTime);
 
 	void ChildEnd();
 
 	void ChildRelease();
 
 	void ChildDestroy();
+
+
 
 	void SetName(EngineString _name) { name = _name; }
 

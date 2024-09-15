@@ -20,28 +20,42 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceAPI.h" />
-    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="ResMap.h" />
     <ClInclude Include="ResourceType.h" />
     <ClInclude Include="VertexFormat.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ResourceAPI_000.cpp" />
-    <ClCompile Include="ResourceAPI_001.cpp" />
-    <ClCompile Include="ResourceAPI_002.cpp">
+    <ClCompile Include="ResourceAPI_Resource_Find_Delete.cpp" />
+    <ClCompile Include="ResourceAPI_Resource_CreateVertexBuffer.cpp" />
+    <ClCompile Include="ResourceAPI_Resource_CreateVertexRasterizer.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D3D11LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="Device_InitMaterial.cpp" />
-    <ClCompile Include="Device_InitMesh.cpp" />
+    <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="DeviceManager_InitMaterial.cpp" />
+    <ClCompile Include="DeviceManager_InitMesh.cpp" />
     <ClCompile Include="Pre.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="ResourceType.cpp" />
-    <ClCompile Include="ResourceAPI_RenderManager.cpp" />
+    <ClCompile Include="ResourceAPI_Device.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Assets\Shaders\SimpleColor.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="..\Assets\Shaders\Sprite2D.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -108,7 +122,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;RESOURCELIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -125,7 +139,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;RESOURCELIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -160,7 +174,7 @@
       <PreprocessorDefinitions>NDEBUG;RESOURCELIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Pre.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

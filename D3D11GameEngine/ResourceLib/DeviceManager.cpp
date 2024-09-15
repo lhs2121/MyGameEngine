@@ -1,9 +1,9 @@
 #include "Pre.h"
-#include "RenderManager.h"
+#include "DeviceManager.h"
 
-RenderManager* RenderManager::Inst = nullptr;
+DeviceManager* DeviceManager::Inst = nullptr;
 
-RenderManager::~RenderManager()
+DeviceManager::~DeviceManager()
 {
 	if (mainContext != nullptr)
 	{
@@ -52,7 +52,7 @@ RenderManager::~RenderManager()
 	}
 }
 
-void RenderManager::Init(HWND* pHwnd, float4 WindowSize)
+void DeviceManager::Init(HWND* pHwnd, float4 WindowSize)
 {
 	IDXGIFactory* FactoryPtr = nullptr;
 	IDXGIAdapter* AdapterPtr = nullptr;
@@ -158,15 +158,15 @@ void RenderManager::Init(HWND* pHwnd, float4 WindowSize)
 	AdapterPtr->Release();
 }
 
-void RenderManager::Clear()
+void DeviceManager::Clear()
 {
-	const FLOAT ClearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	const FLOAT ClearColor[4] = { 0.567f, 0.27f, 0.6f, 1.0f };
 	mainContext->ClearRenderTargetView(BackRenderTargetView, ClearColor);
 	mainContext->ClearDepthStencilView(DepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	mainContext->OMSetRenderTargets(1, &BackRenderTargetView, DepthView);
 }
 
-void RenderManager::Present()
+void DeviceManager::Present()
 {
 	SwapChain->Present(0, 0);
 }

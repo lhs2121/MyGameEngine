@@ -21,14 +21,17 @@ void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)
 
 void Camera::DeleteRenderer(Renderer* _renderer)
 {
-	rendererMap[_renderer->GetRenderOrder()].remove(_renderer);
+	int order = _renderer->GetRenderOrder();
+	rendererMap[order].remove(_renderer);
+	if (rendererMap[order].empty())
+	{
+		rendererMap.erase(order);
+	}
 }
 
 void Camera::ChangeRenderOrder(Renderer* _renderer, int _afterOrder)
 {
-	int beforeOrder = _renderer->GetRenderOrder();
-	rendererMap[beforeOrder].remove(_renderer);
-
+	DeleteRenderer(_renderer);
 	AddRenderer(_renderer, _afterOrder);
 }
 

@@ -4,13 +4,20 @@
 
 void TestScene::Awake()
 {
-	GetMainCamera()->SetProjectionType(ProjectionType::Orthographic);
+	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
-	a = CreateChild<Player>();
-	a->CreateChild<Renderer>()->SetRenderOrder(5);
+
+	Player* c = CreateChild<Player>();
+	c->transform.SetLocalPos({ 40,0,0 });
+	c->GetChild<Renderer>()->GetMaterial()->pDepthStencil = Resource::FindDepthStencil("DepthOnWirteOn");
 
 	Player* b = CreateChild<Player>();
-	b->transform.SetLocalPos({ 100,100 });
+	b->transform.SetLocalPos({ 20,0,5 });
+	b->GetChild<Renderer>()->GetMaterial()->pDepthStencil = Resource::FindDepthStencil("DepthOnWirteOff");
+
+	Player* a = CreateChild<Player>();
+	a->transform.SetLocalPos({ 0,0,10 });
+	a->GetChild<Renderer>()->GetMaterial()->pDepthStencil = Resource::FindDepthStencil("DepthOnWirteOn");
 
 	Input::AddUser(a);
 }

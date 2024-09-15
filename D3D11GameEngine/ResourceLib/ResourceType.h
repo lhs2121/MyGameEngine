@@ -166,7 +166,7 @@ struct Texture : public Named
 struct Sampler : public Named
 {
 	ID3D11SamplerState* pState = nullptr;
-
+	D3D11_SAMPLER_DESC desc;
 
 	~Sampler()
 	{
@@ -177,7 +177,7 @@ struct Sampler : public Named
 struct Blend : public Named
 {
 	ID3D11BlendState* pState = nullptr;
-
+	D3D11_BLEND_DESC desc;
 	~Blend()
 	{
 		pState->Release();

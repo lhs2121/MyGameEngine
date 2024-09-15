@@ -56,16 +56,16 @@ IndexBuffer* Resource::CreateIndexBuffer(const char* _name, void* pIndexStruct, 
 InputLayout* Resource::CreateInputLayout(const char* _name, VertexShader* _pShader)
 {
 	InputLayout* newLayout = new InputLayout();
-	newLayout->name = _name;
 	newLayout->SetContext(Device::GetContext());
-	D3D11_INPUT_ELEMENT_DESC desc[] =
+	newLayout->name = _name;
+	newLayout->desc =
 	{
 		{ "POSITION",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
 		{ "TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,16,D3D11_INPUT_PER_VERTEX_DATA,0 },
 		{ "NORMAL",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,24,D3D11_INPUT_PER_VERTEX_DATA,0 },
 	};
 
-	if (S_OK != Device::GetDevice()->CreateInputLayout(desc, 3, _pShader->pBlob->GetBufferPointer(), _pShader->pBlob->GetBufferSize(), &newLayout->pLayout))
+	if (S_OK != Device::GetDevice()->CreateInputLayout(&newLayout->desc[0], 3, _pShader->pBlob->GetBufferPointer(), _pShader->pBlob->GetBufferSize(), &newLayout->pLayout))
 	{
 		Debug::MsgBoxAssert("인풋레이아웃 생성 실패.");
 	}

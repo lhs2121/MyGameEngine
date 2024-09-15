@@ -53,6 +53,22 @@ void Object::ChildUpdate(float _deltaTime)
 	}
 }
 
+void Object::ChildLateUpdate(float _deltaTime)
+{
+	LateUpdate(_deltaTime);
+
+	for (auto& pair : childs)
+	{
+		std::list<Object*>& objectList = pair.second;
+
+		for (Object* object : objectList)
+		{
+			object->LateUpdate(_deltaTime);
+			object->ChildLateUpdate(_deltaTime);
+		}
+	}
+}
+
 void Object::ChildEnd()
 {
 	End();

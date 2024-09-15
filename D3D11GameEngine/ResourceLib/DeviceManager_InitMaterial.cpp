@@ -1,9 +1,9 @@
 #include "Pre.h"
-#include "RenderManager.h"
+#include "DeviceManager.h"
 #include "ResourceAPI.h"
 #include "ResMap.h"
 
-void RenderManager::InitMaterial()
+void DeviceManager::InitMaterial()
 {
 	{
 		EngineDirectory dir;
@@ -35,7 +35,7 @@ void RenderManager::InitMaterial()
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
 
-		Resource::CreateRasterizer("Default",Desc);
+		Resource::CreateRasterizer("Soild",Desc);
 	}
 
 	{
@@ -55,25 +55,6 @@ void RenderManager::InitMaterial()
 		Resource::CreateRasterizer("WireFrame", Desc);
 	}
 
-	{
-		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
-		Desc.DepthEnable = true;
-		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		Desc.DepthFunc = D3D11_COMPARISON_LESS;
-		Desc.StencilEnable = false;
-
-		Resource::CreateDepthStencil("DepthOn", Desc);
-	}
-
-	{
-		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
-		Desc.DepthEnable = false;
-		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		Desc.DepthFunc = D3D11_COMPARISON_LESS;
-		Desc.StencilEnable = false;
-
-		Resource::CreateDepthStencil("DepthOff", Desc);
-	}
 
 	{
 		D3D11_SAMPLER_DESC Desc = {};
@@ -94,11 +75,13 @@ void RenderManager::InitMaterial()
 		Resource::CreateSampler("Point", Desc);
 	}
 
+
 	{
 		D3D11_BLEND_DESC desc = { 0 };
 		{
-			desc.AlphaToCoverageEnable = false;
+			desc.AlphaToCoverageEnable = true;
 			desc.IndependentBlendEnable = false;
+		
 			desc.RenderTarget[0].BlendEnable = true;
 			desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 			desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
@@ -108,24 +91,55 @@ void RenderManager::InitMaterial()
 			desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 			desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		}
-		Resource::CreateBlend("Default", desc);
+		Resource::CreateBlend("BlendOn", desc);
 	}
+
+	{
+		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
+		Desc.DepthEnable = true;
+		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		Desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+		Desc.StencilEnable = false;
+
+		Resource::CreateDepthStencil("DepthOnWriteOn", Desc);
+	}
+
+	{
+		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
+		Desc.DepthEnable = true;
+		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		Desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+		Desc.StencilEnable = false;
+
+		Resource::CreateDepthStencil("DepthOnWriteOff", Desc);
+	}
+
+	{
+		D3D11_DEPTH_STENCIL_DESC Desc = { 0 };
+		Desc.DepthEnable = false;
+		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+		Desc.DepthFunc = D3D11_COMPARISON_LESS;
+		Desc.StencilEnable = false;
+
+		Resource::CreateDepthStencil("DepthOffWriteOff", Desc);
+	}
+
 	{
 		Material* newMaterial = Resource::CreateMaterial("Sprite2D");
 		newMaterial->pVertexShader = ResMap<VertexShader>::Find("Sprite2D");
 		newMaterial->pPixelShader = ResMap<PixelShader>::Find("Sprite2D");
-		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("Default");
-		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOff");
-		newMaterial->pBlend = ResMap<Blend>::Find("Default");
+		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("Soild");
+		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOnWriteOn");
+		newMaterial->pBlend = ResMap<Blend>::Find("BlendOn");
 		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
 	}
 
 	{
 		Material* newMaterial = Resource::CreateMaterial("WireFrame");
-		newMaterial->pVertexShader = ResMap<VertexShader>::Find("DebugLine");
-		newMaterial->pPixelShader = ResMap<PixelShader>::Find("DebugLine");
+		newMaterial->pVertexShader = ResMap<VertexShader>::Find("SimpleColor");
+		newMaterial->pPixelShader = ResMap<PixelShader>::Find("SimpleColor");
 		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("WireFrame");
-		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOff");
+		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOffWriteOff");
 		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
 	}
 }

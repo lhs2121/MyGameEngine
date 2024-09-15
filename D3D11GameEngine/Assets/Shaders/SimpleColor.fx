@@ -14,7 +14,7 @@ cbuffer Transform : register(b0)
 };
 
 
-VS_OUTPUT DebugLine_VS(VS_INPUT input)
+VS_OUTPUT SimpleColor_VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     
@@ -22,7 +22,7 @@ VS_OUTPUT DebugLine_VS(VS_INPUT input)
     return output;
 }
 
-float4 DebugLine_PS(VS_OUTPUT input) : SV_Target
+float4 SimpleColor_PS(VS_OUTPUT input) : SV_Target
 {
     return float4(0, 1, 0, 1);
 }

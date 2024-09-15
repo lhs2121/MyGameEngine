@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
-#include "ResourceType.h"
 #include <string>
+#include "ResourceType.h"
 
 template<class T>
 class ResMap
