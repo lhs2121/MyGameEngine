@@ -80,15 +80,15 @@ VertexShader* Resource::CreateVertexShader(const char* _name, const char* _path)
 	VertexShader* newShader = new VertexShader();
 	newShader->name = _name;
 
-	EngineString stringPath = _path;
-	EngineFile file;
-	file.SetPath(stringPath.c_str());
+	base::string stringPath = _path;
+	base::file file;
+	file = stringPath.c_str();
 
-	EngineString fileName = file.GetFileName();
+	base::string fileName = file.get_name();
 	fileName += "_VS";
 
 	wchar_t* path_wide;
-	stringPath.GetUTF8(&path_wide);
+	stringPath.w_str(&path_wide);
 
 	int flag;
 #ifdef _DEBUG
@@ -120,15 +120,15 @@ PixelShader* Resource::CreatePixelShader(const char* _name, const char* _path)
 	PixelShader* newShader = new PixelShader();
 	newShader->name = _name;
 
-	EngineString stringPath = _path;
-	EngineFile file;
-	file.SetPath(stringPath.c_str());
+	base::string stringPath = _path;
+	base::file file;
+	file = stringPath.c_str();
 
-	EngineString fileName = file.GetFileName();
+	base::string fileName = file.get_name();
 	fileName += "_PS";
 
 	wchar_t* path_wide;
-	stringPath.GetUTF8(&path_wide);
+	stringPath.w_str(&path_wide);
 
 	int flag;
 #ifdef _DEBUG

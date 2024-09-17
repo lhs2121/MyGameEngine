@@ -2,29 +2,38 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineDirectory.h" />
-    <ClInclude Include="EngineFile.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="EngineStaticPool.h" />
-    <ClInclude Include="EngineString.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="BaseAPI.h" />
     <ClInclude Include="EngineList.h" />
-    <ClInclude Include="EngineHashMap.h" />
     <ClInclude Include="HashNode.h" />
     <ClInclude Include="EngineMap.h" />
+    <ClInclude Include="basefilesys.h">
+      <Filter>newapi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineDirectory.cpp" />
-    <ClCompile Include="EngineFile.cpp" />
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="EngineStaticPool.cpp" />
-    <ClCompile Include="EngineString.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="BaseAPI.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineList.cpp" />
-    <ClCompile Include="EngineHashMap.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="directory.cpp">
+      <Filter>newapi</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
+      <Filter>newapi</Filter>
+    </ClCompile>
+    <ClCompile Include="string.cpp">
+      <Filter>newapi</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="newapi">
+      <UniqueIdentifier>{49a1c40c-cadd-44a0-93eb-83902e193636}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

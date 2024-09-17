@@ -12,7 +12,9 @@
     <ClInclude Include="ResMap.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceType.h" />
+    <ClInclude Include="ResourceType.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp" />
@@ -34,8 +36,10 @@
     <ClCompile Include="ResourceAPI_Resource_CreateVertexRasterizer.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceType.cpp" />
     <ClCompile Include="ResourceAPI_Device.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceType.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>

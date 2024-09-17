@@ -1,6 +1,6 @@
 #pragma once
 
-class Player : public Object
+class Ground : public Object
 {
 public:
 	void Awake() override;
@@ -8,7 +8,6 @@ public:
 
 	SpriteRenderer* pSpriteRenderer;
 	Colider2D* pColider2D;
-	RigidBody2D* pRigid;
 protected:
 };
 

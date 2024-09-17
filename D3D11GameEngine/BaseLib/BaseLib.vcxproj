@@ -159,13 +159,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EngineDirectory.h" />
-    <ClInclude Include="EngineFile.h" />
-    <ClInclude Include="EngineHashMap.h" />
+    <ClInclude Include="basefilesys.h" />
     <ClInclude Include="EngineMap.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="EngineStaticPool.h" />
-    <ClInclude Include="EngineString.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="BaseAPI.h" />
     <ClInclude Include="EngineList.h" />
@@ -173,17 +170,16 @@
     <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineDirectory.cpp" />
-    <ClCompile Include="EngineFile.cpp" />
-    <ClCompile Include="EngineHashMap.cpp" />
+    <ClCompile Include="directory.cpp" />
     <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="EngineStaticPool.cpp" />
-    <ClCompile Include="EngineString.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="BaseAPI.cpp" />
     <ClCompile Include="EngineList.cpp" />
+    <ClCompile Include="file.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="string.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

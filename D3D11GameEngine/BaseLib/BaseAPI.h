@@ -3,14 +3,9 @@
 
 #include <common/declspec.h>
 #include <Windows.h>
-#include "EngineString.h"
 #include "EngineMath.h"
-#include "BaseAPI.h"
-#include "EngineDirectory.h"
-#include "EngineFile.h"
 #include "EngineList.h"
-#include "EngineHashMap.h"
-#include "EngineMap.h"
+#include "basefilesys.h"
 
 namespace Debug
 {

@@ -4,7 +4,7 @@
 
 struct Named
 {
-	EngineString name;
+	base::string name;
 };
 
 struct CanDraw : public Named

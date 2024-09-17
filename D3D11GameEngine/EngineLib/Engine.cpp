@@ -86,7 +86,6 @@ void Engine::EngineRelease()
  	Resource::DeleteAllResource();
 	Device::Delete();
 	Naming::Delete();
-	EngineString::DeleteAllStringPool();
 }
 
 

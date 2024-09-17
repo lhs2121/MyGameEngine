@@ -5,6 +5,10 @@
 
 Renderer::~Renderer()
 {
+	if (pMaterial != nullptr)
+	{
+		delete pMaterial;
+	}
 }
 
 void Renderer::Awake()
@@ -13,22 +17,25 @@ void Renderer::Awake()
 
 	pCamera = GetScene()->GetMainCamera();
 	pCamera->AddRenderer(this);
-	
+
 	Naming::AddName("Transform");
 
-	EngineString name = Naming::GetName("Transform");
+	base::string name = Naming::GetName("Transform");
 	pTransformBuffer = Resource::CreateConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box2D");
-	pMaterial = Resource::FindMaterial("Sprite2D");
-	
-	
+	pMaterial = new Material();
+	Material* findMaterial = Resource::FindMaterial("Sprite2D");
+	memcpy_s(pMaterial, sizeof(Material), findMaterial, sizeof(Material));
+	pMaterial->name = nullptr;
+	pMaterial->name = findMaterial->name;
+
 	pIA = Resource::FindInputLayout("POSITION_TEXCOORD");
 	if (pIA == nullptr)
 	{
 		pIA = Resource::CreateInputLayout("POSITION_TEXCOORD", pMaterial->pVertexShader);
 	}
-	
+
 }
 
 void Renderer::Update(float _deltaTime)
@@ -57,7 +64,10 @@ void Renderer::SetMesh(const char* _name)
 
 void Renderer::SetMaterial(const char* _name)
 {
-	pMaterial = Resource::FindMaterial(_name);
+	Material* findMaterial = Resource::FindMaterial(_name);
+	memcpy_s(pMaterial, sizeof(Material), findMaterial, sizeof(Material));
+	pMaterial->name = nullptr;
+	pMaterial->name = findMaterial->name;
 }
 
 void Renderer::SetRenderOrder(int _order)

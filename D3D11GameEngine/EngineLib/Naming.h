@@ -2,9 +2,9 @@
 
 struct NameObject
 {
-	EngineString GetName()
+	base::string GetName()
 	{
-		EngineString newName = name;
+		base::string newName = name;
 		newName += "_";
 		char* buffer2 = new char[4];
 		sprintf_s(buffer2, 4, "%d", count);
@@ -58,7 +58,7 @@ public:
 		mainNaming->allNameObject.insert({ _name,newNameObject });
 	}
 
-	static EngineString GetName(const char* _name)
+	static base::string GetName(const char* _name)
 	{
 		if (mainNaming->allNameObject.find(_name) == mainNaming->allNameObject.end())
 		{

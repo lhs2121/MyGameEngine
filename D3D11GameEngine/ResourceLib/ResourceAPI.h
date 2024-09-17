@@ -7,12 +7,19 @@ struct float4;
 namespace Device
 {
 	extern "C" ResourceAPI void Create(HWND* pHwnd, float4 WindowSize);
+
 	extern "C" ResourceAPI void Delete();
+
 	extern "C" ResourceAPI void InitMesh();
+
 	extern "C" ResourceAPI void InitMaterial();
+
 	extern "C" ResourceAPI void Clear();
+
 	extern "C" ResourceAPI void Present();
+
 	extern "C" ResourceAPI ID3D11Device* GetDevice();
+
 	extern "C" ResourceAPI ID3D11DeviceContext* GetContext();
 };
 
@@ -43,8 +50,6 @@ namespace Resource
 	extern "C" ResourceAPI Mesh*           CreateMesh(const char* _name);
 
 	extern "C" ResourceAPI Material*       CreateMaterial(const char* _name);
-
-
 
 	extern "C" ResourceAPI Texture*        FindTexture(const char* _name);
 

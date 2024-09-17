@@ -154,3 +154,22 @@ Scene* Object::GetScene()
 	parent->GetScene();
 }
 
+bool Object::GetKeyDown(int _key)
+{
+	return Input::IsDown(_key, this);
+}
+
+bool Object::GetKeyPress(int _key)
+{
+	return Input::IsPress(_key, this);
+}
+
+bool Object::GetKeyUp(int _key)
+{
+	return Input::IsUp(_key, this);
+}
+
+bool Object::GetKeyFree(int _key)
+{
+	return Input::IsFree(_key, this);
+}

@@ -1,14 +1,12 @@
 #pragma once
 
-class Player : public Object
+class Back : public Object
 {
 public:
 	void Awake() override;
 	void Update(float _deltaTime) override;
 
 	SpriteRenderer* pSpriteRenderer;
-	Colider2D* pColider2D;
-	RigidBody2D* pRigid;
 protected:
 };
 

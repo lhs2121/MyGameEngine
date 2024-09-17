@@ -11,9 +11,11 @@ public:
 	void Start() override;
 	void Update(float _deltaTime) override;
 	void LateUpdate(float _deltaTime) override;
-	float g = -10.0f;
-	float4 a = {0.0f,0.0f,0.0f,1.0f};
+	float4 f_gravity = { 0.0f,-9.8f,0.0f,1.0f };
+	float4 acceleration = { 0.0f,0.0f,0.0f,1.0f };
 	float4 velocity = { 0.0f,0.0f,0.0f,1.0f };
+	float m = 50;
 private:
-	Colider2D* parentCol;
+	Object* parentObject = nullptr;
+	Colider2D* parentCol = nullptr;
 };

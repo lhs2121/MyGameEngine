@@ -27,15 +27,14 @@ DepthStencil* Resource::CreateDepthStencil(const char* _name, D3D11_DEPTH_STENCI
 
 Texture* Resource::CreateTexture(const char* _path)
 {
-	EngineDirectory dir;
-	dir.GoChild("Assets");
-	dir.GoChild(_path);
-	dir.Normalize();
-	EngineString path = dir.GetString();
+	base::directory dir;
+	dir.to_sub_dir("Assets");
+	dir.to_sub_dir(_path);
+	dir.normalize();
+	base::string path = dir.path;
 
-	EngineFile file;
-	file.SetPath(path.c_str());
-	EngineString filename = file.GetFileName();
+	base::file file = path.c_str();
+	base::string filename = file.get_name();
 	const char* name = filename.c_str();
 
 	Texture* result = ResMap<Texture>::Find(name);
@@ -45,10 +44,10 @@ Texture* Resource::CreateTexture(const char* _path)
 	}
 
 	wchar_t* wideStr;
-	path.GetUTF8(&wideStr);
+	path.w_str(&wideStr);
 
 	Texture* newTex = new Texture();
-	EngineString ext = file.GetExt();
+	base::string ext = file.get_ext();
 
 	if (ext == ".dds")
 	{
@@ -57,7 +56,7 @@ Texture* Resource::CreateTexture(const char* _path)
 			Debug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
-	else if (ext == ".png")
+	else if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".git" || ext == ".bmp")
 	{
 		if (S_OK != DirectX::LoadFromWICFile(wideStr, DirectX::WIC_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
 		{

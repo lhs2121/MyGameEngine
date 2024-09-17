@@ -13,7 +13,6 @@
 		  
 #include <EngineLib/Object.h>
 #include <EngineLib/Scene.h>
-#include <EngineLib/InputObject.h>
 #include <EngineLib/Camera.h>
 		  
 //Component

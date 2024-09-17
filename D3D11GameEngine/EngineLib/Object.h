@@ -21,8 +21,6 @@ public:
 
 	virtual void Release() {}
 
-
-
 	void ChildStart();
 
 	void ChildUpdate(float _deltaTime);
@@ -36,20 +34,22 @@ public:
 	void ChildDestroy();
 
 
-
-	void SetName(EngineString _name) { name = _name; }
+	void SetName(base::string _name) { name = _name; }
 
 	void Destroy() { death = true; }
-
 	bool IsDeath() const { return death; }
 
 	void SetOrder(int _order);
 
 	void SetParent(Object* _parent);
-
 	Object* GetParent() { return parent; }
 
 	Scene* GetScene();
+
+	bool GetKeyDown(int _key);
+	bool GetKeyPress(int _key);
+	bool GetKeyUp(int _key);
+	bool GetKeyFree(int _key);
 
 	template<typename T>
 	T* CreateChild(int order = 0)
@@ -80,7 +80,7 @@ public:
 		}
 		return nullptr;
 	}
-	EngineString name;
+	base::string name;
 	Transform transform;
 
 private:

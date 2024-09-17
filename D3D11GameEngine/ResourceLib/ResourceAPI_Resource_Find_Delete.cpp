@@ -143,7 +143,8 @@ void Resource::DeleteAllResource()
 
 	for (auto& pair : ResMap<Material>::map)
 	{
-		delete pair.second;
+		auto b = pair.second;
+		delete b;
 	}
 	ResMap<Material>::map.clear();
 }

@@ -165,6 +165,8 @@
     <ClInclude Include="Pre.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="Back.h" />
+    <ClInclude Include="Ground.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp">
@@ -175,6 +177,8 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="Back.cpp" />
+    <ClCompile Include="Ground.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Assets\Shaders\DebugLine.fx">

@@ -1,27 +1,32 @@
 #include "Pre.h"
 #include "TestScene.h"
 #include "Player.h"
+#include "Back.h"
+#include "Ground.h"
 
 void TestScene::Awake()
 {
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
-
-	Player* c = CreateChild<Player>();
-	c->transform.SetLocalPos({ 40,0,0 });
-	c->GetChild<Renderer>()->GetMaterial()->pDepthStencil = Resource::FindDepthStencil("DepthOnWirteOn");
-
-	Player* b = CreateChild<Player>();
-	b->transform.SetLocalPos({ 20,0,5 });
-	b->GetChild<Renderer>()->GetMaterial()->pDepthStencil = Resource::FindDepthStencil("DepthOnWirteOff");
-
-	Player* a = CreateChild<Player>();
-	a->transform.SetLocalPos({ 0,0,10 });
-	a->GetChild<Renderer>()->GetMaterial()->pDepthStencil = Resource::FindDepthStencil("DepthOnWirteOn");
+	//CreateChild<Back>();
+	CreateChild<Ground>();
+	a = CreateChild<Player>();
 
 	Input::AddUser(a);
+	Input::AddUser(this);
 }
 
 void TestScene::Update(float _deltaTime)
 {
+	//float zvalue = GetMainCamera()->transform.localPosition.z;
+	//GetMainCamera()->transform.SetLocalPos({ a->transform.worldPosition.x, a->transform.worldPosition.y, zvalue });
+	if (GetKeyPress('Q'))
+	{
+		GetMainCamera()->transform.AddLocalPos({ 0,0,100 * _deltaTime });
+	}
+	if (GetKeyPress('E'))
+	{
+		GetMainCamera()->transform.AddLocalPos({ 0,0,-100 * _deltaTime });
+	}
+
 }

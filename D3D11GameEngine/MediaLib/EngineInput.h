@@ -4,11 +4,10 @@
 class EngineKey
 {
 public:
-	int KeyCode = -1;
-	bool IsDown = false;
-	bool IsPress = false;
-	bool IsUp = false;
-	bool IsFree = false;
+	bool isDown = false;
+	bool isPress = false;
+	bool isUp = false;
+	bool isFree = false;
 };
 
 class EngineInput
@@ -23,19 +22,19 @@ public:
 
 	static EngineInput* mainInput;
 
-	void CreateKey(int KeyCode);
+	void CreateKey(int _keyCode);
 
 	void Init();
 	void UpdateKeyStates();
 
-	bool IsDown(int KeyCode, void* _UserPtr);
-	bool IsPress(int KeyCode, void* _UserPtr);
-	bool IsUp(int KeyCode, void* _UserPtr);
-	bool IsFree(int KeyCode, void* _UserPtr);
+	bool IsDown(int _keyCode, void* _userPtr);
+	bool IsPress(int _keyCode, void* _userPtr);
+	bool IsUp(int _keyCode, void* _userPtr);
+	bool IsFree(int _keyCode, void* _userPtr);
 
 	void AddUser(void* _UserPtr);
 
-	EngineIntHashMap AllKey;
+	std::unordered_map<int,EngineKey*> allKey;
 	std::vector<void*> Users;
 };
 

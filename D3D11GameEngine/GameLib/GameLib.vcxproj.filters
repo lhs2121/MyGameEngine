@@ -5,11 +5,15 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="GameInitializer.h" />
     <ClInclude Include="Pre.h" />
+    <ClInclude Include="Back.h" />
+    <ClInclude Include="Ground.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Back.cpp" />
+    <ClCompile Include="Ground.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Assets\Shaders\DebugLine.fx">

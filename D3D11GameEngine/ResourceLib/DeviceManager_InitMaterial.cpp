@@ -6,15 +6,15 @@
 void DeviceManager::InitMaterial()
 {
 	{
-		EngineDirectory dir;
-		dir.GoChild("Assets");
-		dir.GoChild("Shaders");
-		std::vector<EngineFile> allShaderFile = dir.GetAllFileExt(".fx");
+		base::directory dir;
+		dir.to_sub_dir("Assets");
+		dir.to_sub_dir("Shaders");
+		std::vector<base::file> allShaderFile = dir.get_all_file_ext(".fx");
 
-		for (EngineFile& shaderFile : allShaderFile)
+		for (base::file& shaderFile : allShaderFile)
 		{
-			EngineString path = shaderFile.GetPath();
-			EngineString name = shaderFile.GetFileName();
+			base::string path = shaderFile.path;
+			base::string name = shaderFile.get_name();
 
 			Resource::CreateVertexShader(name.c_str(), path.c_str());
 			Resource::CreatePixelShader(name.c_str(), path.c_str());
@@ -25,14 +25,14 @@ void DeviceManager::InitMaterial()
 		D3D11_RASTERIZER_DESC Desc;
 
 		Desc.FillMode = D3D11_FILL_SOLID;
-		Desc.CullMode = D3D11_CULL_NONE;
-		Desc.FrontCounterClockwise = false;
+		Desc.CullMode = D3D11_CULL_BACK;
+		Desc.FrontCounterClockwise = false; //시계방향
 		Desc.DepthBias = 0;
 		Desc.DepthBiasClamp = 0;
 		Desc.SlopeScaledDepthBias = 0;
-		Desc.DepthClipEnable = false;
+		Desc.DepthClipEnable = true;
 		Desc.ScissorEnable = false;
-		Desc.MultisampleEnable = false;
+		Desc.MultisampleEnable = true;
 		Desc.AntialiasedLineEnable = false;
 
 		Resource::CreateRasterizer("Soild",Desc);
@@ -47,7 +47,7 @@ void DeviceManager::InitMaterial()
 		Desc.DepthBias = 0;
 		Desc.DepthBiasClamp = 0;
 		Desc.SlopeScaledDepthBias = 0;
-		Desc.DepthClipEnable = false;
+		Desc.DepthClipEnable = true;
 		Desc.ScissorEnable = false;
 		Desc.MultisampleEnable = false;
 		Desc.AntialiasedLineEnable = false;
@@ -100,7 +100,6 @@ void DeviceManager::InitMaterial()
 		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 		Desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 		Desc.StencilEnable = false;
-
 		Resource::CreateDepthStencil("DepthOnWriteOn", Desc);
 	}
 

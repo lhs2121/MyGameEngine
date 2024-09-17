@@ -5,13 +5,9 @@ EngineInput* EngineInput::mainInput = nullptr;
 
 EngineInput::~EngineInput()
 {
-	AllKey.GoFirst();
-	for (size_t i = 0; i < AllKey.Count(); i++)
+	for (auto& pair : allKey)
 	{
-		EngineKey* CurKey = (EngineKey*)AllKey.GetCurItem();
-		delete CurKey;
-
-		AllKey.GoNext();
+		delete pair.second;
 	}
 }
 
@@ -144,74 +140,64 @@ void EngineInput::Init()
 	CreateKey(VK_OEM_6);
 }
 
-void EngineInput::CreateKey(int KeyCode)
+void EngineInput::CreateKey(int _keyCode)
 {
-	EngineKey* NewKey = new EngineKey();
-	NewKey->KeyCode = KeyCode;
-	AllKey.Add(KeyCode, NewKey);
+	EngineKey* newKey = new EngineKey();
+	allKey.insert({ _keyCode, newKey });
 }
 
 void EngineInput::UpdateKeyStates()
 {
-	AllKey.GoFirst();
-	for (size_t i = 0; i < AllKey.Count(); i++)
+	for (auto& pair : allKey)
 	{
-		EngineKey* Key = (EngineKey*)AllKey.GetCurItem();
-		SHORT State = GetAsyncKeyState(Key->KeyCode);
-
+		int keyCode = pair.first;
+		EngineKey* Key = pair.second;
+		SHORT State = GetAsyncKeyState(keyCode);
 		if (State == 0) // 안눌렸을때
 		{
-			if (Key->IsDown || Key->IsPress) // 이전에 눌러져있었다면 Up
-			{	   
-				Key->IsDown = false;
-				Key->IsPress = false;
-				Key->IsUp = true;
-				Key->IsFree = false;
-
-				AllKey.GoNext();
+			if (Key->isDown || Key->isPress) // 이전에 눌러져있었다면 Up
+			{
+				Key->isDown = false;
+				Key->isPress = false;
+				Key->isUp = true;
+				Key->isFree = false;
 				continue;
 			}
 
 			// 아니라면 Free
-			Key->IsDown = false;
-			Key->IsPress = false;
-			Key->IsUp = false;
-			Key->IsFree = true;
-
-			AllKey.GoNext();
+			Key->isDown = false;
+			Key->isPress = false;
+			Key->isUp = false;
+			Key->isFree = true;
 			continue;
 		}
-		else
+		else // 눌렀을때
 		{
-			if (Key->IsDown || Key->IsPress) // 이전에 눌러져있다면 Press
+			if (Key->isDown || Key->isPress) // 이전에 눌러져있다면 Press
 			{
-				Key->IsDown = false;
-				Key->IsPress = true;
-				Key->IsUp = false;
-				Key->IsFree = false;
-
-				AllKey.GoNext();
+				Key->isDown = false;
+				Key->isPress = true;
+				Key->isUp = false;
+				Key->isFree = false;
 				continue;
 			}
 
 			// 아니라면 Down
-			Key->IsDown = true;
-			Key->IsPress = false;
-			Key->IsUp = false;
-			Key->IsFree = false;
-
-			AllKey.GoNext();
+			Key->isDown = true;
+			Key->isPress = false;
+			Key->isUp = false;
+			Key->isFree = false;
 			continue;
 		}
 	}
 }
 
-bool EngineInput::IsDown(int KeyCode, void* _UserPtr)
+bool EngineInput::IsDown(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
 	for (void* UserPtr : Users)
 	{
-		if (UserPtr == _UserPtr)
+		if (UserPtr == _userPtr)
 		{
 			IsUser = true;
 			break;
@@ -223,15 +209,16 @@ bool EngineInput::IsDown(int KeyCode, void* _UserPtr)
 		return false;
 	}
 
-	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsDown;
+	return allKey[_keyCode]->isDown;
 	
 }
-bool EngineInput::IsPress(int KeyCode, void* _UserPtr)
+
+bool EngineInput::IsPress(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
 	for (void* UserPtr : Users)
 	{
-		if (UserPtr == _UserPtr)
+		if (UserPtr == _userPtr)
 		{
 			IsUser = true;
 			break;
@@ -243,14 +230,15 @@ bool EngineInput::IsPress(int KeyCode, void* _UserPtr)
 		return false;
 	}
 
-	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsPress;
+	return  allKey[_keyCode]->isPress;
 }
-bool EngineInput::IsUp(int KeyCode, void* _UserPtr)
+
+bool EngineInput::IsUp(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
 	for (void* UserPtr : Users)
 	{
-		if (UserPtr == _UserPtr)
+		if (UserPtr == _userPtr)
 		{
 			IsUser = true;
 			break;
@@ -262,14 +250,15 @@ bool EngineInput::IsUp(int KeyCode, void* _UserPtr)
 		return false;
 	}
 
-	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsUp;
+	return  allKey[_keyCode]->isUp;
 }
-bool EngineInput::IsFree(int KeyCode, void* _UserPtr)
+
+bool EngineInput::IsFree(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
 	for (void* UserPtr : Users)
 	{
-		if (UserPtr == _UserPtr)
+		if (UserPtr == _userPtr)
 		{
 			IsUser = true;
 			break;
@@ -281,10 +270,10 @@ bool EngineInput::IsFree(int KeyCode, void* _UserPtr)
 		return false;
 	}
 
-	return ((EngineKey*)(AllKey.Get(KeyCode)))->IsFree;
+	return  allKey[_keyCode]->isFree;
 }
 
-void EngineInput::AddUser(void* _UserPtr)
+void EngineInput::AddUser(void* _userPtr)
 {
-	Users.push_back(_UserPtr);
+	Users.push_back(_userPtr);
 }
