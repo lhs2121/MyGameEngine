@@ -189,6 +189,13 @@ struct Mesh : public CanDraw
 	VertexBuffer* pVertexBuffer = nullptr;
 	IndexBuffer* pIndexBuffer = nullptr;
 
+	void CopyInfo(Mesh* _mesh)
+	{
+		_mesh->pContext = pContext;
+		_mesh->pVertexBuffer = pVertexBuffer;
+		_mesh->pIndexBuffer = pIndexBuffer;
+	}
+
 	void Draw() override
 	{
 		pContext->IASetVertexBuffers(0, 1, &pVertexBuffer->pBuffer, &pVertexBuffer->strides, &pVertexBuffer->offsets);

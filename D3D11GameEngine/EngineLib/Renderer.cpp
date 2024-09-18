@@ -5,6 +5,10 @@
 
 Renderer::~Renderer()
 {
+	if (pMesh != nullptr)
+	{
+		delete pMesh;
+	}
 	if (pMaterial != nullptr)
 	{
 		delete pMaterial;
@@ -25,10 +29,7 @@ void Renderer::Awake()
 
 	pMesh = Resource::FindMesh("Box2D");
 
-	pMaterial = new Material;
-	Resource::FindMaterial("Sprite2D")->CopyInfo(pMaterial);
-
-	pMaterial->name = "Sprite2D";
+	pMaterial = Resource::FindMaterial("Sprite2D");
 
 	pIA = Resource::FindInputLayout("POSITION_TEXCOORD");
 	if (pIA == nullptr)
@@ -59,12 +60,18 @@ void Renderer::Render()
 
 void Renderer::SetMesh(const char* _name)
 {
+	if (pMesh != nullptr)
+		delete pMesh;
+	
 	pMesh = Resource::FindMesh(_name);
 }
 
 void Renderer::SetMaterial(const char* _name)
 {
-	Resource::FindMaterial(_name)->CopyInfo(pMaterial);
+	if(pMaterial != nullptr)
+		delete pMaterial;
+
+	pMaterial = Resource::FindMaterial(_name);
 }
 
 void Renderer::SetRenderOrder(int _order)

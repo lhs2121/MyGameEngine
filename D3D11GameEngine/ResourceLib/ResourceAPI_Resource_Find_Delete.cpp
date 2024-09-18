@@ -59,12 +59,18 @@ Blend* Resource::FindBlend(const char* _name)
 
 Mesh* Resource::FindMesh(const char* _name)
 {
-	return ResMap<Mesh>::Find(_name);
+	Mesh* newMat = new Mesh();
+	newMat->name = _name;
+	ResMap<Mesh>::Find(_name)->CopyInfo(newMat);
+	return newMat;
 }
 
 Material* Resource::FindMaterial(const char* _name)
 {
-	return ResMap<Material>::Find(_name);
+	Material* newMat = new Material(); 
+	newMat->name = _name;
+	ResMap<Material>::Find(_name)->CopyInfo(newMat);
+	return newMat;
 }
 
 void Resource::DeleteAllResource()
