@@ -9,7 +9,7 @@ void DeviceManager::InitMaterial()
 		base::directory dir;
 		dir.to_sub_dir("Assets");
 		dir.to_sub_dir("Shaders");
-		std::vector<base::file> allShaderFile = dir.get_all_file_ext(".fx");
+		std::vector<base::file> allShaderFile = dir.get_all_file_ext(".hlsl");
 
 		for (base::file& shaderFile : allShaderFile)
 		{

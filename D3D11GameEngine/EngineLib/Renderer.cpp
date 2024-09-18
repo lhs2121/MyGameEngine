@@ -24,11 +24,11 @@ void Renderer::Awake()
 	pTransformBuffer = Resource::CreateConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box2D");
-	pMaterial = new Material();
-	Material* findMaterial = Resource::FindMaterial("Sprite2D");
-	memcpy_s(pMaterial, sizeof(Material), findMaterial, sizeof(Material));
-	pMaterial->name = nullptr;
-	pMaterial->name = findMaterial->name;
+
+	pMaterial = new Material;
+	Resource::FindMaterial("Sprite2D")->CopyInfo(pMaterial);
+
+	pMaterial->name = "Sprite2D";
 
 	pIA = Resource::FindInputLayout("POSITION_TEXCOORD");
 	if (pIA == nullptr)
@@ -64,10 +64,7 @@ void Renderer::SetMesh(const char* _name)
 
 void Renderer::SetMaterial(const char* _name)
 {
-	Material* findMaterial = Resource::FindMaterial(_name);
-	memcpy_s(pMaterial, sizeof(Material), findMaterial, sizeof(Material));
-	pMaterial->name = nullptr;
-	pMaterial->name = findMaterial->name;
+	Resource::FindMaterial(_name)->CopyInfo(pMaterial);
 }
 
 void Renderer::SetRenderOrder(int _order)

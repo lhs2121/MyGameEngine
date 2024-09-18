@@ -11,12 +11,12 @@ void Engine::LoadScene(const char* _name)
 	{
 		if (pCurScene != nullptr)
 		{
-			pCurScene->ChildEnd();
+			pCurScene->AllEnd();
 		}
 		
 
 		pCurScene = allScene[_name];
-		pCurScene->ChildStart();
+		pCurScene->AllStart();
 	}
 }
 
@@ -55,10 +55,10 @@ void Engine::EngineUpdate()
 	mainTime->CountStart();
 
 	pCurScene->Update(deltaTime);
-	pCurScene->ChildUpdate(deltaTime);
+	pCurScene->AllUpdate(deltaTime);
 
 	pCurScene->LateUpdate(deltaTime);
-	pCurScene->ChildLateUpdate(deltaTime);
+	pCurScene->AllLateUpdate(deltaTime);
 
 	pCurScene->Collision(deltaTime);
 
@@ -68,7 +68,7 @@ void Engine::EngineUpdate()
 
 	Device::Present();
 
-	pCurScene->ChildDestroy();
+	pCurScene->AllDeath();
 }
 
 void Engine::EngineRelease()

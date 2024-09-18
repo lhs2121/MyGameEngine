@@ -55,10 +55,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Assets\Shaders\SimpleColor.fx">
+    <FxCompile Include="..\Assets\Shaders\SimpleColor.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\Assets\Shaders\Sprite2D.fx">
+    <FxCompile Include="..\Assets\Shaders\Sprite2D.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

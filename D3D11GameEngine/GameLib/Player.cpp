@@ -13,7 +13,6 @@ void Player::Awake()
 	transform.SetLocalScale({ 128,128 });
 
 	pColider2D = CreateChild<Colider2D>();
-	pColider2D->SetColType(ColType::Circle2D);
 }
 
 void Player::Update(float _deltaTime)
@@ -22,7 +21,7 @@ void Player::Update(float _deltaTime)
 
 	if (GetKeyPress('A'))
 	{
-		dir += { -1,0 };
+		transform.AddLocalRotation({0,0,100*_deltaTime});
 	}
 	if (GetKeyPress('D'))
 	{

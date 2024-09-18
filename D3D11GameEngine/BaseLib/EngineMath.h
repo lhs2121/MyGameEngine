@@ -360,6 +360,8 @@ struct BaseAPI float4
 
 	float Distance(float4& Other);
 
+	static float4 Resolution(float _force,float _rad);
+
 	static float4 Normalize(float4& Other);
 
 	static float Dot(float4& Left, float4& Right);

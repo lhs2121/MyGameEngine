@@ -13,10 +13,10 @@ public:
 	void LateUpdate(float _deltaTime) override;
 	float4 acceleration = { 0.0f,0.0f,0.0f,1.0f };
 	float4 velocity = { 0.0f,0.0f,0.0f,1.0f };
-	float4 theta = { 0.0f,0.0f,1.0f,1.0f };
 
-	float4 c_gravity = { 0.0f,-9.8f,0.0f,1.0f }; //중력
-	float c_friction = 0.55f; // 마찰계수
+	float gravity = 9.8f; //중력
+	float static_friction = 0.55f; // 마찰계수
+	float dynamic_friction = 0.25f; // 마찰계수
 	float c_m = 1; //질량
 private:
 	Object* parentObject = nullptr;

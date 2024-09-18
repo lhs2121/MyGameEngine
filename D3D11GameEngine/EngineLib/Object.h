@@ -21,30 +21,27 @@ public:
 
 	virtual void Release() {}
 
-	void ChildStart();
+	void AllStart();
 
-	void ChildUpdate(float _deltaTime);
+	void AllUpdate(float _deltaTime);
 
-	void ChildLateUpdate(float _deltaTime);
+	void AllLateUpdate(float _deltaTime);
 
-	void ChildEnd();
+	void AllEnd();
 
-	void ChildRelease();
+	void AllRelease();
 
-	void ChildDestroy();
+	void AllDeath();
 
 
 	void SetName(base::string _name) { name = _name; }
-
-	void Destroy() { death = true; }
-	bool IsDeath() const { return death; }
-
 	void SetOrder(int _order);
-
 	void SetParent(Object* _parent);
 	Object* GetParent() { return parent; }
-
 	Scene* GetScene();
+
+	void SetDeath() { death = true; }
+	bool GetDeath() const { return death; }
 
 	bool GetKeyDown(int _key);
 	bool GetKeyPress(int _key);

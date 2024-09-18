@@ -206,6 +206,18 @@ struct Material : public CanDraw
 	Texture* pTexture = nullptr;
 	Blend* pBlend = nullptr;
 
+	void CopyInfo(Material* _material)
+	{
+		_material->pContext = pContext;
+		_material->pVertexShader = pVertexShader;
+		_material->pPixelShader = pPixelShader;
+		_material->pRasterizer = pRasterizer;
+		_material->pDepthStencil = pDepthStencil;
+		_material->pSampler = pSampler;
+		_material->pTexture = pTexture;
+		_material->pBlend = pBlend;
+	}
+
 	void Draw() override
 	{
 		pContext->VSSetShader(pVertexShader->pShader, nullptr, 0);

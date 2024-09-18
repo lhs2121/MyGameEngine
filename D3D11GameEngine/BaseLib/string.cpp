@@ -139,27 +139,28 @@ void base::string::copy(const char* _other)
 		str = nullptr;
 		return;
 	}
+
+	int newlen = baseStrLen;
 	size_t len = strlen(_other) + 1;
 
-	if (str == nullptr)
+	if (len > newlen)
+		newlen = len;
+
+	if (str != nullptr)
 	{
 		if (len <= baseStrLen)
-			str = (char*)malloc(baseStrLen);
+		{
+			memset(str, 0, newlen);
+		}
 		else
-			str = (char*)malloc(len);
+		{
+			str = (char*)realloc(str, newlen);
+		}
 	}
 	else
 	{
-		if (len > baseStrLen)
-		{
-			str = (char*)realloc(str, len);
-
-			if (str == nullptr)
-				__debugbreak();
-		}
+     	str = (char*)malloc(newlen);
 	}
-
-	memset(str, 0, len);
 
 	errno_t e = strcpy_s(str, len, _other);
 	if (e != 0)

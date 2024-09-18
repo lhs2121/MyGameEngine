@@ -51,6 +51,11 @@ float float4::Distance(float4& Other)
 	return (float)sqrt((Distance.x * Distance.x) + (Distance.y * Distance.y));
 }
 
+float4 float4::Resolution(float _force, float _rad)
+{
+	return { _force * cosf(_rad),_force * sinf(_rad) };
+}
+
 float float4::Dot(float4& Left, float4& Right)
 {
 	return Left.x * Right.x + Left.y * Right.y + Left.z * Right.z;

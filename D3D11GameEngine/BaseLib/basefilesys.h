@@ -8,7 +8,7 @@ namespace base
 	{
 	public:
 		string();
-		virtual ~string();
+		~string();
 
 		string(const char* _other);
 		string(const string& _other);
@@ -43,6 +43,7 @@ namespace base
 		double get_float() const;
 
 	protected:
+		int refCount = 0;
 		char* str = nullptr;
 	};
 

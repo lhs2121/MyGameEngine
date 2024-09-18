@@ -21,7 +21,7 @@ Object::~Object()
 	childs.clear();
 }
 
-void Object::ChildStart()
+void Object::AllStart()
 {
 	Start();
 
@@ -32,12 +32,12 @@ void Object::ChildStart()
 		for (Object* object : objectList)
 		{
 			object->Start();
-			object->ChildStart();
+			object->AllStart();
 		}
 	}
 }
 
-void Object::ChildUpdate(float _deltaTime)
+void Object::AllUpdate(float _deltaTime)
 {
 	Update(_deltaTime);
 
@@ -48,12 +48,12 @@ void Object::ChildUpdate(float _deltaTime)
 		for (Object* object : objectList)
 		{
 			object->Update(_deltaTime);
-			object->ChildUpdate(_deltaTime);
+			object->AllUpdate(_deltaTime);
 		}
 	}
 }
 
-void Object::ChildLateUpdate(float _deltaTime)
+void Object::AllLateUpdate(float _deltaTime)
 {
 	LateUpdate(_deltaTime);
 
@@ -64,12 +64,12 @@ void Object::ChildLateUpdate(float _deltaTime)
 		for (Object* object : objectList)
 		{
 			object->LateUpdate(_deltaTime);
-			object->ChildLateUpdate(_deltaTime);
+			object->AllLateUpdate(_deltaTime);
 		}
 	}
 }
 
-void Object::ChildEnd()
+void Object::AllEnd()
 {
 	End();
 
@@ -80,12 +80,12 @@ void Object::ChildEnd()
 		for (Object* object : objectList)
 		{
 			object->End();
-			object->ChildEnd();
+			object->AllEnd();
 		}
 	}
 }
 
-void Object::ChildRelease()
+void Object::AllRelease()
 {
 	Release();
 
@@ -95,12 +95,12 @@ void Object::ChildRelease()
 
 		for (Object* object : objectList)
 		{
-			object->ChildRelease();
+			object->AllRelease();
 		}
 	}
 }
 
-void Object::ChildDestroy()
+void Object::AllDeath()
 {
 	for (auto& pair : childs)
 	{
@@ -112,7 +112,7 @@ void Object::ChildDestroy()
 		{
 			if ((*it)->death)
 			{
-				(*it)->ChildRelease();
+				(*it)->AllRelease();
 				delete *it;
 				it = objectList.erase(it);
 			}
@@ -151,7 +151,7 @@ Scene* Object::GetScene()
 		return (Scene*)this;
 	}
 
-	parent->GetScene();
+	return parent->GetScene();
 }
 
 bool Object::GetKeyDown(int _key)
