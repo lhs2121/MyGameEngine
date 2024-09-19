@@ -167,6 +167,7 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Back.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="EnumClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp">

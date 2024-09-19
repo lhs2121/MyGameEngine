@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+
 enum class ColType
 {
 	AABB2D,
@@ -10,8 +11,16 @@ enum class ColType
 	SPHERE3D
 };
 
+enum class ColState
+{
+	FREE,
+	ENTER,
+	STAY,
+	EXIT
+};
+class ColGroup;
 class Renderer;
-class  Colider : public Object
+class Colider : public Object
 {
 public:
 	void Awake() override;
@@ -19,21 +28,43 @@ public:
 	void Release() override;
 
 	void SetColType(ColType _Type);
-	bool IsCollision() const { return isCollision; }
 
-	bool Collision(Colider* _Other);
-	Colider* opponent = nullptr;
-private:
-	bool AABB2DAABB2D(Colider* _Other) const;
-	bool SPHERE2DSPHERE2D(Colider* _Other) const;
-	bool AABB2DSPHERE2D(Colider* _Other);
+	template<typename T>
+	void SetColOrder(T _order);
 
+	void SetColOrder(int _order);
+
+	template<typename T>
+	void Collision(T _otherOrder);
+	void Collision(int _otherOrder);
+
+	bool Search(Colider* _other);
+	Colider* Search(const char* _otherNname);
+
+
+	int colOrder;
 	float left;
 	float right;
 	float top;
 	float bottom;
 	float radius;
-	bool isCollision = false;
+	ColState state = ColState::FREE;
 	ColType colType = ColType::AABB2D;
+	ColGroup* parentGroup;
+
+	std::list<Colider*> otherColiders;
+private:
 	Renderer* debugRenderer;
 };
+
+template<typename T>
+inline void Colider::SetColOrder(T _order)
+{
+	SetColOrder((int)_order);
+}
+
+template<typename T>
+inline void Colider::Collision(T _otherOrder)
+{
+	Collision((int)_otherOrder);
+}

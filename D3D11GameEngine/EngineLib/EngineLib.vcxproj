@@ -167,6 +167,7 @@
     <ClInclude Include="EngineAPI.h" />
     <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="Naming.h" />
+    <ClInclude Include="ColGroup.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -188,6 +189,7 @@
     </ClCompile>
     <ClCompile Include="RigidBody2D.cpp" />
     <ClCompile Include="Naming.cpp" />
+    <ClCompile Include="ColGroup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />

@@ -27,109 +27,69 @@ void Colider::Release()
 	int a = 0;
 }
 
+void Colider::SetColOrder(int _order)
+{
+	GetScene()->SetColOrder(this, _order);
+}
+
 void Colider::SetColType(ColType _Type)
 {
 	colType = _Type; 
 	const char* meshName = nullptr;
+
 	switch (colType)
 	{
 	case ColType::AABB2D:
 		meshName = "Box2D";
 		break;
+	case ColType::AABB3D:
+		meshName = "Box3D";
+		break;
+	case ColType::OBB2D:
+		meshName = "Box2D";
+		break;
+	case ColType::OBB3D:
+		meshName = "Box3D";
+		break;
 	case ColType::SPHERE2D:
-		meshName = "SPHERE2D";
+		meshName = "Sphere2D";
+		break;
+	case ColType::SPHERE3D:
+		meshName = "Sphere3D";
+		break;
+	default:
 		break;
 	}
 	debugRenderer->SetMesh(meshName);
 }
 
-bool Colider::Collision(Colider* _Other)
+void Colider::Collision(int _otherOrder)
 {
-	if (colType == ColType::AABB2D && _Other->colType == ColType::AABB2D)
-	{
-		isCollision = AABB2DAABB2D(_Other);
-	}
-	else if (colType == ColType::SPHERE2D && _Other->colType == ColType::SPHERE2D)
-	{
-		isCollision = SPHERE2DSPHERE2D(_Other);
-	}
-	else if (colType == ColType::AABB2D && _Other->colType == ColType::SPHERE2D)
-	{
-		isCollision = AABB2DSPHERE2D(_Other);
-	}
-	else if (colType == ColType::SPHERE2D && _Other->colType == ColType::AABB2D)
-	{
-		isCollision = _Other->AABB2DSPHERE2D(this);
-	}
-
-	if (isCollision)
-	{
-		opponent = _Other;
-	}
-	else
-	{
-		opponent = nullptr;
-	}
-
-	_Other->isCollision = isCollision;
-	return isCollision;
+	ColGroup* otherGroup = GetScene()->GetGroup(_otherOrder);
+	if(otherGroup != nullptr)
+		parentGroup->Collision(this,otherGroup);
 }
 
-bool Colider::AABB2DAABB2D(Colider* _other) const
+bool Colider::Search(Colider* _other)
 {
-	if (_other->right < this->left)
+	for (Colider* other : otherColiders)
 	{
-		return false;
-	}
-	if (_other->left > this->right)
-	{
-		return false;
-	}
-
-	//여기까지 왔으면 x축은 충돌했다
-
-	if (_other->top < this->bottom)
-	{
-		return false;
-	}
-	if (_other->bottom > this->top)
-	{
-		return false;
-	}
-	
-	return true;
-}
-
-bool Colider::SPHERE2DSPHERE2D(Colider* _other) const
-{
-	float Sum = _other->radius + radius;
-	float4 Pos1 = _other->transform.position + _other->transform.localPosition;
-	float4 Pos2 = transform.position + transform.localPosition;
-	float Distance = Pos1.Distance(Pos2);
-	if (Distance > Sum)
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-
-}
-
-bool Colider::AABB2DSPHERE2D(Colider* _other)
-{
-	float4 circlePos = _other->transform.position + _other->transform.localPosition;
-
-	float4 Near;
-	Near.x = EngineMath::Clamp(circlePos.x, right, left);
-	Near.y = EngineMath::Clamp(circlePos.y, top, bottom);
-
-	float distance = Near.Distance(circlePos);
-
-	if (distance <= _other->radius)
-	{
-		return true;
+		if (other == _other)
+		{
+			return true;
+		}
 	}
 	return false;
+}
+
+Colider* Colider::Search(const char* _otherNname)
+{
+	for (Colider* other : otherColiders)
+	{
+		if (other->name == _otherNname)
+		{
+			return other;
+		}
+	}
+	return nullptr;
 }

@@ -13,11 +13,15 @@ void Player::Awake()
 	transform.SetLocalScale({ 64,64 });
 
 	pColider = CreateChild<Colider>();
+	pColider->SetColOrder(Layer::Collision::PLAYER);
+
+	CreateEngineTime(&time);
+	time->Init();
 }
 
 void Player::Update(float _deltaTime)
 {
-	float4 dir = { 0,0 };
+	pColider->Collision(Layer::Collision::GROUND);
 
 	if (GetKeyPress('A'))
 	{
@@ -27,15 +31,14 @@ void Player::Update(float _deltaTime)
 	{
 		transform.position.x += 50 * _deltaTime;
 	}
-
 	if (GetKeyPress('G'))
 	{
 		transform.AddLocalRotation({ 0,0,10 * _deltaTime });
 	}
-
 	if (GetKeyDown('R'))
 	{
-		transform.SetLocalPos({ 0,0,0 });
+		pRigid->velocity = { 0,0 };
+		transform.SetLocalPos({ 200,200 });
 		transform.SetLocalRotation({ 0,0,0 });
 	}
 }

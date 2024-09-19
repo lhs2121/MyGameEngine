@@ -9,6 +9,7 @@ public:
 	SpriteRenderer* pSpriteRenderer;
 	Colider* pColider;
 	RigidBody2D* pRigid;
+	ITime* time;
 protected:
 };
 

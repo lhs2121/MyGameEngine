@@ -50,6 +50,9 @@
     <ClInclude Include="Naming.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="ColGroup.h">
+      <Filter>ObjectEssential</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="Naming.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ColGroup.cpp">
+      <Filter>ObjectEssential</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

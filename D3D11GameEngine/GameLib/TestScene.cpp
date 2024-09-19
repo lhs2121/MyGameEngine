@@ -8,7 +8,7 @@ void TestScene::Awake()
 {
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
-	//CreateChild<Back>();
+	CreateChild<Back>();
 	CreateChild<Ground>();
 	a = CreateChild<Player>();
 

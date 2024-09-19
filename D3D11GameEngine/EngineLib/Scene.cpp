@@ -5,7 +5,14 @@
 
 Scene::Scene()
 {
-	collisionList.reserve(100);
+}
+
+Scene::~Scene()
+{
+	for (auto& pair: colGroups)
+	{
+		delete pair.second;
+	}
 }
 
 void Scene::CreateCamera()
@@ -16,31 +23,35 @@ void Scene::CreateCamera()
 
 void Scene::AddCollision(Colider* _col)
 {
-	collisionList.push_back(_col);
+	if (colGroups.find(0) == colGroups.end())
+	{
+		colGroups[0] = new ColGroup();
+	}
+
+	colGroups[0]->colList.push_back(_col);
+	_col->parentGroup = colGroups[0];
+	_col->colOrder = 0;
 }
 
-void Scene::Collision(float _deltaTime)
+ColGroup* Scene::GetGroup(int _order)
 {
-	size_t colCount = collisionList.size();
-
-	Colider* firstCol = nullptr;
-
-	for (size_t i = 0; i < colCount; i++)
+	if (colGroups.find(_order) == colGroups.end())
 	{
-		firstCol = collisionList[i];
-
-		std::vector<Colider*> otherColGroup;
-		for (size_t j = i + 1; j < colCount; j++)
-		{
-			Colider* otherCol = collisionList[j];
-			otherColGroup.push_back(otherCol);
-		}
-
-		for (Colider* otherCol : otherColGroup)
-		{
-			firstCol->Collision(otherCol);
-		}
+		colGroups[_order] = new ColGroup();
 	}
+
+	return colGroups[_order];
+}
+
+void Scene::SetColOrder(Colider* _col, int _order)
+{
+	colGroups[_col->colOrder]->colList.remove(_col);
+
+	if (colGroups.find(_order) == colGroups.end())
+	{
+		colGroups[_order] = new ColGroup();
+	}
+	colGroups[_order]->colList.push_back(_col);
 }
 
 void Scene::Render()
