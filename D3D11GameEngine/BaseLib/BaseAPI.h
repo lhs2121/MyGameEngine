@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include "EngineMath.h"
 #include "EngineList.h"
-#include "basefilesys.h"
+#include "basestring.h"
 
 namespace Debug
 {
@@ -22,7 +22,7 @@ struct IEngineStaticPool
 	virtual void  FreeBlock(void* Ptr) = 0;
 };
 
-struct IEngineTime
+struct ITime
 {
 	virtual void  Init() = 0;
 	virtual void  CountStart() = 0;
@@ -32,5 +32,5 @@ struct IEngineTime
 extern "C" BaseAPI void CreateEngineStaticPool(IEngineStaticPool** ppI);
 extern "C" BaseAPI void DeleteEngineStaticPool(IEngineStaticPool* pI);
 
-extern "C" BaseAPI void CreateEngineTime(IEngineTime** ppI);
-extern "C" BaseAPI void DeleteEngineTime(IEngineTime* pI);
+extern "C" BaseAPI void CreateEngineTime(ITime** ppI);
+extern "C" BaseAPI void DeleteEngineTime(ITime* pI);

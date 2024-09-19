@@ -1,7 +1,7 @@
 #include "Pre.h"
 #include "Scene.h"
 #include "Camera.h"
-#include "Colider2D.h"
+#include "Colider.h"
 
 Scene::Scene()
 {
@@ -14,7 +14,7 @@ void Scene::CreateCamera()
 	cameraList.push_back(newCamera);
 }
 
-void Scene::AddCollision(Colider2D* _col)
+void Scene::AddCollision(Colider* _col)
 {
 	collisionList.push_back(_col);
 }
@@ -23,20 +23,20 @@ void Scene::Collision(float _deltaTime)
 {
 	size_t colCount = collisionList.size();
 
-	Colider2D* firstCol = nullptr;
+	Colider* firstCol = nullptr;
 
 	for (size_t i = 0; i < colCount; i++)
 	{
 		firstCol = collisionList[i];
 
-		std::vector<Colider2D*> otherColGroup;
+		std::vector<Colider*> otherColGroup;
 		for (size_t j = i + 1; j < colCount; j++)
 		{
-			Colider2D* otherCol = collisionList[j];
+			Colider* otherCol = collisionList[j];
 			otherColGroup.push_back(otherCol);
 		}
 
-		for (Colider2D* otherCol : otherColGroup)
+		for (Colider* otherCol : otherColGroup)
 		{
 			firstCol->Collision(otherCol);
 		}

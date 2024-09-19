@@ -33,7 +33,6 @@ public:
 
 	void AllDeath();
 
-
 	void SetName(base::string _name) { name = _name; }
 	void SetOrder(int _order);
 	void SetParent(Object* _parent);

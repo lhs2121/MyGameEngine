@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Colider2D.h"
+#include "Colider.h"
 
 class RigidBody2D : public Object
 {
@@ -11,6 +11,8 @@ public:
 	void Start() override;
 	void Update(float _deltaTime) override;
 	void LateUpdate(float _deltaTime) override;
+	void AddForce(float4 _force);
+
 	float4 acceleration = { 0.0f,0.0f,0.0f,1.0f };
 	float4 velocity = { 0.0f,0.0f,0.0f,1.0f };
 
@@ -20,5 +22,5 @@ public:
 	float c_m = 1; //Áú·®
 private:
 	Object* parentObject = nullptr;
-	Colider2D* parentCol = nullptr;
+	Colider* parentCol = nullptr;
 };

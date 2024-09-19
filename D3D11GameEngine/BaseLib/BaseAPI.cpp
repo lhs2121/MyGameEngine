@@ -16,12 +16,12 @@ void DeleteEngineStaticPool(IEngineStaticPool* pI)
 }
 
 
-void CreateEngineTime(IEngineTime** ppI)
+void CreateEngineTime(ITime** ppI)
 {
 	*ppI = new EngineTime();
 }
 
-void DeleteEngineTime(IEngineTime* pI)
+void DeleteEngineTime(ITime* pI)
 {
 	EngineTime* castptr =(EngineTime *) pI;
 	delete castptr;

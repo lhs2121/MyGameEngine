@@ -3,17 +3,17 @@
 
 void EngineTime::Init()
 {
-	QueryPerformanceFrequency(&Frequency);
+	QueryPerformanceFrequency(&frequency);
 }
 
 void EngineTime::CountStart()
 {
-	QueryPerformanceCounter(&Start);
+	QueryPerformanceCounter(&start);
 }
 
 float EngineTime::CountEnd()
 {
-	QueryPerformanceCounter(&End);
-	float DeltaTime = (End.QuadPart - Start.QuadPart) / (float)Frequency.QuadPart;
-	return DeltaTime;
+	QueryPerformanceCounter(&end);
+	float deltaTime = (end.QuadPart - start.QuadPart) / (float)frequency.QuadPart;
+	return deltaTime;
 }

@@ -33,9 +33,9 @@ namespace Resource
 
 	extern "C" ResourceAPI InputLayout *   CreateInputLayout(const char* _name, VertexShader* _pShader);
 	
-	extern "C" ResourceAPI VertexShader*   CreateVertexShader(const char* _name, const char* _path);
+	extern "C" ResourceAPI VertexShader* CreateVertexShader(const char* _name, base::string& _path);
 
-	extern "C" ResourceAPI PixelShader*    CreatePixelShader(const char* _name, const char* _path);
+	extern "C" ResourceAPI PixelShader*    CreatePixelShader(const char* _name, base::string& _path);
 
 	extern "C" ResourceAPI Rasterizer*     CreateRasterizer(const char* _name, D3D11_RASTERIZER_DESC _desc);
 

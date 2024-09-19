@@ -6,18 +6,17 @@
 void DeviceManager::InitMaterial()
 {
 	{
-		base::directory dir;
+		base::string dir;
+		dir.to_current_dir();
 		dir.to_sub_dir("Assets");
 		dir.to_sub_dir("Shaders");
-		std::vector<base::file> allShaderFile = dir.get_all_file_ext(".hlsl");
+		std::vector<base::string> allShaderPath = dir.get_all_file_ext(".hlsl");
 
-		for (base::file& shaderFile : allShaderFile)
+		for (base::string& szPath : allShaderPath)
 		{
-			base::string path = shaderFile.path;
-			base::string name = shaderFile.get_name();
-
-			Resource::CreateVertexShader(name.c_str(), path.c_str());
-			Resource::CreatePixelShader(name.c_str(), path.c_str());
+			base::string name = szPath.get_name();
+			Resource::CreateVertexShader(name.c_str(), szPath);
+			Resource::CreatePixelShader(name.c_str(), szPath);
 		}
 	}
 

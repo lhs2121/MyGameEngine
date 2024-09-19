@@ -9,10 +9,10 @@ void Player::Awake()
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
 	pRigid = CreateChild<RigidBody2D>();
-	transform.SetLocalPos({ 0,200 });
-	transform.SetLocalScale({ 128,128 });
+	transform.SetLocalPos({ 200,200 });
+	transform.SetLocalScale({ 64,64 });
 
-	pColider2D = CreateChild<Colider2D>();
+	pColider = CreateChild<Colider>();
 }
 
 void Player::Update(float _deltaTime)
@@ -21,13 +21,17 @@ void Player::Update(float _deltaTime)
 
 	if (GetKeyPress('A'))
 	{
-		transform.AddLocalRotation({0,0,100*_deltaTime});
+		transform.position.x += -50 * _deltaTime;
 	}
 	if (GetKeyPress('D'))
 	{
-		dir += { 1,0 };
+		transform.position.x += 50 * _deltaTime;
 	}
 
+	if (GetKeyPress('G'))
+	{
+		transform.AddLocalRotation({ 0,0,10 * _deltaTime });
+	}
 
 	if (GetKeyDown('R'))
 	{

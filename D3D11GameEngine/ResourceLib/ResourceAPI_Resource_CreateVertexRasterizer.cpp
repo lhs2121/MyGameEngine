@@ -27,14 +27,13 @@ DepthStencil* Resource::CreateDepthStencil(const char* _name, D3D11_DEPTH_STENCI
 
 Texture* Resource::CreateTexture(const char* _path)
 {
-	base::directory dir;
+	base::string dir;
+	dir.to_current_dir();
 	dir.to_sub_dir("Assets");
 	dir.to_sub_dir(_path);
 	dir.normalize();
-	base::string path = dir.path;
 
-	base::file file = path.c_str();
-	base::string filename = file.get_name();
+	base::string filename = dir.get_name();
 	const char* name = filename.c_str();
 
 	Texture* result = ResMap<Texture>::Find(name);
@@ -43,35 +42,35 @@ Texture* Resource::CreateTexture(const char* _path)
 		return result;
 	}
 
-	wchar_t* wideStr;
-	path.w_str(&wideStr);
+	wchar_t* path_wide;
+	dir.w_str(&path_wide);
 
 	Texture* newTex = new Texture();
-	base::string ext = file.get_ext();
+	base::string ext = dir.get_ext();
 
 	if (ext == ".dds")
 	{
-		if (S_OK != DirectX::LoadFromDDSFile(wideStr, DirectX::DDS_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
+		if (S_OK != DirectX::LoadFromDDSFile(path_wide, DirectX::DDS_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
 		{
 			Debug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
 	else if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".git" || ext == ".bmp")
 	{
-		if (S_OK != DirectX::LoadFromWICFile(wideStr, DirectX::WIC_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
+		if (S_OK != DirectX::LoadFromWICFile(path_wide, DirectX::WIC_FLAGS_NONE, &newTex->metaData, newTex->scratchImage))
 		{
 			Debug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
 	else if (ext == ".tga")
 	{
-		if (S_OK != DirectX::LoadFromTGAFile(wideStr, &newTex->metaData, newTex->scratchImage))
+		if (S_OK != DirectX::LoadFromTGAFile(path_wide, &newTex->metaData, newTex->scratchImage))
 		{
 			Debug::MsgBoxAssert("파일경로가 불일치합니다.");
 		}
 	}
 
-	delete[] wideStr;
+	delete[] path_wide;
 	
 
 	if (S_OK != DirectX::CreateShaderResourceView(Device::GetDevice(), newTex->scratchImage.GetImages(),

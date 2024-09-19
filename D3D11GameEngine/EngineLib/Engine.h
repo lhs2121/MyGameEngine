@@ -27,5 +27,5 @@ private:
 	Scene* pCurScene;
 	std::unordered_map<const char*, Scene*> allScene;
 
-	IEngineTime* mainTime = nullptr;
+	ITime* mainTime = nullptr;
 };

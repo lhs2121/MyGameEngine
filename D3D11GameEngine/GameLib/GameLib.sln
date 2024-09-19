@@ -4,21 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLib", "GameLib.vcxproj", "{518A7C1E-38EA-4198-997B-27B9883602F7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF} = {F66D3EAD-9659-4FE3-A20F-F5555432D9EF}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "..\Game\Game.vcxproj", "{5F218001-969A-4177-8B53-5589CCD4ECCF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{518A7C1E-38EA-4198-997B-27B9883602F7} = {518A7C1E-38EA-4198-997B-27B9883602F7}
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF} = {F66D3EAD-9659-4FE3-A20F-F5555432D9EF}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineLib", "..\EngineLib\EngineLib.vcxproj", "{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".exe", ".exe", "{448B3D12-C773-41A5-BF80-38033ED24551}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".lib", ".lib", "{3497D4D1-1DCC-4F84-B90A-21AF507E7799}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,22 +34,9 @@ Global
 		{5F218001-969A-4177-8B53-5589CCD4ECCF}.Release|x64.Build.0 = Release|x64
 		{5F218001-969A-4177-8B53-5589CCD4ECCF}.Release|x86.ActiveCfg = Release|Win32
 		{5F218001-969A-4177-8B53-5589CCD4ECCF}.Release|x86.Build.0 = Release|Win32
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Debug|x64.ActiveCfg = Debug|x64
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Debug|x64.Build.0 = Debug|x64
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Debug|x86.ActiveCfg = Debug|Win32
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Debug|x86.Build.0 = Debug|Win32
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Release|x64.ActiveCfg = Release|x64
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Release|x64.Build.0 = Release|x64
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Release|x86.ActiveCfg = Release|Win32
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{518A7C1E-38EA-4198-997B-27B9883602F7} = {3497D4D1-1DCC-4F84-B90A-21AF507E7799}
-		{5F218001-969A-4177-8B53-5589CCD4ECCF} = {448B3D12-C773-41A5-BF80-38033ED24551}
-		{F66D3EAD-9659-4FE3-A20F-F5555432D9EF} = {3497D4D1-1DCC-4F84-B90A-21AF507E7799}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00517B2A-4F41-46F2-80FE-4FA9F9250E68}

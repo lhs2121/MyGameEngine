@@ -9,7 +9,7 @@
     <ClInclude Include="EngineList.h" />
     <ClInclude Include="HashNode.h" />
     <ClInclude Include="EngineMap.h" />
-    <ClInclude Include="basefilesys.h">
+    <ClInclude Include="basestring.h">
       <Filter>newapi</Filter>
     </ClInclude>
   </ItemGroup>
@@ -21,13 +21,7 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="EngineList.cpp" />
     <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="directory.cpp">
-      <Filter>newapi</Filter>
-    </ClCompile>
-    <ClCompile Include="file.cpp">
-      <Filter>newapi</Filter>
-    </ClCompile>
-    <ClCompile Include="string.cpp">
+    <ClCompile Include="basestring.cpp">
       <Filter>newapi</Filter>
     </ClCompile>
   </ItemGroup>

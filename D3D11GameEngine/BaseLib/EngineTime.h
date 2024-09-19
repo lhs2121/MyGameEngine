@@ -2,7 +2,7 @@
 #include "BaseAPI.h"
 #include <Windows.h>
 
-class EngineTime : public IEngineTime
+class EngineTime : public ITime
 {
 public:
 	void  Init() override;
@@ -10,8 +10,8 @@ public:
 	float CountEnd() override;
 
 protected:
-	LARGE_INTEGER Frequency;
-	LARGE_INTEGER Start;
-	LARGE_INTEGER End;
+	LARGE_INTEGER frequency;
+	LARGE_INTEGER start;
+	LARGE_INTEGER end;
 };
 

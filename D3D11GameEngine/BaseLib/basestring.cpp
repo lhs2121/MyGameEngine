@@ -1,5 +1,7 @@
 #include "Pre.h"
-#include "basefilesys.h"
+#include "basestring.h"
+#include <direct.h>
+#include <filesystem>
 
 base::string::string()
 {
@@ -23,6 +25,7 @@ base::string::string(const string& _other)
 {
 	copy(_other.str);
 }
+
 void base::string::operator=(const string& _other)
 {
 	copy(_other.str);
@@ -141,7 +144,7 @@ void base::string::copy(const char* _other)
 	}
 
 	int newlen = baseStrLen;
-	size_t len = strlen(_other) + 1;
+	int len = (int)strlen(_other) + 1;
 
 	if (len > newlen)
 		newlen = len;
@@ -201,3 +204,161 @@ double base::string::get_float() const
 	return atof(str);
 }
 
+base::string base::string::get_file(const char* _filename)
+{
+	std::filesystem::path szPath = str;
+	szPath.append(_filename);
+	if (!std::filesystem::exists(szPath))
+	{
+		__debugbreak();
+	}
+
+	base::string sz_file = szPath.string().c_str();
+	sz_file.normalize();
+	return sz_file;
+}
+
+std::vector<base::string> base::string::get_all_file()
+{
+	std::vector<base::string> result;
+	result.reserve(100);
+	for (auto& entry : std::filesystem::directory_iterator(str))
+	{
+		auto& path = entry.path();
+		if (std::filesystem::is_directory(path))
+		{
+			continue;
+		}
+
+		base::string szFile = path.string().c_str();
+		result.push_back(szFile);
+	}
+
+	return result;
+}
+
+std::vector<base::string> base::string::get_all_file_ext(const char* _ext)
+{
+	std::vector<base::string> result;
+	result.reserve(100);
+	for (auto& entry : std::filesystem::directory_iterator(str))
+	{
+		auto& path = entry.path();
+		if (std::filesystem::is_directory(path))
+		{
+			continue;
+		}
+
+		if (_ext != path.extension())
+		{
+			continue;
+		}
+		base::string file = path.string().c_str();
+		result.push_back(file);
+	}
+
+	return result;
+}
+
+
+void base::string::to_current_dir()
+{
+	char cwd[1024];
+	char* nullcheck = _getcwd(cwd, sizeof(cwd));
+	if (nullcheck == nullptr)
+	{
+		__debugbreak();
+	}
+	copy(cwd);
+
+	to_parent_dir();
+}
+
+void base::string::to_parent_dir()
+{
+	std::filesystem::path path = str;
+	copy(path.parent_path().string().c_str());
+}
+
+void base::string::to_sub_dir(const char* _dir)
+{
+	std::filesystem::path path = str;
+	path.append(_dir);
+
+	if (!std::filesystem::exists(path))
+		__debugbreak();
+
+	copy(path.string().c_str());
+}
+
+void base::string::normalize()
+{
+	char* head = (char*)str;
+	while (*head != '\0')
+	{
+		if (*head == '\\')
+		{
+			*head = '/';
+		}
+		head++;
+	}
+}
+
+const char* base::string::get_ext()
+{
+	char* tail = (char*)str;
+	tail += get_len();
+	while (true)
+	{
+		tail--;
+		if (*tail == '.')
+		{
+			return tail;
+		}
+
+		if (tail == str)
+		{
+			__debugbreak();
+		}
+	}
+}
+
+base::string base::string::get_name()
+{
+	char* name_ext = (char*)get_name_and_ext();
+	char buffer[64];
+	int len = (int)strlen(name_ext) + 1;
+	memcpy_s(buffer, len, name_ext, len);
+
+	char* tail = &buffer[len];
+
+	while (*tail != '.')
+	{
+		*tail = '\0';
+		tail--;
+	}
+	*tail = '\0';
+
+	base::string result = buffer;
+	return result;
+
+}
+
+const char* base::string::get_name_and_ext()
+{
+	char* tail = (char*)str;
+	tail += get_len();
+	while (true)
+	{
+		tail--;
+		if (*tail == '\\' || *tail == '/')
+		{
+			tail++;
+			return tail;
+		}
+		if (tail == str)
+		{
+			__debugbreak();
+		}
+	}
+}

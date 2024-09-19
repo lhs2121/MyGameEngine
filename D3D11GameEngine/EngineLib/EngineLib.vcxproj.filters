@@ -29,7 +29,7 @@
     <ClInclude Include="Object.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Colider2D.h">
+    <ClInclude Include="Colider.h">
       <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody2D.h">
@@ -62,7 +62,7 @@
     <ClCompile Include="Object.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Colider2D.cpp">
+    <ClCompile Include="Colider.cpp">
       <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="RigidBody2D.cpp">

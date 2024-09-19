@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Camera.h"
-#include "Colider2D.h"
+#include "Colider.h"
 
 class Scene : public Object
 {
@@ -14,11 +14,11 @@ public:
 
 	void      CreateCamera();
 
-	void      AddCollision(Colider2D* _col);
+	void      AddCollision(Colider* _col);
 
 	Camera*   GetMainCamera();
 private:
 	std::list<Camera*> cameraList;
-	std::vector<Colider2D*> collisionList;
+	std::vector<Colider*> collisionList;
 };
 

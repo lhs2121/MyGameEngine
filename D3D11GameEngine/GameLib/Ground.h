@@ -7,7 +7,7 @@ public:
 	void Update(float _deltaTime) override;
 
 	SpriteRenderer* pSpriteRenderer;
-	Colider2D* pColider2D;
+	Colider* pColider;
 protected:
 };
 

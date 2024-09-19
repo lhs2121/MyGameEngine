@@ -1,9 +1,9 @@
 #include "Pre.h"
 #include "Scene.h"
-#include "Colider2D.h"
+#include "Colider.h"
 #include "Renderer.h"
 
-void Colider2D::Awake()
+void Colider::Awake()
 {
 	GetScene()->AddCollision(this);
 
@@ -13,7 +13,7 @@ void Colider2D::Awake()
 	debugRenderer->SetMaterial("WireFrame");
 }
 
-void Colider2D::Update(float _deltaTime)
+void Colider::Update(float _deltaTime)
 {
 	radius = transform.worldScale.hx();
 	right = transform.worldPosition.x + transform.worldScale.hx();
@@ -22,12 +22,12 @@ void Colider2D::Update(float _deltaTime)
 	bottom = transform.worldPosition.y - transform.worldScale.hy();
 }
 
-void Colider2D::Release()
+void Colider::Release()
 {
 	int a = 0;
 }
 
-void Colider2D::SetColType(ColType _Type)
+void Colider::SetColType(ColType _Type)
 {
 	colType = _Type; 
 	const char* meshName = nullptr;
@@ -36,46 +36,46 @@ void Colider2D::SetColType(ColType _Type)
 	case ColType::AABB2D:
 		meshName = "Box2D";
 		break;
-	case ColType::Circle2D:
-		meshName = "Circle2D";
+	case ColType::SPHERE2D:
+		meshName = "SPHERE2D";
 		break;
 	}
 	debugRenderer->SetMesh(meshName);
 }
 
-bool Colider2D::Collision(Colider2D* _Other)
+bool Colider::Collision(Colider* _Other)
 {
 	if (colType == ColType::AABB2D && _Other->colType == ColType::AABB2D)
 	{
 		isCollision = AABB2DAABB2D(_Other);
 	}
-	if (colType == ColType::Circle2D && _Other->colType == ColType::Circle2D)
+	else if (colType == ColType::SPHERE2D && _Other->colType == ColType::SPHERE2D)
 	{
-		isCollision = Circle2DCircle2D(_Other);
+		isCollision = SPHERE2DSPHERE2D(_Other);
 	}
-	if (colType == ColType::AABB2D && _Other->colType == ColType::Circle2D)
+	else if (colType == ColType::AABB2D && _Other->colType == ColType::SPHERE2D)
 	{
-		isCollision = AABB2DCircle2D(_Other);
+		isCollision = AABB2DSPHERE2D(_Other);
 	}
-	if (colType == ColType::Circle2D && _Other->colType == ColType::AABB2D)
+	else if (colType == ColType::SPHERE2D && _Other->colType == ColType::AABB2D)
 	{
-		isCollision = _Other->AABB2DCircle2D(this);
+		isCollision = _Other->AABB2DSPHERE2D(this);
 	}
 
 	if (isCollision)
 	{
-		dir = transform.worldPosition - _Other->transform.worldPosition;
-		dir.Normalize();
+		opponent = _Other;
 	}
 	else
 	{
-		dir = { 0,0,0,1 };
+		opponent = nullptr;
 	}
+
 	_Other->isCollision = isCollision;
 	return isCollision;
 }
 
-bool Colider2D::AABB2DAABB2D(Colider2D* _other) const
+bool Colider::AABB2DAABB2D(Colider* _other) const
 {
 	if (_other->right < this->left)
 	{
@@ -100,7 +100,7 @@ bool Colider2D::AABB2DAABB2D(Colider2D* _other) const
 	return true;
 }
 
-bool Colider2D::Circle2DCircle2D(Colider2D* _other) const
+bool Colider::SPHERE2DSPHERE2D(Colider* _other) const
 {
 	float Sum = _other->radius + radius;
 	float4 Pos1 = _other->transform.position + _other->transform.localPosition;
@@ -117,7 +117,7 @@ bool Colider2D::Circle2DCircle2D(Colider2D* _other) const
 
 }
 
-bool Colider2D::AABB2DCircle2D(Colider2D* _other)
+bool Colider::AABB2DSPHERE2D(Colider* _other)
 {
 	float4 circlePos = _other->transform.position + _other->transform.localPosition;
 

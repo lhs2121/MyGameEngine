@@ -18,5 +18,5 @@
 //Component
 #include <EngineLib/Renderer.h>
 #include <EngineLib/SpriteRenderer.h>
-#include <EngineLib/Colider2D.h>
+#include <EngineLib/Colider.h>
 #include <EngineLib/RigidBody2D.h>

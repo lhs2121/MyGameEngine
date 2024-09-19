@@ -3,11 +3,15 @@
 enum class ColType
 {
 	AABB2D,
-	Circle2D,
+	AABB3D,
+	OBB2D,
+	OBB3D,
+	SPHERE2D,
+	SPHERE3D
 };
 
 class Renderer;
-class  Colider2D : public Object
+class  Colider : public Object
 {
 public:
 	void Awake() override;
@@ -17,12 +21,12 @@ public:
 	void SetColType(ColType _Type);
 	bool IsCollision() const { return isCollision; }
 
-	bool Collision(Colider2D* _Other);
-	float4 dir;
+	bool Collision(Colider* _Other);
+	Colider* opponent = nullptr;
 private:
-	bool AABB2DAABB2D(Colider2D* _Other) const;
-	bool Circle2DCircle2D(Colider2D* _Other) const;
-	bool AABB2DCircle2D(Colider2D* _Other);
+	bool AABB2DAABB2D(Colider* _Other) const;
+	bool SPHERE2DSPHERE2D(Colider* _Other) const;
+	bool AABB2DSPHERE2D(Colider* _Other);
 
 	float left;
 	float right;

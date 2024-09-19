@@ -28,7 +28,6 @@ void Renderer::Awake()
 	pTransformBuffer = Resource::CreateConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box2D");
-
 	pMaterial = Resource::FindMaterial("Sprite2D");
 
 	pIA = Resource::FindInputLayout("POSITION_TEXCOORD");
