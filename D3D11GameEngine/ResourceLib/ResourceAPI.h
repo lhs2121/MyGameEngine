@@ -6,7 +6,7 @@ struct float4;
 
 namespace Device
 {
-	extern "C" ResourceAPI void Create(HWND* pHwnd, float4 WindowSize);
+	extern "C" ResourceAPI void Create(HWND* pHwnd, float4 _windowSize);
 
 	extern "C" ResourceAPI void Delete();
 
@@ -21,6 +21,8 @@ namespace Device
 	extern "C" ResourceAPI ID3D11Device* GetDevice();
 
 	extern "C" ResourceAPI ID3D11DeviceContext* GetContext();
+
+	extern "C" ResourceAPI void SetClearColor(float4 _clearColor);
 };
 
 namespace Resource
@@ -31,9 +33,9 @@ namespace Resource
 
 	extern "C" ResourceAPI IndexBuffer*    CreateIndexBuffer(const char* _name, void* pIndexStruct, UINT _structSize);
 
-	extern "C" ResourceAPI InputLayout *   CreateInputLayout(const char* _name, VertexShader* _pShader);
+	extern "C" ResourceAPI InputLayout*    CreateInputLayout(const char* _name, VertexShader* _pShader);
 	
-	extern "C" ResourceAPI VertexShader* CreateVertexShader(const char* _name, base::string& _path);
+	extern "C" ResourceAPI VertexShader*   CreateVertexShader(const char* _name, base::string& _path);
 
 	extern "C" ResourceAPI PixelShader*    CreatePixelShader(const char* _name, base::string& _path);
 
@@ -57,7 +59,7 @@ namespace Resource
 
 	extern "C" ResourceAPI IndexBuffer*    FindIndexBuffer(const char* _name);
 
-	extern "C" ResourceAPI InputLayout *   FindInputLayout(const char* _name);
+	extern "C" ResourceAPI InputLayout*    FindInputLayout(const char* _name);
 
 	extern "C" ResourceAPI VertexShader*   FindVertexShader(const char* _name);
 

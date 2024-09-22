@@ -19,17 +19,6 @@
     <ClCompile Include="Ground.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Assets\Shaders\DebugLine.fx">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="..\Assets\Shaders\Sprite2D.fx">
-      <Filter>Shader</Filter>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{6c9eec42-27b7-458c-b37e-bbc9de23fc1b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{55f4828c-094c-44d7-b312-022da45f5c5a}</UniqueIdentifier>
     </Filter>

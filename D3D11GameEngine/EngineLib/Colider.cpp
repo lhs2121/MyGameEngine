@@ -8,7 +8,7 @@ void Colider::Awake()
 	GetScene()->AddCollision(this);
 
 	debugRenderer = CreateChild<Renderer>();
-	debugRenderer->SetRenderOrder(-5);
+	debugRenderer->SetRenderOrder(999);
 	debugRenderer->SetMesh("Box2D");
 	debugRenderer->SetMaterial("WireFrame");
 }
@@ -72,24 +72,10 @@ void Colider::Collision(int _otherOrder)
 
 bool Colider::Search(Colider* _other)
 {
-	for (Colider* other : otherColiders)
+	if (otherCols.find(_other) != otherCols.end())
 	{
-		if (other == _other)
-		{
-			return true;
-		}
+		return true;
 	}
 	return false;
 }
 
-Colider* Colider::Search(const char* _otherNname)
-{
-	for (Colider* other : otherColiders)
-	{
-		if (other->name == _otherNname)
-		{
-			return other;
-		}
-	}
-	return nullptr;
-}

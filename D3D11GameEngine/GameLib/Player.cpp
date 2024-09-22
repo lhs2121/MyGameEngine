@@ -3,26 +3,33 @@
 
 void Player::Awake()
 {
+	transform.SetLocalPos({ 200,200 });
+	transform.SetLocalScale({ 64,64 });
+
 	pSpriteRenderer = CreateChild<SpriteRenderer>();
+	pSpriteRenderer->SetRenderOrder(Layer::Render::PLAYER);
+
 	Resource::CreateTexture("Character/stand.dds");
 	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
 	pRigid = CreateChild<RigidBody2D>();
-	transform.SetLocalPos({ 200,200 });
-	transform.SetLocalScale({ 64,64 });
 
 	pColider = CreateChild<Colider>();
 	pColider->SetColOrder(Layer::Collision::PLAYER);
-
-	CreateEngineTime(&time);
-	time->Init();
 }
 
 void Player::Update(float _deltaTime)
 {
 	pColider->Collision(Layer::Collision::GROUND);
-
+	if (pColider->state == ColState::ENTER)
+	{
+		int a = 0;
+	}
+	if (pColider->state == ColState::EXIT)
+	{
+		int a = 0;
+	}
 	if (GetKeyPress('A'))
 	{
 		transform.position.x += -50 * _deltaTime;

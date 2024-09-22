@@ -18,6 +18,7 @@ enum class ColState
 	STAY,
 	EXIT
 };
+
 class ColGroup;
 class Renderer;
 class Colider : public Object
@@ -39,8 +40,6 @@ public:
 	void Collision(int _otherOrder);
 
 	bool Search(Colider* _other);
-	Colider* Search(const char* _otherNname);
-
 
 	int colOrder;
 	float left;
@@ -53,6 +52,7 @@ public:
 	ColGroup* parentGroup;
 
 	std::list<Colider*> otherColiders;
+	std::unordered_map<Colider*, bool> otherCols;
 private:
 	Renderer* debugRenderer;
 };

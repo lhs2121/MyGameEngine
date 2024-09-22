@@ -58,7 +58,7 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 			if (false == isContained)
 			{
 				_col->state = ColState::ENTER;
-				_col->otherColiders.push_back(other);
+				_col->otherCols.insert({ other,true });
 			}
 			else
 				_col->state = ColState::STAY;
@@ -72,7 +72,7 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 			else
 			{
 				_col->state = ColState::EXIT;
-				_col->otherColiders.remove(other);
+				_col->otherCols.erase(other);
 			}
 		}
 	}

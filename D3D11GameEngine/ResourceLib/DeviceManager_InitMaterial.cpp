@@ -137,7 +137,7 @@ void DeviceManager::InitMaterial()
 		newMaterial->pVertexShader = ResMap<VertexShader>::Find("SimpleColor");
 		newMaterial->pPixelShader = ResMap<PixelShader>::Find("SimpleColor");
 		newMaterial->pRasterizer = ResMap<Rasterizer>::Find("WireFrame");
-		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOffWriteOff");
+		newMaterial->pDepthStencil = ResMap<DepthStencil>::Find("DepthOnWriteOn");
 		newMaterial->pSampler = ResMap<Sampler>::Find("Point");
 	}
 }

@@ -18,6 +18,8 @@ public:
 	void Clear();
 	void Present();
 
+	FLOAT clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
 	ID3D11Device* mainDevice = nullptr;
 	ID3D11DeviceContext* mainContext = nullptr;
 

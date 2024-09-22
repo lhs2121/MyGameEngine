@@ -50,3 +50,11 @@ ID3D11DeviceContext* Device::GetContext()
 {
 	return DeviceManager::Inst->mainContext;
 }
+
+void Device::SetClearColor(float4 _clearColor)
+{
+	DeviceManager::Inst->clearColor[0] = _clearColor.r;
+	DeviceManager::Inst->clearColor[1] = _clearColor.g;
+	DeviceManager::Inst->clearColor[2] = _clearColor.b;
+	DeviceManager::Inst->clearColor[3] = _clearColor.a;
+}

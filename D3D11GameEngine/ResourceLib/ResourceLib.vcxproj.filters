@@ -50,16 +50,5 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{c94a4e0c-39b4-4458-a3f0-a6ed00daef39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{49296731-2599-461c-ad87-06e3028a6ea5}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="..\Assets\Shaders\SimpleColor.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="..\Assets\Shaders\Sprite2D.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
   </ItemGroup>
 </Project>

@@ -16,6 +16,9 @@ public:
 
 	void SetMesh(const char* _name);
 	void SetMaterial(const char* _name);
+
+	template<typename T>
+	void SetRenderOrder(T _order);
 	void SetRenderOrder(int _order);
 
 	Mesh* GetMesh() { return pMesh; }
@@ -36,4 +39,8 @@ protected:
 	ConstantBuffer* pTransformBuffer = nullptr;
 };
 
-
+template<typename T>
+inline void Renderer::SetRenderOrder(T _order)
+{
+	SetRenderOrder((int)_order);
+}

@@ -9,7 +9,9 @@ namespace Layer
 
 	enum class Render
 	{
-
+		BACKGROUND,
+		GROUND,
+		PLAYER,
 	};
 
 	enum class Collision
