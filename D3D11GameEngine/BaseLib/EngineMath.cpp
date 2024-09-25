@@ -24,7 +24,7 @@ float4 float4::operator*(const float4x4& Other)
 	return result;
 }
 
-float4 float4::Normalize(float4& Other)
+float4 float4::normalize(float4& Other)
 {
 	float4 result;
 	result = Other;
@@ -36,7 +36,7 @@ float4 float4::Normalize(float4& Other)
 	return result;
 }
 
-void float4::Normalize()
+void float4::normalize()
 {
 	float length = static_cast<float>(sqrt(x * x + y * y + z * z));
 	x /= length;
@@ -44,24 +44,24 @@ void float4::Normalize()
 	z /= length;
 }
 
-float float4::Distance(float4& Other)
+float float4::length(float4& Other)
 {
-	float4 Distance = *this - Other;
+	float4 length = *this - Other;
 
-	return (float)sqrt((Distance.x * Distance.x) + (Distance.y * Distance.y));
+	return (float)sqrt((length.x * length.x) + (length.y * length.y));
 }
 
-float4 float4::Resolution(float _force, float _rad)
+float4 float4::resolution(float _force, float _rad)
 {
 	return { _force * cosf(_rad),_force * sinf(_rad) };
 }
 
-float float4::Dot(float4& Left, float4& Right)
+float float4::dot(float4& Left, float4& Right)
 {
 	return Left.x * Right.x + Left.y * Right.y + Left.z * Right.z;
 }
 
-float4 float4::Cross(float4& Left, float4& Right)
+float4 float4::cross(float4& Left, float4& Right)
 {
 	float x = Left.y * Right.z - Left.z * Right.y;
 	float y = Left.z * Right.x - Left.x * Right.z;
@@ -205,10 +205,10 @@ void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 {
 	Identity();
 
-	EyeDir.Normalize();
-	EyeUp.Normalize();
+	EyeDir.normalize();
+	EyeUp.normalize();
 
-	float4 EyeRight = float4::Cross(EyeUp, EyeDir);
+	float4 EyeRight = float4::cross(EyeUp, EyeDir);
 
 	matrix[0][0] = EyeRight.x;
 	matrix[0][1] = EyeRight.y;
@@ -225,9 +225,9 @@ void float4x4::View(float4& EyePos, float4& EyeDir, float4& EyeUp)
 	TransPose();
 
 	float4 Pos = -EyePos;
-	matrix[3][0] = float4::Dot(EyeRight, Pos);
-	matrix[3][1] = float4::Dot(EyeUp, Pos);
-	matrix[3][2] = float4::Dot(EyeDir, Pos);
+	matrix[3][0] = float4::dot(EyeRight, Pos);
+	matrix[3][1] = float4::dot(EyeUp, Pos);
+	matrix[3][2] = float4::dot(EyeDir, Pos);
 }
 void float4x4::Perspective(float FovYDeg, float Width, float Height, float Near, float Far)
 {
@@ -254,28 +254,28 @@ void float4x4::Orthographic(float Width, float Height, float Near, float Far)
 	matrix[3][2] = Near / (Near - Far);
 }
 
-int EngineMath::GetDigitCount(unsigned long long Num)
+int math::digits(int _num)
 {
-	int Result = 0;
+	int result = 0;
 
-	while (Num >= 1)
+	while (_num >= 1)
 	{
-		Num /= 10;
-		Result++;
+		_num /= 10;
+		result++;
 	}
-	return Result;
+	return result;
 }
 
-float EngineMath::Clamp(float _Num, float _Max, float _Min)
+float math::clamp(float _num, float _max, float _min)
 {
-	if (_Num >= _Max)
+	if (_num >= _max)
 	{
-		return _Max;
+		return _max;
 	}
-	if (_Num <= _Min)
+	if (_num <= _min)
 	{
-		return _Min;
+		return _min;
 	}
-	return _Num;
+	return _num;
 }
 

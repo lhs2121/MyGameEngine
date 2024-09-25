@@ -45,7 +45,7 @@ namespace Resource
 
 	extern "C" ResourceAPI Sampler*        CreateSampler(const char* _name, D3D11_SAMPLER_DESC _desc);
 
-	extern "C" ResourceAPI ConstantBuffer* CreateConstantBuffer(const char* _name, void* _pData, int _dataSize, ShaderType _type);
+	extern "C" ResourceAPI ConstantBuffer* CreateConstantBuffer(const char* _name, void* _pData, int _dataSize, ShaderType _type, int _slot);
 
 	extern "C" ResourceAPI Blend*          CreateBlend(const char* _name, D3D11_BLEND_DESC _desc);
 

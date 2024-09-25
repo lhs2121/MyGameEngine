@@ -47,7 +47,6 @@ void SpriteRenderer::Update(float _deltaTime)
 
 void SpriteRenderer::Render()
 {
-	pSpriteDataBuffer->Draw();
 	Renderer::Render();
 }
 
@@ -98,8 +97,7 @@ void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float
 
 	Naming::AddName("SpriteData");
 	base::string name = Naming::GetName("SpriteData");
-
-	pSpriteDataBuffer = Resource::CreateConstantBuffer(name.c_str(), &curSpriteData, sizeof(SpriteData), ShaderType::PS);
+	SetConstantBuffer(name.c_str(), &curSpriteData, sizeof(SpriteData), ShaderType::PS);
 }
 
 

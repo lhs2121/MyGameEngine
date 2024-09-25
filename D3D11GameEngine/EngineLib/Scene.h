@@ -19,6 +19,7 @@ public:
 
 	Camera*   GetMainCamera();
 private:
+
 	std::map<int, ColGroup*> colGroups;
 	std::list<Camera*> cameraList;
 };

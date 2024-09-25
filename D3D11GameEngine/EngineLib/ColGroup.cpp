@@ -10,45 +10,45 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 		{
 			if (other->colType == ColType::AABB2D)
 			{
-				isCol = AABB2DvsAABB2D(_col, other);
+				isCol = AABB2DvsAABB2D((AABB2D*)_col->shape, (AABB2D*)other->shape);
 			}
 			else if (other->colType == ColType::SPHERE2D)
 			{
-				isCol = AABB2DvsSPHERE2D(_col, other);
+				isCol = AABB2DvsSPHERE2D((AABB2D*)_col->shape, (SPHERE2D*)other->shape);
 			}
 			else if (other->colType == ColType::OBB2D)
 			{
-				isCol = AABB2DvsOBB2D(_col, other);
+				isCol = AABB2DvsOBB2D((AABB2D*)_col->shape, (OBB2D*)other->shape);
 			}
 		}
 		else if (_col->colType == ColType::SPHERE2D)
 		{
 			if (other->colType == ColType::AABB2D)
 			{
-				isCol = AABB2DvsSPHERE2D(other, _col);
+				isCol = AABB2DvsSPHERE2D((AABB2D*)other->shape, (SPHERE2D*)_col->shape);
 			}
 			else if (other->colType == ColType::SPHERE2D)
 			{
-				isCol = SPHERE2DvsSPHERE2D(_col, other);
+				isCol = SPHERE2DvsSPHERE2D((SPHERE2D*)_col->shape, (SPHERE2D*)other->shape);
 			}
 			else if (other->colType == ColType::OBB2D)
 			{
-				isCol = OBB2DvsSPHERE2D(other, _col);
+				isCol = OBB2DvsSPHERE2D((OBB2D*)other->shape, (SPHERE2D*)_col->shape);
 			}
 		}
 		else if (_col->colType == ColType::OBB2D)
 		{
 			if (other->colType == ColType::AABB2D)
 			{
-				isCol = AABB2DvsOBB2D(other, _col);
+				isCol = AABB2DvsOBB2D((AABB2D*)other->shape, (OBB2D*)_col->shape);
 			}
 			else if (other->colType == ColType::SPHERE2D)
 			{
-				isCol = OBB2DvsSPHERE2D(_col, other);
+				isCol = OBB2DvsSPHERE2D((OBB2D*)_col->shape, (SPHERE2D*)other->shape);
 			}
 			else if (other->colType == ColType::OBB2D)
 			{
-				isCol = OBB2DvsOBB2D(_col, other);
+				isCol = OBB2DvsOBB2D((OBB2D*)_col->shape, (OBB2D*)other->shape);
 			}
 		}
 
@@ -59,6 +59,9 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 			{
 				_col->state = ColState::ENTER;
 				_col->otherCols.insert({ other,true });
+
+				other->debugColor = { 1,0,0,1 };
+				_col->debugColor = { 1,0,0,1 };
 			}
 			else
 				_col->state = ColState::STAY;
@@ -73,13 +76,16 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 			{
 				_col->state = ColState::EXIT;
 				_col->otherCols.erase(other);
+
+				other->debugColor = { 1,0,0,1 };
+				_col->debugColor = { 0,1,0,1 };
 			}
 		}
 	}
 
 }
 
-bool ColGroup::AABB2DvsAABB2D(Colider* _aabb1, Colider* _aabb2) const
+bool ColGroup::AABB2DvsAABB2D(AABB2D* _aabb1, AABB2D* _aabb2) const
 {
 	if (_aabb2->right < _aabb1->left)
 	{
@@ -104,28 +110,25 @@ bool ColGroup::AABB2DvsAABB2D(Colider* _aabb1, Colider* _aabb2) const
 	return true;
 }
 
-bool ColGroup::SPHERE2DvsSPHERE2D(Colider* _sphere1, Colider* _sphere2) const
+bool ColGroup::SPHERE2DvsSPHERE2D(SPHERE2D* _sphere1, SPHERE2D* _sphere2) const
 {
-	float Sum = _sphere1->radius + _sphere2->radius;
-	float4 Pos1 = _sphere1->transform.position + _sphere1->transform.localPosition;
-	float4 Pos2 = _sphere2->transform.position + _sphere2->transform.localPosition;
-	float Distance = Pos1.Distance(Pos2);
-	if (Distance > Sum)
+	float radiusSum = _sphere1->radius + _sphere2->radius;
+	float distance = _sphere1->center.length(_sphere2->center);
+
+	if (distance > radiusSum)
 	{
 		return false;
 	}
 	return true;
 }
 
-bool ColGroup::AABB2DvsSPHERE2D(Colider* _aabb, Colider* _sphere)
+bool ColGroup::AABB2DvsSPHERE2D(AABB2D* _aabb, SPHERE2D* _sphere)
 {
-	float4 circlePos = _sphere->transform.worldPosition;
-
 	float4 Near;
-	Near.x = EngineMath::Clamp(circlePos.x, _aabb->right, _aabb->left);
-	Near.y = EngineMath::Clamp(circlePos.y, _aabb->top, _aabb->bottom);
+	Near.x = math::clamp(_sphere->center.x, _aabb->right, _aabb->left);
+	Near.y = math::clamp(_sphere->center.y, _aabb->top, _aabb->bottom);
 
-	float distance = Near.Distance(circlePos);
+	float distance = Near.length(_sphere->center);
 
 	if (distance <= _sphere->radius)
 	{
@@ -134,17 +137,17 @@ bool ColGroup::AABB2DvsSPHERE2D(Colider* _aabb, Colider* _sphere)
 	return false;
 }
 
-bool ColGroup::AABB2DvsOBB2D(Colider* _aabb, Colider* _obb)
+bool ColGroup::AABB2DvsOBB2D(AABB2D* _aabb, OBB2D* _obb)
 {
 	return false;
 }
 
-bool ColGroup::OBB2DvsOBB2D(Colider* _obb1, Colider* _obb2)
+bool ColGroup::OBB2DvsOBB2D(OBB2D* _obb1, OBB2D* _obb2)
 {
 	return false;
 }
 
-bool ColGroup::OBB2DvsSPHERE2D(Colider* _obb, Colider* _sphere)
+bool ColGroup::OBB2DvsSPHERE2D(OBB2D* _obb, SPHERE2D* _sphere)
 {
 	return false;
 }

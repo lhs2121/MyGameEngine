@@ -97,11 +97,12 @@ Sampler* Resource::CreateSampler(const char* _name, D3D11_SAMPLER_DESC _desc)
 	return newSampler;
 }
 
-ConstantBuffer* Resource::CreateConstantBuffer(const char* _name, void* _pData, int _dataSize, ShaderType _type)
+ConstantBuffer* Resource::CreateConstantBuffer(const char* _name, void* _pData, int _dataSize, ShaderType _type, int _slot)
 {
 	ConstantBuffer* newCB = new ConstantBuffer();
 	newCB->name = _name;
 	newCB->Type = _type;
+	newCB->slot = _slot;
 	newCB->SetContext(Device::GetContext());
 
 	D3D11_BUFFER_DESC desc = { 0 };

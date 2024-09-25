@@ -13,6 +13,10 @@ cbuffer Transform : register(b0)
     float4x4 WorldViewProjection;
 };
 
+cbuffer Color : register(b1)
+{
+    float4 color;
+}
 
 VS_OUTPUT SimpleColor_VS(VS_INPUT input)
 {
@@ -24,5 +28,5 @@ VS_OUTPUT SimpleColor_VS(VS_INPUT input)
 
 float4 SimpleColor_PS(VS_OUTPUT input) : SV_Target
 {
-    return float4(1, 0, 0, 1);
+    return color;
 }

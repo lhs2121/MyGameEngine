@@ -116,6 +116,7 @@ enum class ShaderType
 
 struct ConstantBuffer : public CanDraw
 {
+	int slot = 0;
 	int dataSize;
 	void* pData = nullptr;
 	ID3D11Buffer* pBuffer = nullptr;
@@ -133,12 +134,12 @@ struct ConstantBuffer : public CanDraw
 		switch (Type)
 		{
 		case ShaderType::VS:
-			pContext->VSSetConstantBuffers(0, 1, &pBuffer);
+			pContext->VSSetConstantBuffers(slot, 1, &pBuffer);
 
 			break;
 		case ShaderType::PS:
 
-			pContext->PSSetConstantBuffers(0, 1, &pBuffer);
+			pContext->PSSetConstantBuffers(slot, 1, &pBuffer);
 			break;
 		}
 	}

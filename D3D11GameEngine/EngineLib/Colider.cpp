@@ -3,23 +3,31 @@
 #include "Colider.h"
 #include "Renderer.h"
 
+Colider::~Colider()
+{
+	if(shape !=nullptr)
+		delete shape;
+}
+
 void Colider::Awake()
 {
 	GetScene()->AddCollision(this);
+
+	shape = new AABB2D();
 
 	debugRenderer = CreateChild<Renderer>();
 	debugRenderer->SetRenderOrder(999);
 	debugRenderer->SetMesh("Box2D");
 	debugRenderer->SetMaterial("WireFrame");
+
+	Naming::AddName("DebugCollisionColor");
+	base::string a = Naming::GetName("DebugCollisionColor");
+	debugRenderer->SetConstantBuffer(a.c_str(), &debugColor, sizeof(float4), ShaderType::PS, 1);
 }
 
 void Colider::Update(float _deltaTime)
 {
-	radius = transform.worldScale.hx();
-	right = transform.worldPosition.x + transform.worldScale.hx();
-	left = transform.worldPosition.x - transform.worldScale.hx();
-	top = transform.worldPosition.y + transform.worldScale.hy();
-	bottom = transform.worldPosition.y - transform.worldScale.hy();
+	shape->Update(transform);
 }
 
 void Colider::Release()
@@ -34,25 +42,36 @@ void Colider::SetColOrder(int _order)
 
 void Colider::SetColType(ColType _Type)
 {
-	colType = _Type; 
+	colType = _Type;
 	const char* meshName = nullptr;
 
 	switch (colType)
 	{
 	case ColType::AABB2D:
 		meshName = "Box2D";
+
+		delete shape;
+		shape = new AABB2D;
+
 		break;
 	case ColType::AABB3D:
 		meshName = "Box3D";
 		break;
 	case ColType::OBB2D:
 		meshName = "Box2D";
+
+		delete shape;
+		shape = new OBB2D;
+
 		break;
 	case ColType::OBB3D:
 		meshName = "Box3D";
 		break;
 	case ColType::SPHERE2D:
 		meshName = "Sphere2D";
+
+		delete shape;
+		shape = new SPHERE2D;
 		break;
 	case ColType::SPHERE3D:
 		meshName = "Sphere3D";
@@ -66,8 +85,8 @@ void Colider::SetColType(ColType _Type)
 void Colider::Collision(int _otherOrder)
 {
 	ColGroup* otherGroup = GetScene()->GetGroup(_otherOrder);
-	if(otherGroup != nullptr)
-		parentGroup->Collision(this,otherGroup);
+	if (otherGroup != nullptr)
+		parentGroup->Collision(this, otherGroup);
 }
 
 bool Colider::Search(Colider* _other)

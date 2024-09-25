@@ -3,10 +3,10 @@
 constexpr float PI = 3.141592653f;
 constexpr float DegToRad = 3.141592653f / 180.0f;
 
-struct BaseAPI EngineMath
+struct BaseAPI math
 {
-	static int GetDigitCount(unsigned long long Num);
-	static float Clamp(float _Num,float _Max, float _Min);
+	static int digits(int _num);
+	static float clamp(float _num,float _max, float _min);
 };
 struct float2
 {
@@ -356,17 +356,17 @@ struct BaseAPI float4
 		};
 	};
 
-	void Normalize();
+	void normalize();
 
-	float Distance(float4& Other);
+	float length(float4& Other);
 
-	static float4 Resolution(float _force,float _rad);
+	static float4 resolution(float _force,float _rad);
 
-	static float4 Normalize(float4& Other);
+	static float4 normalize(float4& Other);
 
-	static float Dot(float4& Left, float4& Right);
+	static float dot(float4& Left, float4& Right);
 
-	static float4 Cross(float4& Left, float4& Right);
+	static float4 cross(float4& Left, float4& Right);
 
 	void operator*=(const float4x4& Other);
 

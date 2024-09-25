@@ -33,10 +33,10 @@ void RigidBody2D::LateUpdate(float _deltaTime)
 		float s_max_static_slide = static_friction * s_N;
 		float s_dynamic_slide = dynamic_friction * s_N;
 
-		float4 dir_slide = -float4::Resolution(1, theta);
+		float4 dir_slide = -float4::resolution(1, theta);
 		float4 dir_friction = -dir_slide;
 
-		f_slide = dir_slide * float4::Resolution(s_slide, theta);
+		f_slide = dir_slide * float4::resolution(s_slide, theta);
 
 		if (s_slide <= s_max_static_slide)
 		{
@@ -44,7 +44,7 @@ void RigidBody2D::LateUpdate(float _deltaTime)
 		}
 		else
 		{
-			f_friction = dir_friction * float4::Resolution(s_dynamic_slide, theta);
+			f_friction = dir_friction * float4::resolution(s_dynamic_slide, theta);
 		}
 	}
 	else

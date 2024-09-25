@@ -25,7 +25,7 @@ void Renderer::Awake()
 	Naming::AddName("Transform");
 
 	base::string name = Naming::GetName("Transform");
-	pTransformBuffer = Resource::CreateConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
+	SetConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box2D");
 	pMaterial = Resource::FindMaterial("Sprite2D");
@@ -49,7 +49,11 @@ void Renderer::Release()
 
 void Renderer::Render()
 {
-	pTransformBuffer->Draw();
+	for (ConstantBuffer* cb : ConstantBuffers)
+	{
+		cb->Draw();
+	}
+
 	pMesh->Draw();
 	pMaterial->Draw();
 	pIA->Draw();
@@ -61,13 +65,13 @@ void Renderer::SetMesh(const char* _name)
 {
 	if (pMesh != nullptr)
 		delete pMesh;
-	
+
 	pMesh = Resource::FindMesh(_name);
 }
 
 void Renderer::SetMaterial(const char* _name)
 {
-	if(pMaterial != nullptr)
+	if (pMaterial != nullptr)
 		delete pMaterial;
 
 	pMaterial = Resource::FindMaterial(_name);
@@ -77,5 +81,11 @@ void Renderer::SetRenderOrder(int _order)
 {
 	pCamera->ChangeRenderOrder(this, _order);
 	renderOrder = _order;
+}
+
+void Renderer::SetConstantBuffer(const char* _name, void* pData, int _dataSize, ShaderType _type, int _slot)
+{
+	ConstantBuffer* newCB = Resource::CreateConstantBuffer(_name, pData, _dataSize, _type, _slot);
+	ConstantBuffers.push_back(newCB);
 }
 
