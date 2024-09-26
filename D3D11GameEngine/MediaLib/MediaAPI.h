@@ -1,14 +1,7 @@
 #pragma once
 #include "Windows.h"
 
-class test
-{
-public:
-	std::map<base::string, int> map;
-};
-
 struct IEngine;
-
 namespace Input
 {
 	MediaAPI void        Create();

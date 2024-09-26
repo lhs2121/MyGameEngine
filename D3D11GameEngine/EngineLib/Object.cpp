@@ -31,7 +31,6 @@ void Object::AllStart()
 
 		for (Object* object : objectList)
 		{
-			object->Start();
 			object->AllStart();
 		}
 	}
@@ -47,7 +46,6 @@ void Object::AllUpdate(float _deltaTime)
 
 		for (Object* object : objectList)
 		{
-			object->Update(_deltaTime);
 			object->AllUpdate(_deltaTime);
 		}
 	}
@@ -63,7 +61,6 @@ void Object::AllLateUpdate(float _deltaTime)
 
 		for (Object* object : objectList)
 		{
-			object->LateUpdate(_deltaTime);
 			object->AllLateUpdate(_deltaTime);
 		}
 	}
@@ -79,7 +76,6 @@ void Object::AllEnd()
 
 		for (Object* object : objectList)
 		{
-			object->End();
 			object->AllEnd();
 		}
 	}

@@ -1,19 +1,16 @@
 #pragma once
 
 constexpr float PI = 3.141592653f;
-constexpr float DegToRad = 3.141592653f / 180.0f;
+constexpr float Deg2Rad = 3.141592653f / 180.0f;
 
 struct BaseAPI math
 {
 	static int digits(int _num);
-	static float clamp(float _num,float _max, float _min);
+	static float clamp(float _num, float _max, float _min);
 };
 struct float2
 {
-	float2(float _x = 0, float _y = 0)
-		: x(_x), y(_y)
-	{
-	}
+	float2(float _x = 0, float _y = 0) : x(_x), y(_y) {}
 
 	float x;
 	float y;
@@ -48,24 +45,24 @@ struct float2
 		return static_cast<int>(y / 2);
 	}
 
-	float2 operator+(const float2& Other) const
+	float2 operator+(const float2& _other) const
 	{
-		return { x + Other.x ,y + Other.y };
+		return { x + _other.x ,y + _other.y };
 	}
 
-	float2 operator+(const float2&& Other) const
+	float2 operator+(const float2&& _other) const
 	{
-		return { x + Other.x ,y + Other.y };
+		return { x + _other.x ,y + _other.y };
 	}
 
-	float2 operator-(const float2& Other) const
+	float2 operator-(const float2& _other) const
 	{
-		return { x - Other.x ,y - Other.y };
+		return { x - _other.x ,y - _other.y };
 	}
 
-	float2 operator-(const float2&& Other) const
+	float2 operator-(const float2&& _other) const
 	{
-		return { x - Other.x ,y - Other.y };
+		return { x - _other.x ,y - _other.y };
 	}
 
 	float2 operator-() const
@@ -73,107 +70,106 @@ struct float2
 		return { -x,-y };
 	}
 
-	float2 operator*(const float2& Other) const
+	float2 operator*(const float2& _other) const
 	{
-		return { x * Other.x ,y * Other.y };
+		return { x * _other.x ,y * _other.y };
 	}
 
-	float2 operator*(const float2&& Other) const
+	float2 operator*(const float2&& _other) const
 	{
-		return { x * Other.x ,y * Other.y };
+		return { x * _other.x ,y * _other.y };
 	}
 
-	float2 operator*(const float Other) const
+	float2 operator*(const float _other) const
 	{
-		return { x * Other,y * Other };
+		return { x * _other,y * _other };
 	}
 
-	float2 operator/(const float2& Other) const
+	float2 operator/(const float2& _other) const
 	{
-		return { x / Other.x ,y / Other.y };
+		return { x / _other.x ,y / _other.y };
 	}
 
-	float2 operator/(const float2&& Other) const
+	float2 operator/(const float2&& _other) const
 	{
-		return { x / Other.x ,y / Other.y };
+		return { x / _other.x ,y / _other.y };
 	}
 
-	float2 operator/(float Other) const
+	float2 operator/(float _other) const
 	{
-		return { x / Other ,y / Other };
+		return { x / _other ,y / _other };
 	}
 
-	void operator+=(const float2& Other)
+	void operator+=(const float2& _other)
 	{
-		x += Other.x;
-		y += Other.y;
+		x += _other.x;
+		y += _other.y;
 	}
 
-	void operator+=(const float2&& Other)
+	void operator+=(const float2&& _other)
 	{
-		x += Other.x;
-		y += Other.y;
+		x += _other.x;
+		y += _other.y;
 	}
 
-	void operator-=(const float2& Other)
+	void operator-=(const float2& _other)
 	{
-		x -= Other.x;
-		y -= Other.y;
+		x -= _other.x;
+		y -= _other.y;
 	}
 
-	void operator-=(const float2&& Other)
+	void operator-=(const float2&& _other)
 	{
-		x -= Other.x;
-		y -= Other.y;
+		x -= _other.x;
+		y -= _other.y;
 	}
 
-	void operator*=(const float2& Other)
+	void operator*=(const float2& _other)
 	{
-		x *= Other.x;
-		y *= Other.y;
+		x *= _other.x;
+		y *= _other.y;
 	}
 
-	void operator*=(const float2&& Other)
+	void operator*=(const float2&& _other)
 	{
-		x *= Other.x;
-		y *= Other.y;
+		x *= _other.x;
+		y *= _other.y;
 	}
 
-	void operator*=(const float Other)
+	void operator*=(const float _other)
 	{
-		x *= Other;
-		y *= Other;
+		x *= _other;
+		y *= _other;
 	}
 
-	void operator/=(const float2& Other)
+	void operator/=(const float2& _other)
 	{
-		x /= Other.x;
-		y /= Other.y;
+		x /= _other.x;
+		y /= _other.y;
 	}
 
-	void operator/=(const float2&& Other)
+	void operator/=(const float2&& _other)
 	{
-		x /= Other.x;
-		y /= Other.y;
+		x /= _other.x;
+		y /= _other.y;
 	}
 
-	void operator/=(const float Other)
+	void operator/=(const float _other)
 	{
-		x /= Other;
-		y /= Other;
+		x /= _other;
+		y /= _other;
 	}
 
 };
 
 struct float3
 {
-	float3(float _x = 0, float _y = 0, float _z = 0)
-		: x(_x), y(_y), z(_z)
-	{
-	}
+	float3(float _x = 0, float _y = 0, float _z = 0) : x(_x), y(_y), z(_z) {}
+
 	float x;
 	float y;
 	float z;
+
 	float hx() const
 	{
 		return x / 2;
@@ -204,24 +200,24 @@ struct float3
 		return static_cast<int>(y / 2);
 	}
 
-	float3 operator+(const float3& Other) const
+	float3 operator+(const float3& _other) const
 	{
-		return { x + Other.x ,y + Other.y ,z + Other.z };
+		return { x + _other.x ,y + _other.y ,z + _other.z };
 	}
 
-	float3 operator+(const float3&& Other) const
+	float3 operator+(const float3&& _other) const
 	{
-		return { x + Other.x ,y + Other.y ,z + Other.z };
+		return { x + _other.x ,y + _other.y ,z + _other.z };
 	}
 
-	float3 operator-(const float3& Other) const
+	float3 operator-(const float3& _other) const
 	{
-		return { x - Other.x ,y - Other.y ,z - Other.z };
+		return { x - _other.x ,y - _other.y ,z - _other.z };
 	}
 
-	float3 operator-(const float3&& Other) const
+	float3 operator-(const float3&& _other) const
 	{
-		return { x - Other.x ,y - Other.y ,z - Other.z };
+		return { x - _other.x ,y - _other.y ,z - _other.z };
 	}
 
 	float3 operator-() const
@@ -229,113 +225,110 @@ struct float3
 		return { -x,-y,-z };
 	}
 
-	float3 operator*(const float3& Other) const
+	float3 operator*(const float3& _other) const
 	{
-		return { x * Other.x ,y * Other.y ,z * Other.z };
+		return { x * _other.x ,y * _other.y ,z * _other.z };
 	}
 
-	float3 operator*(const float3&& Other) const
+	float3 operator*(const float3&& _other) const
 	{
-		return { x * Other.x ,y * Other.y ,z * Other.z };
+		return { x * _other.x ,y * _other.y ,z * _other.z };
 	}
 
-	float3 operator*(const float Other) const
+	float3 operator*(const float _other) const
 	{
-		return { x * Other,y * Other,z * Other };
+		return { x * _other,y * _other,z * _other };
 	}
 
-	float3 operator/(const float3& Other) const
+	float3 operator/(const float3& _other) const
 	{
-		return { x / Other.x ,y / Other.y ,z / Other.z };
+		return { x / _other.x ,y / _other.y ,z / _other.z };
 	}
 
-	float3 operator/(const float3&& Other) const
+	float3 operator/(const float3&& _other) const
 	{
-		return { x / Other.x ,y / Other.y ,z / Other.z };
+		return { x / _other.x ,y / _other.y ,z / _other.z };
 	}
 
-	float3 operator/(float Other) const
+	float3 operator/(float _other) const
 	{
-		return { x / Other ,y / Other ,z / Other };
+		return { x / _other ,y / _other ,z / _other };
 	}
 
-	void operator+=(const float3& Other)
+	void operator+=(const float3& _other)
 	{
-		x += Other.x;
-		y += Other.y;
-		z += Other.z;
+		x += _other.x;
+		y += _other.y;
+		z += _other.z;
 	}
 
-	void operator+=(const float3&& Other)
+	void operator+=(const float3&& _other)
 	{
-		x += Other.x;
-		y += Other.y;
-		z += Other.z;
+		x += _other.x;
+		y += _other.y;
+		z += _other.z;
 	}
 
-	void operator-=(const float3& Other)
+	void operator-=(const float3& _other)
 	{
-		x -= Other.x;
-		y -= Other.y;
-		z -= Other.z;
+		x -= _other.x;
+		y -= _other.y;
+		z -= _other.z;
 	}
 
-	void operator-=(const float3&& Other)
+	void operator-=(const float3&& _other)
 	{
-		x -= Other.x;
-		y -= Other.y;
-		z -= Other.z;
+		x -= _other.x;
+		y -= _other.y;
+		z -= _other.z;
 	}
 
-	void operator*=(const float3& Other)
+	void operator*=(const float3& _other)
 	{
-		x *= Other.x;
-		y *= Other.y;
-		z *= Other.z;
+		x *= _other.x;
+		y *= _other.y;
+		z *= _other.z;
 	}
 
-	void operator*=(const float3&& Other)
+	void operator*=(const float3&& _other)
 	{
-		x *= Other.x;
-		y *= Other.y;
-		z *= Other.z;
+		x *= _other.x;
+		y *= _other.y;
+		z *= _other.z;
 	}
 
-	void operator*=(const float Other)
+	void operator*=(const float _other)
 	{
-		x *= Other;
-		y *= Other;
-		z *= Other;
+		x *= _other;
+		y *= _other;
+		z *= _other;
 	}
 
-	void operator/=(const float3& Other)
+	void operator/=(const float3& _other)
 	{
-		x /= Other.x;
-		y /= Other.y;
-		z /= Other.z;
+		x /= _other.x;
+		y /= _other.y;
+		z /= _other.z;
 	}
 
-	void operator/=(const float3&& Other)
+	void operator/=(const float3&& _other)
 	{
-		x /= Other.x;
-		y /= Other.y;
-		z /= Other.z;
+		x /= _other.x;
+		y /= _other.y;
+		z /= _other.z;
 	}
 
-	void operator/=(const float Other)
+	void operator/=(const float _other)
 	{
-		x /= Other;
-		y /= Other;
-		z /= Other;
+		x /= _other;
+		y /= _other;
+		z /= _other;
 	}
 };
 struct float4x4;
 struct BaseAPI float4
 {
-	float4(float _x = 0, float _y = 0, float _z = 0, float _w = 1)
-		: x(_x), y(_y), z(_z), w(_w)
-	{
-	}
+	float4(float _x = 0, float _y = 0, float _z = 0, float _w = 1) : x(_x), y(_y), z(_z), w(_w) {}
 
 	union
 	{
@@ -356,21 +349,19 @@ struct BaseAPI float4
 		};
 	};
 
+	static float4 resolution(float _force, float __radianian);
+
+	static float4 normalize(float4& __other);
+
+	static float dot(float4& _left, float4& _right);
+
+	static float4 cross(float4& _left, float4& _right);
+
 	void normalize();
 
-	float length(float4& Other);
+	float distance(float4& __other) const;
 
-	static float4 resolution(float _force,float _rad);
-
-	static float4 normalize(float4& Other);
-
-	static float dot(float4& Left, float4& Right);
-
-	static float4 cross(float4& Left, float4& Right);
-
-	void operator*=(const float4x4& Other);
-
-	float4 operator*(const float4x4& Other);
+	void rotate(float __radianian);
 
 	float hx() const
 	{
@@ -402,24 +393,24 @@ struct BaseAPI float4
 		return static_cast<int>(y / 2);
 	}
 
-	float4 operator+(const float4& Other) const
+	float4 operator+(const float4& _other) const
 	{
-		return { x + Other.x ,y + Other.y ,z + Other.z ,w };
+		return { x + _other.x ,y + _other.y ,z + _other.z ,w };
 	}
 
-	float4 operator+(const float4&& Other) const
+	float4 operator+(const float4&& _other) const
 	{
-		return { x + Other.x ,y + Other.y ,z + Other.z ,w };
+		return { x + _other.x ,y + _other.y ,z + _other.z ,w };
 	}
 
-	float4 operator-(const float4& Other) const
+	float4 operator-(const float4& _other) const
 	{
-		return { x - Other.x ,y - Other.y ,z - Other.z ,w };
+		return { x - _other.x ,y - _other.y ,z - _other.z ,w };
 	}
 
-	float4 operator-(const float4&& Other) const
+	float4 operator-(const float4&& _other) const
 	{
-		return { x - Other.x ,y - Other.y ,z - Other.z ,w };
+		return { x - _other.x ,y - _other.y ,z - _other.z ,w };
 	}
 
 	float4 operator-() const
@@ -427,116 +418,116 @@ struct BaseAPI float4
 		return { -x,-y,-z ,w };
 	}
 
-	float4 operator*(const float4& Other) const
+	float4 operator*(const float4& _other) const
 	{
-		return { x * Other.x ,y * Other.y ,z * Other.z ,w };
+		return { x * _other.x ,y * _other.y ,z * _other.z ,w };
 	}
 
-	float4 operator*(const float4&& Other) const
+	float4 operator*(const float4&& _other) const
 	{
-		return { x * Other.x ,y * Other.y ,z * Other.z ,w };
+		return { x * _other.x ,y * _other.y ,z * _other.z ,w };
 	}
 
-	float4 operator*(const float Other) const
+	float4 operator*(const float _other) const
 	{
-		return { x * Other,y * Other,z * Other,w };
+		return { x * _other,y * _other,z * _other,w };
 	}
 
-	float4 operator/(const float4& Other) const
+	float4 operator/(const float4& _other) const
 	{
-		return { x / Other.x ,y / Other.y ,z / Other.z ,w };
+		return { x / _other.x ,y / _other.y ,z / _other.z ,w };
 	}
 
-	float4 operator/(const float4&& Other) const
+	float4 operator/(const float4&& _other) const
 	{
-		return { x / Other.x ,y / Other.y ,z / Other.z ,w };
+		return { x / _other.x ,y / _other.y ,z / _other.z ,w };
 	}
 
-	float4 operator/(float Other) const
+	float4 operator/(float _other) const
 	{
-		return { x / Other ,y / Other ,z / Other ,w };
+		return { x / _other ,y / _other ,z / _other ,w };
 	}
 
-	void operator+=(const float4& Other)
+	void operator+=(const float4& _other)
 	{
-		x += Other.x;
-		y += Other.y;
-		z += Other.z;
+		x += _other.x;
+		y += _other.y;
+		z += _other.z;
 	}
 
-	void operator+=(const float4&& Other)
+	void operator+=(const float4&& _other)
 	{
-		x += Other.x;
-		y += Other.y;
-		z += Other.z;
+		x += _other.x;
+		y += _other.y;
+		z += _other.z;
 	}
 
-	void operator-=(const float4& Other)
+	void operator-=(const float4& _other)
 	{
-		x -= Other.x;
-		y -= Other.y;
-		z -= Other.z;
+		x -= _other.x;
+		y -= _other.y;
+		z -= _other.z;
 	}
 
-	void operator-=(const float4&& Other)
+	void operator-=(const float4&& _other)
 	{
-		x -= Other.x;
-		y -= Other.y;
-		z -= Other.z;
+		x -= _other.x;
+		y -= _other.y;
+		z -= _other.z;
 	}
 
-	void operator*=(const float4& Other)
+	void operator*=(const float4& _other)
 	{
-		x *= Other.x;
-		y *= Other.y;
-		z *= Other.z;
+		x *= _other.x;
+		y *= _other.y;
+		z *= _other.z;
 	}
 
-	void operator*=(const float4&& Other)
+	void operator*=(const float4&& _other)
 	{
-		x *= Other.x;
-		y *= Other.y;
-		z *= Other.z;
+		x *= _other.x;
+		y *= _other.y;
+		z *= _other.z;
 	}
 
-	void operator*=(const float Other)
+	void operator*=(const float _other)
 	{
-		x *= Other;
-		y *= Other;
-		z *= Other;
+		x *= _other;
+		y *= _other;
+		z *= _other;
 	}
 
-	void operator/=(const float4& Other)
+	void operator/=(const float4& _other)
 	{
-		x /= Other.x;
-		y /= Other.y;
-		z /= Other.z;
+		x /= _other.x;
+		y /= _other.y;
+		z /= _other.z;
 	}
 
-	void operator/=(const float4&& Other)
+	void operator/=(const float4&& _other)
 	{
-		x /= Other.x;
-		y /= Other.y;
-		z /= Other.z;
+		x /= _other.x;
+		y /= _other.y;
+		z /= _other.z;
 	}
 
-	void operator/=(const float Other)
+	void operator/=(const float _other)
 	{
-		x /= Other;
-		y /= Other;
-		z /= Other;
+		x /= _other;
+		y /= _other;
+		z /= _other;
 	}
+
+	void operator*=(const float4x4& _other);
+
+	float4 operator*(const float4x4& _other);
 
 };
 
 struct BaseAPI float4x4
 {
-	float4x4()
-	{
-
-	}
-	float4x4(const float4x4& Other);
-
+	float4x4() {}
+	float4x4(const float4x4& _other);
 	union
 	{
 		float matrix[4][4] =
@@ -550,22 +541,22 @@ struct BaseAPI float4x4
 		float matrix1D[16];
 	};
 
-	float4x4 operator*(const float4x4& Other);
-	void operator*=(const float4x4& Other);
+	float4x4 operator*(const float4x4& _other);
+	void operator*=(const float4x4& _other);
 
 	void Identity();
 	void Zero();
 	void TransPose();
 
-	void Position(const float4& Other);
-	void Scale(const float4& Other);
-	void Rotation(const float4& Deg);
+	void Position(const float4& _other);
+	void Scale(const float4& _other);
+	void Rotation(const float4& _degree);
 
-	void RotationX(const float Rad);
-	void RotationY(const float Rad);
-	void RotationZ(const float Rad);
+	void RotationX(const float _radian);
+	void RotationY(const float _radian);
+	void RotationZ(const float _radian);
 
-	void View(float4& EyePos, float4& EyeDir, float4& EyeUp);
-	void Perspective(float FovYDeg, float Width, float Height, float Near, float Far);
-	void Orthographic(float Width, float Height, float Near, float Far);
+	void View(float4& _eyePos, float4& _eyeDir, float4& _eyeUp);
+	void Perspective(float _fovYDegree, float width, float height, float _near, float _far);
+	void Orthographic(float _width, float _height, float _near, float _far);
 };

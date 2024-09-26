@@ -53,11 +53,8 @@ void Engine::EngineUpdate()
 
 	float deltaTime = mainTime->CountEnd();
 	mainTime->CountStart();
-
-	pCurScene->Update(deltaTime);
+	
 	pCurScene->AllUpdate(deltaTime);
-
-	pCurScene->LateUpdate(deltaTime);
 	pCurScene->AllLateUpdate(deltaTime);
 
 	Device::Clear();

@@ -26,7 +26,7 @@ void RigidBody2D::LateUpdate(float _deltaTime)
 	{
 		float4 f_static_friction;
 		float4 f_dynamic_friction;
-		float theta = 25 * DegToRad;
+		float theta = 25 * Deg2Rad;
 
 		float s_N = gravity * cosf(theta);
 		float s_slide = gravity * sinf(theta);

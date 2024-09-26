@@ -49,36 +49,26 @@ void Colider::SetColType(ColType _Type)
 	{
 	case ColType::AABB2D:
 		meshName = "Box2D";
-
 		delete shape;
 		shape = new AABB2D;
 
 		break;
-	case ColType::AABB3D:
-		meshName = "Box3D";
-		break;
 	case ColType::OBB2D:
 		meshName = "Box2D";
-
 		delete shape;
 		shape = new OBB2D;
 
 		break;
-	case ColType::OBB3D:
-		meshName = "Box3D";
-		break;
 	case ColType::SPHERE2D:
 		meshName = "Sphere2D";
-
 		delete shape;
 		shape = new SPHERE2D;
-		break;
-	case ColType::SPHERE3D:
-		meshName = "Sphere3D";
 		break;
 	default:
 		break;
 	}
+
+	shape->name = GetParent()->name.c_str();
 	debugRenderer->SetMesh(meshName);
 }
 

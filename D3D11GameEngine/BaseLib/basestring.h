@@ -10,30 +10,30 @@ namespace base
 		string();
 		~string();
 
-		string(const char* _other);
-		string(const string& _other);
+		string(const char* __other);
+		string(const string& __other);
 	
-		void operator=(const string& _other);
-		void operator=(const char* _other);
+		void operator=(const string& __other);
+		void operator=(const char* __other);
 
-		void operator+=(const string& _other);
-		void operator+=(const char* _other);
-		void operator+=(int _other);
-		void operator+=(float _other);
+		void operator+=(const string& __other);
+		void operator+=(const char* __other);
+		void operator+=(int __other);
+		void operator+=(float __other);
 
-		bool operator==(const string& _other);
-		bool operator==(const char* _other);
+		bool operator==(const string& __other);
+		bool operator==(const char* __other);
 
-		bool operator!=(const string& _other);
-		bool operator!=(const char* _other);
+		bool operator!=(const string& __other);
+		bool operator!=(const char* __other);
 
-		bool operator<(const string& _other) const;
-		bool operator<(const char* _other) const;
+		bool operator<(const string& __other) const;
+		bool operator<(const char* __other) const;
 
-		bool operator>(const string& _other) const;
-		bool operator>(const char* _other) const;
+		bool operator>(const string& __other) const;
+		bool operator>(const char* __other) const;
 
-		void copy(const char* _other);
+		void copy(const char* __other);
 
 		const char* c_str();
 		void w_str(wchar_t** ppwstr);

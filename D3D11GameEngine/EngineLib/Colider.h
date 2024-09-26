@@ -3,6 +3,7 @@
 
 struct Shape
 {
+	const char* name;
 	virtual void Update(Transform& _transform) = 0;
 };
 struct AABB2D : public Shape
@@ -41,18 +42,25 @@ struct OBB2D : public Shape
 {
 	float4 center;
 
-	float left;
-	float right;
-	float top;
-	float bottom;
+	float4 leftTop;
+	float4 rightTop;
+	float4 rightBottom;
+
+	float4 scale;
 
 	void Update(Transform& _transform) override
 	{
 		center = _transform.worldPosition;
-		right = _transform.worldPosition.x + _transform.worldScale.hx();
-		left = _transform.worldPosition.x - _transform.worldScale.hx();
-		top = _transform.worldPosition.y + _transform.worldScale.hy();
-		bottom = _transform.worldPosition.y - _transform.worldScale.hy();
+		scale.x	 = _transform.worldScale.hx();
+		scale.y = _transform.worldScale.hy();
+
+		leftTop = { center.x - scale.x, center.y + scale.y };
+		rightTop = { center.x + scale.x, center.y + scale.y };
+		rightBottom = { center.x + scale.x, center.y - scale.y };
+
+		leftTop.rotate(_transform.worldRotation.z * Deg2Rad);
+		rightTop.rotate(_transform.worldRotation.z * Deg2Rad);
+		rightBottom.rotate(_transform.worldRotation.z * Deg2Rad);
 	}
 };
 

@@ -16,37 +16,37 @@ base::string::~string()
 	}
 }
 
-base::string::string(const char* _other)
+base::string::string(const char* __other)
 {
-	copy(_other);
+	copy(__other);
 }
 
-base::string::string(const string& _other)
+base::string::string(const string& __other)
 {
-	copy(_other.str);
+	copy(__other.str);
 }
 
-void base::string::operator=(const string& _other)
+void base::string::operator=(const string& __other)
 {
-	copy(_other.str);
+	copy(__other.str);
 }
 
-void base::string::operator=(const char* _other)
+void base::string::operator=(const char* __other)
 {
-	copy(_other);
+	copy(__other);
 }
 
-void base::string::operator+=(const string& _other)
+void base::string::operator+=(const string& __other)
 {
-	*this += _other.str;
+	*this += __other.str;
 }
 
-void base::string::operator+=(const char* _other)
+void base::string::operator+=(const char* __other)
 {
 	int size = get_len();
-	int othersize = (int)strlen(_other) + 1;
+	int _othersize = (int)strlen(__other) + 1;
 
-	if (1024 < size + othersize)
+	if (1024 < size + _othersize)
 	{
 		__debugbreak();
 	}
@@ -54,35 +54,35 @@ void base::string::operator+=(const char* _other)
 	char result[1024];
 
 	memcpy_s(result, size, str, size);
-	memcpy_s(&result[size], othersize, _other, othersize);
+	memcpy_s(&result[size], _othersize, __other, _othersize);
 
 	copy(result);
 }
 
-void base::string::operator+=(int _other)
+void base::string::operator+=(int __other)
 {
 	char result[11];
-	snprintf(result, 11, "%d", _other);
+	snprintf(result, 11, "%d", __other);
 
 	*this += result;
 }
 
-void base::string::operator+=(float _other)
+void base::string::operator+=(float __other)
 {
 	char result[128];
-	snprintf(result, 128, "%f", _other);
+	snprintf(result, 128, "%f", __other);
 
 	*this += result;
 }
 
-bool base::string::operator==(const string& _other)
+bool base::string::operator==(const string& __other)
 {
-	return *this == _other.str;
+	return *this == __other.str;
 }
 
-bool base::string::operator==(const char* _other)
+bool base::string::operator==(const char* __other)
 {
-	if (0 == strcmp(str, _other))
+	if (0 == strcmp(str, __other))
 	{
 		return true;
 	}
@@ -90,14 +90,14 @@ bool base::string::operator==(const char* _other)
 	return false;
 }
 
-bool base::string::operator!=(const string& _other)
+bool base::string::operator!=(const string& __other)
 {
-	return *this != _other.str;
+	return *this != __other.str;
 }
 
-bool base::string::operator!=(const char* _other)
+bool base::string::operator!=(const char* __other)
 {
-	if (0 != strcmp(str, _other))
+	if (0 != strcmp(str, __other))
 	{
 		return true;
 	}
@@ -105,14 +105,14 @@ bool base::string::operator!=(const char* _other)
 	return false;
 }
 
-bool base::string::operator<(const string& _other) const
+bool base::string::operator<(const string& __other) const
 {
-	return *this < _other.str;
+	return *this < __other.str;
 }
 
-bool base::string::operator<(const char* _other) const
+bool base::string::operator<(const char* __other) const
 {
-	int r = strcmp(str, _other);
+	int r = strcmp(str, __other);
 	if (r < 0)
 	{
 		return true;
@@ -120,14 +120,14 @@ bool base::string::operator<(const char* _other) const
 	return false;
 }
 
-bool base::string::operator>(const string& _other) const
+bool base::string::operator>(const string& __other) const
 {
-	return *this > _other.str;
+	return *this > __other.str;
 }
 
-bool base::string::operator>(const char* _other) const
+bool base::string::operator>(const char* __other) const
 {
-	int r = strcmp(str, _other);
+	int r = strcmp(str, __other);
 	if (r > 0)
 	{
 		return true;
@@ -135,16 +135,16 @@ bool base::string::operator>(const char* _other) const
 	return false;
 }
 
-void base::string::copy(const char* _other)
+void base::string::copy(const char* __other)
 {
-	if (_other == nullptr)
+	if (__other == nullptr)
 	{
 		str = nullptr;
 		return;
 	}
 
 	int newlen = baseStrLen;
-	int len = (int)strlen(_other) + 1;
+	int len = (int)strlen(__other) + 1;
 
 	if (len > newlen)
 		newlen = len;
@@ -165,7 +165,7 @@ void base::string::copy(const char* _other)
      	str = (char*)malloc(newlen);
 	}
 
-	errno_t e = strcpy_s(str, len, _other);
+	errno_t e = strcpy_s(str, len, __other);
 	if (e != 0)
 	{
 		__debugbreak();

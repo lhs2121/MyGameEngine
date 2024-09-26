@@ -9,7 +9,7 @@ void TestScene::Awake()
 	Device::SetClearColor({ 0.4f,0.5f,0.4f,1.0f });
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 
-	CreateChild<Back>();
+	//CreateChild<Back>();
 	CreateChild<Ground>();
 	a = CreateChild<Player>();
 

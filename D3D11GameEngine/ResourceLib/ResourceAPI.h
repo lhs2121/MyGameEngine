@@ -2,8 +2,8 @@
 #include <common\declspec.h>
 #include <d3d11.h>
 #include "ResourceType.h"
-struct float4;
 
+struct float4;
 namespace Device
 {
 	extern "C" ResourceAPI void Create(HWND* pHwnd, float4 _windowSize);

@@ -3,12 +3,13 @@
 
 void Ground::Awake()
 {	
+	SetName("Ground");
 	transform.SetLocalScale({ 700,60 });
-	transform.SetLocalRotation({ 0,0,0 });
+	transform.SetLocalRotation({ 0,0,25 });
 
 	pColider = CreateChild<Colider>();
 	pColider->SetName("dirt");
-	pColider->SetColType(ColType::AABB2D);
+	pColider->SetColType(ColType::OBB2D);
 	pColider->SetColOrder(Layer::Collision::GROUND);
 
 	pColider->transform.SetLocalPos({ 0,-150 });

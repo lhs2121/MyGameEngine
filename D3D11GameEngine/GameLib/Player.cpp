@@ -3,6 +3,7 @@
 
 void Player::Awake()
 {
+	SetName("player");
 	transform.SetLocalPos({ 200,200 });
 	transform.SetLocalScale({ 64,64 });
 
@@ -13,9 +14,10 @@ void Player::Awake()
 	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
-	pRigid = CreateChild<RigidBody2D>();
+	//pRigid = CreateChild<RigidBody2D>();
 
 	pColider = CreateChild<Colider>();
+	pColider->SetColType(ColType::OBB2D);
 	pColider->SetColOrder(Layer::Collision::PLAYER);
 }
 
@@ -32,19 +34,25 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyPress('A'))
 	{
-		transform.position.x += -50 * _deltaTime;
+		transform.AddLocalPos({ -100 * _deltaTime,0 });
 	}
 	if (GetKeyPress('D'))
 	{
-		transform.position.x += 50 * _deltaTime;
+		transform.AddLocalPos({ 100 * _deltaTime,0 });
 	}
-	if (GetKeyPress('G'))
+	if (GetKeyPress('W'))
 	{
-		transform.AddLocalRotation({ 0,0,10 * _deltaTime });
+		transform.AddLocalPos({ 0,100 * _deltaTime });
+	}
+	if (GetKeyPress('S'))
+	{
+		transform.AddLocalPos({ 0,-100 * _deltaTime });
 	}
 	if (GetKeyDown('R'))
 	{
-		pRigid->velocity = { 0,0 };
+		if (pRigid)
+			pRigid->velocity = { 0,0 };
+
 		transform.SetLocalPos({ 200,200 });
 		transform.SetLocalRotation({ 0,0,0 });
 	}
