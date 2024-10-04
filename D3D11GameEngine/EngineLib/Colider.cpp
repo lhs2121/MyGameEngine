@@ -47,19 +47,19 @@ void Colider::SetColType(ColType _Type)
 
 	switch (colType)
 	{
-	case ColType::AABB2D:
+	case ColType::_AABB2D:
 		meshName = "Box2D";
 		delete shape;
 		shape = new AABB2D;
 
 		break;
-	case ColType::OBB2D:
+	case ColType::_OBB2D:
 		meshName = "Box2D";
 		delete shape;
 		shape = new OBB2D;
 
 		break;
-	case ColType::SPHERE2D:
+	case ColType::_SPHERE2D:
 		meshName = "Sphere2D";
 		delete shape;
 		shape = new SPHERE2D;

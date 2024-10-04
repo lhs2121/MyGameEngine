@@ -1,44 +1,48 @@
 #pragma once
 #include <BaseLib\BaseAPI.h>
+using namespace DirectX;
 
 class Object;
 class Transform
 {
 public:
-	void SetWorldViewProjection(float4x4& _viewMat, float4x4& _projectionMat);
+	void SetWorldViewProjection(CXMMATRIX matView, CXMMATRIX matProjection);
 
-	void SetLocalScale(float4 _scale);
-	void SetLocalRotation(float4 _rotation);
-	void SetLocalPos(float4 _pos);
+	void SetLocalScale(CXMVECTOR _scale);
+	void SetLocalRotation(CXMVECTOR _rotation);
+	void SetLocalPos(CXMVECTOR _pos);
 
-	void AddLocalScale(float4 _scale);
-	void AddLocalRotation(float4 _rotation);
-	void AddLocalPos(float4 _pos);
+	void AddLocalScale(CXMVECTOR _scale);
+	void AddLocalRotation(CXMVECTOR _rotation);
+	void AddLocalPos(CXMVECTOR _pos);
 
 	void SetParent(Transform* _parent);
 	void TransformUpdate();
 
-	float4 localScale = { 1.0f,1.0f,1.0f,1.0f };
-	float4 localRotation;
-	float4 localPosition;
 
-	float4 scale = { 1.0f,1.0f,1.0f,1.0f };
-	float4 rotation;
-	float4 position;
+	XMVECTOR localScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR localRotation;
+	XMVECTOR localPosition;
+	
+	XMVECTOR scale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR rotation;
+	XMVECTOR position;
 
-	float4 worldScale = { 1.0f,1.0f,1.0f,1.0f };
-	float4 worldRotation;
-	float4 worldPosition;
+	XMVECTOR worldScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR worldRotation;
+	XMVECTOR worldPosition;
 
-	float4x4 scaleMat;
-	float4x4 rotationMat;
-	float4x4 positionMat;
+	XMVECTOR worldQuaternion;
 
-	float4x4 worldMat;
-	float4x4 viewMat;
-	float4x4 projectionMat;
+	XMMATRIX scaleMat;
+	XMMATRIX rotationMat;
+	XMMATRIX positionMat;
 
-	float4x4 worldViewProjectionMat;
+	XMMATRIX worldMat;
+	XMMATRIX viewMat;
+	XMMATRIX projectionMat;
+
+	XMMATRIX worldViewProjectionMat;
 
 private:
 	Transform* parent = nullptr;

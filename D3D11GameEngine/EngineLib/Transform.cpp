@@ -15,50 +15,58 @@ void Transform::TransformUpdate()
 		child->TransformUpdate();
 	}
 
-	scaleMat.Scale(worldScale);
-	rotationMat.Rotation(worldRotation);
-	positionMat.Position(worldPosition);
+	scaleMat = XMMatrixIdentity();
+	scaleMat = XMMatrixScalingFromVector(worldScale);
 
-	worldMat.Identity();
+	rotationMat = XMMatrixIdentity();
+	rotationMat = XMMatrixRotationRollPitchYawFromVector(worldRotation);
+
+	positionMat = XMMatrixIdentity();
+	positionMat = XMMatrixTranslationFromVector(worldPosition);
+
+	worldQuaternion =  XMQuaternionRotationMatrix(rotationMat);
+
+	worldMat = XMMatrixIdentity();
 	worldMat = scaleMat * rotationMat * positionMat;
 }
 
-void Transform::SetWorldViewProjection(float4x4& _viewMat, float4x4& _projectionMat)
+void Transform::SetWorldViewProjection(CXMMATRIX matView, CXMMATRIX matProjection)
 {
-	worldViewProjectionMat = worldMat* _viewMat * _projectionMat;
+	XMMATRIX matViewProjection = XMMatrixMultiply(matView, matProjection);
+	worldViewProjectionMat = XMMatrixMultiply(worldMat, matViewProjection);
 }
 
-void Transform::SetLocalPos(float4 _pos)
+void Transform::SetLocalPos(CXMVECTOR _pos)
 {
 	localPosition = _pos;
 	TransformUpdate();
 }
 
-void Transform::SetLocalScale(float4 _scale)
+void Transform::SetLocalScale(CXMVECTOR _scale)
 {
 	localScale = _scale;
 	TransformUpdate();
 }
 
-void Transform::SetLocalRotation(float4 _rotation)
+void Transform::SetLocalRotation(CXMVECTOR _rotation)
 {
 	localRotation = _rotation;
 	TransformUpdate();
 }
 
-void Transform::AddLocalPos(float4 _pos)
+void Transform::AddLocalPos(CXMVECTOR _pos)
 {
 	localPosition += _pos;
 	TransformUpdate();
 }
 
-void Transform::AddLocalScale(float4 _scale)
+void Transform::AddLocalScale(CXMVECTOR _scale)
 {
 	localScale += _scale;
 	TransformUpdate();
 }
 
-void Transform::AddLocalRotation(float4 _rotation)
+void Transform::AddLocalRotation(CXMVECTOR _rotation)
 {
 	localRotation += _rotation;
 	TransformUpdate();

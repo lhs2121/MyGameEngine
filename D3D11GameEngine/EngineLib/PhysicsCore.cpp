@@ -1,22 +1,22 @@
 #include "Pre.h"
-#include "RigidBody2D.h"
+#include "PhysicsCore.h"
 #include "math.h"
 
-void RigidBody2D::Start()
+void PhysicsCore::Start()
 {
 	parentObject = GetParent();
 	parentCol = parentObject->GetChild<Colider>();
 }
 
-void RigidBody2D::Update(float _deltaTime)
+void PhysicsCore::Update(float _deltaTime)
 {
 }
 
-void RigidBody2D::AddForce(float4 _force)
+void PhysicsCore::AddForce(float4 _force)
 {
 	
 }
-void RigidBody2D::LateUpdate(float _deltaTime)
+void PhysicsCore::LateUpdate(float _deltaTime)
 {
 	float4 f_total;
 	float4 f_slide;
@@ -58,5 +58,5 @@ void RigidBody2D::LateUpdate(float _deltaTime)
 	float4 deltaAccel = acceleration * _deltaTime;
 	velocity += deltaAccel;
 	float4 displacement = velocity * _deltaTime;
-	//parentObject->transform.AddLocalPos(displacement);
+	parentObject->transform.AddLocalPos(displacement);
 }

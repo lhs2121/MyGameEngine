@@ -4,7 +4,7 @@
 void Player::Awake()
 {
 	SetName("player");
-	transform.SetLocalPos({ 200,200 });
+	transform.SetLocalPos({ 200,200,0 });
 	transform.SetLocalScale({ 64,64 });
 
 	pSpriteRenderer = CreateChild<SpriteRenderer>();
@@ -17,7 +17,7 @@ void Player::Awake()
 	//pRigid = CreateChild<RigidBody2D>();
 
 	pColider = CreateChild<Colider>();
-	pColider->SetColType(ColType::OBB2D);
+	pColider->SetColType(ColType::_SPHERE2D);
 	pColider->SetColOrder(Layer::Collision::PLAYER);
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-
+#include <DirectXCollision.h>
 struct Shape
 {
 	const char* name;
@@ -8,70 +8,50 @@ struct Shape
 };
 struct AABB2D : public Shape
 {
-	float4 center;
-
-	float left;
-	float right;
-	float top;
-	float bottom;
-
+	DirectX::BoundingOrientedBox box;
 	void Update(Transform& _transform) override
 	{
-		center = _transform.worldPosition;
-		right = _transform.worldPosition.x + _transform.worldScale.hx();
-		left = _transform.worldPosition.x - _transform.worldScale.hx();
-		top = _transform.worldPosition.y + _transform.worldScale.hy();
-		bottom = _transform.worldPosition.y - _transform.worldScale.hy();
+		XMStoreFloat3(&box.Center, _transform.worldPosition);
+		box.Extents.x = _transform.worldScale.m128_f32[0] / 2;
+		box.Extents.y = _transform.worldScale.m128_f32[1] / 2;
 	}
 };
 
 struct SPHERE2D : public Shape
 {
-	float4 center;
-
-	float radius;
+	DirectX::BoundingSphere sphere;
 
 	void Update(Transform& _transform) override
 	{
-		center = _transform.worldPosition;
-		radius = _transform.worldScale.hx();
+		XMStoreFloat3(&sphere.Center, _transform.worldPosition);
+		sphere.Radius = _transform.worldScale.m128_f32[0] / 2;;
 	}
 };
 
 struct OBB2D : public Shape
 {
-	float4 center;
-
-	float4 leftTop;
-	float4 rightTop;
-	float4 rightBottom;
-
-	float4 scale;
-
+	DirectX::BoundingOrientedBox box;
 	void Update(Transform& _transform) override
 	{
-		center = _transform.worldPosition;
-		scale.x	 = _transform.worldScale.hx();
-		scale.y = _transform.worldScale.hy();
-
-		leftTop = { center.x - scale.x, center.y + scale.y };
-		rightTop = { center.x + scale.x, center.y + scale.y };
-		rightBottom = { center.x + scale.x, center.y - scale.y };
-
-		leftTop.rotate(_transform.worldRotation.z * Deg2Rad);
-		rightTop.rotate(_transform.worldRotation.z * Deg2Rad);
-		rightBottom.rotate(_transform.worldRotation.z * Deg2Rad);
+		XMStoreFloat3(&box.Center, _transform.worldPosition);
+		//box.Center.z = 0;
+	
+		box.Extents.x = _transform.worldScale.m128_f32[0] / 2;
+		box.Extents.y = _transform.worldScale.m128_f32[1] / 2;
+		box.Extents.z = 0;
+	
+		XMStoreFloat4(&box.Orientation, _transform.worldQuaternion);
 	}
 };
 
-enum class ColType
+enum ColType
 {
-	AABB2D,
-	AABB3D,
-	OBB2D,
-	OBB3D,
-	SPHERE2D,
-	SPHERE3D
+	_AABB2D = 1,
+	_SPHERE2D = 2,
+	_OBB2D = 4,
+	_AABB3D,
+	_SPHERE3D,
+	_OBB3D,
 };
 
 enum class ColState
@@ -109,7 +89,7 @@ public:
 	int colOrder;
 	Shape* shape = nullptr;
 	ColState state = ColState::FREE;
-	ColType colType = ColType::AABB2D;
+	ColType colType = ColType::_AABB2D;
 	ColGroup* parentGroup;
 
 	float4 debugColor = { 0,1,0,1 };

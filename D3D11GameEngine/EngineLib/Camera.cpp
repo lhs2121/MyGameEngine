@@ -41,15 +41,14 @@ void Camera::Update(float _deltaTime)
 
 void Camera::Render()
 {
-	transform.viewMat.View(transform.worldPosition, eyeDir, eyeUp);
-
+	transform.viewMat = XMMatrixLookToLH(transform.worldPosition, eyeDir, eyeUp);
 	switch (projectionType)
 	{
 	case ProjectionType::Perspective:
-		transform.projectionMat.Perspective(fovY, windowSize.x, windowSize.y, Near, Far);
+		transform.projectionMat = XMMatrixPerspectiveFovLH(fovYDegree * Deg2Rad, windowSize.x/windowSize.y, Near, Far);
 		break;
 	case ProjectionType::Orthographic:
-		transform.projectionMat.Orthographic(windowSize.x, windowSize.y, Near, Far);
+		transform.projectionMat = XMMatrixOrthographicLH(windowSize.x, windowSize.y, Near, Far);
 		break;
 	}
 

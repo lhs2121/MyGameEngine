@@ -140,8 +140,8 @@ void DeviceManager::InitMesh()
 		int structSize = static_cast<int>(Vertiecs.size() * sizeof(Vertex));
 		int indexStructSize = static_cast<int>(Indices.size() * sizeof(UINT));
 
-		Resource::CreateVertexBuffer("Circle2D", &Vertiecs[0], structSize, sizeof(Vertex));
-		Resource::CreateIndexBuffer("Circle2D", &Indices[0], indexStructSize);
+		Resource::CreateVertexBuffer("Sphere2D", &Vertiecs[0], structSize, sizeof(Vertex));
+		Resource::CreateIndexBuffer("Sphere2D", &Indices[0], indexStructSize);
 	}
 
 	{
@@ -157,9 +157,9 @@ void DeviceManager::InitMesh()
 	}
 
 	{
-		Mesh* newMesh = Resource::CreateMesh("Circle2D");
-		newMesh->pVertexBuffer = ResMap<VertexBuffer>::Find("Circle2D");
-		newMesh->pIndexBuffer = ResMap<IndexBuffer>::Find("Circle2D");
+		Mesh* newMesh = Resource::CreateMesh("Sphere2D");
+		newMesh->pVertexBuffer = ResMap<VertexBuffer>::Find("Sphere2D");
+		newMesh->pIndexBuffer = ResMap<IndexBuffer>::Find("Sphere2D");
 	}
 
 }

@@ -5,3 +5,4 @@
 #include <ResourceLib\ResourceAPI.h>
 #include <MediaLib\MediaAPI.h>
 #include "Naming.h"
+#include <DirectXMath.h>

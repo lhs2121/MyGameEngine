@@ -18,12 +18,13 @@ public:
 	void SetProjectionType(ProjectionType _type) { projectionType = _type; }
 	void Render();
 private:
-	float fovY = 60.0f;
+	XMVECTOR eyeDir = { 0.0f, 0.0f, 1.0f, 1.0f };
+	XMVECTOR eyeUp = { 0.0f, 1.0f, 0.0f, 1.0f };
+
+	float fovYDegree = 60.0f;
 	float Near = 0.3f;
 	float Far = 1000.0f;
 
-	float4 eyeDir = { 0.0f, 0.0f, 1.0f, 1.0f };
-	float4 eyeUp = { 0.0f, 1.0f, 0.0f, 1.0f };
 
 	float4 windowSize;
 
