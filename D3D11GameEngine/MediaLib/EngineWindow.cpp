@@ -53,6 +53,12 @@ LRESULT CALLBACK EngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, L
 {
 	switch (message)
 	{
+	case WM_SIZE: 
+	{
+		EngineWindow::mainWindow->size.x = LOWORD(lParam);
+		EngineWindow::mainWindow->size.y = HIWORD(lParam);
+		break;
+	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

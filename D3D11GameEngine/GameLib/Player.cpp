@@ -32,6 +32,18 @@ void Player::Update(float _deltaTime)
 	{
 		int a = 0;
 	}
+	if (GetKeyDown('1'))
+	{
+		pColider->SetColType(ColType::_AABB2D);
+	}
+	if (GetKeyDown('2'))
+	{
+		pColider->SetColType(ColType::_OBB2D);
+	}
+	if (GetKeyDown('3'))
+	{
+		pColider->SetColType(ColType::_SPHERE2D);
+	}
 	if (GetKeyPress('A'))
 	{
 		transform.AddLocalPos({ -100 * _deltaTime,0 });

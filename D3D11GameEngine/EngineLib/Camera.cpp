@@ -6,7 +6,6 @@
 void Camera::Awake()
 {
 	transform.SetLocalPos({ 0,0,-500 });
-	windowSize = { Window::GetSizeX(),Window::GetSizeY()};
 }
 
 void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)
@@ -41,6 +40,7 @@ void Camera::Update(float _deltaTime)
 
 void Camera::Render()
 {
+	windowSize = { Window::GetSizeX(),Window::GetSizeY() };
 	transform.viewMat = XMMatrixLookToLH(transform.worldPosition, eyeDir, eyeUp);
 	switch (projectionType)
 	{
