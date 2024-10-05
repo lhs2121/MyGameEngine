@@ -18,7 +18,7 @@ void Player::Awake()
 	//pRigid = CreateChild<RigidBody2D>();
 
 	pColider = CreateChild<Colider>();
-	pColider->SetColType(ColType::_SPHERE);
+	pColider->SetCollisionType(CollisionType::_OBB);
 	pColider->SetColOrder(Layer::Collision::PLAYER);
 
 
@@ -37,15 +37,15 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyDown('1'))
 	{
-		pColider->SetColType(ColType::_AABB);
+		pColider->SetCollisionType(CollisionType::_AABB);
 	}
 	if (GetKeyDown('2'))
 	{
-		pColider->SetColType(ColType::_OBB);
+		pColider->SetCollisionType(CollisionType::_OBB);
 	}
 	if (GetKeyDown('3'))
 	{
-		pColider->SetColType(ColType::_SPHERE);
+		pColider->SetCollisionType(CollisionType::_SPHERE);
 	}
 	if (GetKeyPress('A'))
 	{

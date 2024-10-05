@@ -40,30 +40,40 @@ void Colider::SetColOrder(int _order)
 	GetScene()->SetColOrder(this, _order);
 }
 
-void Colider::SetColType(ColType _Type)
+void Colider::SetCollisionType(CollisionType _Type)
 {
-	colType = _Type;
+	collisionType = _Type;
 	const char* meshName = nullptr;
 
-	switch (colType)
+	switch (collisionType)
 	{
-	case ColType::_AABB:
+	case CollisionType::_AABB:
 		meshName = "Box2D";
-		delete shape;
-		shape = new AABB;
-
+		if (shape)
+		{
+			delete shape;
+			shape = new AABB;
+		}
 		break;
-	case ColType::_OBB:
+
+	case CollisionType::_OBB:
 		meshName = "Box2D";
-		delete shape;
-		shape = new OBB;
-
+		if (shape)
+		{
+			delete shape;
+			shape = new OBB;
+		}
 		break;
-	case ColType::_SPHERE:
+
+	case CollisionType::_SPHERE:
 		meshName = "Sphere2D";
-		delete shape;
-		shape = new SPHERE;
+		if (shape)
+		{
+			delete shape;
+			shape = new SPHERE;
+		}
 		break;
+
 	default:
 		break;
 	}

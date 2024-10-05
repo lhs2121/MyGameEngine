@@ -59,6 +59,8 @@ public:
 		         
 	bool         GetKeyFree(int _key);
 
+	void         TransformUpdate();
+
 	template<typename T>
 	T* CreateChild(int order = 0)
 	{

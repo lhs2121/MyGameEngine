@@ -7,40 +7,40 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 	for (Colider* other : _group->colList)
 	{
 		bool isCol = false;
-		int leftType = _col->colType;
-		int rightType = other->colType;
+		int leftType = _col->collisionType;
+		int rightType = other->collisionType;
 		int combinedType = leftType | rightType;
 
 		switch (combinedType) 
 		{
-		case ColType::_AABB | ColType::_AABB:
+		case CollisionType::_AABB | CollisionType::_AABB:
 			isCol = AABBvsAABB((AABB*)_col->shape, (AABB*)other->shape);
 			break;
-		case ColType::_SPHERE | ColType::_SPHERE:
+		case CollisionType::_SPHERE | CollisionType::_SPHERE:
 			isCol = SPHEREvsSPHERE((SPHERE*)_col->shape, (SPHERE*)other->shape);
 			break;
-		case ColType::_OBB | ColType::_OBB:
+		case CollisionType::_OBB | CollisionType::_OBB:
 			isCol = OBBvsOBB((OBB*)_col->shape, (OBB*)other->shape);
 			break;
-		case ColType::_AABB | ColType::_SPHERE :
+		case CollisionType::_AABB | CollisionType::_SPHERE :
 		{
-			if(leftType == ColType::_AABB)
+			if(leftType == CollisionType::_AABB)
 				isCol = AABBvsSPHERE((AABB*)_col->shape, (SPHERE*)other->shape);
 			else
 				isCol = AABBvsSPHERE((AABB*)other->shape, (SPHERE*)_col->shape);
 			break;
 		}
-		case ColType::_AABB | ColType::_OBB:
+		case CollisionType::_AABB | CollisionType::_OBB:
 		{
-			if (leftType == ColType::_AABB)
+			if (leftType == CollisionType::_AABB)
 				isCol = AABBvsOBB((AABB*)_col->shape, (OBB*)other->shape);
 			else
 				isCol = AABBvsOBB((AABB*)other->shape, (OBB*)_col->shape);
 			break;
 		}
-		case ColType::_OBB | ColType::_SPHERE:
+		case CollisionType::_OBB | CollisionType::_SPHERE:
 		{
-			if (leftType == ColType::_OBB)
+			if (leftType == CollisionType::_OBB)
 				isCol = OBBvsSPHERE((OBB*)_col->shape, (SPHERE*)other->shape);
 			else
 				isCol = OBBvsSPHERE((OBB*)other->shape, (SPHERE*)_col->shape);

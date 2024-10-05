@@ -169,3 +169,28 @@ bool Object::GetKeyFree(int _key)
 {
 	return Input::IsFree(_key, this);
 }
+
+void Object::TransformUpdate()
+{
+	transform.vecWorldScale = transform.vecRecievedScale * transform.vecLocalScale;
+	transform.vecWorldRotation = transform.vecRecievedRotation + transform.vecLocalRotation;
+	transform.vecWorldPosition = transform.vecRecievedPosition + transform.vecLocalPosition;
+
+	for (auto& pair : childs)
+	{
+		auto& list = pair.second;
+		for (Object* o : list)
+		{
+			o->transform.vecRecievedScale = transform.vecWorldScale;
+			o->transform.vecRecievedRotation = transform.vecWorldRotation;
+			o->transform.vecRecievedPosition = transform.vecWorldPosition;
+			o->TransformUpdate();
+		}
+	}
+
+	transform.matWorldScale = XMMatrixScalingFromVector(transform.vecWorldScale);
+	transform.matWorldRotation = XMMatrixRotationRollPitchYawFromVector(transform.vecWorldRotation);
+	transform.matWorldPosition = XMMatrixTranslationFromVector(transform.vecWorldPosition);
+	transform.quatWorld = XMQuaternionRotationMatrix(transform.matWorldRotation);
+	transform.matWorld = transform.matWorldScale * transform.matWorldRotation * transform.matWorldPosition;
+}

@@ -8,11 +8,10 @@ struct Shape
 };
 struct AABB : public Shape
 {
-	DirectX::BoundingOrientedBox box;
+	DirectX::BoundingBox box;
 	void Update(Transform& _transform) override
 	{
 		XMStoreFloat3(&box.Center, _transform.vecWorldPosition);
-		XMStoreFloat3(&box.Extents, _transform.vecWorldScale / 2);
 	}
 };
 
@@ -38,7 +37,7 @@ struct OBB : public Shape
 	}
 };
 
-enum ColType
+enum CollisionType
 {
 	_AABB = 1,
 	_SPHERE = 2,
@@ -64,7 +63,7 @@ public:
 	void Update(float _deltaTime) override;
 	void Release() override;
 
-	void SetColType(ColType _Type);
+	void SetCollisionType(CollisionType _Type);
 
 	template<typename T>
 	void SetColOrder(T _order);
@@ -80,7 +79,7 @@ public:
 	int colOrder;
 	Shape* shape = nullptr;
 	ColState state = ColState::FREE;
-	ColType colType = ColType::_AABB;
+	CollisionType collisionType = CollisionType::_AABB;
 	ColGroup* parentGroup;
 
 	float4 debugColor = { 0,1,0,1 };
