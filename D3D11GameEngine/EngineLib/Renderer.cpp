@@ -25,7 +25,7 @@ void Renderer::Awake()
 	Naming::AddName("Transform");
 
 	base::string name = Naming::GetName("Transform");
-	SetConstantBuffer(name.c_str(), &transform.worldViewProjectionMat, sizeof(float4x4), ShaderType::VS);
+	SetConstantBuffer(name.c_str(), &transform.matWorldViewProjection, sizeof(float4x4), ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box2D");
 	pMaterial = Resource::FindMaterial("Sprite2D");

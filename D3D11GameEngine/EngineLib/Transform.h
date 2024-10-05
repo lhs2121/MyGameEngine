@@ -10,39 +10,38 @@ public:
 
 	void SetLocalScale(CXMVECTOR _scale);
 	void SetLocalRotation(CXMVECTOR _rotation);
-	void SetLocalPos(CXMVECTOR _pos);
+	void SetLocalPosition(CXMVECTOR _pos);
 
 	void AddLocalScale(CXMVECTOR _scale);
 	void AddLocalRotation(CXMVECTOR _rotation);
-	void AddLocalPos(CXMVECTOR _pos);
+	void AddLocalPosition(CXMVECTOR _pos);
 
 	void SetParent(Transform* _parent);
 	void TransformUpdate();
 
 
-	XMVECTOR localScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR localRotation;
-	XMVECTOR localPosition;
+	XMVECTOR vecLocalScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR vecLocalRotation;
+	XMVECTOR vecLocalPosition;
 	
-	XMVECTOR scale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR rotation;
-	XMVECTOR position;
+	XMVECTOR vecRecievedScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR vecRecievedRotation;
+	XMVECTOR vecRecievedPosition;
+	
+	XMVECTOR vecWorldScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR vecWorldRotation;
+	XMVECTOR vecWorldPosition;
 
-	XMVECTOR worldScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR worldRotation;
-	XMVECTOR worldPosition;
+	XMVECTOR quatWorld;
 
-	XMVECTOR worldQuaternion;
+	XMMATRIX matWorldScale;
+	XMMATRIX matWorldRotation;
+	XMMATRIX matWorldPosition;
 
-	XMMATRIX scaleMat;
-	XMMATRIX rotationMat;
-	XMMATRIX positionMat;
-
-	XMMATRIX worldMat;
-	XMMATRIX viewMat;
-	XMMATRIX projectionMat;
-
-	XMMATRIX worldViewProjectionMat;
+	XMMATRIX matWorld;
+	XMMATRIX matView;
+	XMMATRIX matProjection;
+	XMMATRIX matWorldViewProjection;
 
 private:
 	Transform* parent = nullptr;

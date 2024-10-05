@@ -58,5 +58,5 @@ void RigidBody2D::LateUpdate(float _deltaTime)
 	float4 deltaAccel = acceleration * _deltaTime;
 	velocity += deltaAccel;
 	float4 displacement = velocity * _deltaTime;
-	//parentObject->transform.AddLocalPos(displacement);
+	//parentObject->transform.AddLocalPosition(displacement);
 }

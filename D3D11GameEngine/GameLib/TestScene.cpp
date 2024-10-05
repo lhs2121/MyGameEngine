@@ -20,14 +20,14 @@ void TestScene::Awake()
 void TestScene::Update(float _deltaTime)
 {
 	//float zvalue = GetMainCamera()->transform.localPosition.z;
-	//GetMainCamera()->transform.SetLocalPos({ a->transform.worldPosition.x, a->transform.worldPosition.y, zvalue });
+	//GetMainCamera()->transform.SetLocalPosition({ a->transform.worldPosition.x, a->transform.worldPosition.y, zvalue });
 	if (GetKeyPress('Q'))
 	{
-		GetMainCamera()->transform.AddLocalPos({ 0,0,100 * _deltaTime });
+		GetMainCamera()->transform.AddLocalPosition({ 0,0,100 * _deltaTime });
 	}
 	if (GetKeyPress('E'))
 	{
-		GetMainCamera()->transform.AddLocalPos({ 0,0,-100 * _deltaTime });
+		GetMainCamera()->transform.AddLocalPosition({ 0,0,-100 * _deltaTime });
 	}
 
 }

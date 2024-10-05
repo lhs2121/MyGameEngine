@@ -5,7 +5,7 @@
 
 void Camera::Awake()
 {
-	transform.SetLocalPos({ 0,0,-500 });
+	transform.SetLocalPosition({ 0,0,-500 });
 }
 
 void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)
@@ -41,14 +41,14 @@ void Camera::Update(float _deltaTime)
 void Camera::Render()
 {
 	windowSize = { Window::GetSizeX(),Window::GetSizeY() };
-	transform.viewMat = XMMatrixLookToLH(transform.worldPosition, eyeDir, eyeUp);
+	transform.matView = XMMatrixLookToLH(transform.vecLocalPosition, eyeDir, eyeUp);
 	switch (projectionType)
 	{
 	case ProjectionType::Perspective:
-		transform.projectionMat = XMMatrixPerspectiveFovLH(fovYDegree * Deg2Rad, windowSize.x/windowSize.y, Near, Far);
+		transform.matProjection = XMMatrixPerspectiveFovLH(fovYDegree * Deg2Rad, windowSize.x/windowSize.y, Near, Far);
 		break;
 	case ProjectionType::Orthographic:
-		transform.projectionMat = XMMatrixOrthographicLH(windowSize.x, windowSize.y, Near, Far);
+		transform.matProjection = XMMatrixOrthographicLH(windowSize.x, windowSize.y, Near, Far);
 		break;
 	}
 
@@ -57,7 +57,7 @@ void Camera::Render()
 		std::list<Renderer*> rendererList = pair.second;
 		for (Renderer* renderer : rendererList)
 		{
-			renderer->transform.SetWorldViewProjection(transform.viewMat, transform.projectionMat);
+			renderer->transform.SetWorldViewProjection(transform.matView, transform.matProjection);
 			renderer->Render();
 		}
 	}

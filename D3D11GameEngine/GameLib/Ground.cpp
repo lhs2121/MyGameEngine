@@ -8,10 +8,10 @@ void Ground::Awake()
 
 	pColider = CreateChild<Colider>();
 	pColider->SetName("dirt");
-	pColider->SetColType(ColType::_OBB2D);
+	pColider->SetColType(ColType::_OBB);
 	pColider->SetColOrder(Layer::Collision::GROUND);
 
-	pColider->transform.SetLocalPos({ 0,-150 });
+	pColider->transform.SetLocalPosition({ 0,-150 });
 	Input::AddUser(this);
 }
 

@@ -4,8 +4,6 @@
 void Player::Awake()
 {
 	SetName("player");
-	transform.SetLocalPos({ 200,200,0 });
-	transform.SetLocalScale({ 64,64 });
 
 	pSpriteRenderer = CreateChild<SpriteRenderer>();
 	pSpriteRenderer->SetRenderOrder(Layer::Render::PLAYER);
@@ -14,11 +12,16 @@ void Player::Awake()
 	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
+	transform.SetLocalPosition({ 200,200,0 });
+	transform.SetLocalScale({ 64,64,1 });
+
 	//pRigid = CreateChild<RigidBody2D>();
 
 	pColider = CreateChild<Colider>();
-	pColider->SetColType(ColType::_SPHERE2D);
+	pColider->SetColType(ColType::_SPHERE);
 	pColider->SetColOrder(Layer::Collision::PLAYER);
+
+
 }
 
 void Player::Update(float _deltaTime)
@@ -34,38 +37,38 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyDown('1'))
 	{
-		pColider->SetColType(ColType::_AABB2D);
+		pColider->SetColType(ColType::_AABB);
 	}
 	if (GetKeyDown('2'))
 	{
-		pColider->SetColType(ColType::_OBB2D);
+		pColider->SetColType(ColType::_OBB);
 	}
 	if (GetKeyDown('3'))
 	{
-		pColider->SetColType(ColType::_SPHERE2D);
+		pColider->SetColType(ColType::_SPHERE);
 	}
 	if (GetKeyPress('A'))
 	{
-		transform.AddLocalPos({ -100 * _deltaTime,0 });
+		transform.AddLocalPosition({ -100 * _deltaTime,0 });
 	}
 	if (GetKeyPress('D'))
 	{
-		transform.AddLocalPos({ 100 * _deltaTime,0 });
+		transform.AddLocalPosition({ 100 * _deltaTime,0 });
 	}
 	if (GetKeyPress('W'))
 	{
-		transform.AddLocalPos({ 0,100 * _deltaTime });
+		transform.AddLocalPosition({ 0,100 * _deltaTime });
 	}
 	if (GetKeyPress('S'))
 	{
-		transform.AddLocalPos({ 0,-100 * _deltaTime });
+		transform.AddLocalPosition({ 0,-100 * _deltaTime });
 	}
 	if (GetKeyDown('R'))
 	{
 		if (pRigid)
 			pRigid->velocity = { 0,0 };
 
-		transform.SetLocalPos({ 200,200 });
+		transform.SetLocalPosition({ 200,200 });
 		transform.SetLocalRotation({ 0,0,0 });
 	}
 }

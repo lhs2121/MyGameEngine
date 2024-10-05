@@ -13,37 +13,37 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 
 		switch (combinedType) 
 		{
-		case ColType::_AABB2D | ColType::_AABB2D:
-			isCol = AABB2DvsAABB2D((AABB2D*)_col->shape, (AABB2D*)other->shape);
+		case ColType::_AABB | ColType::_AABB:
+			isCol = AABBvsAABB((AABB*)_col->shape, (AABB*)other->shape);
 			break;
-		case ColType::_SPHERE2D | ColType::_SPHERE2D:
-			isCol = SPHERE2DvsSPHERE2D((SPHERE2D*)_col->shape, (SPHERE2D*)other->shape);
+		case ColType::_SPHERE | ColType::_SPHERE:
+			isCol = SPHEREvsSPHERE((SPHERE*)_col->shape, (SPHERE*)other->shape);
 			break;
-		case ColType::_OBB2D | ColType::_OBB2D:
-			isCol = OBB2DvsOBB2D((OBB2D*)_col->shape, (OBB2D*)other->shape);
+		case ColType::_OBB | ColType::_OBB:
+			isCol = OBBvsOBB((OBB*)_col->shape, (OBB*)other->shape);
 			break;
-		case ColType::_AABB2D | ColType::_SPHERE2D :
+		case ColType::_AABB | ColType::_SPHERE :
 		{
-			if(leftType == ColType::_AABB2D)
-				isCol = AABB2DvsSPHERE2D((AABB2D*)_col->shape, (SPHERE2D*)other->shape);
+			if(leftType == ColType::_AABB)
+				isCol = AABBvsSPHERE((AABB*)_col->shape, (SPHERE*)other->shape);
 			else
-				isCol = AABB2DvsSPHERE2D((AABB2D*)other->shape, (SPHERE2D*)_col->shape);
+				isCol = AABBvsSPHERE((AABB*)other->shape, (SPHERE*)_col->shape);
 			break;
 		}
-		case ColType::_AABB2D | ColType::_OBB2D:
+		case ColType::_AABB | ColType::_OBB:
 		{
-			if (leftType == ColType::_AABB2D)
-				isCol = AABB2DvsOBB2D((AABB2D*)_col->shape, (OBB2D*)other->shape);
+			if (leftType == ColType::_AABB)
+				isCol = AABBvsOBB((AABB*)_col->shape, (OBB*)other->shape);
 			else
-				isCol = AABB2DvsOBB2D((AABB2D*)other->shape, (OBB2D*)_col->shape);
+				isCol = AABBvsOBB((AABB*)other->shape, (OBB*)_col->shape);
 			break;
 		}
-		case ColType::_OBB2D | ColType::_SPHERE2D:
+		case ColType::_OBB | ColType::_SPHERE:
 		{
-			if (leftType == ColType::_OBB2D)
-				isCol = OBB2DvsSPHERE2D((OBB2D*)_col->shape, (SPHERE2D*)other->shape);
+			if (leftType == ColType::_OBB)
+				isCol = OBBvsSPHERE((OBB*)_col->shape, (SPHERE*)other->shape);
 			else
-				isCol = OBB2DvsSPHERE2D((OBB2D*)other->shape, (SPHERE2D*)_col->shape);
+				isCol = OBBvsSPHERE((OBB*)other->shape, (SPHERE*)_col->shape);
 			break;
 		}
 		default:
@@ -83,32 +83,32 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 
 }
 
-bool ColGroup::AABB2DvsAABB2D(AABB2D* _aabb1, AABB2D* _aabb2) const
+bool ColGroup::AABBvsAABB(AABB* _aabb1, AABB* _aabb2) const
 {
 	return _aabb1->box.Intersects(_aabb2->box);
 }
 
-bool ColGroup::SPHERE2DvsSPHERE2D(SPHERE2D* _sphere1, SPHERE2D* _sphere2) const
+bool ColGroup::SPHEREvsSPHERE(SPHERE* _sphere1, SPHERE* _sphere2) const
 {
 	return _sphere1->sphere.Intersects(_sphere2->sphere);
 }
 
-bool ColGroup::AABB2DvsSPHERE2D(AABB2D* _aabb, SPHERE2D* _sphere)
+bool ColGroup::AABBvsSPHERE(AABB* _aabb, SPHERE* _sphere)
 {
 	return _aabb->box.Intersects(_sphere->sphere);
 }
 
-bool ColGroup::AABB2DvsOBB2D(AABB2D* _aabb, OBB2D* _obb)
+bool ColGroup::AABBvsOBB(AABB* _aabb, OBB* _obb)
 {
 	return _aabb->box.Intersects(_obb->box);
 }
 
-bool ColGroup::OBB2DvsOBB2D(OBB2D* _obb1, OBB2D* _obb2)
+bool ColGroup::OBBvsOBB(OBB* _obb1, OBB* _obb2)
 {
 	return _obb1->box.Intersects(_obb2->box);
 }
 
-bool ColGroup::OBB2DvsSPHERE2D(OBB2D* _obb, SPHERE2D* _sphere)
+bool ColGroup::OBBvsSPHERE(OBB* _obb, SPHERE* _sphere)
 {
 	return _obb->box.Intersects(_sphere->sphere);
 }

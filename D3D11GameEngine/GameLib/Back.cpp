@@ -3,7 +3,7 @@
 
 void Back::Awake()
 {
-	transform.SetLocalPos({ 0, 0, 5 });
+	transform.SetLocalPosition({ 0, 0, 5 });
 
 	pSpriteRenderer = CreateChild<SpriteRenderer>();
 	Resource::CreateTexture("back/back.jpg");

@@ -90,7 +90,6 @@ public:
 	}
 	base::string name;
 	Transform transform;
-
 private:
 	int order = 0;
 	bool death = false;

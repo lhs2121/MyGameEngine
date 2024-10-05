@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Transform">
-      <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{1a5968f8-fb60-4455-ad5e-8459db36b384}</UniqueIdentifier>
     </Filter>
@@ -16,13 +13,16 @@
     <Filter Include="Common">
       <UniqueIdentifier>{5af607b8-8fe1-47e5-91be-f59b3057625e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Transform">
+      <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Transform</Filter>
+      <Filter>Object\Transform</Filter>
     </ClInclude>
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineAPI.h" />
@@ -59,7 +59,7 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Transform</Filter>
+      <Filter>Object\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Object.cpp">

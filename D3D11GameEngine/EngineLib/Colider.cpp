@@ -13,7 +13,7 @@ void Colider::Awake()
 {
 	GetScene()->AddCollision(this);
 
-	shape = new AABB2D();
+	shape = new AABB();
 
 	debugRenderer = CreateChild<Renderer>();
 	debugRenderer->SetRenderOrder(999);
@@ -47,22 +47,22 @@ void Colider::SetColType(ColType _Type)
 
 	switch (colType)
 	{
-	case ColType::_AABB2D:
+	case ColType::_AABB:
 		meshName = "Box2D";
 		delete shape;
-		shape = new AABB2D;
+		shape = new AABB;
 
 		break;
-	case ColType::_OBB2D:
+	case ColType::_OBB:
 		meshName = "Box2D";
 		delete shape;
-		shape = new OBB2D;
+		shape = new OBB;
 
 		break;
-	case ColType::_SPHERE2D:
+	case ColType::_SPHERE:
 		meshName = "Sphere2D";
 		delete shape;
-		shape = new SPHERE2D;
+		shape = new SPHERE;
 		break;
 	default:
 		break;
