@@ -32,7 +32,7 @@
     <ClInclude Include="Colider.h">
       <Filter>ObjectEssential</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBody2D.h">
+    <ClInclude Include="RigidBody.h">
       <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -68,7 +68,7 @@
     <ClCompile Include="Colider.cpp">
       <Filter>ObjectEssential</Filter>
     </ClCompile>
-    <ClCompile Include="RigidBody2D.cpp">
+    <ClCompile Include="RigidBody.cpp">
       <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">

@@ -8,7 +8,7 @@ public:
 
 	SpriteRenderer* pSpriteRenderer;
 	Colider* pColider;
-	RigidBody2D* pRigid;
+	RigidBody* pRigid;
 protected:
 };
 

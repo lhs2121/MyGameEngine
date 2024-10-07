@@ -55,24 +55,29 @@ void ColGroup::Collision(Colider* _col, ColGroup* _group)
 		{
 			if (false == isContained)
 			{
-				_col->state = ColState::ENTER;
+				_col->enter = true;
 				_col->otherCols.insert({ other,true });
 
 				other->debugColor = { 1,0,0,1 };
 				_col->debugColor = { 1,0,0,1 };
 			}
 			else
-				_col->state = ColState::STAY;
+			{
+				_col->stay = true;
+				_col->enter = false;
+			}
 		}
 		else
 		{
 			if (false == isContained)
 			{
-				_col->state = ColState::FREE;
+				_col->free = true;
+				_col->exit = false;
 			}
 			else
 			{
-				_col->state = ColState::EXIT;
+				_col->exit = true;
+				_col->stay = false;
 				_col->otherCols.erase(other);
 
 				other->debugColor = { 0,1,0,1 };

@@ -19,6 +19,6 @@
 #include <EngineLib/Renderer.h>
 #include <EngineLib/SpriteRenderer.h>
 #include <EngineLib/Colider.h>
-#include <EngineLib/RigidBody2D.h>
+#include <EngineLib/RigidBody.h>
 
 #include "EnumClass.h"

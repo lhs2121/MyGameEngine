@@ -2,11 +2,11 @@
 
 #include "Colider.h"
 
-class RigidBody2D : public Object
+class RigidBody : public Object
 {
 public:
-	RigidBody2D() = default;
-	~RigidBody2D() = default;
+	RigidBody() = default;
+	~RigidBody() = default;
 
 	void Start() override;
 	void Update(float _deltaTime) override;

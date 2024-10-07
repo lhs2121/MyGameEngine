@@ -77,8 +77,6 @@ void Colider::SetCollisionType(CollisionType _Type)
 	default:
 		break;
 	}
-
-	shape->name = GetParent()->name.c_str();
 	debugRenderer->SetMesh(meshName);
 }
 

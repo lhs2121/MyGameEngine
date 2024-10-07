@@ -105,7 +105,7 @@ void DeviceManager::InitMesh()
 		Resource::CreateIndexBuffer("Box3D", Box3D, sizeof(Box3D));
 	}
 
-	// Circle2D
+	// Sphere2D
 	{
 		float4 Center = { 0.0f,0.0f };
 		float4 Start = { 0.5f,0.0f };
@@ -137,8 +137,8 @@ void DeviceManager::InitMesh()
 			Second++;
 		}
 
-		int structSize = static_cast<int>(Vertiecs.size() * sizeof(Vertex));
-		int indexStructSize = static_cast<int>(Indices.size() * sizeof(UINT));
+		int structSize = (int)(Vertiecs.size() * sizeof(Vertex));
+		int indexStructSize = (int)(Indices.size() * sizeof(UINT));
 
 		Resource::CreateVertexBuffer("Sphere2D", &Vertiecs[0], structSize, sizeof(Vertex));
 		Resource::CreateIndexBuffer("Sphere2D", &Indices[0], indexStructSize);

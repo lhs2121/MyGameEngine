@@ -235,7 +235,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineAPI.h" />
-    <ClInclude Include="RigidBody2D.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Naming.h" />
     <ClInclude Include="ColGroup.h" />
   </ItemGroup>
@@ -260,7 +260,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pre.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="RigidBody2D.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Naming.cpp" />
     <ClCompile Include="ColGroup.cpp" />
   </ItemGroup>

@@ -9,31 +9,29 @@ void Player::Awake()
 	pSpriteRenderer->SetRenderOrder(Layer::Render::PLAYER);
 
 	Resource::CreateTexture("Character/stand.dds");
+	pSpriteRenderer->SetMesh("Box2D");
 	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
-	transform.SetLocalPosition({ 200,200,0 });
-	transform.SetLocalScale({ 64,64,1 });
-
+	transform.SetLocalPosition({ 200,200,});
+	transform.SetLocalScale({ 64,64 });
 	//pRigid = CreateChild<RigidBody2D>();
 
 	pColider = CreateChild<Colider>();
-	pColider->SetCollisionType(CollisionType::_OBB);
+	pColider->SetCollisionType(CollisionType::_AABB);
 	pColider->SetColOrder(Layer::Collision::PLAYER);
-
-
 }
 
 void Player::Update(float _deltaTime)
 {
 	pColider->Collision(Layer::Collision::GROUND);
-	if (pColider->state == ColState::ENTER)
+	if (pColider->enter)
 	{
 		int a = 0;
 	}
-	if (pColider->state == ColState::EXIT)
+	if (pColider->stay)
 	{
-		int a = 0;
+		transform.AddLocalRotation({ 0,0,5 * _deltaTime });
 	}
 	if (GetKeyDown('1'))
 	{
@@ -62,6 +60,19 @@ void Player::Update(float _deltaTime)
 	if (GetKeyPress('S'))
 	{
 		transform.AddLocalPosition({ 0,-100 * _deltaTime });
+	}
+	if (GetKeyPress('F'))
+	{
+		transform.AddLocalRotation({ 0,5 * _deltaTime });
+	}
+	if (GetKeyPress('G'))
+	{
+		transform.AddLocalRotation({ 5 * _deltaTime,0 });
+
+	}
+	if (GetKeyPress('H'))
+	{
+		transform.AddLocalRotation({ 0,0,5 * _deltaTime });
 	}
 	if (GetKeyDown('R'))
 	{
