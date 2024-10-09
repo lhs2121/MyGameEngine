@@ -3,9 +3,14 @@
 #include "Player.h"
 #include "Back.h"
 #include "Ground.h"
+#include <EngineLib/QuadTree.h>
 
 void TestScene::Awake()
 {
+	CQuadTree* root = CreateChild<CQuadTree>();
+	root->Init(0,0,Window::GetSizeX(), Window::GetSizeY(), 1);
+	root->DivideToMaxLevel();
+ 
 	Device::SetClearColor({ 0.4f,0.5f,0.4f,1.0f });
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 

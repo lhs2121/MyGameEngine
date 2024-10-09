@@ -16,6 +16,9 @@
     <Filter Include="Object\Transform">
       <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{406c9919-897f-42bd-90a0-fae83a8ffad2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -28,9 +31,6 @@
     <ClInclude Include="EngineAPI.h" />
     <ClInclude Include="Object.h">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Colider.h">
-      <Filter>ObjectEssential</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody.h">
       <Filter>ObjectEssential</Filter>
@@ -51,7 +51,13 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="ColGroup.h">
-      <Filter>ObjectEssential</Filter>
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Colider.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,9 +70,6 @@
     <ClCompile Include="Pre.cpp" />
     <ClCompile Include="Object.cpp">
       <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Colider.cpp">
-      <Filter>ObjectEssential</Filter>
     </ClCompile>
     <ClCompile Include="RigidBody.cpp">
       <Filter>ObjectEssential</Filter>
@@ -87,7 +90,13 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="ColGroup.cpp">
-      <Filter>ObjectEssential</Filter>
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Colider.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

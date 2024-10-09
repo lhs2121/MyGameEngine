@@ -6,8 +6,8 @@ struct NameObject
 	{
 		base::string newName = name;
 		newName += "_";
-		char* buffer2 = new char[4];
-		sprintf_s(buffer2, 4, "%d", count);
+		char* buffer2 = new char[5];
+		sprintf_s(buffer2, 5, "%d", count);
 
 		if (count >= 100)
 		{
