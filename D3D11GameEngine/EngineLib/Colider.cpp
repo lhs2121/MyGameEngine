@@ -19,6 +19,7 @@ void Colider::Awake()
 	debugRenderer->SetRenderOrder(999);
 	debugRenderer->SetMesh("Box2D");
 	debugRenderer->SetMaterial("WireFrame");
+	debugRenderer->transform.SetLocalScale({ 0.997,0.997 });
 
 	Naming::AddName("DebugCollisionColor");
 	base::string a = Naming::GetName("DebugCollisionColor");

@@ -27,8 +27,7 @@ public:
 	float height;
 
 	Colider* col = nullptr;
-	CQuadTree* pNode0 = nullptr;
-	CQuadTree* pNode1 = nullptr;
-	CQuadTree* pNode2 = nullptr;
-	CQuadTree* pNode3 = nullptr;
+	CQuadTree* pParent = nullptr;
+
+	CQuadTree* pNode[4];
 };

@@ -68,7 +68,7 @@ public:
 		newComp->SetOrder(order);
 		newComp->SetParent(this);
 		newComp->Awake();
-		newComp->transform.TransformUpdate();
+		transform.TransformUpdate();
 		return (T*)newComp;
 	}
 

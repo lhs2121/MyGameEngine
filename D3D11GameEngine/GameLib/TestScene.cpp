@@ -8,9 +8,9 @@
 void TestScene::Awake()
 {
 	CQuadTree* root = CreateChild<CQuadTree>();
-	root->Init(0,0,Window::GetSizeX(), Window::GetSizeY(), 1);
+	root->Init(0,0,100, 100, 0);
 	root->DivideToMaxLevel();
- 
+	root->pNode[0]->Divide();
 	Device::SetClearColor({ 0.4f,0.5f,0.4f,1.0f });
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 

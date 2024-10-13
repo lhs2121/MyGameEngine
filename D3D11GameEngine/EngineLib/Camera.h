@@ -23,7 +23,7 @@ private:
 
 	float fovYDegree = 60.0f;
 	float Near = 0.3f;
-	float Far = 1000.0f;
+	float Far = 2000.0f;
 
 
 	float4 windowSize;
