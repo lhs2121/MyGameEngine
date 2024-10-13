@@ -13,6 +13,8 @@ Renderer::~Renderer()
 	{
 		delete pMaterial;
 	}
+
+	pCamera->DeleteRenderer(this);
 }
 
 void Renderer::Awake()
@@ -40,11 +42,6 @@ void Renderer::Awake()
 
 void Renderer::Update(float _deltaTime)
 {
-}
-
-void Renderer::Release()
-{
-	pCamera->DeleteRenderer(this);
 }
 
 void Renderer::Render()

@@ -48,7 +48,7 @@ void CQuadTree::Divide()
 	if (pNode[0])
 		__debugbreak();
 
-	col->SetDeath();
+	col->Destroy();
 	float2 childPosition[] =
 	{
 		{width / 4, height / 4},

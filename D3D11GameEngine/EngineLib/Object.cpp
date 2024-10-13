@@ -52,25 +52,6 @@ void Object::AllRelease()
 	for (Object* child : childs)
 	{
 		child->AllRelease();
-		
-	}
-}
-
-void Object::AllDeath()
-{
-	std::vector<Object*> deathNote;
-	for (Object* child : childs)
-	{
-		if (child->death)
-		{
-			deathNote.push_back(child);
-		}
-	}
-
-	for (Object* o : deathNote)
-	{
-		childs.remove(o);
-		delete o;
 	}
 }
 
@@ -85,6 +66,14 @@ void Object::SetParent(Object* _parent)
 	parent = _parent;
 
 	transform.SetParent(&parent->transform);
+}
+
+void Object::Destroy()
+{
+	Scene* ParentScene = GetScene();
+	ParentScene->deathNote.push_back(this);
+	parent->childs.remove(this);
+	death = true;
 }
 
 Scene* Object::GetScene()

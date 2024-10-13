@@ -21,6 +21,15 @@ void Scene::CreateCamera()
 	cameraList.push_back(newCamera);
 }
 
+void Scene::CheckDeath()
+{
+	for (Object* object: deathNote)
+	{
+		delete object;
+	}
+	deathNote.clear();
+}
+
 void Scene::AddCollision(Colider* _col)
 {
 	if (colGroups.find(0) == colGroups.end())

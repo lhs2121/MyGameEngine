@@ -24,20 +24,16 @@ public:
 	void         AllStart();
 		         
 	void         AllUpdate(float _deltaTime);
-		         
-	void         AllLateUpdate(float _deltaTime);
-		         
+		             
 	void         AllEnd();
 		         
 	void         AllRelease();
-		         
-	void         AllDeath();
 
 	void         SetName(base::string _name) { name = _name; }
 
 	void         SetParent(Object* _parent);
 
-	void         SetDeath() { death = true; }
+	void         Destroy();
 	         	                 
 	Object*      GetParent() { return parent; }
 		         

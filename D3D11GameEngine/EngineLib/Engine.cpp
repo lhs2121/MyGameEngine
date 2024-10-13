@@ -62,7 +62,7 @@ void Engine::EngineUpdate()
 
 	Device::Present();
 
-	pCurScene->AllDeath();
+	pCurScene->CheckDeath();
 }
 
 void Engine::EngineRelease()
