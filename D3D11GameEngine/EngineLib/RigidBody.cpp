@@ -10,14 +10,6 @@ void RigidBody::Start()
 
 void RigidBody::Update(float _deltaTime)
 {
-}
-
-void RigidBody::AddForce(float4 _force)
-{
-	
-}
-void RigidBody::LateUpdate(float _deltaTime)
-{
 	float4 f_total;
 	float4 f_slide;
 	float4 f_friction;
@@ -31,3 +23,9 @@ void RigidBody::LateUpdate(float _deltaTime)
 	float4 displacement = velocity * _deltaTime;
 	//parentObject->transform.AddLocalPosition(displacement);
 }
+
+void RigidBody::AddForce(float4 _force)
+{
+	
+}
+

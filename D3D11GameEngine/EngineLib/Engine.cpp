@@ -55,7 +55,6 @@ void Engine::EngineUpdate()
 	mainTime->CountStart();
 	
 	pCurScene->AllUpdate(deltaTime);
-	pCurScene->AllLateUpdate(deltaTime);
 
 	Device::Clear();
 

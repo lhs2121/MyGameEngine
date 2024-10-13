@@ -10,7 +10,6 @@ public:
 
 	void Start() override;
 	void Update(float _deltaTime) override;
-	void LateUpdate(float _deltaTime) override;
 	void AddForce(float4 _force);
 
 	float4 acceleration = { 0.0f,0.0f,0.0f,1.0f };

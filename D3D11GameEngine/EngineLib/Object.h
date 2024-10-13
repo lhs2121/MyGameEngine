@@ -17,8 +17,6 @@ public:
 
 	virtual void Update(float _deltaTime) {}
 
-	virtual void LateUpdate(float _deltaTime) {}
-
 	virtual void End() {}
 
 	virtual void Release() {}
@@ -37,14 +35,10 @@ public:
 
 	void         SetName(base::string _name) { name = _name; }
 
-	void         SetOrder(int _order);
-
 	void         SetParent(Object* _parent);
 
 	void         SetDeath() { death = true; }
-	         	         
-	int          GetOrder() { return order; }
-		         
+	         	                 
 	Object*      GetParent() { return parent; }
 		         
 	bool         GetDeath() const { return death; }
@@ -59,13 +53,10 @@ public:
 		         
 	bool         GetKeyFree(int _key);
 
-	void         TransformUpdate();
-
 	template<typename T>
 	T* CreateChild(int order = 0)
 	{
 		Object* newComp = new T();
-		newComp->SetOrder(order);
 		newComp->SetParent(this);
 		newComp->Awake();
 		transform.TransformUpdate();
@@ -75,27 +66,23 @@ public:
 	template<typename T>
 	T* GetChild()
 	{
-		for (auto& pair : childs)
+		for (Object* child : childs)
 		{
-			std::list<Object*> objectList = pair.second;
-
-			for (Object* object : objectList)
+			T* result = dynamic_cast<T*>(child); 
+			if (result != nullptr)
 			{
-				T* result = dynamic_cast<T*>(object);
-				if (result != nullptr)
-				{
-					return result;
-				}
+				return result;
 			}
 		}
 		return nullptr;
 	}
+
 	base::string name;
 	Transform transform;
 private:
 	int order = 0;
 	bool death = false;
 	Object* parent = nullptr;
-	std::map<int, std::list<Object*>> childs;
+	std::list<Object*> childs;
 };
 
