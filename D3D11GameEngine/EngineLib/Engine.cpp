@@ -63,6 +63,8 @@ void Engine::EngineUpdate()
 
 	pCurScene->AllUpdate(deltaTime);
 
+	pCurScene->AllCollision();
+
 	Device::Clear();
 
 	pCurScene->Render();
