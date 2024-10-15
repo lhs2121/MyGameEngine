@@ -24,15 +24,6 @@ void Player::Awake()
 
 void Player::Update(float _deltaTime)
 {
-	pColider->Collision(Layer::Collision::GROUND);
-	if (pColider->enter)
-	{
-		int a = 0;
-	}
-	if (pColider->stay)
-	{
-		transform.AddLocalRotation({ 0,0,5 * _deltaTime });
-	}
 	if (GetKeyDown('1'))
 	{
 		pColider->SetCollisionType(CollisionType::_AABB);
@@ -64,10 +55,6 @@ void Player::Update(float _deltaTime)
 	if (GetKeyPress('F'))
 	{
 		transform.AddLocalRotation({ 0,5 * _deltaTime });
-	}
-	if (GetKeyPress('G'))
-	{
-		Destroy();
 	}
 	if (GetKeyPress('H'))
 	{

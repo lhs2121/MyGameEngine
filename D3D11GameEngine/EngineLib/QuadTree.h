@@ -1,13 +1,13 @@
 #pragma once
 #include "Colider.h"
-#include "CollisionList.h"
 
 class CQuadTree : public Object
 {
 public:
+	static std::vector<CQuadTree*> allTail;
 	void Init(float _x, float _y, float _width, float _height,int _maxLevel)
 	{
-		if (level != 0)
+		if (level != 1)
 			__debugbreak();
 
 		x = _x;
@@ -18,20 +18,19 @@ public:
 	}
 	void DivideToMaxLevel();
 	void Divide();
-	void CollisionAll();
-	void Collision();
-
+	void UpdateAllTailNode();
+	void UpdateList();
+	void CollisionList();
 	static int maxLevel;
-	int level = 0;
+	int level = 1;
 
 	float x;
 	float y;
 	float width;
 	float height;
 
-	Colider* col = nullptr;
+	Colider* pCol = nullptr;
+	std::vector<Colider*> ColiderList;
 	CQuadTree* pParent = nullptr;
-
 	CQuadTree* pNode[4];
-	CCollisionList* Group;
 };

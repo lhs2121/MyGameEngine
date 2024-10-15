@@ -45,7 +45,6 @@ enum CollisionType
 	_OBB = 4,
 };
 
-class ColGroup;
 class Renderer;
 class Colider : public Object
 {
@@ -55,42 +54,23 @@ public:
 
 	void Awake() override;
 	void Update(float _deltaTime) override;
-	void Release() override;
 
 	void SetCollisionType(CollisionType _Type);
-
-	template<typename T>
-	void SetColOrder(T _order);
-	void SetColOrder(int _order);
-
-	template<typename T>
-	void Collision(T _otherOrder);
-	void Collision(int _otherOrder);
-
+	bool Collision(Colider* pOther);
 	bool Search(Colider* _other);
 
-	int colOrder;
-	bool enter = false;
-	bool stay = false;
-	bool exit = false;
-	bool free = false;
+private:
+	bool AABBvsAABB(AABB* _aabb1, AABB* _aabb2) const;
+	bool AABBvsSPHERE(AABB* _aabb, SPHERE* _sphere);
+	bool AABBvsOBB(AABB* _aabb, OBB* _obb);
+	bool OBBvsOBB(OBB* _obb1, OBB* _obb2);
+	bool OBBvsSPHERE(OBB* _obb, SPHERE* _sphere);
+	bool SPHEREvsSPHERE(SPHERE* _sphere1, SPHERE* _sphere2) const;
+
 	Shape* shape = nullptr;
 	CollisionType collisionType = CollisionType::_AABB;
-	ColGroup* parentGroup;
 	float4 debugColor = { 0,1,0,1 };
 	std::unordered_map<Colider*, bool> otherCols;
-private:
 	Renderer* debugRenderer;
 };
 
-template<typename T>
-inline void Colider::SetColOrder(T _order)
-{
-	SetColOrder((int)_order);
-}
-
-template<typename T>
-inline void Colider::Collision(T _otherOrder)
-{
-	Collision((int)_otherOrder);
-}

@@ -1,8 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Camera.h"
-#include "ColGroup.h"
-
+#include "Colider.h"
 class Scene : public Object
 {
 public:
@@ -10,20 +9,15 @@ public:
 	~Scene();
 
 	void      Render();
-
-	ColGroup* GetGroup(int _order);
-	void      SetColOrder(Colider* _col,int _order);
 	void      CreateCamera();
 
 	void      CheckDeath();
-	void      AddCollision(Colider* _col);
-	void      RemoveCollision(Colider* _col);
 
 	Camera*   GetMainCamera();
 
+	std::vector<Colider*> allColider;
 	std::vector<Object*> deathNote;
 private:
-	std::map<int, ColGroup*> colGroups;
 	std::list<Camera*> cameraList;
 };
 

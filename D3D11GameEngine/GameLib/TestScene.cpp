@@ -8,7 +8,7 @@
 void TestScene::Awake()
 {
 	root = CreateChild<CQuadTree>();
-	root->Init(0,0, 100, 100, 0);
+	root->Init(0,0, 100, 100, 1);
 	root->DivideToMaxLevel();
 	//root->pNode[0]->Divide();
 	Device::SetClearColor({ 0.4f,0.5f,0.4f,1.0f });
@@ -33,17 +33,5 @@ void TestScene::Update(float _deltaTime)
 	if (GetKeyPress('E'))
 	{
 		GetMainCamera()->transform.AddLocalPosition({ 0,0,-100 * _deltaTime });
-	}
-	if (GetKeyDown('I'))
-	{
-		root->pNode[0]->Divide();
-	}
-	if (GetKeyDown('O'))
-	{
-		root->pNode[0]->pNode[0]->Divide();
-	}
-	if (GetKeyDown('P'))
-	{
-		root->pNode[0]->pNode[0]->pNode[0]->Divide();
 	}
 }

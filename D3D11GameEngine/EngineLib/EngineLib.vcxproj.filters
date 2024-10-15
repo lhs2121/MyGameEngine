@@ -50,16 +50,10 @@
     <ClInclude Include="Naming.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="ColGroup.h">
-      <Filter>Collision</Filter>
-    </ClInclude>
     <ClInclude Include="Colider.h">
       <Filter>Collision</Filter>
     </ClInclude>
     <ClInclude Include="QuadTree.h">
-      <Filter>Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionList.h">
       <Filter>Collision</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,16 +86,10 @@
     <ClCompile Include="Naming.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="ColGroup.cpp">
-      <Filter>Collision</Filter>
-    </ClCompile>
     <ClCompile Include="Colider.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
-      <Filter>Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionList.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
   </ItemGroup>
