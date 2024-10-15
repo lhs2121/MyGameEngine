@@ -5,8 +5,6 @@
 
 int CQuadTree::maxLevel = 1;
 
-std::vector<CQuadTree*> CQuadTree::allTail;
-
 void CQuadTree::DivideToMaxLevel()
 {
 	if (level > maxLevel)
@@ -37,7 +35,7 @@ void CQuadTree::DivideToMaxLevel()
 
 		if (level == maxLevel)
 		{
-			allTail.push_back(newQuadTree);
+			GetScene()->quTails.push_back(newQuadTree);
 			newQuadTree->transform.SetLocalPosition({ childPosition[i].x, childPosition[i].y });
 			newQuadTree->transform.SetLocalScale({ childWidth , childHeight });
 			newQuadTree->pCol = newQuadTree->CreateChild<Colider>();
@@ -82,20 +80,11 @@ void CQuadTree::Divide()
 	}
 }
 
-void CQuadTree::UpdateList()
+void CQuadTree::UpdateList(Colider* pOther)
 {
-	if (pNode[0])
-		__debugbreak();
-
-	std::vector<Colider*> _allColider = GetScene()->allColider;
-	for (Colider* other : _allColider)
+	if (pCol->Collision(pOther))
 	{
-		bool isCol = other->Collision(pCol);
-		if (isCol)
-		{
-			ColiderList.push_back(other);
-		}
-
+		ColiderList.push_back(pOther);
 	}
 }
 

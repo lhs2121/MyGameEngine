@@ -13,12 +13,13 @@ void Player::Awake()
 	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
 	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
 
-	transform.SetLocalPosition({ 200,200,});
+	transform.SetLocalPosition({ 50,50,});
 	transform.SetLocalScale({ 64,64 });
 	//pRigid = CreateChild<RigidBody2D>();
 
 	pColider = CreateChild<Colider>();
 	pColider->SetCollisionType(CollisionType::_AABB);
+	GetScene()->IntoQuadTree(pColider);
 	//pColider->SetColOrder(Layer::Collision::PLAYER);
 }
 

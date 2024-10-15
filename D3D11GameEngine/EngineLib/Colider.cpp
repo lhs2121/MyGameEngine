@@ -17,8 +17,6 @@ Colider::~Colider()
 
 void Colider::Awake()
 {
-	GetScene()->allColider.push_back(this);
-
 	shape = new AABB();
 	shape->Update(transform);
 
@@ -26,7 +24,6 @@ void Colider::Awake()
 	debugRenderer->SetRenderOrder(999);
 	debugRenderer->SetMesh("Box2D");
 	debugRenderer->SetMaterial("WireFrame");
-
 
 	base::string cbname = Naming::GetName("DebugRenderer");
 	debugRenderer->SetConstantBuffer(cbname.c_str(), &debugColor, sizeof(float4), ShaderType::PS, 1);
@@ -74,6 +71,7 @@ void Colider::SetCollisionType(CollisionType _Type)
 	default:
 		break;
 	}
+	shape->Update(transform);
 	debugRenderer->SetMesh(meshName);
 }
 

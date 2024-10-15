@@ -61,8 +61,8 @@ public:
 	{
 		Object* newComp = new T();
 		newComp->SetParent(this);
-		newComp->Awake();
 		transform.TransformUpdate();
+		newComp->Awake();
 		return (T*)newComp;
 	}
 

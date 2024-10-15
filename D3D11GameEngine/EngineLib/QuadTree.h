@@ -4,7 +4,6 @@
 class CQuadTree : public Object
 {
 public:
-	static std::vector<CQuadTree*> allTail;
 	void Init(float _x, float _y, float _width, float _height,int _maxLevel)
 	{
 		if (level != 1)
@@ -18,8 +17,7 @@ public:
 	}
 	void DivideToMaxLevel();
 	void Divide();
-	void UpdateAllTailNode();
-	void UpdateList();
+	void UpdateList(Colider* pOther);
 	void CollisionList();
 	static int maxLevel;
 	int level = 1;

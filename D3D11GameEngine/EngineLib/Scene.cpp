@@ -18,6 +18,22 @@ void Scene::CreateCamera()
 	cameraList.push_back(newCamera);
 }
 
+void Scene::IntoQuadTree(Colider* pCol)
+{
+	for (CQuadTree* pNode : quTails)
+	{
+		pNode->UpdateList(pCol);
+	}
+}
+
+void Scene::AllCollision()
+{
+	for (CQuadTree* pNode : quTails)
+	{
+		pNode->CollisionList();
+	}
+}
+
 void Scene::CheckDeath()
 {
 	for (Object* object: deathNote)
