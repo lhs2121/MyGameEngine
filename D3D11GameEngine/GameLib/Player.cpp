@@ -67,8 +67,7 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyPress('G'))
 	{
-		transform.AddLocalRotation({ 5 * _deltaTime,0 });
-
+		Destroy();
 	}
 	if (GetKeyPress('H'))
 	{
@@ -82,4 +81,9 @@ void Player::Update(float _deltaTime)
 		transform.SetLocalPosition({ 200,200 });
 		transform.SetLocalRotation({ 0,0,0 });
 	}
+}
+
+void Player::OnCollisionEnter(Colider* _Other)
+{
+	int a = 0;
 }

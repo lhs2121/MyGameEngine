@@ -3,6 +3,12 @@
 #include "Renderer.h"
 #include "Camera.h"
 
+Renderer::Renderer()
+{
+	Naming::ReturnName("Object");
+	name = Naming::GetName("Renderer");
+}
+
 Renderer::~Renderer()
 {
 	if (pMesh != nullptr)
@@ -13,8 +19,6 @@ Renderer::~Renderer()
 	{
 		delete pMaterial;
 	}
-
-	pCamera->DeleteRenderer(this);
 }
 
 void Renderer::Awake()
@@ -24,10 +28,7 @@ void Renderer::Awake()
 	pCamera = GetScene()->GetMainCamera();
 	pCamera->AddRenderer(this);
 
-	Naming::AddName("Transform");
-
-	base::string name = Naming::GetName("Transform");
-	SetConstantBuffer(name.c_str(), &transform.matWorldViewProjection, sizeof(float4x4), ShaderType::VS);
+	SetConstantBuffer(name.c_str(), &transform.matWorld, sizeof(XMMATRIX)*3, ShaderType::VS);
 
 	pMesh = Resource::FindMesh("Box2D");
 	pMaterial = Resource::FindMaterial("Sprite2D");
@@ -42,6 +43,11 @@ void Renderer::Awake()
 
 void Renderer::Update(float _deltaTime)
 {
+}
+
+void Renderer::Release()
+{
+	pCamera->RemoveRenderer(this);
 }
 
 void Renderer::Render()

@@ -25,6 +25,8 @@ void Scene::CheckDeath()
 {
 	for (Object* object: deathNote)
 	{
+		object->GetParent()->RemoveChild(object);
+		object->AllRelease();
 		delete object;
 	}
 	deathNote.clear();
@@ -40,6 +42,12 @@ void Scene::AddCollision(Colider* _col)
 	colGroups[0]->colList.push_back(_col);
 	_col->parentGroup = colGroups[0];
 	_col->colOrder = 0;
+}
+
+void Scene::RemoveCollision(Colider* _col)
+{
+	colGroups[0]->colList.remove(_col);
+	_col->parentGroup = nullptr;
 }
 
 ColGroup* Scene::GetGroup(int _order)

@@ -239,10 +239,12 @@
     <ClInclude Include="Naming.h" />
     <ClInclude Include="ColGroup.h" />
     <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="CollisionList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Colider.cpp" />
+    <ClCompile Include="CollisionList.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Object.cpp" />

@@ -4,10 +4,10 @@ struct NameObject
 {
 	base::string GetName()
 	{
-		base::string newName = name;
+        base::string newName = name;
 		newName += "_";
-		char* buffer2 = new char[5];
-		sprintf_s(buffer2, 5, "%d", count);
+		char* buffer2 = new char[16];
+		sprintf_s(buffer2, 16, "%d", count);
 
 		if (count >= 100)
 		{
@@ -23,7 +23,7 @@ struct NameObject
 		else
 		{
 			char* buffer = new char[3];
-			sprintf_s(buffer,3, "%d%d", 0,0);
+			sprintf_s(buffer,3, "%d%d", 0, 0);
 
 			newName += buffer;
 			delete[] buffer;
@@ -32,12 +32,17 @@ struct NameObject
 		
 		delete[] buffer2;
 		count++;
+		if (count == 255)
+		{
+			int a = 0;
+		}
 		return newName;
 	}
 
 	const char* name;
 	UINT count;
 };
+
 class Naming
 {
 public:
@@ -56,6 +61,16 @@ public:
 		newNameObject->count = 0;
 
 		mainNaming->allNameObject.insert({ _name,newNameObject });
+	}
+
+	static void ReturnName(const char* _name)
+	{
+		if (mainNaming->allNameObject.find(_name) == mainNaming->allNameObject.end())
+		{
+			Debug::MsgBoxAssert("해당 이름이 없습니다.");
+		}
+
+		mainNaming->allNameObject[_name]->count -= 1;
 	}
 
 	static base::string GetName(const char* _name)

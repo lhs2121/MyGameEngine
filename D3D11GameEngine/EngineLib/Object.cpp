@@ -4,6 +4,7 @@
 
 Object::Object()
 {
+	name = Naming::GetName("Object");
 }
 
 Object::~Object()
@@ -29,7 +30,7 @@ void Object::AllUpdate(float _deltaTime)
 {
 	Update(_deltaTime);
 
-	for (Object* child : childs)
+ 	for (Object* child : childs)
 	{
 		child->AllUpdate(_deltaTime);
 	}
@@ -72,7 +73,6 @@ void Object::Destroy()
 {
 	Scene* ParentScene = GetScene();
 	ParentScene->deathNote.push_back(this);
-	parent->childs.remove(this);
 	death = true;
 }
 
@@ -104,6 +104,11 @@ bool Object::GetKeyUp(int _key)
 bool Object::GetKeyFree(int _key)
 {
 	return Input::IsFree(_key, this);
+}
+
+void Object::RemoveChild(Object* pChild)
+{
+	childs.remove(pChild);
 }
 
 	

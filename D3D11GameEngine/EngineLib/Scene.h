@@ -17,6 +17,7 @@ public:
 
 	void      CheckDeath();
 	void      AddCollision(Colider* _col);
+	void      RemoveCollision(Colider* _col);
 
 	Camera*   GetMainCamera();
 

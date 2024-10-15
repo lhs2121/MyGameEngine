@@ -12,9 +12,11 @@ class Camera : public Object
 public:
 	void Awake() override;
 	void Update(float _deltaTime) override;
+
 	void AddRenderer(Renderer* _renderer, int _renderOrder = 0);
-	void DeleteRenderer(Renderer* _renderer);
-	void ChangeRenderOrder(Renderer* _renderer, int _afterOrder);
+	void RemoveRenderer(Renderer* _renderer);
+	void ChangeRenderOrder(Renderer* _renderer, int _newOrder);
+
 	void SetProjectionType(ProjectionType _type) { projectionType = _type; }
 	void Render();
 private:

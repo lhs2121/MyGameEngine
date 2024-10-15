@@ -73,3 +73,8 @@ void CQuadTree::Divide()
 		pNode[i]->pParent = this;
 	}
 }
+
+void CQuadTree::Collision()
+{
+	Group->Collision();
+}

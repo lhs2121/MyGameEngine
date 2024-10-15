@@ -21,6 +21,10 @@ public:
 
 	virtual void Release() {}
 
+	virtual void OnCollisionEnter(Colider* _Other) {};
+	virtual void OnCollisionStay(Colider* _Other) {};
+	virtual void OnCollisionExit(Colider* _Other) {};
+
 	void         AllStart();
 		         
 	void         AllUpdate(float _deltaTime);
@@ -58,6 +62,8 @@ public:
 		transform.TransformUpdate();
 		return (T*)newComp;
 	}
+
+	void RemoveChild(Object* pChild);
 
 	template<typename T>
 	T* GetChild()

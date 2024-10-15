@@ -10,7 +10,9 @@ struct VS_OUTPUT
 
 cbuffer Transform : register(b0)
 {
-    float4x4 WorldViewProjection;
+    float4x4 matWorld;
+    float4x4 matView;
+    float4x4 matProjection;
 };
 
 cbuffer Color : register(b1)
@@ -22,7 +24,10 @@ VS_OUTPUT SimpleColor_VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     
-    output.POS = mul(input.POS, WorldViewProjection);
+    output.POS = mul(input.POS, matWorld);
+    output.POS = mul(output.POS, matView);
+    output.POS = mul(output.POS, matProjection);
+    
     return output;
 }
 

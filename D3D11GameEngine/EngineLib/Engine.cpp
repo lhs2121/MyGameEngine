@@ -23,6 +23,11 @@ void Engine::LoadScene(const char* _name)
 void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, Initializer* pGameInit)
 {
 	Naming::Create();
+	Naming::AddName("Object");
+	Naming::AddName("Colider");
+	Naming::AddName("Renderer");
+	Naming::AddName("DebugRenderer");
+	Naming::AddName("SpriteData");
 
 	Window::Create(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
 
@@ -54,15 +59,17 @@ void Engine::EngineUpdate()
 	float deltaTime = mainTime->CountEnd();
 	mainTime->CountStart();
 	
+	pCurScene->CheckDeath();
+
 	pCurScene->AllUpdate(deltaTime);
 
 	Device::Clear();
 
 	pCurScene->Render();
-
+	
 	Device::Present();
 
-	pCurScene->CheckDeath();
+
 }
 
 void Engine::EngineRelease()

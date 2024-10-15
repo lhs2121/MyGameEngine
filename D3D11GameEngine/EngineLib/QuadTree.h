@@ -1,5 +1,6 @@
 #pragma once
 #include "Colider.h"
+#include "CollisionList.h"
 
 class CQuadTree : public Object
 {
@@ -17,6 +18,7 @@ public:
 	}
 	void DivideToMaxLevel();
 	void Divide();
+	void Collision();
 
 	static int maxLevel;
 	int level = 0;
@@ -30,4 +32,5 @@ public:
 	CQuadTree* pParent = nullptr;
 
 	CQuadTree* pNode[4];
+	CCollisionList* Group;
 };

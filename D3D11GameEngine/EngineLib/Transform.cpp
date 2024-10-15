@@ -23,11 +23,6 @@ void Transform::TransformUpdate()
 	matWorld = matWorldScale * matWorldRotation * matWorldPosition;
 }
 
-void Transform::SetWorldViewProjection(CXMMATRIX _matView, CXMMATRIX _matProjection)
-{
-	matWorldViewProjection = matWorld * _matView * _matProjection;
-}
-
 void Transform::SetLocalPosition(CXMVECTOR _pos)
 {
 	vecLocalPosition = _pos;

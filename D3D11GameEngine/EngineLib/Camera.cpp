@@ -18,7 +18,7 @@ void Camera::AddRenderer(Renderer* _renderer,int _renderOrder)
 	rendererMap[_renderOrder].push_back(_renderer);
 }
 
-void Camera::DeleteRenderer(Renderer* _renderer)
+void Camera::RemoveRenderer(Renderer* _renderer)
 {
 	int order = _renderer->GetRenderOrder();
 	rendererMap[order].remove(_renderer);
@@ -28,10 +28,10 @@ void Camera::DeleteRenderer(Renderer* _renderer)
 	}
 }
 
-void Camera::ChangeRenderOrder(Renderer* _renderer, int _afterOrder)
+void Camera::ChangeRenderOrder(Renderer* _renderer, int _newOrder)
 {
-	DeleteRenderer(_renderer);
-	AddRenderer(_renderer, _afterOrder);
+	RemoveRenderer(_renderer);
+	AddRenderer(_renderer, _newOrder);
 }
 
 void Camera::Update(float _deltaTime)
@@ -57,7 +57,8 @@ void Camera::Render()
 		std::list<Renderer*> rendererList = pair.second;
 		for (Renderer* renderer : rendererList)
 		{
-			renderer->transform.SetWorldViewProjection(transform.matView, transform.matProjection);
+			renderer->transform.matView = transform.matView;
+			renderer->transform.matProjection = transform.matProjection;
 			renderer->Render();
 		}
 	}

@@ -95,9 +95,8 @@ void SpriteRenderer::CreateAnimation(int _SpriteCountX, int _SpriteCountY, float
 	curSpriteData = ppSpriteDatas[0][0];
 	interTime = _InterTime;
 
-	Naming::AddName("SpriteData");
-	base::string name = Naming::GetName("SpriteData");
-	SetConstantBuffer(name.c_str(), &curSpriteData, sizeof(SpriteData), ShaderType::PS);
+	base::string cbname = Naming::GetName("SpriteData");
+	SetConstantBuffer(cbname.c_str(), &curSpriteData, sizeof(SpriteData), ShaderType::PS);
 }
 
 

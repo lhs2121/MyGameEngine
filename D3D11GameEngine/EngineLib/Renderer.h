@@ -7,10 +7,12 @@ class Camera;
 class  Renderer : public Object
 {
 public:
+	Renderer();
 	~Renderer();
 
 	void Awake() override;
 	void Update(float _deltaTime) override;
+	void Release() override;
 	virtual void Render();
 
 	void SetMesh(const char* _name);

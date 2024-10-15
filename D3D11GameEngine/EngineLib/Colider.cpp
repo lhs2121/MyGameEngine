@@ -3,6 +3,12 @@
 #include "Colider.h"
 #include "Renderer.h"
 
+Colider::Colider()
+{
+	Naming::ReturnName("Object");
+	name = Naming::GetName("Colider");
+}
+
 Colider::~Colider()
 {
 	if(shape !=nullptr)
@@ -11,19 +17,15 @@ Colider::~Colider()
 
 void Colider::Awake()
 {
-	GetScene()->AddCollision(this);
-
 	shape = new AABB();
 
 	debugRenderer = CreateChild<Renderer>();
 	debugRenderer->SetRenderOrder(999);
 	debugRenderer->SetMesh("Box2D");
 	debugRenderer->SetMaterial("WireFrame");
-	debugRenderer->transform.SetLocalScale({ 0.997f,0.997f });
 
-	Naming::AddName("DebugCollisionColor");
-	base::string a = Naming::GetName("DebugCollisionColor");
-	debugRenderer->SetConstantBuffer(a.c_str(), &debugColor, sizeof(float4), ShaderType::PS, 1);
+	base::string cbname = Naming::GetName("DebugRenderer");
+	debugRenderer->SetConstantBuffer(cbname.c_str(), &debugColor, sizeof(float4), ShaderType::PS, 1);
 }
 
 void Colider::Update(float _deltaTime)
@@ -33,7 +35,7 @@ void Colider::Update(float _deltaTime)
 
 void Colider::Release()
 {
-	int a = 0;
+	GetScene()->RemoveCollision(this);
 }
 
 void Colider::SetColOrder(int _order)

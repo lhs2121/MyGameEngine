@@ -50,6 +50,7 @@ class Renderer;
 class Colider : public Object
 {
 public:
+	Colider();
 	~Colider();
 
 	void Awake() override;

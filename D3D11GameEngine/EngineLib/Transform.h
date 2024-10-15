@@ -6,8 +6,6 @@ class Object;
 class Transform
 {
 public:
-	void SetWorldViewProjection(CXMMATRIX matView, CXMMATRIX matProjection);
-
 	void SetLocalScale(CXMVECTOR _scale);
 	void SetLocalRotation(CXMVECTOR _rotation);
 	void SetLocalPosition(CXMVECTOR _pos);
@@ -41,8 +39,6 @@ public:
 	XMMATRIX matWorld;
 	XMMATRIX matView;
 	XMMATRIX matProjection;
-	XMMATRIX matWorldViewProjection;
-
 private:
 	Transform* parent = nullptr;
 	std::list<Transform*> childList;
