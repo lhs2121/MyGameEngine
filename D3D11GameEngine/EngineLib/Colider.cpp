@@ -18,11 +18,13 @@ Colider::~Colider()
 void Colider::Awake()
 {
 	shape = new AABB();
+	shape->Update(transform);
 
 	debugRenderer = CreateChild<Renderer>();
 	debugRenderer->SetRenderOrder(999);
 	debugRenderer->SetMesh("Box2D");
 	debugRenderer->SetMaterial("WireFrame");
+
 
 	base::string cbname = Naming::GetName("DebugRenderer");
 	debugRenderer->SetConstantBuffer(cbname.c_str(), &debugColor, sizeof(float4), ShaderType::PS, 1);

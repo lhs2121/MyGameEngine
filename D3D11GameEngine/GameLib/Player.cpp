@@ -19,7 +19,7 @@ void Player::Awake()
 
 	pColider = CreateChild<Colider>();
 	pColider->SetCollisionType(CollisionType::_AABB);
-	pColider->SetColOrder(Layer::Collision::PLAYER);
+	//pColider->SetColOrder(Layer::Collision::PLAYER);
 }
 
 void Player::Update(float _deltaTime)

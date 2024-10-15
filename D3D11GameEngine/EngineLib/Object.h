@@ -33,6 +33,9 @@ public:
 		         
 	void         AllRelease();
 
+	void         Enable() { isEnable = true; }
+	void         Disenable() { isEnable = false; }
+
 	void         SetName(base::string _name) { name = _name; }
 
 	void         SetParent(Object* _parent);
@@ -84,6 +87,7 @@ public:
 private:
 	int order = 0;
 	bool death = false;
+	bool isEnable = true;
 	Object* parent = nullptr;
 	std::list<Object*> childs;
 };

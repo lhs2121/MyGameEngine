@@ -28,6 +28,9 @@ void Object::AllStart()
 
 void Object::AllUpdate(float _deltaTime)
 {
+	if (!isEnable)
+		return;
+
 	Update(_deltaTime);
 
  	for (Object* child : childs)

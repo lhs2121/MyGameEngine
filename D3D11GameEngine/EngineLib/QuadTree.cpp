@@ -6,9 +6,8 @@ int CQuadTree::maxLevel = 0;
 void CQuadTree::DivideToMaxLevel()
 {
 	if (level > maxLevel)
-	{
 		return;
-	}
+	
 
 	if (pNode[0])
 		__debugbreak();
@@ -67,11 +66,17 @@ void CQuadTree::Divide()
 		pNode[i]->width = childWidth;
 		pNode[i]->height = childHeight;
 		pNode[i]->level = level + 1;
+
 		pNode[i]->col = pNode[i]->CreateChild<Colider>();
 		pNode[i]->transform.SetLocalPosition({ childPosition[i].x, childPosition[i].y });
 		pNode[i]->transform.SetLocalScale({ 0.5f , 0.5f });
+		pNode[i]->col->Disenable();
 		pNode[i]->pParent = this;
 	}
+}
+
+void CQuadTree::CollisionAll()
+{
 }
 
 void CQuadTree::Collision()

@@ -18,6 +18,7 @@ public:
 	}
 	void DivideToMaxLevel();
 	void Divide();
+	void CollisionAll();
 	void Collision();
 
 	static int maxLevel;
