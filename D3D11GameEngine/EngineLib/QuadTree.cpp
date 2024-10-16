@@ -82,7 +82,7 @@ void CQuadTree::Divide()
 
 void CQuadTree::UpdateList(Colider* pOther)
 {
-	if (pCol->Collision(pOther))
+	if (pCol->SimpleCollision(pOther))
 	{
 		ColiderList.push_back(pOther);
 	}

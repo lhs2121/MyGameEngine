@@ -45,6 +45,7 @@ enum CollisionType
 	_OBB = 4,
 };
 
+class CQuadTree;
 class Renderer;
 class Colider : public Object
 {
@@ -57,6 +58,7 @@ public:
 
 	void SetCollisionType(CollisionType _Type);
 	bool Collision(Colider* pOther);
+	bool SimpleCollision(Colider* pOther);
 	bool Search(Colider* _other);
 
 private:
@@ -67,6 +69,7 @@ private:
 	bool OBBvsSPHERE(OBB* _obb, SPHERE* _sphere);
 	bool SPHEREvsSPHERE(SPHERE* _sphere1, SPHERE* _sphere2) const;
 
+	CQuadTree* parentNode = nullptr;
 	Shape* shape = nullptr;
 	CollisionType collisionType = CollisionType::_AABB;
 	float4 debugColor = { 0,1,0,1 };

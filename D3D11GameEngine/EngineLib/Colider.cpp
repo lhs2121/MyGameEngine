@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Colider.h"
 #include "Renderer.h"
+#include "QuadTree.h"
 
 Colider::Colider()
 {
@@ -161,6 +162,62 @@ bool Colider::Collision(Colider* pOther)
 
 	return isCol;
 }
+
+bool Colider::SimpleCollision(Colider* pOther)
+{
+	Colider* left = this;
+	Colider* right = pOther;
+
+	bool isCol = false;
+	int leftType = left->collisionType;
+	int rightType = right->collisionType;
+	int combinedType = leftType | rightType;
+
+	switch (combinedType)
+	{
+	case CollisionType::_AABB | CollisionType::_AABB:
+
+		isCol = AABBvsAABB((AABB*)left->shape, (AABB*)right->shape);
+		break;
+	case CollisionType::_SPHERE | CollisionType::_SPHERE:
+
+		isCol = SPHEREvsSPHERE((SPHERE*)left->shape, (SPHERE*)right->shape);
+		break;
+	case CollisionType::_OBB | CollisionType::_OBB:
+
+		isCol = OBBvsOBB((OBB*)left->shape, (OBB*)right->shape);
+		break;
+	case CollisionType::_AABB | CollisionType::_SPHERE:
+	{
+		if (leftType == CollisionType::_AABB)
+			isCol = AABBvsSPHERE((AABB*)left->shape, (SPHERE*)right->shape);
+		else
+			isCol = AABBvsSPHERE((AABB*)right->shape, (SPHERE*)left->shape);
+		break;
+	}
+	case CollisionType::_AABB | CollisionType::_OBB:
+	{
+		if (leftType == CollisionType::_AABB)
+			isCol = AABBvsOBB((AABB*)left->shape, (OBB*)right->shape);
+		else
+			isCol = AABBvsOBB((AABB*)right->shape, (OBB*)left->shape);
+		break;
+	}
+	case CollisionType::_OBB | CollisionType::_SPHERE:
+	{
+		if (leftType == CollisionType::_OBB)
+			isCol = OBBvsSPHERE((OBB*)left->shape, (SPHERE*)right->shape);
+		else
+			isCol = OBBvsSPHERE((OBB*)right->shape, (SPHERE*)left->shape);
+		break;
+	}
+	default:
+		break;
+	}
+
+	return isCol;
+}
+
 
 bool Colider::AABBvsAABB(AABB* _aabb1, AABB* _aabb2) const
 {
