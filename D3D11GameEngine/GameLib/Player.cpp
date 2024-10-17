@@ -19,7 +19,7 @@ void Player::Awake()
 
 	pColider = CreateChild<Colider>();
 	pColider->SetCollisionType(CollisionType::_AABB);
-	GetScene()->IntoQuadTree(pColider);
+	GetScene()->AddCollision(pColider);
 	//pColider->SetColOrder(Layer::Collision::PLAYER);
 }
 

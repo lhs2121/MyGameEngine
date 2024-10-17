@@ -62,8 +62,7 @@ void Engine::EngineUpdate()
 	pCurScene->CheckDeath();
 
 	pCurScene->AllUpdate(deltaTime);
-
-	pCurScene->AllCollision();
+	pCurScene->UpdateQuadTree();
 
 	Device::Clear();
 

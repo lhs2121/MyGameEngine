@@ -11,15 +11,14 @@ public:
 
 	void      Render();
 	void      CreateCamera();
-	void      IntoQuadTree(Colider* pCol);
-	void      AllCollision();
+	void      AddCollision(Colider* pCol);
+	void      UpdateQuadTree();
 	void      CheckDeath();
 
 	Camera*   GetMainCamera();
 
-	CQuadTree* quRoot;
-	std::vector<CQuadTree*> quTails;
-	std::vector<Colider*> allColider;
+	CQuadTree* pQuadRoot = nullptr;
+	std::vector<Colider*> dynamicColiders;
 	std::vector<Object*> deathNote;
 private:
 	std::list<Camera*> cameraList;

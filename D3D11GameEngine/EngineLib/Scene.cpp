@@ -18,20 +18,23 @@ void Scene::CreateCamera()
 	cameraList.push_back(newCamera);
 }
 
-void Scene::IntoQuadTree(Colider* pCol)
+void Scene::AddCollision(Colider* pCol)
 {
-	for (CQuadTree* pNode : quTails)
+	dynamicColiders.push_back(pCol);
+	if (pQuadRoot)
 	{
-		pNode->UpdateList(pCol);
+		pQuadRoot->Insert(pCol);
 	}
 }
 
-void Scene::AllCollision()
+void Scene::UpdateQuadTree()
 {
-	for (CQuadTree* pNode : quTails)
+	pQuadRoot->Clear();
+	for (Colider* pCol : dynamicColiders)
 	{
-		pNode->CollisionList();
+		pQuadRoot->Insert(pCol);
 	}
+	pQuadRoot->CollisionList();
 }
 
 void Scene::CheckDeath()

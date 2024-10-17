@@ -7,10 +7,10 @@
 
 void TestScene::Awake()
 {
-	root = CreateChild<CQuadTree>();
-	root->Init(0,0, 100, 100, 1);
-	root->DivideToMaxLevel();
-	//root->pNode[0]->Divide();
+	pQuadRoot = CreateChild<CQuadTree>();
+	pQuadRoot->Init(0,0, 200, 200, 2);
+	pQuadRoot->DivideToMaxLevel();
+
 	Device::SetClearColor({ 0.4f,0.5f,0.4f,1.0f });
 	GetMainCamera()->SetProjectionType(ProjectionType::Perspective);
 

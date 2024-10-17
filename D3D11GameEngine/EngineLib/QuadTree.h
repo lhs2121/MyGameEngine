@@ -14,9 +14,15 @@ public:
 		width = _width;
 		height = _height;
 		maxLevel = _maxLevel;
+
+		transform.SetLocalPosition({ x, y });
+		transform.SetLocalScale({ width , height });
+		pCol = CreateChild<Colider>();
 	}
 	void DivideToMaxLevel();
 	void Divide();
+	void Clear();
+	void Insert(Colider* pOther);
 	void UpdateList(Colider* pOther);
 	void CollisionList();
 	static int maxLevel;

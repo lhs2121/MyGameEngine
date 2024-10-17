@@ -9,41 +9,37 @@ void CQuadTree::DivideToMaxLevel()
 {
 	if (level > maxLevel)
 		return;
-	
 
 	if (pNode[0])
 		__debugbreak();
 
-	float2 childPosition[] =
+	float2 chPos[] =
 	{
 		{x + width / 4, y + height / 4},
 		{x - width / 4, y + height / 4},
 		{x - width / 4, y - height / 4},
 		{x + width / 4, y - height / 4}
 	};
-	float childWidth = width / 2;
-	float childHeight = height / 2;
+	float chWidth = width / 2;
+	float chHeight = height / 2;
 
 	for (size_t i = 0; i < 4; i++)
 	{
-		CQuadTree* newQuadTree = CreateChild<CQuadTree>();
-		newQuadTree->x = childPosition[i].x;
-		newQuadTree->y = childPosition[i].y;
-		newQuadTree->width = childWidth;
-		newQuadTree->height = childHeight;
-		newQuadTree->level = level + 1;
+		CQuadTree* pNewQuad = CreateChild<CQuadTree>();
+		pNewQuad->x = chPos[i].x;
+		pNewQuad->y = chPos[i].y;
+		pNewQuad->width = chWidth;
+		pNewQuad->height = chHeight;
+		pNewQuad->level = level + 1;
+		pNewQuad->pParent = this;
 
-		if (level == maxLevel)
-		{
-			GetScene()->quTails.push_back(newQuadTree);
-			newQuadTree->transform.SetLocalPosition({ childPosition[i].x, childPosition[i].y });
-			newQuadTree->transform.SetLocalScale({ childWidth , childHeight });
-			newQuadTree->pCol = newQuadTree->CreateChild<Colider>();
-		}
-		newQuadTree->pParent = this;
-		newQuadTree->DivideToMaxLevel();
+		pNewQuad->pCol = pNewQuad->CreateChild<Colider>();
+		pNewQuad->transform.SetLocalPosition({ chPos[i].x, chPos[i].y });
+		pNewQuad->transform.SetLocalScale({ 0.5f , 0.5f });
+		pNewQuad->pCol->Disenable();
 
-		pNode[i] = newQuadTree;
+		pNewQuad->DivideToMaxLevel();
+		pNode[i] = pNewQuad;
 	}
 }
 
@@ -53,45 +49,74 @@ void CQuadTree::Divide()
 		__debugbreak();
 
 	pCol->Destroy();
-	float2 childPosition[] =
+	float2 chPos[] =
 	{
 		{width / 4, height / 4},
 		{-width / 4, height / 4},
 		{-width / 4, -height / 4},
 		{width / 4, -height / 4}
 	};
-	float childWidth = width / 2;
-	float childHeight = height / 2;
+	float chWidth = width / 2;
+	float chHeight = height / 2;
 	       
 	for (size_t i = 0; i < 4; i++)
 	{
 		pNode[i] = CreateChild<CQuadTree>();
-		pNode[i]->x = childPosition[i].x;
-		pNode[i]->y = childPosition[i].y;
-		pNode[i]->width = childWidth;
-		pNode[i]->height = childHeight;
+		pNode[i]->x = chPos[i].x;
+		pNode[i]->y = chPos[i].y;
+		pNode[i]->width = chWidth;
+		pNode[i]->height = chHeight;
 		pNode[i]->level = level + 1;
 
 		pNode[i]->pCol = pNode[i]->CreateChild<Colider>();
-		pNode[i]->transform.SetLocalPosition({ childPosition[i].x, childPosition[i].y });
+		pNode[i]->transform.SetLocalPosition({ chPos[i].x, chPos[i].y });
 		pNode[i]->transform.SetLocalScale({ 0.5f , 0.5f });
 		pNode[i]->pCol->Disenable();
 		pNode[i]->pParent = this;
 	}
 }
 
-void CQuadTree::UpdateList(Colider* pOther)
+void CQuadTree::Clear()
 {
-	if (pCol->SimpleCollision(pOther))
+	if (pNode[0] == nullptr)
+	{
+		ColiderList.clear();
+		return;
+	}
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		pNode[i]->Clear();
+	}
+}
+
+void CQuadTree::Insert(Colider* pOther)
+{
+	if (!pCol->SimpleCollision(pOther))
+		return;
+
+	if (pNode[0] == nullptr)
 	{
 		ColiderList.push_back(pOther);
+		return;
+	}
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		pNode[i]->Insert(pOther);
 	}
 }
 
 void CQuadTree::CollisionList()
 {
-	if (pNode[0])
-		__debugbreak();
+	if (pNode[0] != nullptr)
+	{
+		for (size_t i = 0; i < 4; i++)
+		{
+			pNode[i]->CollisionList();
+		}
+		return;
+	}
 
 	size_t size = ColiderList.size();
 	for (size_t i = 0; i < size; i++)

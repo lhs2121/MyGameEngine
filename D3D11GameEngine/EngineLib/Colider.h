@@ -69,7 +69,6 @@ private:
 	bool OBBvsSPHERE(OBB* _obb, SPHERE* _sphere);
 	bool SPHEREvsSPHERE(SPHERE* _sphere1, SPHERE* _sphere2) const;
 
-	CQuadTree* parentNode = nullptr;
 	Shape* shape = nullptr;
 	CollisionType collisionType = CollisionType::_AABB;
 	float4 debugColor = { 0,1,0,1 };

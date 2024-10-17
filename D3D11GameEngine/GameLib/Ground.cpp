@@ -10,9 +10,8 @@ void Ground::Awake()
 	pColider->SetName("dirt");
 	//pColider->SetColOrder(Layer::Collision::GROUND);
 	pColider->transform.SetLocalPosition({ 64,64 });
-	pColider->SetCollisionType(CollisionType::_OBB);
 
-	GetScene()->IntoQuadTree(pColider);
+	GetScene()->AddCollision(pColider);
 	Input::AddUser(this);
 }
 
