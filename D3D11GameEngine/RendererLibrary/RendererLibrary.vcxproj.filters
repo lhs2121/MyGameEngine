@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="IRenderer.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="SpriteObject.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="IRenderer.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Renderer_CreateBasicMesh.cpp" />
+    <ClCompile Include="Renderer_CreateBasicMaterial.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
+  </ItemGroup>
+</Project>

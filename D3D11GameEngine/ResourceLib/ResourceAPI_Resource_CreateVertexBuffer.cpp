@@ -96,8 +96,8 @@ VertexShader* Resource::CreateVertexShader(const char* _name, base::string& _pat
 
 	ID3DBlob* pErrorBlob = nullptr;
 
-	HRESULT result0 = D3DCompileFromFile(path_wide,
-		nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, fileName.c_str(), "vs_5_0", flag, 0, &newShader->pBlob, &pErrorBlob);
+	HRESULT result0 = D3DCompileFromFile(path_wide,nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		fileName.c_str(), "vs_5_0", flag, 0, &newShader->pBlob, &pErrorBlob);
 
 	HRESULT result1 = Device::GetDevice()->CreateVertexShader(newShader->pBlob->GetBufferPointer(),
 		newShader->pBlob->GetBufferSize(), nullptr, &newShader->pShader);
