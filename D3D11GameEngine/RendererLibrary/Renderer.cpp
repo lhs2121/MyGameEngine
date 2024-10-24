@@ -140,10 +140,6 @@ void CRenderer::Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	m_matView = XMMatrixLookToLH(m_CameraPosition, m_CameraEyeDirection, m_CameraUpDirection);
 	m_matProjection = XMMatrixPerspectiveFovLH(m_degFovY * Deg2Rad, (float)winSizeX / (float)winSizeY, m_near, m_far);
 
-	LoadShader(L"Shaders\\BasicColorShader.hlsl");
-	LoadShader(L"Shaders\\BasicSprite2DShader.hlsl");
-	LoadTexture(L"Texture\\asdf.jpg");
-
 	CreateBasicMesh();
 	CreateBasicMaterial();
 
@@ -157,9 +153,17 @@ void CRenderer::Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		{ "NORMAL",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,24,D3D11_INPUT_PER_VERTEX_DATA,0 },
 	};
 
-	if (S_OK != m_pDevice->CreateInputLayout(iaDesc, 3, m_pBasicSprite2D->m_pCompiledVertexShader->GetBufferPointer(),
-		m_pBasicSprite2D->m_pCompiledVertexShader->GetBufferSize(), &m_pBasicInputLayout))
+	ShaderData* data = m_mapShader[L"BasicSprite2DShader.hlsl"];
+	ID3DBlob* compiledShader = data->m_pCompiledVertexShader;
+	if (S_OK != m_pDevice->CreateInputLayout(iaDesc, 3, compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), &m_pBasicInputLayout))
 		__debugbreak();
+
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
+	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
+	m_pDeviceContext->RSSetState(m_pRasterizerState_Solid);
+	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
+	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
 }
 
 void CRenderer::StartRender()
@@ -176,13 +180,6 @@ void CRenderer::EndRender()
 
 void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 {
-	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
-	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
-	m_pDeviceContext->RSSetState(m_pRasterizerState_WireFrame);
-	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
-	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
-
 	m_matWorld = matWorld;
 	m_color = color;
 	m_pRect2D->Draw(m_pDeviceContext);
@@ -194,13 +191,6 @@ void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 
 void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject)
 {
-	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
-	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
-	m_pDeviceContext->RSSetState(m_pRasterizerState_Solid);
-	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
-	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
-
 	m_matWorld = matWorld;
 	((CSpriteObject*)pSpriteObject)->Draw(m_pDeviceContext);
 	m_pDeviceContext->DrawIndexed(6, 0, 0);

@@ -65,6 +65,11 @@ private:
 	XMMATRIX m_matView;
 	XMMATRIX m_matProjection;
 
+	//ID3D11BlendState* m_pPrevBlendState = nullptr;
+	//ID3D11SamplerState* m_pPrevSamplerState = nullptr;
+	//ID3D11RasterizerState* m_pPrevRasterizerState = nullptr;
+	//ID3D11DepthStencilState* m_pPrevDepthStencilState = nullptr;
+
 	ID3D11RasterizerState* m_pRasterizerState_Solid;
 	ID3D11RasterizerState* m_pRasterizerState_WireFrame;
 	ID3D11SamplerState* m_pSamplerState_Point;

@@ -15,12 +15,7 @@ cbuffer Transform : register(b0)
     float4x4 matProjection;
 };
 
-cbuffer Color : register(b1)
-{
-    float4 color;
-}
-
-VS_OUTPUT BasicColorShaderr_VS(VS_INPUT input)
+VS_OUTPUT BasicColorShader_VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     
@@ -31,7 +26,12 @@ VS_OUTPUT BasicColorShaderr_VS(VS_INPUT input)
     return output;
 }
 
-float4 BasicColorShaderr_PS(VS_OUTPUT input) : SV_Target
+cbuffer Color : register(b1)
+{
+    float4 color;
+}
+
+float4 BasicColorShader_PS(VS_OUTPUT input) : SV_Target
 {
     return color;
 }

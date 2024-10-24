@@ -3,6 +3,10 @@
 
 void CRenderer::CreateBasicMaterial()
 {
+	LoadShader(L"Assets\\Shaders\\BasicColorShader.hlsl");
+	LoadShader(L"Assets\\Shaders\\BasicSprite2DShader.hlsl");
+	LoadTexture(L"Assets\\Texture\\asdf.jpg");
+
 	D3D11_RASTERIZER_DESC Desc_Solid = {};
 	Desc_Solid.FillMode = D3D11_FILL_SOLID;
 	Desc_Solid.CullMode = D3D11_CULL_BACK;
