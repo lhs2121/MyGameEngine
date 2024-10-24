@@ -4,10 +4,6 @@
 #include "Material.h"
 #include "Renderer.h"
 
-CSpriteObject::CSpriteObject()
-{
-}
-
 CSpriteObject::~CSpriteObject()
 {
 	if(m_pConstantBuffer_transform)
@@ -19,7 +15,6 @@ CSpriteObject::~CSpriteObject()
 
 void CSpriteObject::CreateAnimation(const WCHAR* wszTexName, int countX, int countY, float interTime)
 {
-	m_pRenderer->SetTexture(wszTexName, m_pMaterial);
 	m_spriteDataList.resize(countY);
 	for (int y = 0; y < countY; y++)
 	{
@@ -40,7 +35,7 @@ void CSpriteObject::CreateAnimation(const WCHAR* wszTexName, int countX, int cou
 	m_interTime = interTime;
 }
 
-void CSpriteObject::Update(float deltaTime)
+void CSpriteObject::UpdateAnimation(float deltaTime)
 {
 	m_curTime += deltaTime;
 	if (m_curTime >= m_interTime)

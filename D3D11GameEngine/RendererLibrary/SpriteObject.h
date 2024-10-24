@@ -2,24 +2,17 @@
 #include "IRenderer.h"
 #include "ConstantBuffer.h"
 
-struct SpriteData
-{
-	float2 ratio = { 1.0f, 1.0f };
-	float2 offset = { 0.0f, 0.0f };
-};
-
 class CMesh;
 class CMaterial;
 class CRenderer;
 class CSpriteObject : public ISpriteObject
 {
 public:
-	CSpriteObject();
 	~CSpriteObject();
 	void CreateAnimation(const WCHAR* wszTexName, int countX, int countY, float interTime = 0.3f) override;
-	void Update(float deltaTime) override; 
+	IMaterial* GetMaterial() override { return (IMaterial*)m_pMaterial; }
+	void UpdateAnimation(float deltaTime) override; 
 	void Draw(ID3D11DeviceContext* pDeviceContext);
-	CRenderer* m_pRenderer;
 	CMesh* m_pMesh;
 	CMaterial* m_pMaterial;
 

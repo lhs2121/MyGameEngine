@@ -13,6 +13,11 @@ CRenderer::~CRenderer()
 	m_pBasicInputLayout->Release();
 	delete m_pConstantBuffer_transform;
 	delete m_pConstantBuffer_color;
+	m_pRasterizerState_Solid->Release();
+	m_pRasterizerState_WireFrame->Release();
+	m_pSamplerState_Point->Release();
+	m_pDepthStencilState_Depth_On->Release();
+	m_pBlendState_Alhpa_On->Release();
 
 	for (auto& pair : m_mapMesh)
 	{
@@ -28,6 +33,13 @@ CRenderer::~CRenderer()
 	{
 		ID3D11ShaderResourceView* srv = pair.second;
 		srv->Release();
+	}
+	for (auto& pair : m_mapShader)
+	{
+		ShaderData* srv = pair.second;
+		srv->m_pCompiledVertexShader->Release();
+		srv->m_pPixelShader->Release();
+		srv->m_pVertexShader->Release();
 	}
 	for (auto& pair : m_mapSpriteObject)
 	{
@@ -128,6 +140,10 @@ void CRenderer::Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	m_matView = XMMatrixLookToLH(m_CameraPosition, m_CameraEyeDirection, m_CameraUpDirection);
 	m_matProjection = XMMatrixPerspectiveFovLH(m_degFovY * Deg2Rad, (float)winSizeX / (float)winSizeY, m_near, m_far);
 
+	LoadShader(L"Shaders\\BasicColorShader.hlsl");
+	LoadShader(L"Shaders\\BasicSprite2DShader.hlsl");
+	LoadTexture(L"Texture\\asdf.jpg");
+
 	CreateBasicMesh();
 	CreateBasicMaterial();
 
@@ -160,12 +176,15 @@ void CRenderer::EndRender()
 
 void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 {
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
+	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
+	m_pDeviceContext->RSSetState(m_pRasterizerState_WireFrame);
+	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
+	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
+
 	m_matWorld = matWorld;
 	m_color = color;
-
-	m_pDeviceContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
-
 	m_pRect2D->Draw(m_pDeviceContext);
 	m_pBasicColor->Draw(m_pDeviceContext);
 	m_pConstantBuffer_transform->Draw(m_pDeviceContext);
@@ -175,29 +194,25 @@ void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 
 void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject)
 {
-	m_matWorld = matWorld;
-	m_pDeviceContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
+	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
+	m_pDeviceContext->RSSetState(m_pRasterizerState_Solid);
+	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
+	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
+
+	m_matWorld = matWorld;
 	((CSpriteObject*)pSpriteObject)->Draw(m_pDeviceContext);
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
-}
-
-void CRenderer::SetTexture(const WCHAR* wszFile, IMaterial* pMaterial)
-{
-	if (m_mapTexture.find(wszFile) == m_mapTexture.end())
-		__debugbreak();
-
-	((CMaterial*)pMaterial)->m_pShaderResourceView = m_mapTexture[wszFile];
 }
 
 ISpriteObject* CRenderer::CreateSpriteObject(const char* name)
 {
 	CSpriteObject* pSpriteObject = new CSpriteObject;
-	pSpriteObject->m_pRenderer = this;
 	pSpriteObject->m_pConstantBuffer_transform = CreateConstantBuffer("a", &m_matWorld, sizeof(XMMATRIX) * 3, "vs", 0);
 	pSpriteObject->m_pConstantBuffer_spriteData = CreateConstantBuffer("b", &pSpriteObject->m_curSpriteData, sizeof(SpriteData), "ps", 1);
-	pSpriteObject->m_pMaterial = m_mapMaterial["BasicSprite2D"]->Copy();
-	pSpriteObject->m_pMesh = m_mapMesh["Rect2D"];
+	pSpriteObject->m_pMaterial = m_pBasicSprite2D->Copy();
+	pSpriteObject->m_pMesh = m_pRect2D;
 
 	m_mapSpriteObject.insert({ name,pSpriteObject });
 	return pSpriteObject;
@@ -294,8 +309,14 @@ void CRenderer::LoadShader(const WCHAR* wszShaderPath)
 	if (S_OK != m_pDevice->CreatePixelShader(pPixelShaderBlob->GetBufferPointer(), pPixelShaderBlob->GetBufferSize(), nullptr, &pPixelShader))
 		__debugbreak();
 
-	m_mapShader.insert({ wszFileName, std::make_pair(pVertexShader, pPixelShader) });
+	ShaderData* data = new ShaderData;
+	data->m_pVertexShader = pVertexShader;
+	data->m_pPixelShader = pPixelShader;
+	data->m_pCompiledVertexShader = pVertexShaderBlob;
 
+;	m_mapShader.insert({ wszFileName, data });
+
+    pPixelShaderBlob->Release();
 	delete[] szMainName;
 	delete[] szFileName;
 	delete[] wszCurrentDir;
@@ -323,10 +344,15 @@ CMesh* CRenderer::CreateMesh(const char* meshName, void* pVertexList, UINT verte
 	return pMesh;
 }
 
-CMaterial* CRenderer::CreateMaterial(const char* materialName, const WCHAR* wszShaderPath, const WCHAR* wszTexFileName, D3D11_RASTERIZER_DESC* pRsDesc,
-	D3D11_SAMPLER_DESC* pSamplerDesc, D3D11_BLEND_DESC* pBlendDesc, D3D11_DEPTH_STENCIL_DESC* pDsDesc)
+IMaterial* CRenderer::CreateMaterial(const char* materialName, const WCHAR* wszShaderName, const WCHAR* wszTexFileName)
 {
 	CMaterial* pMaterial = new CMaterial;
+	ShaderData* data = m_mapShader[wszShaderName];
+
+	pMaterial->m_pRenderer = this;
+	pMaterial->m_pVertexShader = data->m_pVertexShader;
+	pMaterial->m_pPixelShader = data->m_pPixelShader;
+	pMaterial->m_pCompiledVertexShader = data->m_pCompiledVertexShader;
 
 	if (wszTexFileName)
 	{
@@ -334,26 +360,9 @@ CMaterial* CRenderer::CreateMaterial(const char* materialName, const WCHAR* wszS
 			__debugbreak();
 		pMaterial->m_pShaderResourceView = m_mapTexture[wszTexFileName];
 	}
-	if (pRsDesc)
-	{
-		if (S_OK != m_pDevice->CreateRasterizerState(pRsDesc, &pMaterial->m_pRasterizerState))
-			__debugbreak();
-	}
-	if (pSamplerDesc)
-	{
-		if (S_OK != m_pDevice->CreateSamplerState(pSamplerDesc, &pMaterial->m_pSamplerState))
-			__debugbreak();
-	}
-	if (pBlendDesc)
-	{
-		if (S_OK != m_pDevice->CreateBlendState(pBlendDesc, &pMaterial->m_pBlendState))
-			__debugbreak();
-	}
-	if (pDsDesc)
-	{
-		if (S_OK != m_pDevice->CreateDepthStencilState(pDsDesc, &pMaterial->m_pDepthStencilState))
-			__debugbreak();
-	}
+	else
+		pMaterial->m_pShaderResourceView = m_mapTexture[L"asdf.jpg"];
+	
 
 	m_mapMaterial.insert({ materialName,pMaterial });
 	return pMaterial;
@@ -384,4 +393,12 @@ CConstantBuffer* CRenderer::CreateConstantBuffer(const char* bufferName, void* p
 		__debugbreak();
 
 	return pConstantBuffer;
+}
+
+ID3D11ShaderResourceView* CRenderer::GetShaderResourceView(const WCHAR* wszTexFile)
+{
+	if (m_mapTexture.find(wszTexFile) == m_mapTexture.end())
+		__debugbreak();
+
+	return m_mapTexture[wszTexFile];
 }

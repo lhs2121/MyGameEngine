@@ -7,20 +7,23 @@
 #define DLLAPI __declspec(dllexport)
 #else
 #define DLLAPI __declspec(dllimport)
-#endif // RendererLibrary
+#endif 
 
 using namespace DirectX;
 
 struct IMesh
 {
 };
+
 struct IMaterial
 {
+	virtual void SetTexture(const WCHAR* wszTexName) = 0;
 };
 struct ISpriteObject
 {
+	virtual IMaterial* GetMaterial() = 0;
 	virtual void CreateAnimation(const WCHAR* wszTexName, int countX, int countY, float interTime) = 0;
-	virtual void Update(float deltaTime) = 0;
+	virtual void UpdateAnimation(float deltaTime) = 0;
 };
 struct IRenderer
 {
@@ -31,7 +34,6 @@ struct IRenderer
 
 	virtual void LoadTexture(const WCHAR* wszFilePath) = 0;
 	virtual void LoadShader(const WCHAR* wszShaderPath) = 0;
-	virtual void SetTexture(const WCHAR* wszFile, IMaterial* pMaterial) = 0;
 
 	virtual ISpriteObject* CreateSpriteObject(const char* name) = 0;
 
