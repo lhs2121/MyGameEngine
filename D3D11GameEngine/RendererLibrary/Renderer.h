@@ -10,20 +10,20 @@
 
 class CRenderer : public IRenderer
 {
-	friend class CMaterial;
 public:
 	~CRenderer();
 	void Initalize(UINT windowSizeX, UINT windowSizeY, HWND& hwnd) override;
 	void StartRender() override;
 	void EndRender() override;
 
+
+
+
+	IMeshObject* CreateMeshObject(const char* name);
 	ISpriteObject* CreateSpriteObject(const char* name);
 
-	CMesh* CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, 
-		void* pIndexList, UINT indexSize, USHORT indexStride);
-
+	CMesh* CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, void* pIndexList, UINT indexSize, USHORT indexStride);
 	IMaterial* CreateMaterial(const char* materialName, const WCHAR* wszShaderName, const WCHAR* wszTexFileName);
-
 	CConstantBuffer* CreateConstantBuffer(const char* bufferName, void* pData, UINT dataSize, const char* szTargerShader, int slotNum);
 
 	ID3D11ShaderResourceView* GetShaderResourceView(const WCHAR* wszTexFile);
@@ -65,10 +65,10 @@ private:
 	XMMATRIX m_matView;
 	XMMATRIX m_matProjection;
 
-	//ID3D11BlendState* m_pPrevBlendState = nullptr;
-	//ID3D11SamplerState* m_pPrevSamplerState = nullptr;
-	//ID3D11RasterizerState* m_pPrevRasterizerState = nullptr;
-	//ID3D11DepthStencilState* m_pPrevDepthStencilState = nullptr;
+	ID3D11BlendState* m_pPrevBlendState = nullptr;
+	ID3D11SamplerState* m_pPrevSamplerState = nullptr;
+	ID3D11RasterizerState* m_pPrevRasterizerState = nullptr;
+	ID3D11DepthStencilState* m_pPrevDepthStencilState = nullptr;
 
 	ID3D11RasterizerState* m_pRasterizerState_Solid;
 	ID3D11RasterizerState* m_pRasterizerState_WireFrame;
@@ -80,8 +80,4 @@ private:
 	CConstantBuffer* m_pConstantBuffer_color;
 
 	ID3D11InputLayout* m_pBasicInputLayout = nullptr;
-	CMesh* m_pRect2D = nullptr;
-	CMesh* m_pRect3D = nullptr;
-	CMaterial* m_pBasicColor = nullptr;
-	CMaterial* m_pBasicSprite2D = nullptr;
 };

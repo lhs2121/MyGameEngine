@@ -3,10 +3,6 @@
 
 void CRenderer::CreateBasicMaterial()
 {
-	LoadShader(L"Assets\\Shaders\\BasicColorShader.hlsl");
-	LoadShader(L"Assets\\Shaders\\BasicSprite2DShader.hlsl");
-	LoadTexture(L"Assets\\Texture\\asdf.jpg");
-
 	D3D11_RASTERIZER_DESC Desc_Solid = {};
 	Desc_Solid.FillMode = D3D11_FILL_SOLID;
 	Desc_Solid.CullMode = D3D11_CULL_BACK;
@@ -79,6 +75,9 @@ void CRenderer::CreateBasicMaterial()
 	if (S_OK != m_pDevice->CreateDepthStencilState(&Desc_Depth_On, &m_pDepthStencilState_Depth_On))
 		__debugbreak();
 
-	m_pBasicColor = (CMaterial*)CreateMaterial("BasicColor", L"BasicColorShader.hlsl", nullptr);
-	m_pBasicSprite2D = (CMaterial*)CreateMaterial("BasicSprite2D", L"BasicSprite2DShader.hlsl", L"asdf.jpg");
+	LoadShader(L"Assets\\Shaders\\BasicColorShader.hlsl");
+	LoadShader(L"Assets\\Shaders\\BasicSprite2DShader.hlsl");
+	LoadTexture(L"Assets\\Texture\\asdf.jpg");
+	CreateMaterial("BasicColor", L"BasicColorShader.hlsl", nullptr);
+	CreateMaterial("BasicSprite2D", L"BasicSprite2DShader.hlsl", L"asdf.jpg");
 }

@@ -11,6 +11,5 @@ public:
 	ID3D11Buffer* m_pIndexBuffer = nullptr;
 
 	UINT m_vertexStrides;
-	UINT m_vbOffset = 0;
 	UINT m_indexStrides;
 };

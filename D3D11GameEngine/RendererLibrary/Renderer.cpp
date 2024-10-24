@@ -182,8 +182,8 @@ void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 {
 	m_matWorld = matWorld;
 	m_color = color;
-	m_pRect2D->Draw(m_pDeviceContext);
-	m_pBasicColor->Draw(m_pDeviceContext);
+	m_mapMesh["Rect2D"]->Draw(m_pDeviceContext);
+	m_mapMaterial["BasicColor"]->Draw(m_pDeviceContext);
 	m_pConstantBuffer_transform->Draw(m_pDeviceContext);
 	m_pConstantBuffer_color->Draw(m_pDeviceContext);
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
@@ -196,13 +196,18 @@ void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObjec
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
 }
 
+IMeshObject * CRenderer::CreateMeshObject(const char * name)
+{
+	return nullptr;
+}
+
 ISpriteObject* CRenderer::CreateSpriteObject(const char* name)
 {
 	CSpriteObject* pSpriteObject = new CSpriteObject;
+	pSpriteObject->m_pMesh = m_mapMesh["Rect2D"];
+	pSpriteObject->m_pMaterial = m_mapMaterial["BasicSprite2D"]->Copy();
 	pSpriteObject->m_pConstantBuffer_transform = CreateConstantBuffer("a", &m_matWorld, sizeof(XMMATRIX) * 3, "vs", 0);
 	pSpriteObject->m_pConstantBuffer_spriteData = CreateConstantBuffer("b", &pSpriteObject->m_curSpriteData, sizeof(SpriteData), "ps", 1);
-	pSpriteObject->m_pMaterial = m_pBasicSprite2D->Copy();
-	pSpriteObject->m_pMesh = m_pRect2D;
 
 	m_mapSpriteObject.insert({ name,pSpriteObject });
 	return pSpriteObject;

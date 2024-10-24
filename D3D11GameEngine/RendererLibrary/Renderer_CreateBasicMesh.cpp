@@ -16,7 +16,7 @@ void CRenderer::CreateBasicMesh()
 		0,1,2,
 		0,2,3
 	};
-	m_pRect2D = CreateMesh("Rect2D", Rect2D, sizeof(Rect2D), sizeof(SimpleVertex), Rect2DIndex, sizeof(Rect2DIndex), sizeof(USHORT));
+	CreateMesh("Rect2D", Rect2D, sizeof(Rect2D), sizeof(SimpleVertex), Rect2DIndex, sizeof(Rect2DIndex), sizeof(USHORT));
 
 	SimpleVertex Rect3D[] =
 	{
@@ -74,5 +74,5 @@ void CRenderer::CreateBasicMesh()
 		22,23,20
 	};
 
-	m_pRect3D = CreateMesh("Rect3D", Rect3D, sizeof(Rect3D), sizeof(SimpleVertex), Rect3DIndex, sizeof(Rect3DIndex), sizeof(USHORT));
+	CreateMesh("Rect3D", Rect3D, sizeof(Rect3D), sizeof(SimpleVertex), Rect3DIndex, sizeof(Rect3DIndex), sizeof(USHORT));
 }

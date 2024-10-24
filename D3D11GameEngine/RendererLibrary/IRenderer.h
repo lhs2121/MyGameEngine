@@ -19,6 +19,13 @@ struct IMaterial
 {
 	virtual void SetTexture(const WCHAR* wszTexName) = 0;
 };
+
+struct IMeshObject
+{
+	virtual void SetSolid() = 0;
+	virtual void SetWireFrame() = 0;
+};
+
 struct ISpriteObject
 {
 	virtual IMaterial* GetMaterial() = 0;
@@ -36,6 +43,7 @@ struct IRenderer
 	virtual void LoadShader(const WCHAR* wszShaderPath) = 0;
 
 	virtual ISpriteObject* CreateSpriteObject(const char* name) = 0;
+	virtual IMeshObject* CreateMeshObject(const char* name) = 0;
 
 	virtual void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) = 0;
 	virtual void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) = 0;
