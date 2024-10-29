@@ -21,6 +21,7 @@
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib,"d3dcompiler.lib")
 #pragma comment(lib, "Shlwapi.lib")
-#pragma comment(lib, "DirectXTex2017.lib")
+#pragma comment(lib, "DirectXTex2017/Debug/DirectXTex.lib")
 
 #endif //PCH_H
+ 

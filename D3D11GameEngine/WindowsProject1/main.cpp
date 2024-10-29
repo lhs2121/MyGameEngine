@@ -80,12 +80,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     matworld2 *= matscale2;
     matworld2 *= matrot2;
     matworld2 *= matPos2;
-
+    
     g_pRenderer->LoadTexture(L"Assets\\Texture\\fg.jpg");
     ISpriteObject* spobj = g_pRenderer->CreateSpriteObject("asdf");
-    spobj->CreateAnimation(L"fg.jpg", 4, 4, 0.3f);
-    spobj->GetMaterial()->SetTexture(L"asdf.jpg");
-   // spobj->GetMaterial()->SetTexture(L"fg.jpg");
+    spobj->CreateAnimation(L"fg.jpg", 2, 2, 0.3f);
     while (WM_QUIT != msg.message)
     {
 
@@ -104,7 +102,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             spobj->UpdateAnimation(deltaTime);
 			g_pRenderer->StartRender();
-			g_pRenderer->DrawRect(matworld2, { 0,1,0,1 });
+			//g_pRenderer->DrawRect(matworld2, { 0,1,0,1 });
             g_pRenderer->DrawSprite(matworld, spobj);
 			g_pRenderer->EndRender();
 		}

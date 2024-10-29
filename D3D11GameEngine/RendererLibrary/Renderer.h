@@ -16,9 +16,6 @@ public:
 	void StartRender() override;
 	void EndRender() override;
 
-
-
-
 	IMeshObject* CreateMeshObject(const char* name);
 	ISpriteObject* CreateSpriteObject(const char* name);
 

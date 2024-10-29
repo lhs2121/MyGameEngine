@@ -158,12 +158,6 @@ void CRenderer::Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	if (S_OK != m_pDevice->CreateInputLayout(iaDesc, 3, compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), &m_pBasicInputLayout))
 		__debugbreak();
 
-	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
-	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
-	m_pDeviceContext->RSSetState(m_pRasterizerState_Solid);
-	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
-	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
 }
 
 void CRenderer::StartRender()
@@ -191,6 +185,12 @@ void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 
 void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject)
 {
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
+	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
+	m_pDeviceContext->RSSetState(m_pRasterizerState_Solid);
+	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
+	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
 	m_matWorld = matWorld;
 	((CSpriteObject*)pSpriteObject)->Draw(m_pDeviceContext);
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
@@ -207,7 +207,7 @@ ISpriteObject* CRenderer::CreateSpriteObject(const char* name)
 	pSpriteObject->m_pMesh = m_mapMesh["Rect2D"];
 	pSpriteObject->m_pMaterial = m_mapMaterial["BasicSprite2D"]->Copy();
 	pSpriteObject->m_pConstantBuffer_transform = CreateConstantBuffer("a", &m_matWorld, sizeof(XMMATRIX) * 3, "vs", 0);
-	pSpriteObject->m_pConstantBuffer_spriteData = CreateConstantBuffer("b", &pSpriteObject->m_curSpriteData, sizeof(SpriteData), "ps", 1);
+	pSpriteObject->m_pConstantBuffer_spriteData = CreateConstantBuffer("b", &pSpriteObject->m_curSpriteData, sizeof(SpriteData), "ps",0);
 
 	m_mapSpriteObject.insert({ name,pSpriteObject });
 	return pSpriteObject;
