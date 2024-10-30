@@ -13,11 +13,6 @@ CRenderer::~CRenderer()
 	m_pBasicInputLayout->Release();
 	delete m_pConstantBuffer_transform;
 	delete m_pConstantBuffer_color;
-	m_pRasterizerState_Solid->Release();
-	m_pRasterizerState_WireFrame->Release();
-	m_pSamplerState_Point->Release();
-	m_pDepthStencilState_Depth_On->Release();
-	m_pBlendState_Alhpa_On->Release();
 
 	for (auto& pair : m_mapMesh)
 	{
@@ -29,9 +24,29 @@ CRenderer::~CRenderer()
 		CMaterial* material = pair.second;
 		delete material;
 	}
-	for (auto& pair : m_mapTexture)
+	for (auto& pair : m_mapSRV)
 	{
-		ID3D11ShaderResourceView* srv = pair.second;
+		auto* srv = pair.second;
+		srv->Release();
+	}
+	for (auto& pair : m_mapRasterizer)
+	{
+		auto* srv = pair.second;
+		srv->Release();
+	}
+	for (auto& pair : m_mapDepthStencil)
+	{
+		auto* srv = pair.second;
+		srv->Release();
+	}
+	for (auto& pair : m_mapBlend)
+	{
+		auto* srv = pair.second;
+		srv->Release();
+	}
+	for (auto& pair : m_mapSampler)
+	{
+		auto* srv = pair.second;
 		srv->Release();
 	}
 	for (auto& pair : m_mapShader)
@@ -158,6 +173,9 @@ void CRenderer::Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	if (S_OK != m_pDevice->CreateInputLayout(iaDesc, 3, compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), &m_pBasicInputLayout))
 		__debugbreak();
 
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
+
 }
 
 void CRenderer::StartRender()
@@ -176,36 +194,34 @@ void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 {
 	m_matWorld = matWorld;
 	m_color = color;
-	m_mapMesh["Rect2D"]->Draw(m_pDeviceContext);
-	m_mapMaterial["BasicColor"]->Draw(m_pDeviceContext);
+
+	CMesh* pCMesh = m_mapMesh["Rect2D"];
+	CMaterial* pCMaterial = m_mapMaterial["BasicColor"];
+
+	pCMesh->Draw(m_pDeviceContext);
+	pCMaterial->Draw(m_pDeviceContext);
 	m_pConstantBuffer_transform->Draw(m_pDeviceContext);
-	m_pConstantBuffer_color->Draw(m_pDeviceContext);
+	m_pConstantBuffer_color->Draw(m_pDeviceContext); 
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
 }
 
-void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject)
+void CRenderer::DrawSprite(const XMMATRIX& matWorld, IMaterial* pMaterial, ISpriteObject* pSpriteObject)
 {
-	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
-	m_pDeviceContext->PSSetSamplers(0, 1, &m_pSamplerState_Point);
-	m_pDeviceContext->RSSetState(m_pRasterizerState_Solid);
-	m_pDeviceContext->OMSetBlendState(m_pBlendState_Alhpa_On, nullptr, 0xFFFFFFFF);
-	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState_Depth_On, 0);
 	m_matWorld = matWorld;
-	((CSpriteObject*)pSpriteObject)->Draw(m_pDeviceContext);
-	m_pDeviceContext->DrawIndexed(6, 0, 0);
-}
+	CMesh* pCMesh = m_mapMesh["Rect2D"];
+	CMaterial* pCMaterial = (CMaterial*)pMaterial;
+	CSpriteObject* pCSpriteObject = (CSpriteObject*)pSpriteObject;
 
-IMeshObject * CRenderer::CreateMeshObject(const char * name)
-{
-	return nullptr;
+
+	pCMesh->Draw(m_pDeviceContext);
+	pCMaterial->Draw(m_pDeviceContext);
+	pCSpriteObject->Draw(m_pDeviceContext);
+	m_pDeviceContext->DrawIndexed(6, 0, 0);
 }
 
 ISpriteObject* CRenderer::CreateSpriteObject(const char* name)
 {
 	CSpriteObject* pSpriteObject = new CSpriteObject;
-	pSpriteObject->m_pMesh = m_mapMesh["Rect2D"];
-	pSpriteObject->m_pMaterial = m_mapMaterial["BasicSprite2D"]->Copy();
 	pSpriteObject->m_pConstantBuffer_transform = CreateConstantBuffer("a", &m_matWorld, sizeof(XMMATRIX) * 3, "vs", 0);
 	pSpriteObject->m_pConstantBuffer_spriteData = CreateConstantBuffer("b", &pSpriteObject->m_curSpriteData, sizeof(SpriteData), "ps",0);
 
@@ -245,7 +261,7 @@ void CRenderer::LoadTexture(const WCHAR* wszFilePath)
 	if (S_OK != DirectX::CreateShaderResourceView(m_pDevice, scratchImage.GetImages(),scratchImage.GetImageCount(), metaData, &pSRV))
 		__debugbreak();
 
-	m_mapTexture.insert({ wszFileName,pSRV });
+	m_mapSRV.insert({ wszFileName,pSRV });
 
 	delete[] wszFullPath;
 }
@@ -317,7 +333,7 @@ void CRenderer::LoadShader(const WCHAR* wszShaderPath)
 	delete[] wszCurrentDir;
 }
 
-CMesh* CRenderer::CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, void* pIndexList, UINT indexSize, USHORT indexStride)
+IMesh* CRenderer::CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, void* pIndexList, UINT indexSize, USHORT indexStride)
 {
 	CMesh* pMesh = new CMesh;
 	pMesh->m_vertexStrides = vertexStride;
@@ -339,28 +355,24 @@ CMesh* CRenderer::CreateMesh(const char* meshName, void* pVertexList, UINT verte
 	return pMesh;
 }
 
-IMaterial* CRenderer::CreateMaterial(const char* materialName, const WCHAR* wszShaderName, const WCHAR* wszTexFileName)
+IMaterial* CRenderer::CreateMaterial(const char* name)
 {
 	CMaterial* pMaterial = new CMaterial;
-	ShaderData* data = m_mapShader[wszShaderName];
-
 	pMaterial->m_pRenderer = this;
-	pMaterial->m_pVertexShader = data->m_pVertexShader;
-	pMaterial->m_pPixelShader = data->m_pPixelShader;
-	pMaterial->m_pCompiledVertexShader = data->m_pCompiledVertexShader;
 
-	if (wszTexFileName)
-	{
-		if (m_mapTexture.find(wszTexFileName) == m_mapTexture.end())
-			__debugbreak();
-		pMaterial->m_pShaderResourceView = m_mapTexture[wszTexFileName];
-	}
-	else
-		pMaterial->m_pShaderResourceView = m_mapTexture[L"asdf.jpg"];
-	
-
-	m_mapMaterial.insert({ materialName,pMaterial });
+	m_mapMaterial.insert({ name,pMaterial });
 	return pMaterial;
+}
+
+IMaterial* CRenderer::CloneMaterial(const char* name)
+{
+	if (m_mapMaterial.find(name) == m_mapMaterial.end())
+		__debugbreak();
+
+	CMaterial* pMaterial = m_mapMaterial[name];
+	CMaterial* pCloneMaterial = new CMaterial();
+	pCloneMaterial = pMaterial;
+	return pCloneMaterial;
 }
 
 CConstantBuffer* CRenderer::CreateConstantBuffer(const char* bufferName, void* pData, UINT dataSize, const char* szTargerShader, int slotNum)
@@ -390,10 +402,50 @@ CConstantBuffer* CRenderer::CreateConstantBuffer(const char* bufferName, void* p
 	return pConstantBuffer;
 }
 
-ID3D11ShaderResourceView* CRenderer::GetShaderResourceView(const WCHAR* wszTexFile)
+ShaderData* CRenderer::GetShader(const WCHAR* wszName)
 {
-	if (m_mapTexture.find(wszTexFile) == m_mapTexture.end())
+	if (m_mapShader.find(wszName) == m_mapShader.end())
 		__debugbreak();
 
-	return m_mapTexture[wszTexFile];
+	return m_mapShader[wszName];
+}
+
+ID3D11ShaderResourceView* CRenderer::GetShaderResourceView(const WCHAR* wszTexFile)
+{
+	if (m_mapSRV.find(wszTexFile) == m_mapSRV.end())
+		__debugbreak();
+
+	return m_mapSRV[wszTexFile];
+}
+
+ID3D11RasterizerState* CRenderer::GetRasterizer(const char* szName)
+{
+	if (m_mapRasterizer.find(szName) == m_mapRasterizer.end())
+		__debugbreak();
+
+	return m_mapRasterizer[szName];
+}
+
+ID3D11SamplerState* CRenderer::GetSampler(const char* szName)
+{
+	if (m_mapSampler.find(szName) == m_mapSampler.end())
+		__debugbreak();
+
+	return m_mapSampler[szName];
+}
+
+ID3D11DepthStencilState* CRenderer::GetDepthStencil(const char* szName)
+{
+	if (m_mapDepthStencil.find(szName) == m_mapDepthStencil.end())
+		__debugbreak();
+
+	return m_mapDepthStencil[szName];
+}
+
+ID3D11BlendState* CRenderer::GetBlend(const char* szName)
+{
+	if (m_mapBlend.find(szName) == m_mapBlend.end())
+		__debugbreak();
+
+	return m_mapBlend[szName];
 }

@@ -13,7 +13,7 @@ CSpriteObject::~CSpriteObject()
 		delete m_pConstantBuffer_spriteData;
 }
 
-void CSpriteObject::CreateAnimation(const WCHAR* wszTexName, int countX, int countY, float interTime)
+void CSpriteObject::CreateAnimation(int countX, int countY, float interTime)
 {
 	m_spriteDataList.resize(countY);
 	for (int y = 0; y < countY; y++)
@@ -68,6 +68,4 @@ void CSpriteObject::Draw(ID3D11DeviceContext* pDeviceContext)
 {
 	m_pConstantBuffer_transform->Draw(pDeviceContext);
 	m_pConstantBuffer_spriteData->Draw(pDeviceContext);
-	m_pMesh->Draw(pDeviceContext);
-	m_pMaterial->Draw(pDeviceContext);
 }

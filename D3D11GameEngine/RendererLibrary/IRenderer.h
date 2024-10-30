@@ -17,19 +17,17 @@ struct IMesh
 
 struct IMaterial
 {
-	virtual void SetTexture(const WCHAR* wszTexName) = 0;
-};
-
-struct IMeshObject
-{
-	virtual void SetSolid() = 0;
-	virtual void SetWireFrame() = 0;
+	virtual void SetTexture(const WCHAR* wszFileName) = 0;
+	virtual void SetShader(const WCHAR* wszFileName) = 0;
+	virtual void SetRasterizer(const char* name) = 0;
+	virtual void SetDepthStencil(const char* name) = 0;
+	virtual	void SetSampler(const char* name) = 0;
+	virtual void SetBlend(const char* name) = 0;
 };
 
 struct ISpriteObject
 {
-	virtual IMaterial* GetMaterial() = 0;
-	virtual void CreateAnimation(const WCHAR* wszTexName, int countX, int countY, float interTime) = 0;
+	virtual void CreateAnimation(int countX, int countY, float interTime = 0.3f) = 0;
 	virtual void UpdateAnimation(float deltaTime) = 0;
 };
 struct IRenderer
@@ -39,14 +37,15 @@ struct IRenderer
 	virtual void StartRender() = 0;
 	virtual void EndRender() = 0;
 
+	virtual IMaterial* CloneMaterial(const char* name) = 0;
 	virtual void LoadTexture(const WCHAR* wszFilePath) = 0;
 	virtual void LoadShader(const WCHAR* wszShaderPath) = 0;
 
+	virtual IMaterial* CreateMaterial(const char* name) = 0;
 	virtual ISpriteObject* CreateSpriteObject(const char* name) = 0;
-	virtual IMeshObject* CreateMeshObject(const char* name) = 0;
 
 	virtual void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) = 0;
-	virtual void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) = 0;
+	virtual void DrawSprite(const XMMATRIX& matWorld, IMaterial* pMaterial, ISpriteObject* pSpriteObject) = 0;
 };
 
 extern "C" DLLAPI void CreateRenderer(IRenderer** ppRenderer);

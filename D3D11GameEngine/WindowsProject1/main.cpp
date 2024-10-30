@@ -68,8 +68,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     matworld *= matPos;
 
 
-    XMVECTOR vecPos2 = { 50,0,-1,1 };
-    XMVECTOR vecScale2 = { 100,200,1,1 };
+    XMVECTOR vecPos2 = { 0,0,-1,1 };
+    XMVECTOR vecScale2 = { 100,100,1,1 };
     XMVECTOR vecRot2 = { 0,0,0,1 };
 
     XMMATRIX matscale2 = XMMatrixScalingFromVector(vecScale2);
@@ -82,8 +82,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     matworld2 *= matPos2;
     
     g_pRenderer->LoadTexture(L"Assets\\Texture\\fg.jpg");
+
+    IMaterial* mat = g_pRenderer->CloneMaterial("BasicSprite2D");
+    mat->SetTexture(L"fg.jpg");
+
     ISpriteObject* spobj = g_pRenderer->CreateSpriteObject("asdf");
-    spobj->CreateAnimation(L"fg.jpg", 2, 2, 0.3f);
+    spobj->CreateAnimation(5, 5);
+
     while (WM_QUIT != msg.message)
     {
 
@@ -103,7 +108,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             spobj->UpdateAnimation(deltaTime);
 			g_pRenderer->StartRender();
 			//g_pRenderer->DrawRect(matworld2, { 0,1,0,1 });
-            g_pRenderer->DrawSprite(matworld, spobj);
+            g_pRenderer->DrawSprite(matworld, mat, spobj);
 			g_pRenderer->EndRender();
 		}
 	}
