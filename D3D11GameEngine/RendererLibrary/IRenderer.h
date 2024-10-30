@@ -27,7 +27,6 @@ struct IMaterial
 
 struct ISpriteObject
 {
-	virtual void CreateAnimation(int countX, int countY, float interTime = 0.3f) = 0;
 	virtual void UpdateAnimation(float deltaTime) = 0;
 };
 struct IRenderer
@@ -36,16 +35,14 @@ struct IRenderer
 
 	virtual void StartRender() = 0;
 	virtual void EndRender() = 0;
-
-	virtual IMaterial* CloneMaterial(const char* name) = 0;
 	virtual void LoadTexture(const WCHAR* wszFilePath) = 0;
 	virtual void LoadShader(const WCHAR* wszShaderPath) = 0;
 
 	virtual IMaterial* CreateMaterial(const char* name) = 0;
-	virtual ISpriteObject* CreateSpriteObject(const char* name) = 0;
+	virtual ISpriteObject* CreateSpriteObject(const char* name, const WCHAR* wszTexfile, int countX, int countY, float interTime = 0.3f) = 0;
 
 	virtual void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) = 0;
-	virtual void DrawSprite(const XMMATRIX& matWorld, IMaterial* pMaterial, ISpriteObject* pSpriteObject) = 0;
+	virtual void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) = 0;
 };
 
 extern "C" DLLAPI void CreateRenderer(IRenderer** ppRenderer);

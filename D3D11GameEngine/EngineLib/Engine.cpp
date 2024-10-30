@@ -22,6 +22,7 @@ void Engine::LoadScene(const char* _name)
 
 void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, Initializer* pGameInit)
 {
+	CreateRenderer(&m_pRenderer);
 	Naming::Create();
 	Naming::AddName("Object");
 	Naming::AddName("Colider");
@@ -31,9 +32,7 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 
 	Window::Create(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
 
-	Device::Create(Window::GethWnd(), { _windowSizeX ,_windowSizeY });
-	Device::InitMesh();
-	Device::InitMaterial();
+	m_pRenderer->Initalize((UINT)Window::GetSizeX(), (UINT)Window::GetSizeY(), *Window::GethWnd());
 
 	CreateEngineTime(&mainTime);
 	mainTime->Init();
@@ -61,16 +60,13 @@ void Engine::EngineUpdate()
 	
 	pCurScene->CheckDeath();
 
+
+	m_pRenderer->StartRender();
+
 	pCurScene->AllUpdate(deltaTime);
 	pCurScene->UpdateQuadTree();
 
-	Device::Clear();
-
-	pCurScene->Render();
-	
-	Device::Present();
-
-
+	m_pRenderer->EndRender();
 }
 
 void Engine::EngineRelease()
@@ -82,11 +78,10 @@ void Engine::EngineRelease()
 	}
 	allScene.clear();
 	
+	DeleteRenderer(m_pRenderer);
 	DeleteEngineTime(mainTime);
 	Window::Delete();
 	Input::Delete();
- 	Resource::DeleteAllResource();
-	Device::Delete();
 	Naming::Delete();
 }
 

@@ -1,18 +1,16 @@
 #include "Pre.h"
 #include "Player.h"
 
+Player::~Player()
+{
+}
+
 void Player::Awake()
 {
 	SetName("player");
-
-	pSpriteRenderer = CreateChild<SpriteRenderer>();
-	pSpriteRenderer->SetRenderOrder(Layer::Render::PLAYER);
-
-	Resource::CreateTexture("Character/stand.dds");
-	pSpriteRenderer->SetMesh("Box2D");
-	pSpriteRenderer->GetMaterial()->pTexture = Resource::FindTexture("stand");
-	pSpriteRenderer->CreateAnimation(4, 1, 1.0f);
-
+	m_pRenderer->LoadTexture(L"Assets\\Texture\\fg.jpg");
+	pSp = m_pRenderer->CreateSpriteObject("asd",L"fg.jpg",4,4);
+	pSp2 = m_pRenderer->CreateSpriteObject("asd2", L"asdf.jpg", 4, 4);
 	transform.SetLocalPosition({ 50,50,});
 	transform.SetLocalScale({ 64,64 });
 	//pRigid = CreateChild<RigidBody2D>();
@@ -25,13 +23,24 @@ void Player::Awake()
 
 void Player::Update(float _deltaTime)
 {
+	static bool one = true;
+	if (one)
+	{
+		pSp->UpdateAnimation(_deltaTime);
+		m_pRenderer->DrawSprite(transform.matWorld, pSp);
+	}
+	else
+	{
+		pSp2->UpdateAnimation(_deltaTime);
+		m_pRenderer->DrawSprite(transform.matWorld, pSp2);
+	}
 	if (GetKeyDown('1'))
 	{
-		pColider->SetCollisionType(CollisionType::_AABB);
+		one = true;
 	}
 	if (GetKeyDown('2'))
 	{
-		pColider->SetCollisionType(CollisionType::_OBB);
+		one = false;
 	}
 	if (GetKeyDown('3'))
 	{

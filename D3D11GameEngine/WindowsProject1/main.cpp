@@ -107,7 +107,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             spobj->UpdateAnimation(deltaTime);
 			g_pRenderer->StartRender();
-			//g_pRenderer->DrawRect(matworld2, { 0,1,0,1 });
+			g_pRenderer->DrawRect(matworld2, { 0,1,0,1 });
+            g_pRenderer->DrawRect(matworld, { 1,1,1,1 });
             g_pRenderer->DrawSprite(matworld, mat, spobj);
 			g_pRenderer->EndRender();
 		}

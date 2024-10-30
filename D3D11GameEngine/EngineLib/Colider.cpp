@@ -1,7 +1,6 @@
 #include "Pre.h"
 #include "Scene.h"
 #include "Colider.h"
-#include "Renderer.h"
 #include "QuadTree.h"
 
 Colider::Colider()
@@ -20,18 +19,11 @@ void Colider::Awake()
 {
 	shape = new AABB();
 	shape->Update(transform);
-
-	debugRenderer = CreateChild<Renderer>();
-	debugRenderer->SetRenderOrder(999);
-	debugRenderer->SetMesh("Box2D");
-	debugRenderer->SetMaterial("WireFrame");
-
-	base::string cbname = Naming::GetName("DebugRenderer");
-	debugRenderer->SetConstantBuffer(cbname.c_str(), &debugColor, sizeof(float4), ShaderType::PS, 1);
 }
 
 void Colider::Update(float _deltaTime)
 {
+	m_pRenderer->DrawRect(transform.matWorld, { 1,0,0,1 });
 	shape->Update(transform);
 }
 
@@ -73,7 +65,6 @@ void Colider::SetCollisionType(CollisionType _Type)
 		break;
 	}
 	shape->Update(transform);
-	debugRenderer->SetMesh(meshName);
 }
 
 bool Colider::Collision(Colider* pOther)

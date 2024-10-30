@@ -3,7 +3,6 @@
 #include <common/commonPre.h>
 
 #include <BaseLib/BaseAPI.h>
-#include <ResourceLib/ResourceAPI.h>
 #include <EngineLib/Engine.h>
 #include <GameLib/GameInitializer.h>
 

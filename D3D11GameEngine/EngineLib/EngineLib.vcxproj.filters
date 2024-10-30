@@ -1,99 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Object">
-      <UniqueIdentifier>{1a5968f8-fb60-4455-ad5e-8459db36b384}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{27cbf18e-e187-4098-babe-62acddfb5b1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectEssential">
-      <UniqueIdentifier>{8e3d5268-68bf-4a19-a201-3cdf8abdf48b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{5af607b8-8fe1-47e5-91be-f59b3057625e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Transform">
-      <UniqueIdentifier>{e3b233a1-26ce-45df-8507-3cbb54091690}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Collision">
-      <UniqueIdentifier>{406c9919-897f-42bd-90a0-fae83a8ffad2}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Colider.h">
+      <Filter>.h</Filter>
+    </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Engine</Filter>
+      <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Object\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineAPI.h" />
-    <ClInclude Include="Object.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>ObjectEssential</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>ObjectEssential</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>ObjectEssential</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>ObjectEssential</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Object</Filter>
+    <ClInclude Include="EngineAPI.h">
+      <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Naming.h">
-      <Filter>Common</Filter>
+      <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Colider.h">
-      <Filter>Collision</Filter>
+    <ClInclude Include="Object.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Pre.h">
+      <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="QuadTree.h">
-      <Filter>Collision</Filter>
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Colider.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Object\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="Object.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>ObjectEssential</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>ObjectEssential</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>ObjectEssential</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>ObjectEssential</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Object</Filter>
+      <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Naming.cpp">
-      <Filter>Common</Filter>
+      <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Colider.cpp">
-      <Filter>Collision</Filter>
+    <ClCompile Include="Object.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Pre.cpp">
+      <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
-      <Filter>Collision</Filter>
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>.cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include=".h">
+      <UniqueIdentifier>{4ce01d2a-6393-474e-b265-3da880e24a0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".cpp">
+      <UniqueIdentifier>{d39caaa9-21fd-46fb-988e-a0fc37cfff18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

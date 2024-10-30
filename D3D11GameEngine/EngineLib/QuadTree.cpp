@@ -36,7 +36,6 @@ void CQuadTree::DivideToMaxLevel()
 		pNewQuad->pCol = pNewQuad->CreateChild<Colider>();
 		pNewQuad->transform.SetLocalPosition({ chPos[i].x, chPos[i].y });
 		pNewQuad->transform.SetLocalScale({ 0.5f , 0.5f });
-		pNewQuad->pCol->Disenable();
 
 		pNewQuad->DivideToMaxLevel();
 		pNode[i] = pNewQuad;
@@ -71,7 +70,6 @@ void CQuadTree::Divide()
 		pNode[i]->pCol = pNode[i]->CreateChild<Colider>();
 		pNode[i]->transform.SetLocalPosition({ chPos[i].x, chPos[i].y });
 		pNode[i]->transform.SetLocalScale({ 0.5f , 0.5f });
-		pNode[i]->pCol->Disenable();
 		pNode[i]->pParent = this;
 	}
 }

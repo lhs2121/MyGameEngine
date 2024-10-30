@@ -16,17 +16,16 @@ public:
 	void StartRender() override;
 	void EndRender() override;
 
-	ISpriteObject* CreateSpriteObject(const char* name);
+	ISpriteObject* CreateSpriteObject(const char* name, const WCHAR* wszTexfile, int countX, int countY, float interTime = 0.3f);
 	IMesh* CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, void* pIndexList, UINT indexSize, USHORT indexStride);
 	IMaterial* CreateMaterial(const char* name) override;
-	IMaterial* CloneMaterial(const char* name) override;
 	CConstantBuffer* CreateConstantBuffer(const char* bufferName, void* pData, UINT dataSize, const char* szTargerShader, int slotNum);
 
 	void LoadTexture(const WCHAR* wszFilePath) override;
 	void LoadShader(const WCHAR* wszShaderPath) override;
 	
 	void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) override;
-	void DrawSprite(const XMMATRIX& matWorld, IMaterial* pMaterial, ISpriteObject* pSpriteObject) override;
+	void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) override;
 
 	ShaderData* GetShader(const WCHAR* wszName);
 	ID3D11ShaderResourceView* GetShaderResourceView(const WCHAR* wszTexFile);
@@ -44,16 +43,13 @@ private:
 	std::unordered_map<std::string,  ID3D11DepthStencilState*> m_mapDepthStencil;
 	std::unordered_map<std::string,  ID3D11BlendState*> m_mapBlend;
 	std::unordered_map<std::string,  ID3D11SamplerState*> m_mapSampler;
-
-
+	std::unordered_map<std::string,  CSpriteObject*> m_mapSpriteObject;
 	std::unordered_map<std::string,  CMesh*> m_mapMesh;
 	std::unordered_map<std::string,  CMaterial*> m_mapMaterial;
-	std::unordered_map<std::string,  CSpriteObject*> m_mapSpriteObject;
 
 
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDeviceContext;
-
 	IDXGISwapChain* m_pSwapChain;
 	ID3D11Texture2D* m_pRenderTargetBuffer;
 	ID3D11Texture2D* m_pDepthStencilBuffer;

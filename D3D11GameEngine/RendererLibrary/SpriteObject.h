@@ -9,11 +9,12 @@ class CSpriteObject : public ISpriteObject
 {
 public:
 	~CSpriteObject();
-	void CreateAnimation(int countX, int countY, float interTime = 0.3f) override;
+	void CreateAnimation(int countX, int countY, float interTime);
 	void UpdateAnimation(float deltaTime) override; 
 	void Draw(ID3D11DeviceContext* pDeviceContext);
 	CConstantBuffer* m_pConstantBuffer_transform;
 	CConstantBuffer* m_pConstantBuffer_spriteData;
+	ID3D11ShaderResourceView* m_pSRV;
 	SpriteData m_curSpriteData;
 	float m_interTime;
 	float m_curTime = 0.0f;

@@ -205,26 +205,28 @@ void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
 }
 
-void CRenderer::DrawSprite(const XMMATRIX& matWorld, IMaterial* pMaterial, ISpriteObject* pSpriteObject)
+void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject)
 {
 	m_matWorld = matWorld;
 	CMesh* pCMesh = m_mapMesh["Rect2D"];
-	CMaterial* pCMaterial = (CMaterial*)pMaterial;
+	CMaterial* pCMaterial = m_mapMaterial["BasicSprite2D"];
 	CSpriteObject* pCSpriteObject = (CSpriteObject*)pSpriteObject;
 
-
+	pCMaterial->m_pShaderResourceView = pCSpriteObject->m_pSRV;
 	pCMesh->Draw(m_pDeviceContext);
 	pCMaterial->Draw(m_pDeviceContext);
 	pCSpriteObject->Draw(m_pDeviceContext);
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
 }
 
-ISpriteObject* CRenderer::CreateSpriteObject(const char* name)
+ISpriteObject* CRenderer::CreateSpriteObject(const char* name, const WCHAR* wszTexfile, int countX, int countY, float interTime)
 {
 	CSpriteObject* pSpriteObject = new CSpriteObject;
 	pSpriteObject->m_pConstantBuffer_transform = CreateConstantBuffer("a", &m_matWorld, sizeof(XMMATRIX) * 3, "vs", 0);
 	pSpriteObject->m_pConstantBuffer_spriteData = CreateConstantBuffer("b", &pSpriteObject->m_curSpriteData, sizeof(SpriteData), "ps",0);
+	pSpriteObject->m_pSRV = GetShaderResourceView(wszTexfile);
 
+	pSpriteObject->CreateAnimation(countX, countY, interTime);
 	m_mapSpriteObject.insert({ name,pSpriteObject });
 	return pSpriteObject;
 }
@@ -362,17 +364,6 @@ IMaterial* CRenderer::CreateMaterial(const char* name)
 
 	m_mapMaterial.insert({ name,pMaterial });
 	return pMaterial;
-}
-
-IMaterial* CRenderer::CloneMaterial(const char* name)
-{
-	if (m_mapMaterial.find(name) == m_mapMaterial.end())
-		__debugbreak();
-
-	CMaterial* pMaterial = m_mapMaterial[name];
-	CMaterial* pCloneMaterial = new CMaterial();
-	pCloneMaterial = pMaterial;
-	return pCloneMaterial;
 }
 
 CConstantBuffer* CRenderer::CreateConstantBuffer(const char* bufferName, void* pData, UINT dataSize, const char* szTargerShader, int slotNum)

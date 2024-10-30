@@ -3,7 +3,6 @@
 #include <common/commonPre.h>
 #include <common/declspec.h>
 #include <BaseLib/BaseAPI.h>
-#include <ResourceLib/ResourceAPI.h>
 #include <MediaLib/MediaAPI.h>
 #include <EngineLib/EngineAPI.h>
 
@@ -13,11 +12,8 @@
 		  
 #include <EngineLib/Object.h>
 #include <EngineLib/Scene.h>
-#include <EngineLib/Camera.h>
 		  
 //Component
-#include <EngineLib/Renderer.h>
-#include <EngineLib/SpriteRenderer.h>
 #include <EngineLib/Colider.h>
 #include <EngineLib/RigidBody.h>
 

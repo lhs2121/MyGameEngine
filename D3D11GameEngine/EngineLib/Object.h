@@ -61,6 +61,7 @@ public:
 	{
 		Object* newComp = new T();
 		newComp->SetParent(this);
+		newComp->m_pRenderer = m_pRenderer;
 		transform.TransformUpdate();
 		newComp->Awake();
 		return (T*)newComp;
@@ -84,7 +85,8 @@ public:
 
 	base::string name;
 	Transform transform;
-private:
+	IRenderer* m_pRenderer = nullptr;
+protected:
 	int order = 0;
 	bool death = false;
 	bool isEnable = true;
