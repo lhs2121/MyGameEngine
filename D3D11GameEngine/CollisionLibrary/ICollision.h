@@ -6,22 +6,23 @@
 #define CollisionAPI __declspec(dllimport)
 #endif
 
+#include <DirectXMath.h>
+using namespace DirectX;
 
 enum COLLISION_TYPE
 {
-	AABB2D = 1 << 0,
-	SPHERE2D = 1 << 1,
-	OBB2D = 1 << 2,
-	AABB3D = 1 << 3,
-	SPHERE3D = 1 << 4,
-	OBB3D = 1 << 5,
+	AABB = 1 << 0,
+	SPHERE = 1 << 1,
+	OBB = 1 << 2,
 };
 
 struct ICollision
 {
 	virtual void SetType(COLLISION_TYPE type) = 0;
+	virtual void UpdateTransform(XMVECTOR& position, XMVECTOR& scale, XMVECTOR& rotation) = 0;
 };
 
 extern "C" CollisionAPI void CreateCollision(ICollision** ppCol);
+extern "C" CollisionAPI void DeleteCollision(ICollision* pCol);
 extern "C" CollisionAPI bool Collision(ICollision* pLeft, ICollision* pRight);
 

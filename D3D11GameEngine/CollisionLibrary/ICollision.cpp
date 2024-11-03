@@ -8,6 +8,12 @@ void CreateCollision(ICollision** ppCol)
 	*ppCol = new CCollision;
 }
 
+void DeleteCollision(ICollision* pCol)
+{
+	CCollision* pCastCol = (CCollision*)pCol;
+	delete pCastCol;
+}
+
 bool Collision(ICollision* pLeft, ICollision* pRight)
 {
 	CCollision* pCastLeft = (CCollision*)pLeft;
@@ -27,39 +33,21 @@ bool Collision(ICollision* pLeft, ICollision* pRight)
 	void* pShape1 = pCastLeft->Get3DShape();
 	void* pShape2 = pCastRight->Get3DShape();
 
-	//2d¶û 3dÀÇ Ãæµ¹Àº false
-	if (pShape1 != nullptr && pShape2 == nullptr)
-		return false;
-	if (pShape1 == nullptr && pShape2 != nullptr)
-		return false;
-
 	switch (combine)
 	{
-	case COLLISION_TYPE::AABB2D | COLLISION_TYPE::AABB2D:
-		return AABB2DvsAABB2D(pCastLeft, pCastRight);
-	case COLLISION_TYPE::AABB2D | COLLISION_TYPE::SPHERE2D:
-		return AABB2DvsSPHERE2D(pCastLeft, pCastRight);
-	case COLLISION_TYPE::AABB2D | COLLISION_TYPE::OBB2D:
-		return AABB2DvsOBB2D(pCastLeft, pCastRight);
-	case COLLISION_TYPE::SPHERE2D | COLLISION_TYPE::SPHERE2D:
-		return SPHERE2DvsSPHERE2D(pCastLeft, pCastRight);
-	case COLLISION_TYPE::SPHERE2D | COLLISION_TYPE::OBB2D:
-		return SPHERE2DvsOBB2D(pCastLeft, pCastRight);
-	case COLLISION_TYPE::OBB2D | COLLISION_TYPE::OBB2D:
-		return OBB2DvsOBB2D(pCastLeft, pCastRight);
-	case COLLISION_TYPE::AABB3D | COLLISION_TYPE::AABB3D:
+	case COLLISION_TYPE::AABB | COLLISION_TYPE::AABB:
 		return ((DirectX::BoundingBox*)pShape1)->Intersects(*((DirectX::BoundingBox*)pShape2));
-	case COLLISION_TYPE::AABB3D | COLLISION_TYPE::SPHERE3D:
+	case COLLISION_TYPE::AABB | COLLISION_TYPE::SPHERE:
 		return ((DirectX::BoundingBox*)pShape1)->Intersects(*((DirectX::BoundingSphere*)pShape2));
-	case COLLISION_TYPE::AABB3D | COLLISION_TYPE::OBB3D:
+	case COLLISION_TYPE::AABB | COLLISION_TYPE::OBB:
 		return ((DirectX::BoundingBox*)pShape1)->Intersects(*((DirectX::BoundingOrientedBox*)pShape2));
-	case COLLISION_TYPE::SPHERE3D | COLLISION_TYPE::SPHERE3D:
+	case COLLISION_TYPE::SPHERE | COLLISION_TYPE::SPHERE:
 		return ((DirectX::BoundingSphere*)pShape1)->Intersects(*((DirectX::BoundingSphere*)pShape2));
-	case COLLISION_TYPE::SPHERE3D | COLLISION_TYPE::OBB3D:
+	case COLLISION_TYPE::SPHERE | COLLISION_TYPE::OBB:
 		return ((DirectX::BoundingSphere*)pShape1)->Intersects(*((DirectX::BoundingOrientedBox*)pShape2));
-	case COLLISION_TYPE::OBB3D | COLLISION_TYPE::OBB3D:
+	case COLLISION_TYPE::OBB | COLLISION_TYPE::OBB:
 		return ((DirectX::BoundingOrientedBox*)pShape1)->Intersects(*((DirectX::BoundingOrientedBox*)pShape2));
 	default:
-		break;
+		return false;
 	}
 }
