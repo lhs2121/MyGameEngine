@@ -1,25 +1,5 @@
 #include "Pre.h"
 #include "Scene.h"
-#include "Colider.h"
-
-void Scene::AddCollision(Colider* pCol)
-{
-	dynamicColiders.push_back(pCol);
-	if (pQuadRoot)
-	{
-		pQuadRoot->Insert(pCol);
-	}
-}
-
-void Scene::UpdateQuadTree()
-{
-	pQuadRoot->Clear();
-	for (Colider* pCol : dynamicColiders)
-	{
-		pQuadRoot->Insert(pCol);
-	}
-	pQuadRoot->CollisionList();
-}
 
 void Scene::CheckDeath()
 {
@@ -30,5 +10,10 @@ void Scene::CheckDeath()
 		delete object;
 	}
 	deathNote.clear();
+}
+
+void Scene::AddCollision(ICollision* pCol)
+{
+	m_collisionList.push_back(pCol);
 }
 

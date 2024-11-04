@@ -1,16 +1,13 @@
 #pragma once
 #include "Object.h"
-#include "Colider.h"
-#include "QuadTree.h"
+
 class Scene : public Object
 {
 public:
-	void      AddCollision(Colider* pCol);
-	void      UpdateQuadTree();
-	void      CheckDeath();
-
-	CQuadTree* pQuadRoot = nullptr;
-	std::vector<Colider*> dynamicColiders;
+	void CheckDeath();
+	void AddCollision(ICollision* pCol);
+	
+	std::vector<ICollision*> m_collisionList;
 	std::vector<Object*> deathNote;
 };
 

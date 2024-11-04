@@ -13,12 +13,6 @@ void Player::Awake()
 	pSp2 = m_pRenderer->CreateSpriteObject("asd2", L"asdf.jpg", 4, 4);
 	transform.SetLocalPosition({ 50,50,});
 	transform.SetLocalScale({ 64,64 });
-	//pRigid = CreateChild<RigidBody2D>();
-
-	pColider = CreateChild<Colider>();
-	pColider->SetCollisionType(CollisionType::_AABB);
-	GetScene()->AddCollision(pColider);
-	//pColider->SetColOrder(Layer::Collision::PLAYER);
 }
 
 void Player::Update(float _deltaTime)
@@ -44,7 +38,6 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyDown('3'))
 	{
-		pColider->SetCollisionType(CollisionType::_SPHERE);
 	}
 	if (GetKeyPress('A'))
 	{
@@ -72,9 +65,6 @@ void Player::Update(float _deltaTime)
 	}
 	if (GetKeyDown('R'))
 	{
-		if (pRigid)
-			pRigid->velocity = { 0,0 };
-
 		transform.SetLocalPosition({ 200,200 });
 		transform.SetLocalRotation({ 0,0,0 });
 	}

@@ -225,19 +225,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Colider.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Pre.h" />
     <ClInclude Include="EngineAPI.h" />
-    <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="Naming.h" />
-    <ClInclude Include="QuadTree.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Colider.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -254,9 +249,6 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pre.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pre.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Naming.cpp" />
-    <ClCompile Include="QuadTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />

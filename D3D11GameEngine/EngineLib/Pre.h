@@ -4,7 +4,8 @@
 #include <BaseLib\BaseAPI.h>
 #include <MediaLib\MediaAPI.h>
 #include <RendererLibrary/IRenderer.h>
-#include "Naming.h"
 #include <DirectXMath.h>
+#include <CollisionLibrary/ICollision.h>
 
 #pragma comment(lib,"RendererLibrary.lib")
+#pragma comment(lib,"CollisionLibrary.lib")

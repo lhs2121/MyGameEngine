@@ -3,7 +3,6 @@
 #include <MediaLib/MediaAPI.h>
 #include "Engine.h"
 #include "Scene.h"
-#include "Naming.h"
 
 void Engine::LoadScene(const char* _name)
 {
@@ -23,12 +22,6 @@ void Engine::LoadScene(const char* _name)
 void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, Initializer* pGameInit)
 {
 	CreateRenderer(&m_pRenderer);
-	Naming::Create();
-	Naming::AddName("Object");
-	Naming::AddName("Colider");
-	Naming::AddName("Renderer");
-	Naming::AddName("DebugRenderer");
-	Naming::AddName("SpriteData");
 
 	Window::Create(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
 
@@ -64,7 +57,6 @@ void Engine::EngineUpdate()
 	m_pRenderer->StartRender();
 
 	pCurScene->AllUpdate(deltaTime);
-	pCurScene->UpdateQuadTree();
 
 	m_pRenderer->EndRender();
 }
@@ -82,7 +74,6 @@ void Engine::EngineRelease()
 	DeleteEngineTime(mainTime);
 	Window::Delete();
 	Input::Delete();
-	Naming::Delete();
 }
 
 

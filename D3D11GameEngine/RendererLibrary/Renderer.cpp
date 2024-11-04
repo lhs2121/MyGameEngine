@@ -55,6 +55,7 @@ CRenderer::~CRenderer()
 		srv->m_pCompiledVertexShader->Release();
 		srv->m_pPixelShader->Release();
 		srv->m_pVertexShader->Release();
+		delete srv;
 	}
 	for (auto& pair : m_mapSpriteObject)
 	{
@@ -168,9 +169,9 @@ void CRenderer::Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		{ "NORMAL",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,24,D3D11_INPUT_PER_VERTEX_DATA,0 },
 	};
 
-	ShaderData* data = m_mapShader[L"BasicSprite2DShader.hlsl"];
-	ID3DBlob* compiledShader = data->m_pCompiledVertexShader;
-	if (S_OK != m_pDevice->CreateInputLayout(iaDesc, 3, compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), &m_pBasicInputLayout))
+	ShaderData* pData = m_mapShader[L"BasicSprite2DShader.hlsl"];
+	ID3DBlob* pCompiledVertexShader = pData->m_pCompiledVertexShader;
+	if (S_OK != m_pDevice->CreateInputLayout(iaDesc, 3, pCompiledVertexShader->GetBufferPointer(), pCompiledVertexShader->GetBufferSize(), &m_pBasicInputLayout))
 		__debugbreak();
 
 	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

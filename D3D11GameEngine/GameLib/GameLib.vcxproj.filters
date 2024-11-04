@@ -1,26 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="TestScene.h" />
-    <ClInclude Include="GameInitializer.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="Back.h" />
-    <ClInclude Include="Ground.h" />
     <ClInclude Include="EnumClass.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Back.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInitializer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Back.cpp" />
-    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Back.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
       <UniqueIdentifier>{55f4828c-094c-44d7-b312-022da45f5c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".h">
+      <UniqueIdentifier>{7b0a4e20-1b79-4e81-a26c-a3ce9478ec73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".cpp">
+      <UniqueIdentifier>{9baaa057-bce3-4b88-bbb1-8119a9019d93}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

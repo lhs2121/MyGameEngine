@@ -1,28 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Colider.h">
-      <Filter>.h</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="EngineAPI.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Naming.h">
-      <Filter>.h</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Pre.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -31,27 +16,13 @@
     <ClInclude Include="Transform.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Colider.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Naming.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Pre.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="QuadTree.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -60,6 +31,7 @@
     <ClCompile Include="Transform.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Pre.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />

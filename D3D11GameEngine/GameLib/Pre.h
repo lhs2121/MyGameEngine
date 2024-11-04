@@ -14,7 +14,4 @@
 #include <EngineLib/Scene.h>
 		  
 //Component
-#include <EngineLib/Colider.h>
-#include <EngineLib/RigidBody.h>
-
 #include "EnumClass.h"

@@ -4,7 +4,6 @@
 
 Object::Object()
 {
-	name = Naming::GetName("Object");
 }
 
 Object::~Object()
