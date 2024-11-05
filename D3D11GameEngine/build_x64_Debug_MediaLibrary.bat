@@ -1,5 +1,4 @@
-@echo off
-set SolutionFile=%~dp0\ResourceLib\ResourceLib.sln
+set SolutionFile=%~dp0\MediaLib\MediaLib.sln
 
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsMSBuildCmd.bat" -arch=x64
 msbuild "%SolutionFile%" /p:Configuration=Debug /p:Platform=x64
@@ -10,3 +9,4 @@ if errorlevel 1 (
 ) else (
     echo Build succeeded for %SolutionFile%
 )
+

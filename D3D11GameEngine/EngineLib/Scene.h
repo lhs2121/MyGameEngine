@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 
+struct ICollision;
 class Scene : public Object
 {
 public:

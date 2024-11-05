@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EnumClass.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Back.h">
       <Filter>.h</Filter>
     </ClInclude>
@@ -18,6 +15,7 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="GameInitializer.h" />
+    <ClInclude Include="EnumClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pre.cpp" />
@@ -35,9 +33,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Common">
-      <UniqueIdentifier>{55f4828c-094c-44d7-b312-022da45f5c5a}</UniqueIdentifier>
-    </Filter>
     <Filter Include=".h">
       <UniqueIdentifier>{7b0a4e20-1b79-4e81-a26c-a3ce9478ec73}</UniqueIdentifier>
     </Filter>
