@@ -50,9 +50,8 @@ void Engine::EngineUpdate()
 
 	float deltaTime = mainTime->CountEnd();
 	mainTime->CountStart();
-	
-	pCurScene->CheckDeath();
 
+	pCurScene->CheckDeath();
 
 	m_pRenderer->StartRender();
 

@@ -5,15 +5,18 @@
 struct CQuadNode
 {
 	~CQuadNode();
+	void Split();
+	void SplitToMaxLevel();
+	void insert(ICollision* pCol);
+
 	float m_x;
 	float m_y;
 	float m_width;
 	float m_height;
 	int m_level;
 
-	void Split();
-	void SplitToMaxLevel();
-	CQuadNode* pChilds[4] = { nullptr };
+	ICollision* m_pBoundaryCollision;
+	CQuadNode* pChilds[4] = { 0 };
 	std::vector<ICollision*> m_pCollisions;
 };
 class CQuadTree : public IQuadTree
@@ -26,3 +29,5 @@ private:
 public:
 	~CQuadTree();
 };
+
+bool AABB2D(float x, float y, float w, float h, float x2, float y2, float w2, float h2);
