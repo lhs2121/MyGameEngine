@@ -2,6 +2,17 @@
 #include "ICollision.h"
 #include "Collision.h"
 #include "Collision2D.h"
+#include "QuadTree.h"
+
+void CreateQuadTree(IQuadTree** ppQuad)
+{
+	*ppQuad = new CQuadTree;
+}
+
+void DeleteQuadTree(IQuadTree* pQuad)
+{
+	delete ((CQuadTree*)pQuad);
+}
 
 void CreateCollision(ICollision** ppCol)
 {
