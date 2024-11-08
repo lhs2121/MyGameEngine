@@ -22,6 +22,14 @@ struct ICollision
 	virtual void UpdateTransform(XMVECTOR& position, XMVECTOR& scale, XMVECTOR& rotation) = 0;
 };
 
+struct IQuadTree
+{
+	virtual void UpdateCollision(ICollision* pCol) = 0;
+};
+
+extern "C" CollisionAPI void CreateQuadTree(IQuadTree** ppQuad);
+extern "C" CollisionAPI void DeleteQuadTree(IQuadTree* pQuad);
+
 extern "C" CollisionAPI void CreateCollision(ICollision** ppCol);
 extern "C" CollisionAPI void DeleteCollision(ICollision* pCol);
 extern "C" CollisionAPI bool Collision(ICollision* pLeft, ICollision* pRight);
