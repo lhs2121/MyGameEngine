@@ -14,6 +14,7 @@ void Scene::UpdateQuadTree()
 	if (false == isUseQuadTree)
 		return;
 
+	pQuad->Clear();
 	for (ICollision* pCol : m_pCollisionList)
 	{
 		pQuad->Insert(pCol);

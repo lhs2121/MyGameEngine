@@ -26,6 +26,7 @@ struct ICollision
 struct IQuadTree
 {
 	virtual void Initialize(float posX, float posY, float width, float height, int maxlevel) = 0;
+	virtual void Clear() = 0;
 	virtual void Insert(ICollision* pCol) = 0;
 };
 

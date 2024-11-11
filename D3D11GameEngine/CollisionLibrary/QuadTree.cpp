@@ -22,6 +22,11 @@ void CQuadTree::Initialize(float posX, float posY, float width, float height, in
 	pNode->SplitToMaxLevel();
 }
 
+void CQuadTree::Clear()
+{
+	pNode->Clear();
+}
+
 void CQuadTree::Insert(ICollision* pCol)
 {
 	pNode->insert(pCol);
@@ -31,16 +36,16 @@ CQuadNode::~CQuadNode()
 {
 	for (size_t i = 0; i < 4; i++)
 	{
-		if (pChilds[i] != nullptr)
+		if (m_pChilds[i] != nullptr)
 		{
-			delete pChilds[i];
+			delete m_pChilds[i];
 		}
 	}
 }
 
 void CQuadNode::Split()
 {
-	if (pChilds[0] != nullptr)
+	if (m_pChilds[0] != nullptr)
 		__debugbreak();
 
 	float childPosX[4] =
@@ -62,18 +67,18 @@ void CQuadNode::Split()
 	float childHeight = m_height / 2;
 	for (size_t i = 0; i < 4; i++)
 	{
-		pChilds[i] = new CQuadNode;
-		pChilds[i]->m_x = childPosX[i];
-		pChilds[i]->m_y = childPosY[i];
-		pChilds[i]->m_width = childWidth;
-		pChilds[i]->m_height = childHeight;
-		pChilds[i]->m_level = m_level + 1;
+		m_pChilds[i] = new CQuadNode;
+		m_pChilds[i]->m_x = childPosX[i];
+		m_pChilds[i]->m_y = childPosY[i];
+		m_pChilds[i]->m_width = childWidth;
+		m_pChilds[i]->m_height = childHeight;
+		m_pChilds[i]->m_level = m_level + 1;
 	}
 }
 
 void CQuadNode::SplitToMaxLevel()
 {
-	if (pChilds[0] != nullptr)
+	if (m_pChilds[0] != nullptr)
 		__debugbreak();
 
 	if (m_level == g_quadMaxlevel)
@@ -82,7 +87,19 @@ void CQuadNode::SplitToMaxLevel()
 	Split();
 	for (size_t i = 0; i < 4; i++)
 	{
-		pChilds[i]->SplitToMaxLevel();
+		m_pChilds[i]->SplitToMaxLevel();
+	}
+}
+
+void CQuadNode::Clear()
+{
+	m_pCollisions.clear();
+	if (nullptr == m_pChilds[0])
+		return;
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		m_pChilds[i]->Clear();
 	}
 }
 
@@ -92,7 +109,7 @@ void CQuadNode::insert(ICollision* pCol)
 	if (isCol == false)
 		return;
 
-	if (pChilds[0] == nullptr)
+	if (m_pChilds[0] == nullptr)
 	{
 		m_pCollisions.push_back(pCol);
 		return;
@@ -100,7 +117,7 @@ void CQuadNode::insert(ICollision* pCol)
 
 	for (size_t i = 0; i < 4; i++)
 	{
-		pChilds[i]->insert(pCol);
+		m_pChilds[i]->insert(pCol);
 	}
 }
 

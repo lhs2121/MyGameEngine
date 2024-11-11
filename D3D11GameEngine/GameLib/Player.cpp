@@ -20,6 +20,7 @@ void Player::Awake()
 
 void Player::Update(float _deltaTime)
 {
+	pCol->UpdateTransform(&transform);
 	static bool one = true;
 	if (one)
 	{

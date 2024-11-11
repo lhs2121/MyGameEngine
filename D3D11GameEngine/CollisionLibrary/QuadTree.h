@@ -7,6 +7,7 @@ struct CQuadNode
 	~CQuadNode();
 	void Split();
 	void SplitToMaxLevel();
+	void Clear();
 	void insert(ICollision* pCol);
 
 	float m_x;
@@ -15,13 +16,14 @@ struct CQuadNode
 	float m_height;
 	int m_level;
 
-	CQuadNode* pChilds[4] = { 0 };
+	CQuadNode* m_pChilds[4] = { 0 };
 	std::vector<ICollision*> m_pCollisions;
 };
 class CQuadTree : public IQuadTree
 {
 private:
 	void Initialize(float posX, float posY, float width, float height, int maxlevel) override;
+    void Clear() override;
 	void Insert(ICollision* pCol) override;
 
 	CQuadNode* pNode = nullptr;
