@@ -3,15 +3,15 @@
 
 CCollision::CCollision()
 {
-	m_shape = new DirectX::BoundingBox;
+	m_pShape = new DirectX::BoundingBox;
 }
 
 CCollision::~CCollision()
 {
-	if (m_shape != nullptr)
+	if (m_pShape != nullptr)
 	{
-		delete m_shape;
-		m_shape = nullptr;
+		delete m_pShape;
+		m_pShape = nullptr;
 	}
 }
 
@@ -21,52 +21,88 @@ void CCollision::SetType(COLLISION_TYPE type)
 		return;
 
 	m_type = type;
-	if (m_shape != nullptr)
+	if (m_pShape != nullptr)
 	{
-		delete m_shape;
-		m_shape = nullptr;
+		delete m_pShape;
+		m_pShape = nullptr;
 	}
 
 	switch (m_type)
 	{
 	case AABB:
-		m_shape = new BoundingBox;
+		m_pShape = new BoundingBox;
 		break;
 	case SPHERE:
-		m_shape = new BoundingSphere;
+		m_pShape = new BoundingSphere;
 		break;
 	case OBB:
-		m_shape = new BoundingOrientedBox;
+		m_pShape = new BoundingOrientedBox;
 		break;
 	default:
 		break;
 	}
 }
 
-void CCollision::UpdateTransform(XMVECTOR& position, XMVECTOR& scale, XMVECTOR& rotation)
+void CCollision::UpdateTransform(Transform* pTransform)
 {
+	XMVECTOR& position = pTransform->vecWorldPosition;
+	XMVECTOR& scale = pTransform->vecWorldScale;
+	XMVECTOR& rotation = pTransform->vecWorldRotation;
+
 	switch (m_type)
 	{
 	case AABB:
 	{
-		BoundingBox* shape = (BoundingBox*)m_shape;
+		BoundingBox* shape = (BoundingBox*)m_pShape;
 		XMStoreFloat3(&shape->Center, position);
 		XMStoreFloat3(&shape->Extents, scale);
 		break;
 	}
 	case SPHERE:
 	{
-		BoundingSphere* shape2 = (BoundingSphere*)m_shape;
+		BoundingSphere* shape2 = (BoundingSphere*)m_pShape;
 		XMStoreFloat3(&shape2->Center, position);
 		XMStoreFloat(&shape2->Radius, scale);
 		break;
 	}
 	case OBB:
 	{
-		BoundingOrientedBox* shape3 = (BoundingOrientedBox*)m_shape;
+		BoundingOrientedBox* shape3 = (BoundingOrientedBox*)m_pShape;
 		XMStoreFloat3(&shape3->Center, position);
 		XMStoreFloat3(&shape3->Extents, scale);
 		XMStoreFloat4(&shape3->Orientation, rotation);
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void CCollision::UpdateTransform(XMVECTOR& vecPos, XMVECTOR& vecScale, XMVECTOR& vecRot)
+{
+
+	switch (m_type)
+	{
+	case AABB:
+	{
+		BoundingBox* shape = (BoundingBox*)m_pShape;
+		XMStoreFloat3(&shape->Center, vecPos);
+		XMStoreFloat3(&shape->Extents, vecScale);
+		break;
+	}
+	case SPHERE:
+	{
+		BoundingSphere* shape2 = (BoundingSphere*)m_pShape;
+		XMStoreFloat3(&shape2->Center, vecPos);
+		XMStoreFloat(&shape2->Radius, vecScale);
+		break;
+	}
+	case OBB:
+	{
+		BoundingOrientedBox* shape3 = (BoundingOrientedBox*)m_pShape;
+		XMStoreFloat3(&shape3->Center, vecPos);
+		XMStoreFloat3(&shape3->Extents, vecScale);
+		XMStoreFloat4(&shape3->Orientation, vecRot);
 		break;
 	}
 	default:

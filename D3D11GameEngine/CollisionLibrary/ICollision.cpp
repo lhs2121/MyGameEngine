@@ -41,8 +41,8 @@ bool Collision(ICollision* pLeft, ICollision* pRight)
 	}
 
 	int combine = type1 | type2;
-	void* pShape1 = pCastLeft->Get3DShape();
-	void* pShape2 = pCastRight->Get3DShape();
+	void* pShape1 = pCastLeft->GetShape();
+	void* pShape2 = pCastRight->GetShape();
 
 	switch (combine)
 	{

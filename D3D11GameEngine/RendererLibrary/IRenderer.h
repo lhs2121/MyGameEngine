@@ -42,6 +42,7 @@ struct IRenderer
 	virtual ISpriteObject* CreateSpriteObject(const char* name, const WCHAR* wszTexfile, int countX, int countY, float interTime = 0.3f) = 0;
 
 	virtual void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) = 0;
+	virtual void DrawRect2(float x, float y, float width, float height, const XMVECTOR& color) = 0;
 	virtual void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) = 0;
 };
 

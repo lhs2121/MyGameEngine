@@ -25,6 +25,7 @@ public:
 	void LoadShader(const WCHAR* wszShaderPath) override;
 	
 	void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) override;
+	void DrawRect2(float x, float y, float width, float height, const XMVECTOR& color) override;
 	void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) override;
 
 	ShaderData* GetShader(const WCHAR* wszName);

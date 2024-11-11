@@ -7,6 +7,7 @@
 #endif
 
 #include <DirectXMath.h>
+#include <EngineLib/Transform.h>
 using namespace DirectX;
 
 enum COLLISION_TYPE
@@ -18,14 +19,14 @@ enum COLLISION_TYPE
 
 struct ICollision
 {
+	virtual void UpdateTransform(Transform* pTransform) = 0;
 	virtual void SetType(COLLISION_TYPE type) = 0;
-	virtual void UpdateTransform(XMVECTOR& position, XMVECTOR& scale, XMVECTOR& rotation) = 0;
 };
 
 struct IQuadTree
 {
 	virtual void Initialize(float posX, float posY, float width, float height, int maxlevel) = 0;
-	virtual void UpdateCollision(ICollision* pCol) = 0;
+	virtual void Insert(ICollision* pCol) = 0;
 };
 
 extern "C" CollisionAPI void CreateQuadTree(IQuadTree** ppQuad);

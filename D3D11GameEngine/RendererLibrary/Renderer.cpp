@@ -206,6 +206,24 @@ void CRenderer::DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color)
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
 }
 
+void CRenderer::DrawRect2(float x, float y, float width, float height, const XMVECTOR& color)
+{
+	XMMATRIX matScale = XMMatrixScaling(width, height, 1.0f);
+	XMMATRIX matTranslate = XMMatrixTranslation(x, y, 0.0f);
+
+	m_matWorld = matScale * matTranslate;
+	m_color = color;
+
+	CMesh* pCMesh = m_mapMesh["Rect2D"];
+	CMaterial* pCMaterial = m_mapMaterial["BasicColor"];
+
+	pCMesh->Draw(m_pDeviceContext);
+	pCMaterial->Draw(m_pDeviceContext);
+	m_pConstantBuffer_transform->Draw(m_pDeviceContext);
+	m_pConstantBuffer_color->Draw(m_pDeviceContext);
+	m_pDeviceContext->DrawIndexed(6, 0, 0);
+}
+
 void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject)
 {
 	m_matWorld = matWorld;

@@ -11,8 +11,11 @@ void Player::Awake()
 	m_pRenderer->LoadTexture(L"Assets\\Texture\\fg.jpg");
 	pSp = m_pRenderer->CreateSpriteObject("asd",L"fg.jpg",4,4);
 	pSp2 = m_pRenderer->CreateSpriteObject("asd2", L"asdf.jpg", 4, 4);
-	transform.SetLocalPosition({ 50,50,});
-	transform.SetLocalScale({ 64,64 });
+	transform.SetLocalPosition({ 500,0,});
+	transform.SetLocalScale({ 1,500 });
+	CreateCollision(&pCol);
+	GetScene()->m_pCollisionList.push_back(pCol);
+	pCol->UpdateTransform(&transform);
 }
 
 void Player::Update(float _deltaTime)

@@ -10,6 +10,7 @@ public:
 
 	ISpriteObject* pSp;
 	ISpriteObject* pSp2;
+	ICollision* pCol;
 protected:
 };
 

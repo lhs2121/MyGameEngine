@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "QuadTree.h"
+#include "Collision.h"
 
 int g_quadMaxlevel = 0;
 
 CQuadTree::~CQuadTree()
 {
-	if(pNode != nullptr)
+	if (pNode != nullptr)
 		delete pNode;
 }
 void CQuadTree::Initialize(float posX, float posY, float width, float height, int maxlevel)
@@ -17,21 +18,17 @@ void CQuadTree::Initialize(float posX, float posY, float width, float height, in
 	pNode->m_height = height;
 	pNode->m_level = 1;
 
-	CreateCollision(&pNode->m_pBoundaryCollision);
 	g_quadMaxlevel = maxlevel;
 	pNode->SplitToMaxLevel();
 }
 
-void CQuadTree::UpdateCollision(ICollision* pCol)
+void CQuadTree::Insert(ICollision* pCol)
 {
-
+	pNode->insert(pCol);
 }
 
 CQuadNode::~CQuadNode()
 {
-	if (m_pBoundaryCollision)
-		DeleteCollision(m_pBoundaryCollision);
-
 	for (size_t i = 0; i < 4; i++)
 	{
 		if (pChilds[i] != nullptr)
@@ -71,7 +68,6 @@ void CQuadNode::Split()
 		pChilds[i]->m_width = childWidth;
 		pChilds[i]->m_height = childHeight;
 		pChilds[i]->m_level = m_level + 1;
-		CreateCollision(&pChilds[i]->m_pBoundaryCollision);
 	}
 }
 
@@ -82,7 +78,7 @@ void CQuadNode::SplitToMaxLevel()
 
 	if (m_level == g_quadMaxlevel)
 		return;
-	
+
 	Split();
 	for (size_t i = 0; i < 4; i++)
 	{
@@ -92,7 +88,7 @@ void CQuadNode::SplitToMaxLevel()
 
 void CQuadNode::insert(ICollision* pCol)
 {
-	bool isCol = Collision(m_pBoundaryCollision, pCol);
+	bool isCol = AABB2D(this, pCol);
 	if (isCol == false)
 		return;
 
@@ -108,17 +104,34 @@ void CQuadNode::insert(ICollision* pCol)
 	}
 }
 
-bool AABB2D(float x, float y, float w, float h, float x2, float y2, float w2, float h2)
+bool AABB2D(CQuadNode* pNode, ICollision* pCol)
 {
-	float x1_right = x + w;
-	float y1_bottom = y + h;
+	float x1 = pNode->m_x;
+	float y1 = pNode->m_y;
+	float w1 = pNode->m_width;
+	float h1 = pNode->m_height;
 
-	float x2_right = x2 + w2;
-	float y2_bottom = y2 + h2;
+	CCollision* pCast = (CCollision*)pCol;
+	BoundingBox* aabb = (BoundingBox*)pCast->GetShape();
 
-	if (x < x2_right && x1_right > x2 && y < y2_bottom && y1_bottom > y2) 
+	float x2 = aabb->Center.x;
+	float y2 = aabb->Center.y;
+	float w2 = aabb->Extents.x;
+	float h2 = aabb->Extents.y;
+
+	float x1_left = x1 - w1 / 2;
+	float x1_right = x1 + w1 / 2;
+	float y1_top = y1 + h1 / 2;
+	float y1_bottom = y1 - h1 / 2;
+
+	float x2_left = x2 - w2 / 2;
+	float x2_right = x2 + w2 / 2;
+	float y2_top = y2 + h2 / 2;
+	float y2_bottom = y2 - h2 / 2;
+
+	if (x1_left < x2_right && x1_right > x2_left && y1_top > y2_bottom && y1_bottom < y2_top)
 	{
-		return true; 
+		return true;
 	}
 	return false;
 }

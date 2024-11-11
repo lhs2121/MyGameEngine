@@ -4,7 +4,20 @@
 void Scene::UseQuadTree()
 {
 	CreateQuadTree(&pQuad);
-	pQuad->Initialize(0, 0, 1366, 789, 3);
+	pQuad->Initialize(0, 0, 1366, 789, 2);
+
+	isUseQuadTree = true;
+}
+
+void Scene::UpdateQuadTree()
+{
+	if (false == isUseQuadTree)
+		return;
+
+	for (ICollision* pCol : m_pCollisionList)
+	{
+		pQuad->Insert(pCol);
+	}
 }
 
 void Scene::CheckDeath()

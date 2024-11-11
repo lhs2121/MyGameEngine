@@ -15,7 +15,6 @@ struct CQuadNode
 	float m_height;
 	int m_level;
 
-	ICollision* m_pBoundaryCollision;
 	CQuadNode* pChilds[4] = { 0 };
 	std::vector<ICollision*> m_pCollisions;
 };
@@ -23,11 +22,11 @@ class CQuadTree : public IQuadTree
 {
 private:
 	void Initialize(float posX, float posY, float width, float height, int maxlevel) override;
-	void UpdateCollision(ICollision* pCol) override;
+	void Insert(ICollision* pCol) override;
 
 	CQuadNode* pNode = nullptr;
 public:
 	~CQuadTree();
 };
 
-bool AABB2D(float x, float y, float w, float h, float x2, float y2, float w2, float h2);
+bool AABB2D(CQuadNode* pNode, ICollision* pCol);
