@@ -3,21 +3,24 @@
 
 void Scene::UseQuadTree()
 {
+	if (isUseQuadTree)
+		return;
+
 	CreateQuadTree(&pQuad);
 	pQuad->Initialize(0, 0, 1366, 789, 2);
 
 	isUseQuadTree = true;
 }
 
-void Scene::UpdateQuadTree()
+void Scene::AllCollisionUpdate()
 {
-	if (false == isUseQuadTree)
-		return;
-
-	pQuad->Clear();
-	for (ICollision* pCol : m_pCollisionList)
+	if (isUseQuadTree)
 	{
-		pQuad->Insert(pCol);
+		pQuad->Clear();
+		for (ICollision* pCol : m_pCollisionList)
+		{
+			pQuad->Insert(pCol);
+		}
 	}
 }
 

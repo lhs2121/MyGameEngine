@@ -7,7 +7,7 @@ class Scene : public Object
 {
 public:
 	void UseQuadTree();
-	void UpdateQuadTree();
+	void AllCollisionUpdate();
 	void CheckDeath();
 
 	bool isUseQuadTree = false;

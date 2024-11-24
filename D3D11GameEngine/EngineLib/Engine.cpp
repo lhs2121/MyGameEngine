@@ -55,7 +55,7 @@ void Engine::EngineUpdate()
 
 	m_pRenderer->StartRender();
 
-	pCurScene->UpdateQuadTree();
+	pCurScene->AllCollisionUpdate();
 	pCurScene->AllUpdate(deltaTime);
 
 	m_pRenderer->EndRender();
