@@ -12,7 +12,7 @@ void Player::Awake()
 	pSp = m_pRenderer->CreateSpriteObject("asd",L"fg.jpg",4,4);
 	pSp2 = m_pRenderer->CreateSpriteObject("asd2", L"asdf.jpg", 4, 4);
 	transform.SetLocalPosition({ 500,0,});
-	transform.SetLocalScale({ 1,500 });
+	transform.SetLocalScale({ 50,50 });
 	CreateCollision(&pCol);
 	GetScene()->m_pCollisionList.push_back(pCol);
 	pCol->UpdateTransform(&transform);

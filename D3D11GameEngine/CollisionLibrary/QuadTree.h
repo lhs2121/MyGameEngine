@@ -16,13 +16,14 @@ struct CQuadNode
 	float m_height;
 	int m_level;
 
+	IRenderer* m_pRenderer = nullptr;
 	CQuadNode* m_pChilds[4] = { 0 };
 	std::vector<ICollision*> m_pCollisions;
 };
 class CQuadTree : public IQuadTree
 {
 private:
-	void Initialize(float posX, float posY, float width, float height, int maxlevel) override;
+	void Initialize(float posX, float posY, float width, float height, int maxlevel, IRenderer* pRenderer) override;
     void Clear() override;
 	void Insert(ICollision* pCol) override;
 

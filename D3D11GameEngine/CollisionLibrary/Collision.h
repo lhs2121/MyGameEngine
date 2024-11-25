@@ -1,5 +1,6 @@
 #pragma once
 #include "ICollision.h"
+#include "RendererLibrary/IRenderer.h"
 
 class CCollision : public ICollision
 {

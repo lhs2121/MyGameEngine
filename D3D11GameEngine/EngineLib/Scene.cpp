@@ -1,13 +1,26 @@
 #include "Pre.h"
 #include "Scene.h"
 
+Scene::~Scene()
+{
+	if (pQuad)
+	{
+		DeleteQuadTree(pQuad);
+	}
+
+	for (ICollision* pCol : m_pCollisionList)
+	{
+		DeleteCollision(pCol);
+	}
+}
+
 void Scene::UseQuadTree()
 {
 	if (isUseQuadTree)
 		return;
 
 	CreateQuadTree(&pQuad);
-	pQuad->Initialize(0, 0, 1366, 789, 2);
+	pQuad->Initialize(0, 0, 500, 500, 2, m_pRenderer);
 
 	isUseQuadTree = true;
 }

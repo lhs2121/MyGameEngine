@@ -9,7 +9,7 @@ CQuadTree::~CQuadTree()
 	if (pNode != nullptr)
 		delete pNode;
 }
-void CQuadTree::Initialize(float posX, float posY, float width, float height, int maxlevel)
+void CQuadTree::Initialize(float posX, float posY, float width, float height, int maxlevel, IRenderer* pRenderer)
 {
 	pNode = new CQuadNode;
 	pNode->m_x = posX;
@@ -17,6 +17,7 @@ void CQuadTree::Initialize(float posX, float posY, float width, float height, in
 	pNode->m_width = width;
 	pNode->m_height = height;
 	pNode->m_level = 1;
+	pNode->m_pRenderer = pRenderer;
 
 	g_quadMaxlevel = maxlevel;
 	pNode->SplitToMaxLevel();
@@ -67,12 +68,15 @@ void CQuadNode::Split()
 	float childHeight = m_height / 2;
 	for (size_t i = 0; i < 4; i++)
 	{
-		m_pChilds[i] = new CQuadNode;
-		m_pChilds[i]->m_x = childPosX[i];
-		m_pChilds[i]->m_y = childPosY[i];
-		m_pChilds[i]->m_width = childWidth;
-		m_pChilds[i]->m_height = childHeight;
-		m_pChilds[i]->m_level = m_level + 1;
+		CQuadNode* pNode = new CQuadNode;
+		pNode->m_pRenderer = m_pRenderer;
+		pNode->m_x = childPosX[i];
+		pNode->m_y = childPosY[i];
+		pNode->m_width = childWidth;
+		pNode->m_height = childHeight;
+		pNode->m_level = m_level + 1;
+
+		m_pChilds[i] = pNode;
 	}
 }
 
@@ -107,11 +111,15 @@ void CQuadNode::insert(ICollision* pCol)
 {
 	bool isCol = AABB2D(this, pCol);
 	if (isCol == false)
+	{
+		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 1,0,0,1 });
 		return;
+	}
 
 	if (m_pChilds[0] == nullptr)
 	{
 		m_pCollisions.push_back(pCol);
+		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 0,1,0,1 });
 		return;
 	}
 

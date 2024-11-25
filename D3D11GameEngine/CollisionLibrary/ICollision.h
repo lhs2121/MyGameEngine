@@ -9,7 +9,7 @@
 #include <DirectXMath.h>
 #include <EngineLib/Transform.h>
 using namespace DirectX;
-
+struct IRenderer;
 enum COLLISION_TYPE
 {
 	AABB = 1 << 0,
@@ -25,7 +25,7 @@ struct ICollision
 
 struct IQuadTree
 {
-	virtual void Initialize(float posX, float posY, float width, float height, int maxlevel) = 0;
+	virtual void Initialize(float posX, float posY, float width, float height, int maxlevel, IRenderer* pRenderer) = 0;
 	virtual void Clear() = 0;
 	virtual void Insert(ICollision* pCol) = 0;
 };
