@@ -28,6 +28,7 @@ struct IQuadTree
 	virtual void Initialize(float posX, float posY, float width, float height, int maxlevel, IRenderer* pRenderer) = 0;
 	virtual void Clear() = 0;
 	virtual void Insert(ICollision* pCol) = 0;
+	virtual void DebugRender() = 0;
 };
 
 extern "C" CollisionAPI void CreateQuadTree(IQuadTree** ppQuad);

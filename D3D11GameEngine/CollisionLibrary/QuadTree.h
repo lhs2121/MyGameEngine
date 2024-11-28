@@ -9,6 +9,7 @@ struct CQuadNode
 	void SplitToMaxLevel();
 	void Clear();
 	void insert(ICollision* pCol);
+	void DebugRender();
 
 	float m_x;
 	float m_y;
@@ -26,6 +27,7 @@ private:
 	void Initialize(float posX, float posY, float width, float height, int maxlevel, IRenderer* pRenderer) override;
     void Clear() override;
 	void Insert(ICollision* pCol) override;
+	void DebugRender() override;
 
 	CQuadNode* pNode = nullptr;
 public:
@@ -33,3 +35,6 @@ public:
 };
 
 bool AABB2D(CQuadNode* pNode, ICollision* pCol);
+
+extern std::vector<CQuadNode*> g_pDebugGreens;
+extern std::vector<CQuadNode*> g_pDebugReds;

@@ -20,7 +20,7 @@ void Scene::UseQuadTree()
 		return;
 
 	CreateQuadTree(&pQuad);
-	pQuad->Initialize(0, 0, 500, 500, 2, m_pRenderer);
+	pQuad->Initialize(0, 0, 1000, 550, 7, m_pRenderer);
 
 	isUseQuadTree = true;
 }
@@ -35,6 +35,8 @@ void Scene::AllCollisionUpdate()
 			pQuad->Insert(pCol);
 		}
 	}
+
+	pQuad->DebugRender();
 }
 
 void Scene::CheckDeath()

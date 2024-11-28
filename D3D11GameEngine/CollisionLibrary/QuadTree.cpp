@@ -3,6 +3,8 @@
 #include "Collision.h"
 
 int g_quadMaxlevel = 0;
+std::vector<CQuadNode*> g_pDebugGreens;
+std::vector<CQuadNode*> g_pDebugReds;
 
 CQuadTree::~CQuadTree()
 {
@@ -25,12 +27,26 @@ void CQuadTree::Initialize(float posX, float posY, float width, float height, in
 
 void CQuadTree::Clear()
 {
+	g_pDebugGreens.clear();
+	g_pDebugReds.clear();
 	pNode->Clear();
 }
 
 void CQuadTree::Insert(ICollision* pCol)
 {
 	pNode->insert(pCol);
+}
+
+void CQuadTree::DebugRender()
+{
+	for (CQuadNode* node : g_pDebugGreens)
+	{
+		node->m_pRenderer->DrawRect2(node->m_x, node->m_y, node->m_width, node->m_height, { 0,1,0,1 });
+	}
+	for (CQuadNode* node : g_pDebugReds)
+	{
+		node->m_pRenderer->DrawRect2(node->m_x, node->m_y, node->m_width, node->m_height, { 1,0,0,1 });
+	}
 }
 
 CQuadNode::~CQuadNode()
@@ -112,20 +128,40 @@ void CQuadNode::insert(ICollision* pCol)
 	bool isCol = AABB2D(this, pCol);
 	if (isCol == false)
 	{
-		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 1,0,0,1 });
+		g_pDebugGreens.push_back(this);
 		return;
 	}
 
 	if (m_pChilds[0] == nullptr)
 	{
+		g_pDebugReds.push_back(this);
 		m_pCollisions.push_back(pCol);
-		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 0,1,0,1 });
 		return;
 	}
 
 	for (size_t i = 0; i < 4; i++)
 	{
 		m_pChilds[i]->insert(pCol);
+	}
+}
+
+void CQuadNode::DebugRender()
+{
+	if (m_pCollisions.empty())
+	{
+		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 0,1,0,1 });
+	}
+	else
+	{
+		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 1,0,0,1 });
+	}
+
+	if (m_pChilds[0] == nullptr)
+		return;
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		m_pChilds[i]->DebugRender();
 	}
 }
 
