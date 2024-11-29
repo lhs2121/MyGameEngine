@@ -21,6 +21,7 @@ struct CQuadNode
 	CQuadNode* m_pChilds[4] = { 0 };
 	std::vector<ICollision*> m_pCollisions;
 };
+
 class CQuadTree : public IQuadTree
 {
 private:

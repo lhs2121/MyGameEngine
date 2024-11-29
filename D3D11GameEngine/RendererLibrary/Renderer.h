@@ -4,6 +4,7 @@
 #include "Material.h"
 #include "ConstantBuffer.h"
 #include "SpriteObject.h"
+#include "FontManager.h"
 
 #include <unordered_map>
 #include <string>
@@ -48,7 +49,7 @@ private:
 	std::unordered_map<std::string,  CMesh*> m_mapMesh;
 	std::unordered_map<std::string,  CMaterial*> m_mapMaterial;
 
-
+		
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDeviceContext;
 	IDXGISwapChain* m_pSwapChain;
@@ -56,6 +57,8 @@ private:
 	ID3D11Texture2D* m_pDepthStencilBuffer;
 	ID3D11DepthStencilView* m_pDepthStencilView;
 	ID3D11RenderTargetView* m_pRenderTargetView;
+
+	CFontManager* m_pFontManager;
 	FLOAT m_clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	XMVECTOR m_CameraPosition = { 0.0f, 0.0f, -500.0f, 1.0f };

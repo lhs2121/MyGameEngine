@@ -35,7 +35,6 @@ void Scene::AllCollisionUpdate()
 			pQuad->Insert(pCol);
 		}
 	}
-	idwrite
 
 	pQuad->DebugRender();
 }

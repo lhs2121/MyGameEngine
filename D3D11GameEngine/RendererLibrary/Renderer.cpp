@@ -86,7 +86,7 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	pFact->EnumAdapters(0, &pAdap);
 
 	HRESULT rs = D3D11CreateDevice(pAdap, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN, nullptr,
-		D3D11_CREATE_DEVICE_DEBUG, nullptr, 0, D3D11_SDK_VERSION, &m_pDevice, &featureLevel, &m_pDeviceContext);
+		D3D11_CREATE_DEVICE_BGRA_SUPPORT | D3D11_CREATE_DEVICE_DEBUG, nullptr, 0, D3D11_SDK_VERSION, &m_pDevice, &featureLevel, &m_pDeviceContext);
 	if (rs != S_OK)
 		__debugbreak();
 
@@ -177,6 +177,8 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
 
+	m_pFontManager = new CFontManager;
+		m_pFontManager->Initialize(m_pDevice);
 }
 
 void CRenderer::StartRender()

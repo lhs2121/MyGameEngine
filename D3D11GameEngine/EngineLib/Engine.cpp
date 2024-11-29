@@ -25,7 +25,7 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 
 	Window::Create(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
 
-	m_pRenderer->Initalize((UINT)Window::GetSizeX(), (UINT)Window::GetSizeY(), *Window::GethWnd());
+	m_pRenderer->Initialize((UINT)Window::GetSizeX(), (UINT)Window::GetSizeY(), *Window::GethWnd());
 
 	CreateEngineTime(&mainTime);
 	mainTime->Init();

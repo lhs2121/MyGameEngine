@@ -14,6 +14,8 @@
 #include "d3d11.h"
 #include "dxgi.h"
 #include "d3dcompiler.h"
+#include "d2d1_3.h"
+#include "dwrite.h"
 #include <shlwapi.h>
 #include "include/DirectXTex.h"
 #pragma comment(lib,"BaseLib.lib")
