@@ -8,12 +8,16 @@ Player::~Player()
 void Player::Awake()
 {
 	SetName("player");
+
 	m_pRenderer->LoadTexture(L"Assets\\Texture\\fg.jpg");
+
 	pSp = m_pRenderer->CreateSpriteObject("asd",L"fg.jpg",4,4);
-	pSp2 = m_pRenderer->CreateSpriteObject("asd2", L"asdf.jpg", 4, 4);
+
 	transform.SetLocalPosition({ 500,0,});
-	transform.SetLocalScale({ 50,50 });
+	transform.SetLocalScale({ 20,20 });
+
 	CreateCollision(&pCol);
+
 	GetScene()->m_pCollisionList.push_back(pCol);
 	pCol->UpdateTransform(&transform);
 }
@@ -21,43 +25,25 @@ void Player::Awake()
 void Player::Update(float _deltaTime)
 {
 	pCol->UpdateTransform(&transform);
-	static bool one = true;
-	if (one)
-	{
-		pSp->UpdateAnimation(_deltaTime);
-		m_pRenderer->DrawSprite(transform.matWorld, pSp);
-	}
-	else
-	{
-		pSp2->UpdateAnimation(_deltaTime);
-		m_pRenderer->DrawSprite(transform.matWorld, pSp2);
-	}
-	if (GetKeyDown('1'))
-	{
-		one = true;
-	}
-	if (GetKeyDown('2'))
-	{
-		one = false;
-	}
-	if (GetKeyDown('3'))
-	{
-	}
+
+	pSp->UpdateAnimation(_deltaTime);
+	m_pRenderer->DrawSprite(transform.matWorld, pSp);
+
 	if (GetKeyPress('A'))
 	{
-		transform.AddLocalPosition({ -100 * _deltaTime,0 });
+		transform.AddLocalPosition({ -300 * _deltaTime,0 });
 	}
 	if (GetKeyPress('D'))
 	{
-		transform.AddLocalPosition({ 100 * _deltaTime,0 });
+		transform.AddLocalPosition({ 300 * _deltaTime,0 });
 	}
 	if (GetKeyPress('W'))
 	{
-		transform.AddLocalPosition({ 0,100 * _deltaTime });
+		transform.AddLocalPosition({ 0,300 * _deltaTime });
 	}
 	if (GetKeyPress('S'))
 	{
-		transform.AddLocalPosition({ 0,-100 * _deltaTime });
+		transform.AddLocalPosition({ 0,-300 * _deltaTime });
 	}
 	if (GetKeyPress('F'))
 	{

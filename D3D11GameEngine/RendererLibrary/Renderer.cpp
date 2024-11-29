@@ -75,7 +75,7 @@ CRenderer::~CRenderer()
 	m_pDevice->Release();
 }
 
-void CRenderer::Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
+void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 {
 	IDXGIFactory* pFact = nullptr;
 	IDXGIAdapter* pAdap = nullptr;

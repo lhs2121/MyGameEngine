@@ -8,7 +8,7 @@ void TestScene::Awake()
 {
 	UseQuadTree();
 	a = CreateChild<Player>();
-	CreateChild<Ground>();
+	//CreateChild<Ground>();
 	Input::AddUser(a);
 	Input::AddUser(this);
 }

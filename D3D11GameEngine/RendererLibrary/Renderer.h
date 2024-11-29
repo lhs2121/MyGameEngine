@@ -12,7 +12,7 @@ class CRenderer : public IRenderer
 {
 public:
 	~CRenderer();
-	void Initalize(UINT windowSizeX, UINT windowSizeY, HWND& hwnd) override;
+	void Initialize(UINT windowSizeX, UINT windowSizeY, HWND& hwnd) override;
 	void StartRender() override;
 	void EndRender() override;
 

@@ -9,7 +9,6 @@ public:
 	void OnCollisionEnter(Colider* _Other) override;
 
 	ISpriteObject* pSp;
-	ISpriteObject* pSp2;
 	ICollision* pCol;
 protected:
 };

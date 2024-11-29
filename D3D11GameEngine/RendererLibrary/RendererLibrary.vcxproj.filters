@@ -1,23 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="IRenderer.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="SpriteObject.h" />
-    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="FontManager.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderer.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="typedef.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IRenderer.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Renderer_CreateBasicMesh.cpp" />
-    <ClCompile Include="Renderer_CreateBasicMaterial.cpp" />
-    <ClCompile Include="ConstantBuffer.cpp" />
-    <ClCompile Include="SpriteObject.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderer.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer_CreateBasicMaterial.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer_CreateBasicMesh.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include=".cpp">
+      <UniqueIdentifier>{b9292383-2fe1-4b34-8d28-5c120fbc80ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".h">
+      <UniqueIdentifier>{15246292-3520-4540-8407-13c3629dcd14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

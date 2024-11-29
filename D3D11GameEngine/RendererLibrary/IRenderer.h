@@ -31,7 +31,7 @@ struct ISpriteObject
 };
 struct IRenderer
 {
-	virtual void Initalize(UINT winSizeX, UINT winSizeY, HWND& hwnd) = 0;
+	virtual void Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd) = 0;
 
 	virtual void StartRender() = 0;
 	virtual void EndRender() = 0;
@@ -46,5 +46,9 @@ struct IRenderer
 	virtual void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) = 0;
 };
 
+struct IFontManager
+{
+	virtual void Initialize(ID3D11Device* pDevice);
+};
 extern "C" DLLAPI void CreateRenderer(IRenderer** ppRenderer);
 extern "C" DLLAPI void DeleteRenderer(IRenderer* pRenderer);
