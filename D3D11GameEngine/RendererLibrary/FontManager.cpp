@@ -5,7 +5,6 @@
 
 void CFontManager::Initialize(ID3D11Device* pDevice)
 {
-	ID2D1Device2* m_pD2D1Device = nullptr;
 	D2D1_FACTORY_OPTIONS d2dFactoryOptions = {};
 	ID2D1Factory3* pD2DFactory = nullptr;
 
@@ -19,6 +18,48 @@ void CFontManager::Initialize(ID3D11Device* pDevice)
 	if(S_OK != pD2DFactory->CreateDevice(pDXGIDevice, &m_pD2D1Device))
 		__debugbreak();
 	
+	if (S_OK != m_pD2D1Device->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, &m_pD2D1DeviceContext))
+		__debugbreak();
+
+	pDXGIDevice->Release();
+	pD2DFactory->Release();
 
 
 }
+
+//BOOL		bResult = FALSE;
+//
+//m_D2DBitmapWidth = TexWidth;
+//m_D2DBitmapHeight = TexHeight;
+//
+////InitCustomFont(pCustomFontList, dwCustomFontNum);
+//
+//D2D1_SIZE_U	size;
+//size.width = TexWidth;
+//size.height = TexHeight;
+//
+//D2D1_BITMAP_PROPERTIES1 bitmapProperties =
+//BitmapProperties1(
+//	D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
+//	D2D1::PixelFormat(DXGI_FORMAT_R8G8B8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED),
+//	fDPI,
+//	fDPI
+//);
+//
+//if (FAILED(m_pD2DDeviceContext->CreateBitmap(size, nullptr, 0, &bitmapProperties, &m_pD2DTargetBitmap)))
+//__debugbreak();
+//
+//bitmapProperties.bitmapOptions = D2D1_BITMAP_OPTIONS_CANNOT_DRAW | D2D1_BITMAP_OPTIONS_CPU_READ;
+//if (FAILED(m_pD2DDeviceContext->CreateBitmap(size, nullptr, 0, &bitmapProperties, &m_pD2DTargetBitmapRead)))
+//__debugbreak();
+//
+//if (FAILED(m_pD2DDeviceContext->CreateSolidColorBrush(ColorF(ColorF::White), &m_pWhiteBrush)))
+//__debugbreak();
+//
+//HRESULT hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory5), (IUnknown**)&m_pDWFactory);
+//if (FAILED(hr))
+//__debugbreak();
+//
+//bResult = TRUE;
+//lb_return:
+//return bResult;
