@@ -3,7 +3,7 @@
 #pragma comment(lib,"d2d1.lib")
 #pragma comment(lib,"dwrite.lib")
 
-void CFontManager::Initialize(ID3D11Device* pDevice)
+void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 {
 	D2D1_FACTORY_OPTIONS d2dFactoryOptions = {};
 	ID2D1Factory3* pD2DFactory = nullptr;
@@ -15,10 +15,24 @@ void CFontManager::Initialize(ID3D11Device* pDevice)
 	if (S_OK != pDevice->QueryInterface(IID_PPV_ARGS(&pDXGIDevice)))
 		__debugbreak();
 
-	if(S_OK != pD2DFactory->CreateDevice(pDXGIDevice, &m_pD2D1Device))
+	if (S_OK != pD2DFactory->CreateDevice(pDXGIDevice, &m_pD2D1Device))
 		__debugbreak();
-	
+
 	if (S_OK != m_pD2D1Device->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, &m_pD2D1DeviceContext))
+		__debugbreak();
+
+	D2D1_RENDER_TARGET_PROPERTIES prop =
+		D2D1::RenderTargetProperties
+		(
+			D2D1_RENDER_TARGET_TYPE_DEFAULT,
+			D2D1::PixelFormat(DXGI_FORMAT_R8G8B8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED),
+			0.0f,
+			0.0f,
+			D2D1_RENDER_TARGET_USAGE_NONE,
+			D2D1_FEATURE_LEVEL_DEFAULT
+		);
+
+	if (S_OK != pD2DFactory->CreateDxgiSurfaceRenderTarget(pBackBuffer, &prop, &m_pD2D1RenderTarget))
 		__debugbreak();
 
 	pDXGIDevice->Release();

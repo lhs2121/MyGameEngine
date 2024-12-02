@@ -177,8 +177,13 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_pDeviceContext->IASetInputLayout(m_pBasicInputLayout);
 
+	IDXGISurface* pDXGISurface = nullptr;
+	
+	if(S_OK != m_pSwapChain->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(&pDXGISurface)))
+		__debugbreak();
+
 	m_pFontManager = new CFontManager;
-		m_pFontManager->Initialize(m_pDevice);
+		m_pFontManager->Initialize(m_pDevice, pDXGISurface);
 }
 
 void CRenderer::StartRender()
