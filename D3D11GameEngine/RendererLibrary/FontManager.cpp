@@ -35,10 +35,20 @@ void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 	if (S_OK != pD2DFactory->CreateDxgiSurfaceRenderTarget(pBackBuffer, &prop, &m_pD2D1RenderTarget))
 		__debugbreak();
 
+	if (S_OK != m_pD2D1RenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &m_pBrush))
+		__debugbreak();
+
+	IDWriteFactory* pDwriteFactory = nullptr;
+
+	if (S_OK != DWriteCreateFactory(DWRITE_FACTORY_TYPE::DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)&pDwriteFactory))
+		__debugbreak();
+
+	if (S_OK != pDwriteFactory->CreateTextFormat(L"Arial", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 24.0f, L"en-US", &m_pArial))
+		__debugbreak();
+
+	pDwriteFactory->CreateTextLayout()
 	pDXGIDevice->Release();
 	pD2DFactory->Release();
-
-
 }
 
 //BOOL		bResult = FALSE;
