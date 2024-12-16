@@ -49,6 +49,7 @@ struct IRenderer
 struct IFontManager
 {
 	virtual void Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer) = 0;
+	virtual void FontRender() = 0;
 };
 extern "C" DLLAPI void CreateRenderer(IRenderer** ppRenderer);
 extern "C" DLLAPI void DeleteRenderer(IRenderer* pRenderer);
