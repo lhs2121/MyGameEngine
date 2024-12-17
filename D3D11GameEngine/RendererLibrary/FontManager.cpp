@@ -43,11 +43,12 @@ void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 	if (S_OK != DWriteCreateFactory(DWRITE_FACTORY_TYPE::DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)&pDwriteFactory))
 		__debugbreak();
 
-	if (S_OK != pDwriteFactory->CreateTextFormat(L"굴림체", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 12.0f, L"en-US", &m_pArial))
+	if (S_OK != pDwriteFactory->CreateTextFormat(L"굴림체", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 23.0f, L"en-US", &m_pArial))
 		__debugbreak();
 
 
-	m_pD2D1RenderTarget->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_ALIASED);
+	m_pD2D1RenderTarget->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE);
+
 	const wchar_t* text = L"게임엔진을 이용해주셔서 감사합니다.";
 	UINT32 len = static_cast<UINT32>(wcslen(text));
 	if (S_OK != pDwriteFactory->CreateTextLayout(text, len, m_pArial, 300.0f, 100.0f, &m_pLayout))
@@ -60,44 +61,14 @@ void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 void CFontManager::FontRender()
 {
 	m_pD2D1RenderTarget->BeginDraw();
-	m_pD2D1RenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+	//m_pD2D1RenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+	m_pLayout->SetMaxWidth(10);
+	m_pLayout->SetMaxHeight(100);
 	m_pD2D1RenderTarget->DrawTextLayout(D2D1::Point2F(50, 50), m_pLayout, m_pBrush);
-	m_pD2D1RenderTarget->EndDraw();
+
+	m_pLayout->SetMaxWidth(100);
+	m_pLayout->SetMaxHeight(10);
+	m_pD2D1RenderTarget->DrawTextLayout(D2D1::Point2F(200, 200), m_pLayout, m_pBrush);
+	m_pD2D1RenderTarget->EndDraw(); 
 }
 
-//BOOL		bResult = FALSE;
-//
-//m_D2DBitmapWidth = TexWidth;
-//m_D2DBitmapHeight = TexHeight;
-//
-////InitCustomFont(pCustomFontList, dwCustomFontNum);
-//
-//D2D1_SIZE_U	size;
-//size.width = TexWidth;
-//size.height = TexHeight;
-//
-//D2D1_BITMAP_PROPERTIES1 bitmapProperties =
-//BitmapProperties1(
-//	D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
-//	D2D1::PixelFormat(DXGI_FORMAT_R8G8B8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED),
-//	fDPI,
-//	fDPI
-//);
-//
-//if (FAILED(m_pD2DDeviceContext->CreateBitmap(size, nullptr, 0, &bitmapProperties, &m_pD2DTargetBitmap)))
-//__debugbreak();
-//
-//bitmapProperties.bitmapOptions = D2D1_BITMAP_OPTIONS_CANNOT_DRAW | D2D1_BITMAP_OPTIONS_CPU_READ;
-//if (FAILED(m_pD2DDeviceContext->CreateBitmap(size, nullptr, 0, &bitmapProperties, &m_pD2DTargetBitmapRead)))
-//__debugbreak();
-//
-//if (FAILED(m_pD2DDeviceContext->CreateSolidColorBrush(ColorF(ColorF::White), &m_pWhiteBrush)))
-//__debugbreak();
-//
-//HRESULT hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory5), (IUnknown**)&m_pDWFactory);
-//if (FAILED(hr))
-//__debugbreak();
-//
-//bResult = TRUE;
-//lb_return:
-//return bResult;
