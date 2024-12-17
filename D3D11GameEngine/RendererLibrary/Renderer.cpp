@@ -183,7 +183,7 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		__debugbreak();
 
 	m_pFontManager = new CFontManager;
-		m_pFontManager->Initialize(m_pDevice, pDXGISurface, winSizeX, winSizeY);
+		m_pFontManager->Initialize(m_pDevice, pDXGISurface);
 }
 
 void CRenderer::StartRender()
