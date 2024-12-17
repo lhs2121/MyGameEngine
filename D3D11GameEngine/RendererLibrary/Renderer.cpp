@@ -183,7 +183,7 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		__debugbreak();
 
 	m_pFontManager = new CFontManager;
-		m_pFontManager->Initialize(m_pDevice, pDXGISurface);
+		m_pFontManager->Initialize(m_pDevice, pDXGISurface, winSizeX, winSizeY);
 }
 
 void CRenderer::StartRender()
@@ -191,7 +191,6 @@ void CRenderer::StartRender()
 	m_pDeviceContext->ClearRenderTargetView(m_pRenderTargetView, m_clearColor);
 	m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_pDepthStencilView);
-	m_pFontManager->FontRender();
 }
 
 void CRenderer::EndRender()
@@ -244,6 +243,11 @@ void CRenderer::DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObjec
 	pCMaterial->Draw(m_pDeviceContext);
 	pCSpriteObject->Draw(m_pDeviceContext);
 	m_pDeviceContext->DrawIndexed(6, 0, 0);
+}
+
+void CRenderer::DrawFont(const wchar_t* str, float x, float y, float width, float height)
+{
+	m_pFontManager->FontRender(str, x, y, width, height);
 }
 
 ISpriteObject* CRenderer::CreateSpriteObject(const char* name, const WCHAR* wszTexfile, int countX, int countY, float interTime)

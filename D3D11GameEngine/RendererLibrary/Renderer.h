@@ -28,6 +28,7 @@ public:
 	void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) override;
 	void DrawRect2(float x, float y, float width, float height, const XMVECTOR& color) override;
 	void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) override;
+	void DrawFont(const wchar_t* str, float x, float y, float width, float height) override;
 
 	ShaderData* GetShader(const WCHAR* wszName);
 	ID3D11ShaderResourceView* GetShaderResourceView(const WCHAR* wszTexFile);

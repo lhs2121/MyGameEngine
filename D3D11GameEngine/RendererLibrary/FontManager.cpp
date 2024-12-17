@@ -3,8 +3,10 @@
 #pragma comment(lib,"d2d1.lib")
 #pragma comment(lib,"dwrite.lib")
 
-void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
+void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer, float pWinWidth, float pWinHeight)
 {
+	m_pWinWidth = 1366;
+	m_pWinHeight = 789;
 	D2D1_FACTORY_OPTIONS d2dFactoryOptions = {};
 	ID2D1Factory3* pD2dFactory = nullptr;
 
@@ -37,31 +39,45 @@ void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 
 	if (S_OK != m_pD2D1RenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &m_pBrush))
 		__debugbreak();
-	
-	IDWriteFactory* pDwriteFactory = nullptr;
 
-	if (S_OK != DWriteCreateFactory(DWRITE_FACTORY_TYPE::DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)&pDwriteFactory))
+	if (S_OK != DWriteCreateFactory(DWRITE_FACTORY_TYPE::DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)&m_pDwriteFactory))
 		__debugbreak();
 
-	if (S_OK != pDwriteFactory->CreateTextFormat(L"굴림체", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 12.0f, L"en-US", &m_pArial))
+	if (S_OK != m_pDwriteFactory->CreateTextFormat(L"굴림체", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 12.0f, L"en-US", &m_pArial))
 		__debugbreak();
 
 
 	m_pD2D1RenderTarget->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_ALIASED);
+
 	const wchar_t* text = L"게임엔진을 이용해주셔서 감사합니다.";
 	UINT32 len = static_cast<UINT32>(wcslen(text));
-	if (S_OK != pDwriteFactory->CreateTextLayout(text, len, m_pArial, 300.0f, 100.0f, &m_pLayout))
+	if (S_OK != m_pDwriteFactory->CreateTextLayout(text, len, m_pArial, 300.0f, 100.0f, &m_pLayout))
 		__debugbreak();
 
 	pDxgiDevice->Release();
 	pD2dFactory->Release();
 }
 
-void CFontManager::FontRender()
+void CFontManager::FontRender(const wchar_t* str, float posX, float posY, float width, float height)
 {
+	IDWriteTextLayout* pTextLayout;
+	if (m_mapLayout.find(str) == m_mapLayout.end())
+	{
+		UINT32 len = static_cast<UINT32>(wcslen(str));
+
+		if (S_OK != m_pDwriteFactory->CreateTextLayout(str, len, m_pArial, width, height, &pTextLayout))
+			__debugbreak();
+
+		m_mapLayout.insert({ str,pTextLayout });
+	}
+	else
+	{
+		pTextLayout = m_mapLayout[str];
+	}
+	float halfWinWidth = m_pWinWidth * 0.5f;
+	float halfWinHeight = m_pWinHeight * 0.5f;
 	m_pD2D1RenderTarget->BeginDraw();
-	m_pD2D1RenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
-	m_pD2D1RenderTarget->DrawTextLayout(D2D1::Point2F(50, 50), m_pLayout, m_pBrush);
+	m_pD2D1RenderTarget->DrawTextLayout(D2D1::Point2F(posX + halfWinWidth, -posY + halfWinHeight), pTextLayout, m_pBrush);
 	m_pD2D1RenderTarget->EndDraw();
 }
 

@@ -24,6 +24,9 @@ void Player::Awake()
 
 void Player::Update(float _deltaTime)
 {
+	float x = transform.vecWorldPosition.m128_f32[0];
+	float y = transform.vecWorldPosition.m128_f32[1];
+	m_pRenderer->DrawFont(L"ㅎㅇ난 게임엔진이야", x, y, 1000, 1000);
 	pCol->UpdateTransform(&transform);
 
 	pSp->UpdateAnimation(_deltaTime);

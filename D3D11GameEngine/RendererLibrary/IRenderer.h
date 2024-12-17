@@ -44,12 +44,8 @@ struct IRenderer
 	virtual void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) = 0;
 	virtual void DrawRect2(float x, float y, float width, float height, const XMVECTOR& color) = 0;
 	virtual void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) = 0;
+	virtual void DrawFont(const wchar_t* str, float x, float y, float width, float height) = 0;
 };
 
-struct IFontManager
-{
-	virtual void Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer) = 0;
-	virtual void FontRender() = 0;
-};
 extern "C" DLLAPI void CreateRenderer(IRenderer** ppRenderer);
 extern "C" DLLAPI void DeleteRenderer(IRenderer* pRenderer);
