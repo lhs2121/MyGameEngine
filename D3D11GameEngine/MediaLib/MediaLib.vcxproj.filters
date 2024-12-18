@@ -1,27 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="EngineWindow.cpp" />
+    <ClCompile Include="EngineInput.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="interface.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
     <ClCompile Include="Pre.cpp" />
-    <ClCompile Include="EngineInput.cpp" />
-    <ClCompile Include="MediaAPI_Input.cpp">
-      <Filter>API</Filter>
-    </ClCompile>
-    <ClCompile Include="MediaAPI_Window.cpp">
-      <Filter>API</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineWindow.h" />
-    <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineInput.h" />
-    <ClInclude Include="MediaAPI.h">
-      <Filter>API</Filter>
+    <ClInclude Include="EngineInput.h">
+      <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="interface.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Pre.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="API">
-      <UniqueIdentifier>{81a73a8b-223a-4f0a-94a4-4bc441f13b59}</UniqueIdentifier>
+    <Filter Include=".cpp">
+      <UniqueIdentifier>{a2535ad1-b590-4307-9c14-abb361bc73ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".h">
+      <UniqueIdentifier>{f3612421-c92d-473a-b785-9acf6d90d6a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

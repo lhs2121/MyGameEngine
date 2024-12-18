@@ -1,0 +1,84 @@
+﻿#include "pch.h"
+#include "WindowObject.h"
+#include <EngineLib/EngineAPI.h>
+
+void CWindowObject::Initialize(const char* szTitle, float posX, float posY, float width, float height, const HINSTANCE hInstance, IEngine* pEngine)
+{
+	m_szTitle = szTitle;
+	m_posX = posX;
+	m_posY = posY;
+	m_width = width;
+	m_height = height;
+	m_hInstance = hInstance;
+	m_pEngine = pEngine;
+	
+	{
+		WNDCLASSEXA wcex = { 0 };
+
+		wcex.cbSize = sizeof(WNDCLASSEXA);
+		wcex.style = CS_HREDRAW | CS_VREDRAW;
+		wcex.lpfnWndProc = WndProc;
+		wcex.cbClsExtra = 0;
+		wcex.cbWndExtra = 0;
+		wcex.hInstance = hInstance;
+		wcex.hIcon = nullptr;
+		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+		wcex.lpszMenuName = nullptr;
+		wcex.lpszClassName = "GameWindow";
+		wcex.hIconSm = nullptr;
+
+		ATOM A = RegisterClassExA(&wcex);
+	}
+
+	{
+		m_hWnd = CreateWindowA("GameWindow", "WindowTitle", WS_OVERLAPPEDWINDOW,
+			(int)m_posX, (int)m_posY, (int)m_width, (int)m_height, nullptr, nullptr, m_hInstance, nullptr);
+
+		if (!m_hWnd)
+			__debugbreak();
+		
+		ShowWindow(m_hWnd, SW_SHOW);
+		UpdateWindow(m_hWnd);
+	}
+
+}
+
+LRESULT CALLBACK CWindowObject::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+	case WM_SIZE: 
+	{
+		//m_width = LOWORD(lParam);
+		//m_height = HIWORD(lParam);
+		break;
+	}
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	return 0;
+}
+
+void CWindowObject::MessageLoop()
+{
+	MSG msg = {};
+
+	while (WM_QUIT != msg.message)
+	{
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		else
+		{
+			m_pEngine->EngineUpdate();
+		}
+	}
+
+	m_pEngine->EngineRelease();
+}

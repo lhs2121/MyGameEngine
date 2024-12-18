@@ -1,6 +1,6 @@
 #include "Pre.h"
 #include <BaseLib/BaseAPI.h>
-#include <MediaLib/MediaAPI.h>
+#include <MediaLib/interface.h>
 #include "Engine.h"
 #include "Scene.h"
 
@@ -23,9 +23,10 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 {
 	CreateRenderer(&m_pRenderer);
 
-	Window::Create(_windowTitle, { _windowPosX ,_windowPosY }, { _windowSizeX ,_windowSizeY }, _hInstance, this);
+	CreateWindowObject(&m_pWindowObject);
+	m_pWindowObject->Initialize(_windowTitle, _windowPosX, _windowPosY, _windowSizeX, _windowSizeY, _hInstance, this);
 
-	m_pRenderer->Initialize((UINT)Window::GetSizeX(), (UINT)Window::GetSizeY(), *Window::GethWnd());
+	m_pRenderer->Initialize((UINT)m_pWindowObject->GetWidth(), (UINT)m_pWindowObject->GetHeight(), *m_pWindowObject->GetHWND());
 
 	CreateEngineTime(&mainTime);
 	mainTime->Init();
@@ -36,7 +37,7 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 
 	mainTime->CountStart();
 
-	Window::MessageLoop();
+	m_pWindowObject->MessageLoop();
 }
 
 void Engine::EngineUpdate()
@@ -72,7 +73,7 @@ void Engine::EngineRelease()
 	
 	DeleteRenderer(m_pRenderer);
 	DeleteEngineTime(mainTime);
-	Window::Delete();
+	DeleteWindowObject(m_pWindowObject);
 	Input::Delete();
 }
 
