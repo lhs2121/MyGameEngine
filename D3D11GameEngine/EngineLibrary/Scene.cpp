@@ -1,4 +1,4 @@
-#include "Pre.h"
+#include "pch.h"
 #include "Scene.h"
 
 Scene::~Scene()
@@ -43,7 +43,7 @@ void Scene::CheckDeath()
 {
 	for (Object* object: deathNote)
 	{
-		object->GetParent()->RemoveChild(object);
+		object->Getm_pParent()->RemoveChild(object);
 		object->AllRelease();
 		delete object;
 	}

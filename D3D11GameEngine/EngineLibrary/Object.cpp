@@ -1,4 +1,4 @@
-#include "Pre.h"
+#include "pch.h"
 #include "Object.h"
 #include "Scene.h"
 
@@ -8,18 +8,18 @@ Object::Object()
 
 Object::~Object()
 {
-	for (Object* child : childs)
+	for (Object* child : m_pChildList)
 	{
 		delete child;
 	}
-	childs.clear();
+	m_pChildList.clear();
 }
 
 void Object::AllStart()
 {
 	Start();
 
-	for (Object* child : childs)
+	for (Object* child : m_pChildList)
 	{
 		child->AllStart();
 	}
@@ -27,12 +27,12 @@ void Object::AllStart()
 
 void Object::AllUpdate(float _deltaTime)
 {
-	if (!isEnable)
+	if (!m_bEnable)
 		return;
 
 	Update(_deltaTime);
 
- 	for (Object* child : childs)
+ 	for (Object* child : m_pChildList)
 	{
 		child->AllUpdate(_deltaTime);
 	}
@@ -42,7 +42,7 @@ void Object::AllEnd()
 {
 	End();
 
-	for (Object* child : childs)
+	for (Object* child : m_pChildList)
 	{
 		child->AllEnd();
 	}
@@ -52,40 +52,40 @@ void Object::AllRelease()
 {
 	Release(); 
 
-	for (Object* child : childs)
+	for (Object* child : m_pChildList)
 	{
 		child->AllRelease();
 	}
 }
 
-void Object::SetParent(Object* _parent)
+void Object::SetParent(Object* _m_pParent)
 {
-	if (parent != nullptr)
+	if (m_pParent != nullptr)
 	{
-		parent->childs.remove(this);
+		m_pParent->m_pChildList.remove(this);
 	}
 
-	_parent->childs.push_back(this);
-	parent = _parent;
+	_m_pParent->m_pChildList.push_back(this);
+	m_pParent = _m_pParent;
 
-	transform.SetParent(&parent->transform);
+	m_transform.SetParent(&m_pParent->m_transform);
 }
 
 void Object::Destroy()
 {
-	Scene* ParentScene = GetScene();
-	ParentScene->deathNote.push_back(this);
-	death = true;
+	Scene* m_pParentScene = GetScene();
+	m_pParentScene->deathNote.push_back(this);
+	m_bDeath = true;
 }
 
 Scene* Object::GetScene()
 {
-	if (parent == nullptr)
+	if (m_pParent == nullptr)
 	{
 		return (Scene*)this;
 	}
 
-	return parent->GetScene();
+	return m_pParent->GetScene();
 }
 
 bool Object::GetKeyDown(int _key)
@@ -110,7 +110,7 @@ bool Object::GetKeyFree(int _key)
 
 void Object::RemoveChild(Object* pChild)
 {
-	childs.remove(pChild);
+	m_pChildList.remove(pChild);
 }
 
 	

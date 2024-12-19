@@ -15,7 +15,7 @@ public:
 	void AddLocalRotation(CXMVECTOR _rotation);
 	void AddLocalPosition(CXMVECTOR _pos);
 
-	void SetParent(Transform* _parent);
+	void SetParent(Transform* _m_pParent);
 	void TransformUpdate();
 
 
@@ -41,6 +41,6 @@ public:
 	XMMATRIX matView;
 	XMMATRIX matProjection;
 private:
-	Transform* parent = nullptr;
+	Transform* m_pParent = nullptr;
 	std::list<Transform*> childList;
 };

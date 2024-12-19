@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Engine.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>.pch</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h" />
+    <ClInclude Include="pch.h">
+      <Filter>.pch</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include=".cpp">
+      <UniqueIdentifier>{74370c8f-cd8c-4c10-a4e3-fde73249410f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".h">
+      <UniqueIdentifier>{7122641d-b422-45dc-9d08-6a93487940c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".pch">
+      <UniqueIdentifier>{c4ddfd9c-a95f-4623-9683-86bd92df34ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

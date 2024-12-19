@@ -10,13 +10,13 @@
 #include <WindowLibrary/Interface.h>
 #include <CollisionLibrary/Interface.h>
 #include <RendererLibrary/Interface.h>
-#include <EngineLib/Interface.h>
+#include <EngineLibrary/Interface.h>
 
 //Engine 
-#include <EngineLib/Engine.h>
-#include <EngineLib/Transform.h>
-#include <EngineLib/Object.h>
-#include <EngineLib/Scene.h>
+#include <EngineLibrary/Engine.h>
+#include <EngineLibrary/Transform.h>
+#include <EngineLibrary/Object.h>
+#include <EngineLibrary/Scene.h>
 		  
 //Component
 #include "EnumClass.h"

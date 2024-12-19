@@ -1,4 +1,4 @@
-#include "Pre.h"
+#include "pch.h"
 #include "Transform.h"
 
 void Transform::TransformUpdate()
@@ -7,13 +7,13 @@ void Transform::TransformUpdate()
 	vecWorldRotation = vecRecievedRotation + vecLocalRotation;
 	vecWorldPosition = vecRecievedPosition + vecLocalPosition;
 
-	for (Transform* chTransform: childList)
+	for (Transform* child : childList)
 	{
-		chTransform->vecRecievedScale = vecWorldScale;
-		chTransform->vecRecievedRotation = vecWorldRotation;
-		chTransform->vecRecievedPosition = vecWorldPosition;
+		child->vecRecievedScale = vecWorldScale;
+		child->vecRecievedRotation = vecWorldRotation;
+		child->vecRecievedPosition = vecWorldPosition;
 
-		chTransform->TransformUpdate();
+		child->TransformUpdate();
 	}
 
 	matWorldScale = XMMatrixScalingFromVector(vecWorldScale);
@@ -59,12 +59,12 @@ void Transform::AddLocalRotation(CXMVECTOR _rotation)
 	TransformUpdate();
 }
 
-void Transform::SetParent(Transform* _parent)
+void Transform::SetParent(Transform* _m_pParent)
 {
-	if (parent != nullptr)
+	if (m_pParent != nullptr)
 	{
-		parent->childList.remove(this);
+		m_pParent->childList.remove(this);
 	}
-	parent = _parent;
-	parent->childList.push_back(this);
+	m_pParent = _m_pParent;
+	m_pParent->childList.push_back(this);
 }

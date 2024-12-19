@@ -31,18 +31,18 @@ public:
 		         
 	void         AllRelease();
 
-	void         Enable() { isEnable = true; }
-	void         Disenable() { isEnable = false; }
+	void         Enable() { m_bEnable = true; }
+	void         Disenable() { m_bEnable = false; }
 
-	void         SetName(base::string _name) { name = _name; }
+	void         SetName(base::string _name) { m_name = _name; }
 
-	void         SetParent(Object* _parent);
+	void         SetParent(Object* _m_pParent);
 
 	void         Destroy();
 	         	                 
-	Object*      GetParent() { return parent; }
+	Object*      Getm_pParent() { return m_pParent; }
 		         
-	bool         GetDeath() const { return death; }
+	bool         GetDeath() const { return m_bDeath; }
 		         
 	Scene*       GetScene();
 		         		         
@@ -61,7 +61,7 @@ public:
 		newComp->SetParent(this);
 		newComp->m_pRenderer = m_pRenderer;
 		newComp->m_pInputObject = m_pInputObject;
-		transform.TransformUpdate();
+		m_transform.TransformUpdate();
 		newComp->Awake();
 		return (T*)newComp;
 	}
@@ -71,7 +71,7 @@ public:
 	template<typename T>
 	T* GetChild()
 	{
-		for (Object* child : childs)
+		for (Object* child : m_pChildList)
 		{
 			T* result = dynamic_cast<T*>(child); 
 			if (result != nullptr)
@@ -82,15 +82,15 @@ public:
 		return nullptr;
 	}
 
-	base::string name;
-	Transform transform;
-	IRenderer* m_pRenderer = nullptr;
+	base::string m_name;
+	Transform m_transform;
+	IRenderer* m_pRenderer;
 	IInputObject* m_pInputObject;
 protected:
-	int order = 0;
-	bool death = false;
-	bool isEnable = true;
-	Object* parent = nullptr;
-	std::list<Object*> childs;
+	int m_order = 0;
+	bool m_bDeath = false;
+	bool m_bEnable = true;
+	Object* m_pParent = nullptr;
+	std::list<Object*> m_pChildList;
 };
 

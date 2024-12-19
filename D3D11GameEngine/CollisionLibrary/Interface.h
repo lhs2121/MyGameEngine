@@ -7,7 +7,7 @@
 #endif
 
 #include <DirectXMath.h>
-#include <EngineLib/Transform.h>
+#include <EngineLibrary/Transform.h>
 using namespace DirectX;
 struct IRenderer;
 enum COLLISION_TYPE
