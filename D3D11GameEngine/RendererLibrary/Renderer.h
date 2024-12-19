@@ -1,5 +1,5 @@
 #pragma once
-#include "IRenderer.h"
+#include "Interface.h"
 #include "Mesh.h"
 #include "Material.h"
 #include "ConstantBuffer.h"

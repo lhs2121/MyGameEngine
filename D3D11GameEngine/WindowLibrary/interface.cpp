@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "interface.h"
+#include "Interface.h"
 #include "WindowObject.h"
 
 void CreateWindowObject(IWindowObject** ppWindowObject)

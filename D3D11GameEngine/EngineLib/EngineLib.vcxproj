@@ -230,7 +230,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Pre.h" />
-    <ClInclude Include="EngineAPI.h" />
+    <ClInclude Include="Interface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />

@@ -1,5 +1,5 @@
 #pragma once
-#include <common/declspec.h>
+#include "Interface.h"
 
 template<typename T>
 struct Pair

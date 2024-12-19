@@ -1,4 +1,5 @@
 #pragma once
+#include "Interface.h"
 
 struct Node
 {
@@ -6,7 +7,7 @@ struct Node
 	Node* PrevPtr = nullptr;
 	Node* NextPtr = nullptr;
 };
-class BaseAPI EngineList
+class BASELIBRARY_API EngineList
 {
 public:
 	void  Add(void* _ItemPtr);

@@ -7,7 +7,7 @@
     <ClInclude Include="ConstantBuffer.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderer.h">
+    <ClInclude Include="Interface.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
@@ -37,7 +37,7 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="IRenderer.cpp">
+    <ClCompile Include="Interface.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">

@@ -1,9 +1,8 @@
 #include <Windows.h>
-#include <common/declspec.h>
 #include <common/commonPre.h>
 
-#include <InputLibrary/interface.h>
-#include <BaseLib/BaseAPI.h>
+#include <InputLibrary/Interface.h>
+#include <BaseLibrary/Interface.h>
 #include <EngineLib/Engine.h>
 #include <GameLib/GameInitializer.h>
 
@@ -19,7 +18,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//Debug::CrtSetBreakAlloc(406);
 	Debug::CrtSetDbgFlag();
 
-	GameInitializer gameInit;
-	Engine mainEngine;
-	mainEngine.EngineStart("DreamEngine <DX11>", 50, 50, 1366, 789, hInstance, &gameInit);
+	GameInitializer gameInitializer;
+	Engine engine;
+	engine.EngineStart("LegoEngine <DX11>", 50, 50, 1366, 789, hInstance, &gameInitializer);
 }

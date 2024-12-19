@@ -1,5 +1,5 @@
 #pragma once
-#include "IRenderer.h"
+#include "Interface.h"
 #include <map>
 #include <string>
 #include "dwrite.h"

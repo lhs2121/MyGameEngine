@@ -3,10 +3,10 @@
 #include "d3d11.h"
 #include "Windows.h"
 
-#ifdef RendererLibrary
-#define DLLAPI __declspec(dllexport)
+#ifdef RENDERERLIBRARY_EXPORTS
+#define RENDERERLIBRARY_API __declspec(dllexport)
 #else
-#define DLLAPI __declspec(dllimport)
+#define RENDERERLIBRARY_API __declspec(dllimport)
 #endif 
 
 using namespace DirectX;
@@ -47,5 +47,5 @@ struct IRenderer
 	virtual void DrawFont(const wchar_t* str, float x, float y, float width, float height) = 0;
 };
 
-extern "C" DLLAPI void CreateRenderer(IRenderer** ppRenderer);
-extern "C" DLLAPI void DeleteRenderer(IRenderer* pRenderer);
+extern "C" RENDERERLIBRARY_API void CreateRenderer(IRenderer** ppRenderer);
+extern "C" RENDERERLIBRARY_API void DeleteRenderer(IRenderer* pRenderer);

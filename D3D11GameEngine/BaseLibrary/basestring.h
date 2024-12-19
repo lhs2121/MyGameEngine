@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
+#include "Interface.h"
+
 constexpr int baseStrLen = 32;
 
 namespace base
 {
-	class BaseAPI string
+	class BASELIBRARY_API string
 	{
 	public:
 		string();

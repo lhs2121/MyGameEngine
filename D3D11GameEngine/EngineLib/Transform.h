@@ -1,5 +1,5 @@
 #pragma once
-#include <BaseLib\BaseAPI.h>
+#include <BaseLibrary\Interface.h>
 #include <DirectXMath.h>
 #include <list>
 using namespace DirectX;

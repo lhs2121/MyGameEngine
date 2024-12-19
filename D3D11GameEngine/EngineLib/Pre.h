@@ -1,7 +1,6 @@
 #pragma once
 #include <common\commonPre.h>
-#include <common\declspec.h>
-#include <BaseLib\BaseAPI.h>
-#include <InputLibrary/interface.h>
-#include <RendererLibrary/IRenderer.h>
-#include <CollisionLibrary/ICollision.h>
+#include <BaseLibrary\Interface.h>
+#include <InputLibrary/Interface.h>
+#include <RendererLibrary/Interface.h>
+#include <CollisionLibrary/Interface.h>

@@ -1,5 +1,5 @@
 #pragma once
-#include "IRenderer.h"
+#include "Interface.h"
 
 class CRenderer;
 class CMaterial : public IMaterial

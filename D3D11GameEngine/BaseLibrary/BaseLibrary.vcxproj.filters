@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include=".cpp">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -18,10 +14,28 @@
     <ClInclude Include="pch.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="EngineList.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMap.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMath.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineStaticPool.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeObject.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="HashNode.h">
+      <Filter>.h</Filter>
+    </ClInclude>
     <ClInclude Include="Interface.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="WindowObject.h">
+    <ClInclude Include="basestring.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,10 +43,25 @@
     <ClCompile Include="pch.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="EngineList.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMath.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineStaticPool.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeObject.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
     <ClCompile Include="Interface.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="WindowObject.cpp">
+    <ClCompile Include="basestring.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
   </ItemGroup>

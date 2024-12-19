@@ -1,6 +1,6 @@
 #pragma once
 #include "d3d11.h"
-#include "..\BaseLib\BaseAPI.h"
+#include <BaseLibrary/BASELIBRARY_INTERFACE.h>
 
 struct SimpleVertex
 {

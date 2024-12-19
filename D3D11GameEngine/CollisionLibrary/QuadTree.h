@@ -1,5 +1,5 @@
 #pragma once
-#include "ICollision.h"
+#include "Interface.h"
 #include <vector>
 
 struct CQuadNode

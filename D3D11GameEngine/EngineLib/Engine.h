@@ -1,7 +1,7 @@
 #pragma once
-#include "EngineAPI.h"
-#include "RendererLibrary/IRenderer.h"
-#include <WindowLibrary/interface.h>
+#include "Interface.h"
+#include <RendererLibrary/Interface.h>
+#include <WindowLibrary/Interface.h>
 #include "Scene.h"
 
 class Engine : public IEngine
@@ -28,7 +28,7 @@ public:
 private:
 	Scene* m_pCurScene;
 	IRenderer* m_pRenderer;
-	ITime* m_pTimeObject;
+	ITimeObject* m_pTimeObject;
 	IWindowObject* m_pWindowObject;
 	IInputObject* m_pInputObject;
 	std::unordered_map<const char*, Scene*> m_sceneMap;

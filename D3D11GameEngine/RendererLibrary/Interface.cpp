@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "IRenderer.h"
+#include "Interface.h"
 #include "Renderer.h"
 
 void CreateRenderer(IRenderer** ppRenderer)

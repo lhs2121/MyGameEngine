@@ -4,7 +4,7 @@
     <ClInclude Include="Engine.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="EngineAPI.h">
+    <ClInclude Include="Interface.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">

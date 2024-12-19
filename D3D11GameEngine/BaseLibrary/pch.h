@@ -7,23 +7,8 @@
 #ifndef PCH_H
 #define PCH_H
 
+
+
 // 여기에 미리 컴파일하려는 헤더 추가
-#include <BaseLibrary/BASELIBRARY_INTERFACE.h>
-#include "typedef.h"
-#include "DirectXMath.h"
-#include "d3d11.h"
-#include "dxgi.h"
-#include "d3dcompiler.h"
-#include "d2d1_3.h"
-#include "dwrite.h"
-#include <shlwapi.h>
-#include "include/DirectXTex.h"
-#pragma comment(lib,"BaseLibrary.lib")
-#pragma comment(lib,"d3d11.lib")
-#pragma comment(lib,"dxgi.lib")
-#pragma comment(lib,"d3dcompiler.lib")
-#pragma comment(lib, "Shlwapi.lib")
-#pragma comment(lib, "DirectXTex2022/DebugLib/DirectXTex.lib")
 
 #endif //PCH_H
- 

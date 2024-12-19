@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "interface.h"
+#include "Interface.h"
 #include "InputObject.h"
 
 void CreateInputObject(IInputObject** ppTimeObject)

@@ -1,5 +1,4 @@
 #pragma once
-#include <common\declspec.h>
 #include <map>
 #include "Transform.h"
 

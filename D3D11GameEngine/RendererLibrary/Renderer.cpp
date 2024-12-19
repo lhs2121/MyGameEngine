@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Renderer.h"
 
-
 CRenderer::~CRenderer()
 {
 	m_pDeviceContext->Release();

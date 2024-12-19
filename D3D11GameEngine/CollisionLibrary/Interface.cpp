@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ICollision.h"
+#include "Interface.h"
 #include "Collision.h"
 #include "Collision2D.h"
 #include "QuadTree.h"

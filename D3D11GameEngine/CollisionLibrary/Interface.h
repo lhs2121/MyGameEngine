@@ -1,9 +1,9 @@
 #pragma once
 
-#ifdef CollisionLibrary
-#define CollisionAPI __declspec(dllexport)
+#ifdef COLLISIONLIBRARY_EXPORTS
+#define COLLISIONLIBRARY_API __declspec(dllexport)
 #else
-#define CollisionAPI __declspec(dllimport)
+#define COLLISIONLIBRARY_API __declspec(dllimport)
 #endif
 
 #include <DirectXMath.h>
@@ -31,10 +31,10 @@ struct IQuadTree
 	virtual void DebugRender() = 0;
 };
 
-extern "C" CollisionAPI void CreateQuadTree(IQuadTree** ppQuad);
-extern "C" CollisionAPI void DeleteQuadTree(IQuadTree* pQuad);
+extern "C" COLLISIONLIBRARY_API void CreateQuadTree(IQuadTree** ppQuad);
+extern "C" COLLISIONLIBRARY_API void DeleteQuadTree(IQuadTree* pQuad);
 
-extern "C" CollisionAPI void CreateCollision(ICollision** ppCol);
-extern "C" CollisionAPI void DeleteCollision(ICollision* pCol);
-extern "C" CollisionAPI bool Collision(ICollision* pLeft, ICollision* pRight);
+extern "C" COLLISIONLIBRARY_API void CreateCollision(ICollision** ppCol);
+extern "C" COLLISIONLIBRARY_API void DeleteCollision(ICollision* pCol);
+extern "C" COLLISIONLIBRARY_API bool Collision(ICollision* pLeft, ICollision* pRight);
 

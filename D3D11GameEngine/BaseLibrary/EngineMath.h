@@ -1,9 +1,10 @@
 #pragma once
+#include "Interface.h"
 
 constexpr float PI = 3.141592653f;
 constexpr float Deg2Rad = 3.141592653f / 180.0f;
 
-struct BaseAPI math
+struct BASELIBRARY_API math
 {
 	static int digits(int _num);
 	static float clamp(float _num, float _max, float _min);
@@ -326,7 +327,7 @@ struct float3
 	}
 };
 struct float4x4;
-struct BaseAPI float4
+struct BASELIBRARY_API float4
 {
 	float4(float _x = 0, float _y = 0, float _z = 0, float _w = 1) : x(_x), y(_y), z(_z), w(_w) {}
 
@@ -524,7 +525,7 @@ struct BaseAPI float4
 
 };
 
-struct BaseAPI float4x4
+struct BASELIBRARY_API float4x4
 {
 	float4x4() {}
 	float4x4(const float4x4& _other);

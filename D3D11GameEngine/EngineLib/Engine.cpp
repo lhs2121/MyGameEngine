@@ -1,5 +1,5 @@
 #include "Pre.h"
-#include <BaseLib/BaseAPI.h>
+#include <BaseLibrary/Interface.h>
 #include "Engine.h"
 #include "Scene.h"
 
@@ -26,8 +26,8 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 
 	m_pRenderer->Initialize((UINT)m_pWindowObject->GetWidth(), (UINT)m_pWindowObject->GetHeight(), *m_pWindowObject->GetHWND());
 
-	CreateEngineTime(&m_pTimeObject);
-	m_pTimeObject->Init();
+	CreateTimeObject(&m_pTimeObject);
+	m_pTimeObject->Initialize();
 
 	CreateInputObject(&m_pInputObject);
 	m_pInputObject->Initailize();
@@ -72,7 +72,7 @@ void Engine::EngineRelease()
 	
 	DeleteInputObject(m_pInputObject);
 	DeleteRenderer(m_pRenderer);
-	DeleteEngineTime(m_pTimeObject);
+	DeleteTimeObject(m_pTimeObject);
 	DeleteWindowObject(m_pWindowObject);
 }
 

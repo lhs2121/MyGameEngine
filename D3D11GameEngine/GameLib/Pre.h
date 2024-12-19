@@ -1,13 +1,12 @@
 #pragma once
 
 #include <common/commonPre.h>
-#include <common/declspec.h>
-#include <BaseLib/BaseAPI.h>
-#include <InputLibrary/interface.h>
-#include <EngineLib/EngineAPI.h>
-#include <CollisionLibrary/ICollision.h>
-#include <WindowLibrary/interface.h>
-#include <RendererLibrary/IRenderer.h>
+#include <BaseLibrary/Interface.h>
+#include <InputLibrary/Interface.h>
+#include <EngineLib/Interface.h>
+#include <CollisionLibrary/Interface.h>
+#include <WindowLibrary/Interface.h>
+#include <RendererLibrary/Interface.h>
 
 //Engine 
 #include <EngineLib/Engine.h>
