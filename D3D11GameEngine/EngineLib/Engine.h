@@ -1,8 +1,7 @@
 #pragma once
 #include "Interface.h"
-#include <RendererLibrary/Interface.h>
-#include <WindowLibrary/Interface.h>
 #include "Scene.h"
+#include <unordered_map>
 
 class Engine : public IEngine
 {
@@ -21,7 +20,7 @@ public:
 		return (T*)newScene;
 	}
 	void LoadScene(const char* _name);
-	void EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, Initializer* pGameInit) override;
+	void EngineStart(const char* szTitle, float x, float y, float width, float height, HINSTANCE hInstance, Initializer* pGameInit) override;
 	void EngineUpdate() override;
 	void EngineRelease() override;
 

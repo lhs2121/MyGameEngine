@@ -1,7 +1,6 @@
 #pragma once
-#include <BaseLibrary\Interface.h>
-#include <DirectXMath.h>
 #include <list>
+#include <DirectXMath.h>
 using namespace DirectX;
 
 class Object;

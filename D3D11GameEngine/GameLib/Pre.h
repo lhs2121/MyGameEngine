@@ -1,12 +1,16 @@
 #pragma once
 
-#include <common/commonPre.h>
+#include <unordered_map>
+#include <map>
+#include <vector>
+#include <list>
+
 #include <BaseLibrary/Interface.h>
 #include <InputLibrary/Interface.h>
-#include <EngineLib/Interface.h>
-#include <CollisionLibrary/Interface.h>
 #include <WindowLibrary/Interface.h>
+#include <CollisionLibrary/Interface.h>
 #include <RendererLibrary/Interface.h>
+#include <EngineLib/Interface.h>
 
 //Engine 
 #include <EngineLib/Engine.h>

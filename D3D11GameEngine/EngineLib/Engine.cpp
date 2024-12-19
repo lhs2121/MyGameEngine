@@ -1,7 +1,5 @@
 #include "Pre.h"
-#include <BaseLibrary/Interface.h>
 #include "Engine.h"
-#include "Scene.h"
 
 void Engine::LoadScene(const char* _name)
 {
@@ -17,12 +15,12 @@ void Engine::LoadScene(const char* _name)
 	}
 }
 
-void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _windowPosY, float _windowSizeX, float _windowSizeY, HINSTANCE _hInstance, Initializer* pGameInit)
+void Engine::EngineStart(const char* szTitle, float x, float y, float width, float height, HINSTANCE hInstance, Initializer* pGameInit)
 {
 	CreateRenderer(&m_pRenderer);
 
 	CreateWindowObject(&m_pWindowObject);
-	m_pWindowObject->Initialize(_windowTitle, _windowPosX, _windowPosY, _windowSizeX, _windowSizeY, _hInstance, this);
+	m_pWindowObject->Initialize(szTitle, x, y, width, height, hInstance, this);
 
 	m_pRenderer->Initialize((UINT)m_pWindowObject->GetWidth(), (UINT)m_pWindowObject->GetHeight(), *m_pWindowObject->GetHWND());
 

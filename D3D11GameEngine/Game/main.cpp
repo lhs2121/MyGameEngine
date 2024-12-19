@@ -1,8 +1,8 @@
 #include <Windows.h>
-#include <common/commonPre.h>
-
 #include <InputLibrary/Interface.h>
 #include <BaseLibrary/Interface.h>
+#include <RendererLibrary/Interface.h>
+#include <WindowLibrary/Interface.h>
 #include <EngineLib/Engine.h>
 #include <GameLib/GameInitializer.h>
 

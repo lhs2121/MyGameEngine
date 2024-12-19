@@ -48,7 +48,7 @@ float float4::distance(float4& __other) const
 {
 	float4 dis = *this - __other;
 
-	return sqrt((dis.x * dis.x) + (dis.y * dis.y));
+	return (float)sqrt((dis.x * dis.x) + (dis.y * dis.y));
 }
 
 void float4::rotate(float __radianian)
