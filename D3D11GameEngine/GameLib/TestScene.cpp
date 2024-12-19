@@ -9,8 +9,8 @@ void TestScene::Awake()
 	UseQuadTree();
 	a = CreateChild<Player>();
 	//CreateChild<Ground>();
-	Input::AddUser(a);
-	Input::AddUser(this);
+	m_pInputObject->AddUser(a);
+	m_pInputObject->AddUser(this);
 }
 
 void TestScene::Update(float _deltaTime)

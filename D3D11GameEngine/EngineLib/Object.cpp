@@ -90,22 +90,22 @@ Scene* Object::GetScene()
 
 bool Object::GetKeyDown(int _key)
 {
-	return Input::IsDown(_key, this);
+	return m_pInputObject->IsDown(_key, this);
 }
 
 bool Object::GetKeyPress(int _key)
 {
-	return Input::IsPress(_key, this);
+	return m_pInputObject->IsPress(_key, this);
 }
 
 bool Object::GetKeyUp(int _key)
 {
-	return Input::IsUp(_key, this);
+	return m_pInputObject->IsUp(_key, this);
 }
 
 bool Object::GetKeyFree(int _key)
 {
-	return Input::IsFree(_key, this);
+	return m_pInputObject->IsFree(_key, this);
 }
 
 void Object::RemoveChild(Object* pChild)

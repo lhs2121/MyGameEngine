@@ -1,21 +1,19 @@
 #include "Pre.h"
 #include <BaseLib/BaseAPI.h>
-#include <MediaLib/interface.h>
 #include "Engine.h"
 #include "Scene.h"
 
 void Engine::LoadScene(const char* _name)
 {
-	if (allScene.end() != allScene.find(_name))
+	if (m_sceneMap.end() != m_sceneMap.find(_name))
 	{
-		if (pCurScene != nullptr)
+		if (m_pCurScene != nullptr)
 		{
-			pCurScene->AllEnd();
+			m_pCurScene->AllEnd();
 		}
-		
 
-		pCurScene = allScene[_name];
-		pCurScene->AllStart();
+		m_pCurScene = m_sceneMap[_name];
+		m_pCurScene->AllStart();
 	}
 }
 
@@ -28,53 +26,54 @@ void Engine::EngineStart(const char* _windowTitle, float _windowPosX, float _win
 
 	m_pRenderer->Initialize((UINT)m_pWindowObject->GetWidth(), (UINT)m_pWindowObject->GetHeight(), *m_pWindowObject->GetHWND());
 
-	CreateEngineTime(&mainTime);
-	mainTime->Init();
+	CreateEngineTime(&m_pTimeObject);
+	m_pTimeObject->Init();
 
-	Input::Create();
+	CreateInputObject(&m_pInputObject);
+	m_pInputObject->Initailize();
 
 	pGameInit->CreateAllScene(this);
 
-	mainTime->CountStart();
+	m_pTimeObject->CountStart();
 
 	m_pWindowObject->MessageLoop();
 }
 
 void Engine::EngineUpdate()
 {
-	if (pCurScene == nullptr)
+	if (m_pCurScene == nullptr)
 	{
 		return;
 	}
 
-	Input::UpdateKeyStates();
+	m_pInputObject->UpdateKeyStates();
 
-	float deltaTime = mainTime->CountEnd();
-	mainTime->CountStart();
+	float deltaTime = m_pTimeObject->CountEnd();
+	m_pTimeObject->CountStart();
 
-	pCurScene->CheckDeath();
+	m_pCurScene->CheckDeath();
 
 	m_pRenderer->StartRender();
 
-	pCurScene->AllCollisionUpdate();
-	pCurScene->AllUpdate(deltaTime);
+	m_pCurScene->AllCollisionUpdate();
+	m_pCurScene->AllUpdate(deltaTime);
 
 	m_pRenderer->EndRender();
 }
 
 void Engine::EngineRelease()
 {
-	for (auto& pair : allScene)
+	for (auto& pair : m_sceneMap)
 	{
 		Scene* scene = pair.second;
 		delete scene;
 	}
-	allScene.clear();
+	m_sceneMap.clear();
 	
+	DeleteInputObject(m_pInputObject);
 	DeleteRenderer(m_pRenderer);
-	DeleteEngineTime(mainTime);
+	DeleteEngineTime(m_pTimeObject);
 	DeleteWindowObject(m_pWindowObject);
-	Input::Delete();
 }
 
 

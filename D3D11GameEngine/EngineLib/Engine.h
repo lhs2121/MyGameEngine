@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineAPI.h"
 #include "RendererLibrary/IRenderer.h"
-#include <WindowsLibrary/interface.h>
+#include <WindowLibrary/interface.h>
 #include "Scene.h"
 
 class Engine : public IEngine
@@ -12,10 +12,11 @@ public:
 	{
 		Scene* newScene = new T();
 		newScene->m_pRenderer = m_pRenderer;
+		newScene->m_pInputObject = m_pInputObject;
 		newScene->SetName(_name);
 		newScene->Awake();
 
-		allScene.insert({ _name,newScene });
+		m_sceneMap.insert({ _name,newScene });
 
 		return (T*)newScene;
 	}
@@ -24,11 +25,11 @@ public:
 	void EngineUpdate() override;
 	void EngineRelease() override;
 
-
 private:
-	Scene* pCurScene;
+	Scene* m_pCurScene;
 	IRenderer* m_pRenderer;
-	ITime* mainTime = nullptr;
-	IWindowObject* m_pWindowObject = nullptr;
-	std::unordered_map<const char*, Scene*> allScene;
+	ITime* m_pTimeObject;
+	IWindowObject* m_pWindowObject;
+	IInputObject* m_pInputObject;
+	std::unordered_map<const char*, Scene*> m_sceneMap;
 };

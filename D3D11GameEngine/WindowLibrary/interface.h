@@ -1,12 +1,11 @@
 #pragma once
 #include "Windows.h"
 
-#ifdef WINDOWSLIBRARY_EXPORTS
-#define WindowsLibraryAPI __declspec(dllexport)
+#ifdef WINDOWLIBRARY_EXPORTS
+#define WindowLibraryAPI __declspec(dllexport)
 #else
-#define WindowsLibraryAPI __declspec(dllimport)
-#endif // WINDOWSLIBRARY_EXPORTS
-
+#define WindowLibraryAPI __declspec(dllimport)
+#endif 
 
 struct IEngine;
 
@@ -32,6 +31,6 @@ struct IWindowObject
 
 };
 
-extern "C" WindowsLibraryAPI void CreateWindowObject(IWindowObject** ppWindowObject);
+extern "C" WindowLibraryAPI void CreateWindowObject(IWindowObject** ppWindowObject);
 
-extern "C" WindowsLibraryAPI void DeleteWindowObject(IWindowObject* pWindowObject);
+extern "C" WindowLibraryAPI void DeleteWindowObject(IWindowObject* pWindowObject);

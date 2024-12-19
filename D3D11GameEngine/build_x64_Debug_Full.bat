@@ -2,6 +2,8 @@
 echo 순서대로 빌드를 시작합니다.
 
 call build_x64_Debug_BaseLibrary
+call build_x64_Debug_InputLibrary
+call build_x64_Debug_WindowLibrary
 call build_x64_Debug_RendererLibrary
 call build_x64_Debug_CollisionLibrary
 call build_x64_Debug_EngineLibrary

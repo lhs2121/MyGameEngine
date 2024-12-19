@@ -3,10 +3,10 @@
 #include <common/commonPre.h>
 #include <common/declspec.h>
 #include <BaseLib/BaseAPI.h>
-#include <MediaLib/interface.h>
+#include <InputLibrary/interface.h>
 #include <EngineLib/EngineAPI.h>
 #include <CollisionLibrary/ICollision.h>
-#include <WindowsLibrary/interface.h>
+#include <WindowLibrary/interface.h>
 #include <RendererLibrary/IRenderer.h>
 
 //Engine 

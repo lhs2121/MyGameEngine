@@ -2,6 +2,7 @@
 #include <common/declspec.h>
 #include <common/commonPre.h>
 
+#include <InputLibrary/interface.h>
 #include <BaseLib/BaseAPI.h>
 #include <EngineLib/Engine.h>
 #include <GameLib/GameInitializer.h>
@@ -20,5 +21,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	GameInitializer gameInit;
 	Engine mainEngine;
-	mainEngine.EngineStart("GameEngine", 50, 50, 1366, 789, hInstance, &gameInit);
+	mainEngine.EngineStart("DreamEngine <DX11>", 50, 50, 1366, 789, hInstance, &gameInit);
 }

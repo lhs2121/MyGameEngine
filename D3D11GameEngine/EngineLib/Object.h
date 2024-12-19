@@ -62,6 +62,7 @@ public:
 		Object* newComp = new T();
 		newComp->SetParent(this);
 		newComp->m_pRenderer = m_pRenderer;
+		newComp->m_pInputObject = m_pInputObject;
 		transform.TransformUpdate();
 		newComp->Awake();
 		return (T*)newComp;
@@ -86,6 +87,7 @@ public:
 	base::string name;
 	Transform transform;
 	IRenderer* m_pRenderer = nullptr;
+	IInputObject* m_pInputObject;
 protected:
 	int order = 0;
 	bool death = false;

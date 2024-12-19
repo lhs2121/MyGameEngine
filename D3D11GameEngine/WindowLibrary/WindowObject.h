@@ -4,6 +4,8 @@
 class CWindowObject : public IWindowObject
 {
 public:
+
+	CWindowObject();
 	void Initialize(const char* szTitle, float posX, float posY, float width, float height, const HINSTANCE hInstance, IEngine* pEngine) override;
 
 	void MessageLoop() override;
@@ -34,4 +36,3 @@ private:
 	HWND m_hWnd;
 	IEngine* m_pEngine;
 };
-

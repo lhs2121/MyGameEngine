@@ -1,17 +1,15 @@
-#include "Pre.h"
-#include "EngineInput.h"
+#include "pch.h"
+#include "InputObject.h"
 
-EngineInput* EngineInput::mainInput = nullptr;
-
-EngineInput::~EngineInput()
+CInputObject::~CInputObject()
 {
-	for (auto& pair : allKey)
+	for (auto& pair : m_keyStateMap)
 	{
 		delete pair.second;
 	}
 }
 
-void EngineInput::Init()
+void CInputObject::Initailize()
 {
 	CreateKey(VK_LBUTTON);
 	CreateKey(VK_RBUTTON);
@@ -140,18 +138,18 @@ void EngineInput::Init()
 	CreateKey(VK_OEM_6);
 }
 
-void EngineInput::CreateKey(int _keyCode)
+void CInputObject::CreateKey(int _keyCode)
 {
-	EngineKey* newKey = new EngineKey();
-	allKey.insert({ _keyCode, newKey });
+	KeyState* newKey = new KeyState();
+	m_keyStateMap.insert({ _keyCode, newKey });
 }
 
-void EngineInput::UpdateKeyStates()
+void CInputObject::UpdateKeyStates()
 {
-	for (auto& pair : allKey)
+	for (auto& pair : m_keyStateMap)
 	{
 		int keyCode = pair.first;
-		EngineKey* Key = pair.second;
+		KeyState* Key = pair.second;
 		SHORT State = GetAsyncKeyState(keyCode);
 		if (State == 0) // ¾È´­·ÈÀ»¶§
 		{
@@ -192,10 +190,10 @@ void EngineInput::UpdateKeyStates()
 	}
 }
 
-bool EngineInput::IsDown(int _keyCode, void* _userPtr)
+bool CInputObject::IsDown(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
-	for (void* UserPtr : Users)
+	for (void* UserPtr : m_userList)
 	{
 		if (UserPtr == _userPtr)
 		{
@@ -209,14 +207,14 @@ bool EngineInput::IsDown(int _keyCode, void* _userPtr)
 		return false;
 	}
 
-	return allKey[_keyCode]->isDown;
+	return m_keyStateMap[_keyCode]->isDown;
 	
 }
 
-bool EngineInput::IsPress(int _keyCode, void* _userPtr)
+bool CInputObject::IsPress(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
-	for (void* UserPtr : Users)
+	for (void* UserPtr : m_userList)
 	{
 		if (UserPtr == _userPtr)
 		{
@@ -230,13 +228,13 @@ bool EngineInput::IsPress(int _keyCode, void* _userPtr)
 		return false;
 	}
 
-	return  allKey[_keyCode]->isPress;
+	return  m_keyStateMap[_keyCode]->isPress;
 }
 
-bool EngineInput::IsUp(int _keyCode, void* _userPtr)
+bool CInputObject::IsUp(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
-	for (void* UserPtr : Users)
+	for (void* UserPtr : m_userList)
 	{
 		if (UserPtr == _userPtr)
 		{
@@ -250,13 +248,13 @@ bool EngineInput::IsUp(int _keyCode, void* _userPtr)
 		return false;
 	}
 
-	return  allKey[_keyCode]->isUp;
+	return  m_keyStateMap[_keyCode]->isUp;
 }
 
-bool EngineInput::IsFree(int _keyCode, void* _userPtr)
+bool CInputObject::IsFree(int _keyCode, void* _userPtr)
 {
 	bool IsUser = false;
-	for (void* UserPtr : Users)
+	for (void* UserPtr : m_userList)
 	{
 		if (UserPtr == _userPtr)
 		{
@@ -270,10 +268,10 @@ bool EngineInput::IsFree(int _keyCode, void* _userPtr)
 		return false;
 	}
 
-	return  allKey[_keyCode]->isFree;
+	return  m_keyStateMap[_keyCode]->isFree;
 }
 
-void EngineInput::AddUser(void* _userPtr)
+void CInputObject::AddUser(void* _userPtr)
 {
-	Users.push_back(_userPtr);
+	m_userList.push_back(_userPtr);
 }
