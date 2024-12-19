@@ -2,7 +2,7 @@
 #include <EngineLibrary/Engine.h>
 #include "TestScene.h"
 
-class GameInitializer : public Initializer
+class GameStater : public Initializer
 {
 public:
 	void CreateAllScene(Engine* pEngine) override

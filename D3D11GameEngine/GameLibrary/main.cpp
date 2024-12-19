@@ -21,7 +21,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//Debug::CrtSetBreakAlloc(406);
 	Debug::CrtSetDbgFlag();
 
-	GameInitializer gameInitializer;
+	GameStater gameInitializer;
 	Engine engine;
 	engine.EngineStart("LegoEngine <DX11>", 50, 50, 1366, 789, hInstance, &gameInitializer);
 }

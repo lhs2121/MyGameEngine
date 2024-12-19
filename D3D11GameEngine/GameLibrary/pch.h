@@ -12,11 +12,8 @@
 #include <RendererLibrary/Interface.h>
 #include <EngineLibrary/Interface.h>
 
-//Engine 
 #include <EngineLibrary/Engine.h>
 #include <EngineLibrary/Transform.h>
 #include <EngineLibrary/Object.h>
 #include <EngineLibrary/Scene.h>
-		  
-//Component
-#include "EnumClass.h"
+		 
