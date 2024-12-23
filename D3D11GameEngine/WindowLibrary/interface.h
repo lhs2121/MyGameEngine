@@ -17,6 +17,8 @@ struct IWindowObject
 
 	virtual const char* GetTitle() = 0;
 
+	virtual UINT GetDpi() = 0;
+
 	virtual float GetWidth() = 0;
 
 	virtual float GetHeight() = 0;

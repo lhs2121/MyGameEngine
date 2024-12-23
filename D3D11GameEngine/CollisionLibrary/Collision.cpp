@@ -45,9 +45,9 @@ void CCollision::SetType(COLLISION_TYPE type)
 
 void CCollision::UpdateTransform(Transform* pTransform)
 {
-	XMVECTOR& position = pTransform->vecWorldPosition;
-	XMVECTOR& scale = pTransform->vecWorldScale;
-	XMVECTOR& rotation = pTransform->vecWorldRotation;
+	XMVECTOR& position = pTransform->m_vecWorldPosition;
+	XMVECTOR& scale = pTransform->m_vecWorldScale;
+	XMVECTOR& rotation = pTransform->m_vecWorldRotation;
 
 	switch (m_type)
 	{

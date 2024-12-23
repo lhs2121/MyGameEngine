@@ -19,45 +19,45 @@ void CWindowObject::Initialize(const char* szTitle, float posX, float posY, floa
 	m_hInstance = hInstance;
 	m_pEngine = pEngine;
 
-	{
-		WNDCLASSEXA wcex = { 0 };
+	WNDCLASSEXA wcex = { 0 };
 
-		wcex.cbSize = sizeof(WNDCLASSEXA);
-		wcex.style = CS_HREDRAW | CS_VREDRAW;
-		wcex.lpfnWndProc = WndProc;
-		wcex.cbClsExtra = 0;
-		wcex.cbWndExtra = 0;
-		wcex.hInstance = hInstance;
-		wcex.hIcon = nullptr;
-		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-		wcex.lpszMenuName = nullptr;
-		wcex.lpszClassName = "MainWindow";
-		wcex.hIconSm = nullptr;
+	wcex.cbSize = sizeof(WNDCLASSEXA);
+	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc = WndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = hInstance;
+	wcex.hIcon = nullptr;
+	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wcex.lpszMenuName = nullptr;
+	wcex.lpszClassName = "MainWindow";
+	wcex.hIconSm = nullptr;
 
-		ATOM A = RegisterClassExA(&wcex);
-	}
+	ATOM A = RegisterClassExA(&wcex);
 
-	{
-		SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+	SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
+	m_hWnd = CreateWindowA("MainWindow", szTitle, WS_OVERLAPPEDWINDOW,
+		(int)m_posX, (int)m_posY, (int)m_width, (int)m_height, nullptr, nullptr, m_hInstance, nullptr);
 
-		m_hWnd = CreateWindowA("MainWindow", szTitle, WS_OVERLAPPEDWINDOW,
-			(int)m_posX, (int)m_posY, (int)m_width, (int)m_height, nullptr, nullptr, m_hInstance, nullptr);
+	if (!m_hWnd)
+		__debugbreak();
 
-		if (!m_hWnd)
-			__debugbreak();
-
-		ShowWindow(m_hWnd, SW_SHOW);
-		UpdateWindow(m_hWnd);
-	}
-
+	m_dpi = GetDpiForWindow(m_hWnd);
+	ShowWindow(m_hWnd, SW_SHOW);
+	UpdateWindow(m_hWnd);
 }
 
 LRESULT CALLBACK CWindowObject::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
+	case WM_DPICHANGED:
+	{
+		g_pWindowsObject->m_dpi = GetDpiForWindow(g_pWindowsObject->m_hWnd);
+		break;
+	}
 	case WM_SIZE:
 	{
 		g_pWindowsObject->m_width = LOWORD(lParam);
