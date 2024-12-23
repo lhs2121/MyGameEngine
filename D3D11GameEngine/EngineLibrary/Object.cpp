@@ -74,7 +74,7 @@ void Object::SetParent(Object* _m_pParent)
 void Object::Destroy()
 {
 	Scene* m_pParentScene = GetScene();
-	m_pParentScene->deathNote.push_back(this);
+	m_pParentScene->m_pDeathObjectList.push_back(this);
 	m_bDeath = true;
 }
 

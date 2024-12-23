@@ -3,6 +3,22 @@
 #pragma comment(lib,"d2d1.lib")
 #pragma comment(lib,"dwrite.lib")
 
+CFontManager::~CFontManager()
+{
+	for (auto& c : m_mapLayout)
+	{
+		c.second->Release();
+	}
+	m_mapLayout.clear();
+	m_pDwriteFactory->Release();
+	m_pD2D1RenderTarget->Release();
+	m_pD2D1Device->Release();
+	m_pD2D1DeviceContext->Release();
+	m_pBrush->Release();
+	m_pArial->Release();
+	m_pLayout->Release();
+}
+
 void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 {
 	D2D1_FACTORY_OPTIONS d2dFactoryOptions = {};
@@ -41,11 +57,14 @@ void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 	if (S_OK != DWriteCreateFactory(DWRITE_FACTORY_TYPE::DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)&m_pDwriteFactory))
 		__debugbreak();
 
-	if (S_OK != m_pDwriteFactory->CreateTextFormat(L"굴림체", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 12.0f, L"en-US", &m_pArial))
+	float dpi = GetDpiForSystem();
+	float scaleFactor = dpi / 96.0f;
+	if (S_OK != m_pDwriteFactory->CreateTextFormat(L"굴림체", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL,
+		scaleFactor * 12.0f, L"en-US", &m_pArial))
 		__debugbreak();
-
+	
 	m_pD2D1RenderTarget->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_ALIASED);
-
+	
 	const wchar_t* text = L"게임엔진을 이용해주셔서 감사합니다.";
 	UINT32 len = static_cast<UINT32>(wcslen(text));
 	if (S_OK != m_pDwriteFactory->CreateTextLayout(text, len, m_pArial, 300.0f, 100.0f, &m_pLayout))

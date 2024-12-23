@@ -3,9 +3,9 @@
 
 Scene::~Scene()
 {
-	if (pQuad)
+	if (m_bUseQuadtree)
 	{
-		DeleteQuadTree(pQuad);
+		DeleteQuadTree(m_pQuad);
 	}
 
 	for (ICollision* pCol : m_pCollisionList)
@@ -16,38 +16,38 @@ Scene::~Scene()
 
 void Scene::UseQuadTree()
 {
-	if (isUseQuadTree)
+	if (m_bUseQuadtree)
 		return;
 
-	CreateQuadTree(&pQuad);
-	pQuad->Initialize(0, 0, 500, 500, 4, m_pRenderer);
+	CreateQuadTree(&m_pQuad);
+	m_pQuad->Initialize(0, 0, 500, 500, 4, m_pRenderer);
 
-	isUseQuadTree = true;
+	m_bUseQuadtree = true;
 }
 
 void Scene::AllCollisionUpdate()
 {
-	if (isUseQuadTree)
+	if (m_bUseQuadtree)
 	{
-		pQuad->Clear();
+		m_pQuad->Clear();
 		for (ICollision* pCol : m_pCollisionList)
 		{
-			pQuad->Insert(pCol);
+			m_pQuad->Insert(pCol);
 		}
 	}
 
-	pQuad->DebugRender();
+	m_pQuad->DebugRender();
 }
 
 void Scene::CheckDeath()
 {
-	for (Object* object: deathNote)
+	for (Object* object: m_pDeathObjectList)
 	{
-		object->Getm_pParent()->RemoveChild(object);
+		object->GetParent()->RemoveChild(object);
 		object->AllRelease();
 		delete object;
 	}
-	deathNote.clear();
+	m_pDeathObjectList.clear();
 }
 
 

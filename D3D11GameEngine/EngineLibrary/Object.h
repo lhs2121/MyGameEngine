@@ -40,7 +40,7 @@ public:
 
 	void         Destroy();
 	         	                 
-	Object*      Getm_pParent() { return m_pParent; }
+	Object*      GetParent() { return m_pParent; }
 		         
 	bool         GetDeath() const { return m_bDeath; }
 		         

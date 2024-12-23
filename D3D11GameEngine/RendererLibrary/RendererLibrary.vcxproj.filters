@@ -28,7 +28,6 @@
     <ClInclude Include="typedef.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\mast1\OneDrive\바탕 화면\c.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConstantBuffer.cpp">
@@ -61,7 +60,6 @@
     <ClCompile Include="SpriteObject.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\mast1\OneDrive\바탕 화면\c.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include=".cpp">

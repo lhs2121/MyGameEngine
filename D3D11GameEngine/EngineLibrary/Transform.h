@@ -7,40 +7,40 @@ class Object;
 class Transform
 {
 public:
-	void SetLocalScale(CXMVECTOR _scale);
-	void SetLocalRotation(CXMVECTOR _rotation);
-	void SetLocalPosition(CXMVECTOR _pos);
+	void SetLocalScale(CXMVECTOR vecScale);
+	void SetLocalRotation(CXMVECTOR vecRotation);
+	void SetLocalPosition(CXMVECTOR vecPosition);
 
-	void AddLocalScale(CXMVECTOR _scale);
-	void AddLocalRotation(CXMVECTOR _rotation);
-	void AddLocalPosition(CXMVECTOR _pos);
+	void AddLocalScale(CXMVECTOR vecScale);
+	void AddLocalRotation(CXMVECTOR vecRotation);
+	void AddLocalPosition(CXMVECTOR vecPosition);
 
-	void SetParent(Transform* _m_pParent);
+	void SetParent(Transform* pParent);
 	void TransformUpdate();
 
 
-	XMVECTOR vecLocalScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR vecLocalRotation;
-	XMVECTOR vecLocalPosition;
+	XMVECTOR m_vecLocalScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR m_vecLocalRotation;
+	XMVECTOR m_vecLocalPosition;
 	
-	XMVECTOR vecRecievedScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR vecRecievedRotation;
-	XMVECTOR vecRecievedPosition;
+	XMVECTOR m_vecRecievedScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR m_vecRecievedRotation;
+	XMVECTOR m_vecRecievedPosition;
 	
-	XMVECTOR vecWorldScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR vecWorldRotation;
-	XMVECTOR vecWorldPosition;
+	XMVECTOR m_vecWorldScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR m_vecWorldRotation;
+	XMVECTOR m_vecWorldPosition;
 
-	XMVECTOR quatWorld;
+	XMVECTOR m_quatWorld;
 
-	XMMATRIX matWorldScale;
-	XMMATRIX matWorldRotation;
-	XMMATRIX matWorldPosition;
+	XMMATRIX m_matWorldScale;
+	XMMATRIX m_matWorldRotation;
+	XMMATRIX m_matWorldPosition;
 
-	XMMATRIX matWorld;
-	XMMATRIX matView;
-	XMMATRIX matProjection;
+	XMMATRIX m_matWorld;
+	XMMATRIX m_matView;
+	XMMATRIX m_matProjection;
 private:
 	Transform* m_pParent = nullptr;
-	std::list<Transform*> childList;
+	std::list<Transform*> m_pChildTransformList;
 };

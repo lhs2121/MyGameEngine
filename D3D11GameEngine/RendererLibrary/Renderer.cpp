@@ -71,10 +71,11 @@ CRenderer::~CRenderer()
 //		dxgiDebug = nullptr;
 //	}
 //#endif
+	delete m_pFontManager;
 	m_pDevice->Release();
 }
 
-void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
+void CRenderer::Initialize(UINT winWidth, UINT winHeight, HWND& hwnd)
 {
 	IDXGIFactory* pFact = nullptr;
 	IDXGIAdapter* pAdap = nullptr;
@@ -90,8 +91,8 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		__debugbreak();
 
 	DXGI_SWAP_CHAIN_DESC scDesc = { 0 };
-	scDesc.BufferDesc.Width = winSizeX;
-	scDesc.BufferDesc.Height = winSizeY;
+	scDesc.BufferDesc.Width = winWidth;
+	scDesc.BufferDesc.Height = winHeight;
 	scDesc.BufferDesc.RefreshRate.Numerator = 60;
 	scDesc.BufferDesc.RefreshRate.Denominator = 1;
 	scDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -116,8 +117,8 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		__debugbreak();
 
 	D3D11_TEXTURE2D_DESC dsbDesc;
-	dsbDesc.Width = winSizeX;
-	dsbDesc.Height = winSizeY;
+	dsbDesc.Width = winWidth;
+	dsbDesc.Height = winHeight;
 	dsbDesc.MipLevels = 1;
 	dsbDesc.ArraySize = 1;
 	dsbDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -141,8 +142,8 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		__debugbreak();
 
 	D3D11_VIEWPORT vpDesc;
-	vpDesc.Width = (FLOAT)winSizeX;
-	vpDesc.Height = (FLOAT)winSizeY;
+	vpDesc.Width = (FLOAT)winWidth;
+	vpDesc.Height = (FLOAT)winHeight;
 	vpDesc.MinDepth = 0;
 	vpDesc.MaxDepth = 1;
 	vpDesc.TopLeftX = 0;
@@ -153,7 +154,7 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 	pAdap->Release();
 
 	m_matView = XMMatrixLookToLH(m_CameraPosition, m_CameraEyeDirection, m_CameraUpDirection);
-	m_matProjection = XMMatrixPerspectiveFovLH(m_degFovY * Deg2Rad, (float)winSizeX / (float)winSizeY, m_near, m_far);
+	m_matProjection = XMMatrixPerspectiveFovLH(m_degFovY * Deg2Rad, (float)winWidth / (float)winHeight, m_near, m_far);
 
 	CreateBasicMesh();
 	CreateBasicMaterial();
@@ -182,7 +183,7 @@ void CRenderer::Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd)
 		__debugbreak();
 
 	m_pFontManager = new CFontManager;
-		m_pFontManager->Initialize(m_pDevice, pDXGISurface);
+	m_pFontManager->Initialize(m_pDevice, pDXGISurface);
 }
 
 void CRenderer::StartRender()

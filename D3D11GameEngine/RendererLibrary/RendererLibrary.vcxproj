@@ -147,9 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\mast1\OneDrive\바탕 화면\c.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Interface.h" />
@@ -161,9 +158,6 @@
     <ClInclude Include="typedef.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\mast1\OneDrive\바탕 화면\c.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="pch.cpp">

@@ -11,8 +11,10 @@ void TestScene::Awake()
 	//CreateChild<Ground>();
 	m_pInputObject->AddUser(a);
 	m_pInputObject->AddUser(this);
+	
 }
 
 void TestScene::Update(float _deltaTime)
 {
+	m_pRenderer->DrawFont(L"asdfdas", 0, 0, 100, 200);
 }

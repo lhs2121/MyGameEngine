@@ -9,5 +9,6 @@ void CreateInputObject(IInputObject** ppTimeObject)
 
 void DeleteInputObject(IInputObject* pTimeObject)
 {
-	delete pTimeObject;
+	CInputObject* pCast = (CInputObject*)pTimeObject;
+	delete pCast;
 }

@@ -39,6 +39,9 @@ void CWindowObject::Initialize(const char* szTitle, float posX, float posY, floa
 	}
 
 	{
+		SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+
+
 		m_hWnd = CreateWindowA("MainWindow", szTitle, WS_OVERLAPPEDWINDOW,
 			(int)m_posX, (int)m_posY, (int)m_width, (int)m_height, nullptr, nullptr, m_hInstance, nullptr);
 

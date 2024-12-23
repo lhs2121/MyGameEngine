@@ -11,24 +11,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>.h</Filter>
-    </ClInclude>
     <ClInclude Include="Interface.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="WindowObject.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
     <ClCompile Include="Interface.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
     <ClCompile Include="WindowObject.cpp">
+      <Filter>.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
   </ItemGroup>

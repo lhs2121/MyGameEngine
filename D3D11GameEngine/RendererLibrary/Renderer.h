@@ -13,9 +13,13 @@ class CRenderer : public IRenderer
 {
 public:
 	~CRenderer();
-	void Initialize(UINT windowSizeX, UINT windowSizeY, HWND& hwnd) override;
+	void Initialize(UINT winWidth, UINT winHeight, HWND& hwnd) override;
 	void StartRender() override;
 	void EndRender() override;
+	void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) override;
+	void DrawRect2(float x, float y, float width, float height, const XMVECTOR& color) override;
+	void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) override;
+	void DrawFont(const wchar_t* str, float x, float y, float width, float height) override;
 
 	ISpriteObject* CreateSpriteObject(const char* name, const WCHAR* wszTexfile, int countX, int countY, float interTime = 0.3f);
 	IMesh* CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, void* pIndexList, UINT indexSize, USHORT indexStride);
@@ -24,11 +28,6 @@ public:
 
 	void LoadTexture(const WCHAR* wszFilePath) override;
 	void LoadShader(const WCHAR* wszShaderPath) override;
-	
-	void DrawRect(const XMMATRIX& matWorld, const XMVECTOR& color) override;
-	void DrawRect2(float x, float y, float width, float height, const XMVECTOR& color) override;
-	void DrawSprite(const XMMATRIX& matWorld, ISpriteObject* pSpriteObject) override;
-	void DrawFont(const wchar_t* str, float x, float y, float width, float height) override;
 
 	ShaderData* GetShader(const WCHAR* wszName);
 	ID3D11ShaderResourceView* GetShaderResourceView(const WCHAR* wszTexFile);
@@ -40,6 +39,17 @@ public:
 private:
 	void CreateBasicMesh();
 	void CreateBasicMaterial();
+	CFontManager* m_pFontManager;
+	ID3D11Device* m_pDevice;
+	ID3D11DeviceContext* m_pDeviceContext;
+	IDXGISwapChain* m_pSwapChain;
+	ID3D11Texture2D* m_pRenderTargetBuffer;
+	ID3D11Texture2D* m_pDepthStencilBuffer;
+	ID3D11DepthStencilView* m_pDepthStencilView;
+	ID3D11RenderTargetView* m_pRenderTargetView;
+	CConstantBuffer* m_pConstantBuffer_transform;
+	CConstantBuffer* m_pConstantBuffer_color;
+	ID3D11InputLayout* m_pBasicInputLayout;
 	std::unordered_map<std::wstring, ShaderData*> m_mapShader;
 	std::unordered_map<std::wstring, ID3D11ShaderResourceView*> m_mapSRV;
 	std::unordered_map<std::string,  ID3D11RasterizerState*> m_mapRasterizer;
@@ -50,16 +60,6 @@ private:
 	std::unordered_map<std::string,  CMesh*> m_mapMesh;
 	std::unordered_map<std::string,  CMaterial*> m_mapMaterial;
 
-		
-	ID3D11Device* m_pDevice;
-	ID3D11DeviceContext* m_pDeviceContext;
-	IDXGISwapChain* m_pSwapChain;
-	ID3D11Texture2D* m_pRenderTargetBuffer;
-	ID3D11Texture2D* m_pDepthStencilBuffer;
-	ID3D11DepthStencilView* m_pDepthStencilView;
-	ID3D11RenderTargetView* m_pRenderTargetView;
-
-	CFontManager* m_pFontManager;
 	FLOAT m_clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	XMVECTOR m_CameraPosition = { 0.0f, 0.0f, -500.0f, 1.0f };
@@ -73,9 +73,4 @@ private:
 	XMMATRIX m_matWorld;
 	XMMATRIX m_matView;
 	XMMATRIX m_matProjection;
-		
-	CConstantBuffer* m_pConstantBuffer_transform;
-	CConstantBuffer* m_pConstantBuffer_color;
-
-	ID3D11InputLayout* m_pBasicInputLayout = nullptr;
 };

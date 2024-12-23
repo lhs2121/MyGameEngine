@@ -11,9 +11,9 @@ public:
 	void AllCollisionUpdate();
 	void CheckDeath();
 
-	bool isUseQuadTree = false;
-	IQuadTree* pQuad = nullptr;
+	bool m_bUseQuadtree = false;
+	IQuadTree* m_pQuad = nullptr;
 	std::vector<ICollision*> m_pCollisionList;
-	std::vector<Object*> deathNote;
+	std::vector<Object*> m_pDeathObjectList;
 };
 

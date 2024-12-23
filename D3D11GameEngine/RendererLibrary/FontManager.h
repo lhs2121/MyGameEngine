@@ -7,6 +7,7 @@
 class CFontManager
 {
 public:
+	~CFontManager();
 	void Initialize(ID3D11Device* pDevice,IDXGISurface* pBackBuffer);
 	void FontRender(const wchar_t* str, float posX, float posY, float width, float height);
 private:

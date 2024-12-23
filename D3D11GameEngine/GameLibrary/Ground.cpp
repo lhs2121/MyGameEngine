@@ -31,5 +31,5 @@ void Ground::Update(float _deltaTime)
 	m_transform.AddLocalPosition({ 0, -y * 1000 * _deltaTime });
 	pCol->UpdateTransform(&m_transform);
 	pSp->UpdateAnimation(_deltaTime);
-	m_pRenderer->DrawSprite(m_transform.matWorld, pSp);
+	m_pRenderer->DrawSprite(m_transform.m_matWorld, pSp);
 }

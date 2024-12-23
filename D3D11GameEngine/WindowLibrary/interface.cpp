@@ -7,7 +7,8 @@ void CreateWindowObject(IWindowObject** ppWindowObject)
     *ppWindowObject = new CWindowObject;
 }
 
- void DeleteWindowObject(IWindowObject* pWindowObject)
+void DeleteWindowObject(IWindowObject* pWindowObject)
 {
-     delete pWindowObject;
+    CWindowObject* pCast = (CWindowObject*)pWindowObject;
+    delete pCast;
 }
