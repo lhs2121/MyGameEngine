@@ -35,6 +35,7 @@ void Engine::EngineStart(const char* szTitle, float x, float y, float width, flo
 
 	m_pTimeObject->CountStart();
 
+	m_interTime = 1.0f / m_maxFps;
 	m_pWindowObject->MessageLoop();
 }
 
@@ -42,34 +43,26 @@ void Engine::EngineUpdate()
 {
 	if (!m_pCurScene)
 		return;
-	
-	m_pInputObject->UpdateKeyStates();
 
 	float deltaTime = m_pTimeObject->CountEnd();
 	m_pTimeObject->CountStart();
 
-	static int fps = 0;
-	static int prevFps = 0;
-	static float sumDeltaTime = 0.0f;
-	sumDeltaTime += deltaTime;
+	static float sum = 0;
+	sum += deltaTime;
+	if (sum >= (1.0f/155.0f)) // 155fps มฆวั
+	{
+		sum = 0.0f;
+	}
+	else
+	{
+		return;
+	}
 
 	m_pCurScene->CheckDeath();
-
+	m_pInputObject->UpdateKeyStates();
 	m_pRenderer->StartRender();
-
 	m_pCurScene->AllCollisionUpdate();
 	m_pCurScene->AllUpdate(deltaTime);
-
-	if (sumDeltaTime >= 1.0f)
-	{
-		prevFps = fps;
-		fps = 0;
-		sumDeltaTime = 0;
-	}
-	fps++;
-	std::wstring fpsString = L"fps : " + std::to_wstring(prevFps);
-	m_pRenderer->DrawFont(fpsString.c_str(), -670, 380, 100, 50);
-
 	m_pRenderer->EndRender();
 }
 

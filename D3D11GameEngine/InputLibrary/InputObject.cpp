@@ -145,7 +145,7 @@ void CInputObject::CreateKey(int _keyCode)
 }
 
 void CInputObject::UpdateKeyStates()
-{
+    {
 	for (auto& pair : m_keyStateMap)
 	{
 		int keyCode = pair.first;
