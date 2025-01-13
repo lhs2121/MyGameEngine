@@ -44,26 +44,31 @@ void Engine::EngineUpdate()
 	if (!m_pCurScene)
 		return;
 
+	static int sumFrame = 0;
+	static int prevSumFrame = 0;
+	static float sumDelta = 0;
 	float deltaTime = m_pTimeObject->CountEnd();
 	m_pTimeObject->CountStart();
 
-	static float sum = 0;
-	sum += deltaTime;
-	if (sum >= (1.0f/155.0f)) // 155fps มฆวั
-	{
-		sum = 0.0f;
-	}
-	else
-	{
-		return;
-	}
+	sumDelta += deltaTime;
+	sumFrame++;
 
-	m_pCurScene->CheckDeath();
 	m_pInputObject->UpdateKeyStates();
+	m_pCurScene->CheckDeath();
 	m_pRenderer->StartRender();
 	m_pCurScene->AllCollisionUpdate();
 	m_pCurScene->AllUpdate(deltaTime);
+
+	if (sumDelta >= 1.0f)
+	{
+		prevSumFrame = sumFrame;
+		sumDelta = 0.0f;
+		sumFrame = 0;
+	}
+	m_pRenderer->DrawFont(std::to_wstring(prevSumFrame).c_str(), -m_pWindowObject->GetWidth()/2, m_pWindowObject->GetHeight()/2, 100, 10);
 	m_pRenderer->EndRender();
+
+
 }
 
 void Engine::EngineRelease()

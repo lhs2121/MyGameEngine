@@ -26,7 +26,7 @@ public:
 
 private:
 	float m_interTime;
-	UINT m_maxFps = 155;
+	UINT m_maxFps = 40;
 	bool m_bFpsLimited = false;
 	Scene* m_pCurScene;
 	IRenderer* m_pRenderer;
