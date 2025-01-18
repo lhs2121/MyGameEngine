@@ -73,8 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <LibraryPath>$(SolutionDir)..\Bin\x64\Debug\;$(SolutionDir)..\ThirdParty;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <LibraryPath>$(SolutionDir)..\Bin\x64\Debug\;$(SolutionDir)..\ThirdParty;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\lib\x64\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,8 +156,10 @@
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="typedef.h" />
+    <ClInclude Include="FBXLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FBXLoader.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="pch.cpp">

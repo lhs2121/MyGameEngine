@@ -5,6 +5,7 @@
 #include "ConstantBuffer.h"
 #include "SpriteObject.h"
 #include "FontManager.h"
+#include "FBXLoader.h"
 
 #include <unordered_map>
 #include <string>
@@ -39,6 +40,7 @@ public:
 private:
 	void CreateBasicMesh();
 	void CreateBasicMaterial();
+	CFBXLoader* m_pFBXLoader;
 	CFontManager* m_pFontManager;
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDeviceContext;
