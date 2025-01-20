@@ -186,7 +186,7 @@ void CRenderer::Initialize(UINT winWidth, UINT winHeight, HWND& hwnd)
 	m_pFontManager->Initialize(m_pDevice, pDXGISurface);
 
 	m_pFBXLoader = new CFBXLoader;
-	m_pFBXLoader->Initialize();
+	m_pFBXLoader->Initialize(this);
 }
 
 void CRenderer::StartRender()

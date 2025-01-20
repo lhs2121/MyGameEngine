@@ -1,34 +1,57 @@
 #include "pch.h"
 #include "FBXLoader.h"
+#include "Renderer.h"
+#include <vector>
 
 #pragma comment(lib,"libfbxsdk.lib")
-void CFBXLoader::Initialize()
+void CFBXLoader::Initialize(CRenderer* pRenderer)
 {
+	m_pRenderer = pRenderer;
 	m_pManager = FbxManager::Create();
 	FbxIOSettings* ios = FbxIOSettings::Create(m_pManager, IOSROOT);
 	m_pManager->SetIOSettings(ios);
 
 	FbxImporter* importer = FbxImporter::Create(m_pManager, "");
-	importer->Initialize("desk.fbx", -1, m_pManager->GetIOSettings());
-	const char* error = importer->GetStatus().GetErrorString();
-		
-
+	if (false == importer->Initialize("ribbon.fbx", -1, m_pManager->GetIOSettings()))
+	{
+		const char* error = importer->GetStatus().GetErrorString();
+		__debugbreak();
+	}
 
 	FbxScene* scene = FbxScene::Create(m_pManager, "scene");
 	if (false == importer->Import(scene))
 	{
 		const char* error = importer->GetStatus().GetErrorString();
+		__debugbreak();
 	}
+
+	LoadMesh(scene);
 	importer->Destroy();
-	FbxNode* root = scene->GetRootNode();
-	const char* name = root->GetName();
-	if (root) 
+}
+
+void CFBXLoader::LoadMesh(FbxScene* pScene)
+{
+	FbxNode* pRoot = pScene->GetRootNode();
+	FbxMesh* pMesh = pRoot->GetMesh();
+	if (pMesh != nullptr)
 	{
-		for (int i = 0; i < root->GetChildCount(); i++)
+		int a = 0;
+	}
+	int count = pRoot->GetChildCount();
+	FbxVector4* pVertexList = nullptr;
+	for (int i = 0; i < count; i++)
+	{
+		FbxNode* pNode = pRoot->GetChild(i);
+		FbxMesh* pMesh = pNode->GetMesh();
+		if (pMesh != nullptr)
 		{
-			FbxNode* node = root->GetChild(i);
-			const char* name = node->GetName();
-			int a = 0;
+			int vertexCount = pMesh->GetPolygonCount();
+			pVertexList = pMesh->GetControlPoints();
+			if (pVertcies != nullptr)
+			{
+				m_pRenderer->CreateMesh("newmesh",pVertcies,sizeof(FbxVector4)* vertexCount,sizeof(FbxVector4),)
+			}
+
 		}
 	}
 }
