@@ -39,6 +39,7 @@ void CFBXLoader::LoadMesh(FbxScene* pScene)
 	}
 	int count = pRoot->GetChildCount();
 	FbxVector4* pVertexList = nullptr;
+	std::vector<int> indexList;
 	for (int i = 0; i < count; i++)
 	{
 		FbxNode* pNode = pRoot->GetChild(i);
@@ -47,9 +48,21 @@ void CFBXLoader::LoadMesh(FbxScene* pScene)
 		{
 			int vertexCount = pMesh->GetPolygonCount();
 			pVertexList = pMesh->GetControlPoints();
-			if (pVertcies != nullptr)
+
+			int polCount = pMesh->GetPolygonCount();
+			for (int i = 0; i < polCount; i++)
 			{
-				m_pRenderer->CreateMesh("newmesh",pVertcies,sizeof(FbxVector4)* vertexCount,sizeof(FbxVector4),)
+				int polSize = pMesh->GetPolygonSize(i);
+				for (int j = 0; j < polSize; j++)
+				{
+					int index = pMesh->GetPolygonVertex(i, j);
+					indexList.push_back(index);
+				}
+
+			}
+			if (pVertexList != nullptr)
+			{
+				m_pRenderer->CreateMesh("ribbon", pVertexList, sizeof(FbxVector4) * vertexCount, sizeof(FbxVector4), &indexList[0], sizeof(int) * indexList.size(), sizeof(int));
 			}
 
 		}

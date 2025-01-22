@@ -57,8 +57,8 @@ void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 	if (S_OK != DWriteCreateFactory(DWRITE_FACTORY_TYPE::DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)&m_pDwriteFactory))
 		__debugbreak();
 
-	float dpi = GetDpiForSystem();
-	float scaleFactor = dpi / 96.0f;
+	UINT dpi = GetDpiForSystem();
+	float scaleFactor = (float)dpi / 96.0f;
 	if (S_OK != m_pDwriteFactory->CreateTextFormat(L"±¼¸²Ã¼", nullptr, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL,
 		scaleFactor * 12.0f, L"en-US", &m_pArial))
 		__debugbreak();

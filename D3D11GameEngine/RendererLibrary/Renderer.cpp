@@ -369,7 +369,7 @@ void CRenderer::LoadShader(const WCHAR* wszShaderPath)
 	delete[] wszCurrentDir;
 }
 
-IMesh* CRenderer::CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, void* pIndexList, UINT indexSize, USHORT indexStride)
+IMesh* CRenderer::CreateMesh(const char* meshName, void* pVertexList, UINT vertexSize, UINT vertexStride, void* pIndexList, UINT indexSize, UINT indexStride)
 {
 	CMesh* pMesh = new CMesh;
 	pMesh->m_vertexStrides = vertexStride;
