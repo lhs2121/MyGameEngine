@@ -4,11 +4,11 @@
 
 void CreateRenderer(IRenderer** ppRenderer)
 {
-    *ppRenderer = new CRenderer();
+    *ppRenderer = new Renderer();
 }
 
 void DeleteRenderer(IRenderer* pRenderer)
 {
-    CRenderer* pCast = (CRenderer*)pRenderer;
+    Renderer* pCast = (Renderer*)pRenderer;
     delete pCast;
 }

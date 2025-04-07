@@ -44,14 +44,14 @@ void Engine::EngineUpdate()
 	if (!m_pCurScene)
 		return;
 
-	static int sumFrame = 0;
-	static int prevSumFrame = 0;
-	static float sumDelta = 0;
+	//static int sumFrame = 0;
+	//static int prevSumFrame = 0;
+	//static float sumDelta = 0;
 	float deltaTime = m_pTimeObject->CountEnd();
 	m_pTimeObject->CountStart();
 
-	sumDelta += deltaTime;
-	sumFrame++;
+	//sumDelta += deltaTime;
+	//sumFrame++;
 
 	m_pInputObject->UpdateKeyStates();
 	m_pCurScene->CheckDeath();
@@ -59,13 +59,13 @@ void Engine::EngineUpdate()
 	m_pCurScene->AllCollisionUpdate();
 	m_pCurScene->AllUpdate(deltaTime);
 
-	if (sumDelta >= 1.0f)
-	{
-		prevSumFrame = sumFrame;
-		sumDelta = 0.0f;
-		sumFrame = 0;
-	}
-	m_pRenderer->DrawFont(std::to_wstring(prevSumFrame).c_str(), -m_pWindowObject->GetWidth()/2, m_pWindowObject->GetHeight()/2, 100, 10);
+	//if (sumDelta >= 1.0f)
+	//{
+	//	prevSumFrame = sumFrame;
+	//	sumDelta = 0.0f;
+	//	sumFrame = 0;
+	//}
+	//m_pRenderer->DrawFont(std::to_wstring(prevSumFrame).c_str(), -m_pWindowObject->GetWidth()/2, m_pWindowObject->GetHeight()/2, 100, 10);
 	m_pRenderer->EndRender();
 
 

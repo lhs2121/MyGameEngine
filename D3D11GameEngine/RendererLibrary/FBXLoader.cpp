@@ -4,7 +4,7 @@
 #include <vector>
 
 #pragma comment(lib,"libfbxsdk.lib")
-void CFBXLoader::Initialize(CRenderer* pRenderer)
+void FBXLoader::Initialize(Renderer* pRenderer)
 {
 	m_pRenderer = pRenderer;
 	m_pManager = FbxManager::Create();
@@ -12,7 +12,7 @@ void CFBXLoader::Initialize(CRenderer* pRenderer)
 	m_pManager->SetIOSettings(ios);
 
 	FbxImporter* importer = FbxImporter::Create(m_pManager, "");
-	if (false == importer->Initialize("ribbon.fbx", -1, m_pManager->GetIOSettings()))
+	if (false == importer->Initialize("box.fbx", -1, m_pManager->GetIOSettings()))
 	{
 		const char* error = importer->GetStatus().GetErrorString();
 		__debugbreak();
@@ -29,7 +29,7 @@ void CFBXLoader::Initialize(CRenderer* pRenderer)
 	importer->Destroy();
 }
 
-void CFBXLoader::LoadMesh(FbxScene* pScene)
+void FBXLoader::LoadMesh(FbxScene* pScene)
 {
 	FbxNode* pRoot = pScene->GetRootNode();
 	FbxMesh* pMesh = pRoot->GetMesh();
@@ -62,9 +62,14 @@ void CFBXLoader::LoadMesh(FbxScene* pScene)
 			}
 			if (pVertexList != nullptr)
 			{
-				m_pRenderer->CreateMesh("ribbon", pVertexList, sizeof(FbxVector4) * vertexCount, sizeof(FbxVector4), &indexList[0], sizeof(int) * indexList.size(), sizeof(int));
+				//m_pRenderer->CreateMesh("box", pVertexList, sizeof(FbxVector4) * vertexCount, sizeof(FbxVector4), &indexList[0], sizeof(int) * indexList.size(), sizeof(int));
 			}
 
 		}
 	}
+}
+
+void FBXLoader::LoadMaterial(FbxScene* pScene)
+{
+
 }

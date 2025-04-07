@@ -3,7 +3,7 @@
 #pragma comment(lib,"d2d1.lib")
 #pragma comment(lib,"dwrite.lib")
 
-CFontManager::~CFontManager()
+FontManager::~FontManager()
 {
 	for (auto& c : m_mapLayout)
 	{
@@ -19,7 +19,7 @@ CFontManager::~CFontManager()
 	m_pLayout->Release();
 }
 
-void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
+void FontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 {
 	D2D1_FACTORY_OPTIONS d2dFactoryOptions = {};
 	ID2D1Factory3* pD2dFactory = nullptr;
@@ -74,7 +74,7 @@ void CFontManager::Initialize(ID3D11Device* pDevice, IDXGISurface* pBackBuffer)
 	pD2dFactory->Release();
 }
 
-void CFontManager::FontRender(const wchar_t* str, float posX, float posY, float width, float height)
+void FontManager::FontRender(const wchar_t* str, float posX, float posY, float width, float height)
 {
 	IDWriteTextLayout* pTextLayout;
 	if (m_mapLayout.find(str) == m_mapLayout.end())

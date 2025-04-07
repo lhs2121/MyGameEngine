@@ -6,15 +6,19 @@
 
 void TestScene::Awake()
 {
-	UseQuadTree();
-	a = CreateChild<Player>();
+	//UseQuadTree();
+	//a = CreateChild<Player>();
 	//CreateChild<Ground>();
-	m_pInputObject->AddUser(a);
+
+	
+
+	//m_pInputObject->AddUser(a);
 	m_pInputObject->AddUser(this);
 	
 }
 
 void TestScene::Update(float _deltaTime)
 {
-	m_pRenderer->DrawFont(L"asdfdas", 0, 0, 100, 200);
+	m_pRenderer->DrawRibbon();
+	//m_pRenderer->DrawFont(L"asdfdas", 0, 0, 100, 200);
 }

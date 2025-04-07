@@ -1,16 +1,16 @@
 #pragma once
 #include "Interface.h"
 
-class CConstantBuffer 
+class ConstantBuffer 
 {
 public:
-	~CConstantBuffer();
+	~ConstantBuffer();
 
-	void Draw(ID3D11DeviceContext* pDeviceContext);
+	void Bind(ID3D11DeviceContext* pDeviceContext);
+
 	void* m_pData = nullptr;
-	const char* m_szTargetShader;
+	const char* m_szShaderType;
 	int m_slot = 0;
 	UINT m_dataSize;
 	ID3D11Buffer* m_pBuffer;
-	D3D11_MAPPED_SUBRESOURCE m_subResourece;
 };

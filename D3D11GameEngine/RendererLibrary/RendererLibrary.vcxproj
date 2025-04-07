@@ -151,14 +151,14 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="typedef.h" />
     <ClInclude Include="FBXLoader.h" />
+    <ClInclude Include="D3DHelper.h" />
+    <ClInclude Include="MeshObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="D3DHelper.cpp" />
     <ClCompile Include="FBXLoader.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Interface.cpp" />
@@ -169,12 +169,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Renderer_CreateBasicMesh.cpp" />
-    <ClCompile Include="Renderer_CreateBasicMaterial.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
-    <ClCompile Include="SpriteObject.cpp" />
+    <ClCompile Include="MeshObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

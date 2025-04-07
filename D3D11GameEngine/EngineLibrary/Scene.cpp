@@ -34,9 +34,11 @@ void Scene::AllCollisionUpdate()
 		{
 			m_pQuad->Insert(pCol);
 		}
+
+		m_pQuad->DebugRender();
 	}
 
-	m_pQuad->DebugRender();
+	
 }
 
 void Scene::CheckDeath()

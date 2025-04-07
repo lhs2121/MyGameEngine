@@ -1,12 +1,13 @@
 #pragma once
 #include <fbxsdk.h>
 
-class CRenderer;
-class CFBXLoader
+class Renderer;
+class FBXLoader
 {
 public:
-	void Initialize(CRenderer* pRenderer);
+	void Initialize(Renderer* pRenderer);
 	void LoadMesh(FbxScene* pScene);
+	void LoadMaterial(FbxScene* pScene);
 	FbxManager* m_pManager = nullptr;
-	CRenderer* m_pRenderer = nullptr;
+	Renderer* m_pRenderer = nullptr;
 };
