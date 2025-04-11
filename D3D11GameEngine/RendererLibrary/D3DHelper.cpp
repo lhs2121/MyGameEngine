@@ -78,13 +78,13 @@ void D3DHelper::Initialize(ID3D11Device* pDevice)
 	{
 		// front                     
 		{ float4(-0.5f,  0.5f, -0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f,  0.5f, -0.5f, 1.0f), float2(1.0f, 0.0f) },
-		{ float4(0.5f, -0.5f, -0.5f, 1.0f), float2(1.0f, 1.0f) },
+		{ float4(0.5f,  0.5f, -0.5f, 1.0f),  float2(1.0f, 0.0f) },
+		{ float4(0.5f, -0.5f, -0.5f, 1.0f),  float2(1.0f, 1.0f) },
 		{ float4(-0.5f, -0.5f, -0.5f, 1.0f), float2(0.0f, 1.0f) },
 		// back                
 		{ float4(-0.5f, -0.5f,  0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f, -0.5f,  0.5f, 1.0f), float2(1.0f, 0.0f) },
-		{ float4(0.5f,  0.5f,  0.5f, 1.0f), float2(1.0f, 1.0f) },
+		{ float4(0.5f, -0.5f,  0.5f, 1.0f),  float2(1.0f, 0.0f) },
+		{ float4(0.5f,  0.5f,  0.5f, 1.0f),  float2(1.0f, 1.0f) },
 		{ float4(-0.5f,  0.5f,  0.5f, 1.0f), float2(0.0f, 1.0f) },
 		// left                           
 		{ float4(-0.5f,  0.5f,  0.5f, 1.0f), float2(0.0f, 0.0f) },
@@ -92,19 +92,19 @@ void D3DHelper::Initialize(ID3D11Device* pDevice)
 		{ float4(-0.5f, -0.5f, -0.5f, 1.0f), float2(1.0f, 1.0f) },
 		{ float4(-0.5f, -0.5f,  0.5f, 1.0f), float2(0.0f, 1.0f) },
 		// right                          
-		{ float4(0.5f,  0.5f, -0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f,  0.5f,  0.5f, 1.0f), float2(1.0f, 0.0f) },
-		{ float4(0.5f, -0.5f,  0.5f, 1.0f), float2(1.0f, 1.0f) },
-		{ float4(0.5f, -0.5f, -0.5f, 1.0f), float2(0.0f, 1.0f) },
+		{ float4(0.5f,  0.5f, -0.5f, 1.0f),  float2(0.0f, 0.0f) },
+		{ float4(0.5f,  0.5f,  0.5f, 1.0f),  float2(1.0f, 0.0f) },
+		{ float4(0.5f, -0.5f,  0.5f, 1.0f),  float2(1.0f, 1.0f) },
+		{ float4(0.5f, -0.5f, -0.5f, 1.0f),  float2(0.0f, 1.0f) },
 		// top                            
 		{ float4(-0.5f,  0.5f,  0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f,  0.5f,  0.5f, 1.0f), float2(1.0f, 0.0f) },
-		{ float4(0.5f,  0.5f, -0.5f, 1.0f), float2(1.0f, 1.0f) },
+		{ float4(0.5f,  0.5f,  0.5f, 1.0f),  float2(1.0f, 0.0f) },
+		{ float4(0.5f,  0.5f, -0.5f, 1.0f),  float2(1.0f, 1.0f) },
 		{ float4(-0.5f,  0.5f, -0.5f, 1.0f), float2(0.0f, 1.0f) },
 		// bottom                         
 		{ float4(-0.5f, -0.5f, -0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f, -0.5f, -0.5f, 1.0f), float2(1.0f, 0.0f) },
-		{ float4(0.5f, -0.5f,  0.5f, 1.0f), float2(1.0f, 1.0f) },
+		{ float4(0.5f, -0.5f, -0.5f, 1.0f),  float2(1.0f, 0.0f) },
+		{ float4(0.5f, -0.5f,  0.5f, 1.0f),  float2(1.0f, 1.0f) },
 		{ float4(-0.5f, -0.5f,  0.5f, 1.0f), float2(0.0f, 1.0f) }
 	};
 

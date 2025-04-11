@@ -24,3 +24,47 @@ void ConstantBuffer::Bind(ID3D11DeviceContext* pDeviceContext)
 	}
 	pDeviceContext->PSSetConstantBuffers(m_slot, 1, &m_pBuffer);
 }
+
+void Transform::TransformUpdate()
+{
+	XMVECTOR scale = m_vecScale * child->m_vecScale;
+	XMVECTOR rot = m_vecRotation + child->m_vecRotation;
+	XMVECTOR pos = m_vecPosition + child->m_vecPosition;
+	XMVECTOR quat = XMQuaternionRotationRollPitchYawFromVector(rot);
+
+	XMMATRIX scalemat = XMMatrixScalingFromVector(scale);
+	XMMATRIX rotmat = XMMatrixRotationRollPitchYawFromVector(rot);
+	XMMATRIX posmat = XMMatrixTranslationFromVector(pos);
+
+	m_matWorld = scalemat * rotmat * posmat;
+}
+
+void Transform::SetScale(CXMVECTOR scale)
+{
+	m_vecScale = scale;
+}
+
+void Transform::SetRotation(CXMVECTOR rot)
+{
+	m_vecRotation = rot;
+}
+
+void Transform::SetPos(CXMVECTOR pos)
+{
+	m_vecPosition = pos;
+}
+
+void Transform::AddScale(CXMVECTOR scale)
+{
+	m_vecScale += scale;
+}
+
+void Transform::AddRotation(CXMVECTOR rot)
+{
+	m_vecRotation += rot;
+}
+
+void Transform::AddPos(CXMVECTOR pos)
+{
+	m_vecPosition += pos;
+}

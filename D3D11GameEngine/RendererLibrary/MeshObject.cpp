@@ -34,3 +34,11 @@ void MeshObject::Draw(ID3D11DeviceContext* pContext)
 
 	pContext->DrawIndexed(m_indexCount, 0, 0);
 }
+
+void MeshObject::SetSolid()
+{
+}
+
+void MeshObject::SetWireFrame()
+{
+}
