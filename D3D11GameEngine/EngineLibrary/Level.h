@@ -4,6 +4,6 @@
 class Level
 {
 public:
-
+	void AllUpdate(float deltaTime);
 	std::list<GameObject*> gameObjectList;
 };
