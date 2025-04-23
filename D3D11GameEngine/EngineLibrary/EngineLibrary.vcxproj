@@ -231,6 +231,8 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Interface.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Level.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />

@@ -36,6 +36,12 @@
     <ClInclude Include="pch.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="C:\Users\mast1\OneDrive\바탕 화면\해야될것.txt" />

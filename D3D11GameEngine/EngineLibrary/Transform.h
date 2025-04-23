@@ -1,5 +1,4 @@
 #pragma once
-#include <list>
 #include <DirectXMath.h>
 using namespace DirectX;
 
@@ -7,40 +6,23 @@ class Object;
 class Transform
 {
 public:
-	void SetLocalScale(CXMVECTOR vecScale);
-	void SetLocalRotation(CXMVECTOR vecRotation);
-	void SetLocalPosition(CXMVECTOR vecPosition);
+	void SetScale(CXMVECTOR vecScale);
+	void SetRotation(CXMVECTOR vecRotation);
+	void SetPosition(CXMVECTOR vecPosition);
+	void AddScale(CXMVECTOR vecScale);
+	void AddRotation(CXMVECTOR vecRotation);
+	void AddPosition(CXMVECTOR vecPosition);
 
-	void AddLocalScale(CXMVECTOR vecScale);
-	void AddLocalRotation(CXMVECTOR vecRotation);
-	void AddLocalPosition(CXMVECTOR vecPosition);
-
-	void SetParent(Transform* pParent);
+	void SetParent(Transform* pTransform);
 	void TransformUpdate();
 
+	XMVECTOR m_vecScale = { 1.0f,1.0f,1.0f,1.0f };
+	XMVECTOR m_vecRot = { 0.0f,0.0f,0.0f,1.0f };
+	XMVECTOR m_vecPos = { 0.0f,0.0f,0.0f,1.0f };
 
-	XMVECTOR m_vecLocalScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR m_vecLocalRotation;
-	XMVECTOR m_vecLocalPosition;
-	
-	XMVECTOR m_vecRecievedScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR m_vecRecievedRotation;
-	XMVECTOR m_vecRecievedPosition;
-	
-	XMVECTOR m_vecWorldScale = { 1.0f,1.0f,1.0f,1.0f };
-	XMVECTOR m_vecWorldRotation;
-	XMVECTOR m_vecWorldPosition;
+	XMMATRIX m_matWorld = XMMatrixIdentity();
 
-	XMVECTOR m_quatWorld;
-
-	XMMATRIX m_matWorldScale;
-	XMMATRIX m_matWorldRotation;
-	XMMATRIX m_matWorldPosition;
-
-	XMMATRIX m_matWorld;
-	XMMATRIX m_matView;
-	XMMATRIX m_matProjection;
+	bool m_IsUpdate = false;
 private:
 	Transform* m_pParent = nullptr;
-	std::list<Transform*> m_pChildTransformList;
 };

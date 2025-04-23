@@ -30,6 +30,7 @@ void Object::AllUpdate(float _deltaTime)
 	if (!m_bEnable)
 		return;
 
+	m_transform.TransformUpdate();
 	Update(_deltaTime);
 
  	for (Object* child : m_pChildList)

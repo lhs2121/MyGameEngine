@@ -3,69 +3,66 @@
 
 void Transform::TransformUpdate()
 {
-	m_vecWorldScale = m_vecRecievedScale * m_vecLocalScale;
-	m_vecWorldRotation = m_vecRecievedRotation + m_vecLocalRotation;
-	m_vecWorldPosition = m_vecRecievedPosition + m_vecLocalPosition;
-
-	for (Transform* pTransform : m_pChildTransformList)
+	if (!m_IsUpdate)
 	{
-		pTransform->m_vecRecievedScale = m_vecWorldScale;
-		pTransform->m_vecRecievedRotation = m_vecWorldRotation;
-		pTransform->m_vecRecievedPosition = m_vecWorldPosition;
-
-		pTransform->TransformUpdate();
+		return;
 	}
 
-	m_matWorldScale = XMMatrixScalingFromVector(m_vecWorldScale);
-	m_matWorldRotation = XMMatrixRotationRollPitchYawFromVector(m_vecWorldRotation);
-	m_matWorldPosition = XMMatrixTranslationFromVector(m_vecWorldPosition);
-	m_quatWorld = XMQuaternionRotationMatrix(m_matWorldRotation);
-	m_matWorld = m_matWorldScale * m_matWorldRotation * m_matWorldPosition;
-}
-
-
-void Transform::SetLocalScale(CXMVECTOR vecScale)
-{
-	m_vecLocalScale = vecScale;
-	TransformUpdate();
-}
-
-void Transform::SetLocalRotation(CXMVECTOR vecRotation)
-{
-	m_vecLocalRotation = vecRotation;
-	TransformUpdate();
-}
-
-void Transform::SetLocalPosition(CXMVECTOR vecPosition)
-{
-	m_vecLocalPosition = vecPosition;
-	TransformUpdate();
-}
-
-void Transform::AddLocalPosition(CXMVECTOR vecPosition)
-{
-	m_vecLocalPosition += vecPosition;
-	TransformUpdate();
-}
-
-void Transform::AddLocalScale(CXMVECTOR vecScale)
-{
-	m_vecLocalScale += vecScale;
-	TransformUpdate();
-}
-
-void Transform::AddLocalRotation(CXMVECTOR vecRotation)
-{
-	m_vecLocalRotation += vecRotation;
-	TransformUpdate();
-}
-
-void Transform::SetParent(Transform* pParent)
-{
-	if (m_pParent != nullptr)
+	XMMATRIX matLocalScale = XMMatrixScalingFromVector(m_vecScale);
+	XMMATRIX matLocalRot = XMMatrixRotationRollPitchYawFromVector(m_vecRot);
+	XMMATRIX matLocalPos = XMMatrixTranslationFromVector(m_vecPos);
+	
+	m_matWorld = matLocalScale * matLocalRot * matLocalPos;
+	if (m_pParent)
 	{
-		m_pParent->m_pChildTransformList.remove(this);
+		if (false == m_pParent->m_IsUpdate)
+		{
+			m_pParent->TransformUpdate();
+		}
+		m_matWorld *= m_pParent->m_matWorld;
 	}
-	m_pParent = pParent;
-	m_pParent->m_pChildTransformList.push_back(this);
+
+	m_IsUpdate = true;
+}
+
+
+void Transform::SetScale(CXMVECTOR vecScale)
+{
+	m_vecScale = vecScale;
+	m_vecScale.m128_f32[3] = 1.0f;
+}
+
+void Transform::SetRotation(CXMVECTOR vecRotation)
+{
+	m_vecRot = vecRotation;
+	m_vecRot.m128_f32[3] = 1.0f;
+}
+
+void Transform::SetPosition(CXMVECTOR vecPosition)
+{
+	m_vecPos = vecPosition;
+	m_vecPos.m128_f32[3] = 1.0f;
+}
+
+void Transform::AddPosition(CXMVECTOR vecPosition)
+{
+	m_vecPos += vecPosition;
+	m_vecPos.m128_f32[3] = 1.0f;
+}
+
+void Transform::AddScale(CXMVECTOR vecScale)
+{
+	m_vecScale += vecScale;
+	m_vecScale.m128_f32[3] = 1.0f;
+}
+
+void Transform::AddRotation(CXMVECTOR vecRotation)
+{
+	m_vecRot += vecRotation;
+	m_vecRot.m128_f32[3] = 1.0f;
+}
+
+void Transform::SetParent(Transform* pTransform)
+{
+	m_pParent = pTransform;
 }
