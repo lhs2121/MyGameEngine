@@ -1,11 +1,37 @@
 #include "pch.h"
 #include "Level.h"
 
-void Level::AllUpdate(float deltaTime)
+GameObject* Level::CreateGameObject()
 {
-	for (GameObject* obj: gameObjectList)
+	GameObject* obj = new GameObject;
+	obj->name = "GameObject";
+	return obj;
+}
+
+void Level::UpdateGameObjects(float deltaTime)
+{
+	for (GameObject* obj : gameObjectList)
 	{
-		obj->TransformUpdate();
+		if (!obj->isUpdate)
+			continue;
+
+		if (obj->isTransformChanged)
+		{
+			obj->TransformUpdate();
+			obj->isTransformChanged = false;
+		}
+
 		obj->Update(deltaTime);
+	}
+}
+
+void Level::ReleaseGameObjects()
+{
+	for (GameObject* obj : gameObjectList)
+	{
+		if (obj->isDestroy)
+		{
+			obj->Release();
+		}
 	}
 }

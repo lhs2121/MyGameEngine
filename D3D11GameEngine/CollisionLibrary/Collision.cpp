@@ -43,34 +43,30 @@ void CCollision::SetType(COLLISION_TYPE type)
 	}
 }
 
-void CCollision::UpdateTransform(Transform* pTransform)
+void CCollision::UpdateTransform(FXMVECTOR scale, FXMVECTOR rot, FXMVECTOR pos)
 {
-	XMVECTOR& position = pTransform->m_vecWorldPosition;
-	XMVECTOR& scale = pTransform->m_vecWorldScale;
-	XMVECTOR& rotation = pTransform->m_vecWorldRotation;
-
 	switch (m_type)
 	{
 	case AABB:
 	{
 		BoundingBox* shape = (BoundingBox*)m_pShape;
-		XMStoreFloat3(&shape->Center, position);
+		XMStoreFloat3(&shape->Center, pos);
 		XMStoreFloat3(&shape->Extents, scale);
 		break;
 	}
 	case SPHERE:
 	{
 		BoundingSphere* shape2 = (BoundingSphere*)m_pShape;
-		XMStoreFloat3(&shape2->Center, position);
+		XMStoreFloat3(&shape2->Center, pos);
 		XMStoreFloat(&shape2->Radius, scale);
 		break;
 	}
 	case OBB:
 	{
 		BoundingOrientedBox* shape3 = (BoundingOrientedBox*)m_pShape;
-		XMStoreFloat3(&shape3->Center, position);
+		XMStoreFloat3(&shape3->Center, pos);
 		XMStoreFloat3(&shape3->Extents, scale);
-		XMStoreFloat4(&shape3->Orientation, rotation);
+		XMStoreFloat4(&shape3->Orientation, rot);
 		break;
 	}
 	default:
@@ -78,36 +74,6 @@ void CCollision::UpdateTransform(Transform* pTransform)
 	}
 }
 
-void CCollision::UpdateTransform(XMVECTOR& vecPos, XMVECTOR& vecScale, XMVECTOR& vecRot)
-{
 
-	switch (m_type)
-	{
-	case AABB:
-	{
-		BoundingBox* shape = (BoundingBox*)m_pShape;
-		XMStoreFloat3(&shape->Center, vecPos);
-		XMStoreFloat3(&shape->Extents, vecScale);
-		break;
-	}
-	case SPHERE:
-	{
-		BoundingSphere* shape2 = (BoundingSphere*)m_pShape;
-		XMStoreFloat3(&shape2->Center, vecPos);
-		XMStoreFloat(&shape2->Radius, vecScale);
-		break;
-	}
-	case OBB:
-	{
-		BoundingOrientedBox* shape3 = (BoundingOrientedBox*)m_pShape;
-		XMStoreFloat3(&shape3->Center, vecPos);
-		XMStoreFloat3(&shape3->Extents, vecScale);
-		XMStoreFloat4(&shape3->Orientation, vecRot);
-		break;
-	}
-	default:
-		break;
-	}
-}
 
 

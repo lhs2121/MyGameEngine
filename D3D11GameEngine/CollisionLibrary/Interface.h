@@ -7,7 +7,7 @@
 #endif
 
 #include <DirectXMath.h>
-#include <EngineLibrary/Transform.h>
+
 using namespace DirectX;
 struct IRenderer;
 enum COLLISION_TYPE
@@ -19,7 +19,7 @@ enum COLLISION_TYPE
 
 struct ICollision
 {
-	virtual void UpdateTransform(Transform* pTransform) = 0;
+	virtual void UpdateTransform(FXMVECTOR scale, FXMVECTOR rot, FXMVECTOR pos) = 0;
 	virtual void SetType(COLLISION_TYPE type) = 0;
 };
 

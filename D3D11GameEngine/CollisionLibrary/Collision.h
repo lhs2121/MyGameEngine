@@ -9,8 +9,7 @@ public:
 	~CCollision();
 	void SetType(COLLISION_TYPE type) override;
 	COLLISION_TYPE GetType() const { return m_type; }
-	void UpdateTransform(Transform* pTransform);
-	void UpdateTransform(XMVECTOR& vecPos, XMVECTOR& vecScale, XMVECTOR& vecRot);
+	void UpdateTransform(FXMVECTOR scale, FXMVECTOR rot, FXMVECTOR pos);
 	void* GetShape() { return m_pShape; }
 
 private:
