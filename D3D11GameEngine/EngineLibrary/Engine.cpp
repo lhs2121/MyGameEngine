@@ -1,22 +1,7 @@
 #include "pch.h"
 #include "Engine.h"
-#include <string>
 
-void Engine::LoadScene(const char* _name)
-{
-	if (m_sceneMap.end() != m_sceneMap.find(_name))
-	{
-		if (m_pCurScene != nullptr)
-		{
-			m_pCurScene->AllEnd();
-		}
-
-		m_pCurScene = m_sceneMap[_name];
-		m_pCurScene->AllStart();
-	}
-}
-
-void Engine::EngineStart(const char* szTitle, float x, float y, float width, float height, HINSTANCE hInstance, Initializer* pGameInit)
+void Engine::EngineStart(const char* szTitle, float x, float y, float width, float height, HINSTANCE hInstance)
 {
 	CreateRenderer(&m_pRenderer);
 
@@ -31,8 +16,6 @@ void Engine::EngineStart(const char* szTitle, float x, float y, float width, flo
 	CreateInputObject(&m_pInputObject);
 	m_pInputObject->Initailize();
 
-	pGameInit->CreateAllScene(this);
-
 	m_pTimeObject->CountStart();
 
 	m_interTime = 1.0f / m_maxFps;
@@ -41,50 +24,45 @@ void Engine::EngineStart(const char* szTitle, float x, float y, float width, flo
 
 void Engine::EngineUpdate()
 {
-	if (!m_pCurScene)
-		return;
-
-	//static int sumFrame = 0;
-	//static int prevSumFrame = 0;
-	//static float sumDelta = 0;
 	float deltaTime = m_pTimeObject->CountEnd();
 	m_pTimeObject->CountStart();
 
-	//sumDelta += deltaTime;
-	//sumFrame++;
 
 	m_pInputObject->UpdateKeyStates();
-	m_pCurScene->CheckDeath();
 	m_pRenderer->StartRender();
-	m_pCurScene->AllCollisionUpdate();
-	m_pCurScene->AllUpdate(deltaTime);
+	UpdateGameObjects(deltaTime);
 
-	//if (sumDelta >= 1.0f)
-	//{
-	//	prevSumFrame = sumFrame;
-	//	sumDelta = 0.0f;
-	//	sumFrame = 0;
-	//}
-	//m_pRenderer->DrawFont(std::to_wstring(prevSumFrame).c_str(), -m_pWindowObject->GetWidth()/2, m_pWindowObject->GetHeight()/2, 100, 10);
 	m_pRenderer->EndRender();
-
-
 }
 
 void Engine::EngineRelease()
 {
-	for (auto& pair : m_sceneMap)
-	{
-		Scene* scene = pair.second;
-		delete scene;
-	}
-	m_sceneMap.clear();
-	
 	DeleteInputObject(m_pInputObject);
 	DeleteRenderer(m_pRenderer);
 	DeleteTimeObject(m_pTimeObject);
 	DeleteWindowObject(m_pWindowObject);
 }
 
+GameObject* Engine::CreateGameObject()
+{
+	GameObject* obj = new GameObject;
+	obj->name = "GameObject";
+	return obj;
+}
 
+void Engine::UpdateGameObjects(float deltaTime)
+{
+	for (GameObject* obj : m_gameObjectList)
+	{
+		if (!obj->isUpdate)
+			continue;
 
+		if (obj->isTransformChanged)
+		{
+			obj->TransformUpdate();
+			obj->isTransformChanged = false;
+		}
+
+		obj->Update(deltaTime);
+	}
+}

@@ -1,51 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Back.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>.cpp</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Back.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include=".cpp">
-      <UniqueIdentifier>{95947812-495d-4698-98ed-0ac2f7fdeb88}</UniqueIdentifier>
-    </Filter>
-    <Filter Include=".h">
-      <UniqueIdentifier>{40bdfd60-d6d4-4967-9354-c29610b0a74a}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="pch.h" />
   </ItemGroup>
 </Project>

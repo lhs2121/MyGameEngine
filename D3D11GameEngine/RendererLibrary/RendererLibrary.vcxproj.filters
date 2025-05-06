@@ -21,4 +21,7 @@
     <ClCompile Include="D3DHelper.cpp" />
     <ClCompile Include="MeshObject.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl" />
+  </ItemGroup>
 </Project>

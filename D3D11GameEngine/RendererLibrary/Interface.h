@@ -23,8 +23,7 @@ struct IRenderer
 
 	virtual void StartRender() = 0;
 	virtual void EndRender() = 0;
-
-	virtual IMeshObject* CreateMeshObject() = 0;
+	virtual void LoadTexture(const WCHAR* texPath) = 0;
 };
 
 extern "C" RENDERERLIBRARY_API void CreateRenderer(IRenderer** ppRenderer);

@@ -121,9 +121,6 @@ void Renderer::Initialize(UINT winWidth, UINT winHeight, HWND& hwnd)
 
 	m_pFontManager = new FontManager;
 	m_pFontManager->Initialize(m_pDevice, pDXGISurface);
-
-	m_pFBXLoader = new FBXLoader;
-	m_pFBXLoader->Initialize(this);
 }
 
 void Renderer::StartRender()
@@ -138,20 +135,7 @@ void Renderer::EndRender()
 	m_pSwapChain->Present(0, 0);
 }
 
-IMeshObject* Renderer::CreateMeshObject()
+void Renderer::LoadTexture(const WCHAR* texPath)
 {
-	MeshObject* pMeshObject = new MeshObject;
-	pMeshObject->m_indexCount = 6;
-	pMeshObject->m_offset = 0;
-	pMeshObject->m_pBlend = m_pHelper->pAlpha;
-	pMeshObject->m_pDepthStencil = m_pHelper->pDepthEnabledState;
-	pMeshObject->m_pIndexBuffer = m_pHelper->pRect2DIndex;
-	pMeshObject->m_pVertexBuffer = m_pHelper->pRect2D;
-	pMeshObject->m_pInputLayout = m_pHelper->pLayout;
-	pMeshObject->m_pRasterizer = m_pHelper->pSolid;
-	pMeshObject->m_pSampler = m_pHelper->pPoint;
-	pMeshObject->m_pTransformBuffer = m_pHelper->CreateConstantBuffer()
-
-	return pMeshObject;
+	
 }
-

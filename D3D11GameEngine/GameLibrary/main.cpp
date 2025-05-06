@@ -1,16 +1,8 @@
 #include "pch.h"
 #include <Windows.h>
-#include <InputLibrary/Interface.h>
 #include <BaseLibrary/Interface.h>
-#include <RendererLibrary/Interface.h>
-#include <WindowLibrary/Interface.h>
-#include <GameLibrary/Interface.h>
-
+#include <EngineLibrary/Interface.h>
 #pragma comment(lib, "BaseLibrary.lib")
-#pragma comment(lib, "InputLibrary.lib")
-#pragma comment(lib, "WindowLibrary.lib")
-#pragma comment(lib, "RendererLibrary.lib")
-#pragma comment(lib, "CollisionLibrary.lib")
 #pragma comment(lib, "EngineLibrary.lib")
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -21,7 +13,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//Debug::CrtSetBreakAlloc(406);
 	Debug::CrtSetDbgFlag();
 
-	GameStater gameInitializer;
-	Engine engine;
-	engine.EngineStart("LegoEngine <DX11>", 50, 50, 1366, 789, hInstance, &gameInitializer);
+	IEngine* pEngine;
+	CreateEngine(&pEngine);
+	pEngine->EngineStart("LegoEngine <DX11>", 50, 50, 1366, 789, hInstance);
 }

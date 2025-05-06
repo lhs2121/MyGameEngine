@@ -13,8 +13,7 @@ public:
 	void StartRender() override;
 	void EndRender() override;
 
-    IMeshObject* CreateMeshObject() override;
-
+	void LoadTexture(const WCHAR* texPath) override;
 private:
 	FBXLoader* m_pFBXLoader;
 	FontManager* m_pFontManager;
