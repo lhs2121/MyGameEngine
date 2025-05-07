@@ -15,5 +15,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	IEngine* pEngine;
 	CreateEngine(&pEngine);
-	pEngine->EngineStart("LegoEngine <DX11>", 50, 50, 1366, 789, hInstance);
+	pEngine->EngineStart("berrian", 50, 50, 1366, 789, hInstance);
+	DeleteEngine(pEngine);
 }

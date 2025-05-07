@@ -32,9 +32,11 @@ private:
 	XMMATRIX m_matView;
 	XMMATRIX m_matProjection;
 
-	XMVECTOR m_CameraPosition = { 0.0f, 0.0f, -500.0f, 1.0f };
-	XMVECTOR m_CameraEyeDirection = { 0.0f ,0.0f, 1.0f, 1.0f };
-	XMVECTOR m_CameraUpDirection = { 0.0f ,1.0f, 0.0f, 1.0f };
+	XMVECTOR m_cameraPosition = { 0.0f, 0.0f, -500.0f, 1.0f };
+	XMVECTOR m_cameraEyeDirection = { 0.0f ,0.0f, 1.0f, 1.0f };
+	XMVECTOR m_cameraUpDirection = { 0.0f ,1.0f, 0.0f, 1.0f };
+
+	std::unordered_map<const WCHAR*, ID3D11ShaderResourceView*> m_textureList;
 	float m_degFovY = 60.0f;
 	float m_near = 0.3f;
 	float m_far = 1000.0f;

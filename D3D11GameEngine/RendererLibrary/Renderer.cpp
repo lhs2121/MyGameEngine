@@ -105,7 +105,7 @@ void Renderer::Initialize(UINT winWidth, UINT winHeight, HWND& hwnd)
 	pFact->Release();
 	pAdap->Release();
 
-	m_matView = XMMatrixLookToLH(m_CameraPosition, m_CameraEyeDirection, m_CameraUpDirection);
+	m_matView = XMMatrixLookToLH(m_cameraPosition, m_cameraEyeDirection, m_cameraUpDirection);
 	m_matProjection = XMMatrixPerspectiveFovLH(m_degFovY * Deg2Rad, (float)winWidth / (float)winHeight, m_near, m_far);
 
 	m_pHelper = new D3DHelper;
@@ -137,5 +137,34 @@ void Renderer::EndRender()
 
 void Renderer::LoadTexture(const WCHAR* texPath)
 {
+	if (!PathFileExistsW(texPath))
+		__debugbreak();
+
+	TexMetadata metadata = {};
+	ScratchImage scratchImage = {};
+
+	const WCHAR* ext = PathFindExtensionW(texPath);
+
+	if (_wcsicmp(ext, L".jpg") == 0 || _wcsicmp(ext, L".jpeg") == 0 || _wcsicmp(ext, L".png") == 0 || _wcsicmp(ext, L".bmp") == 0 || _wcsicmp(ext, L".gif") == 0)
+	{
+		if (S_OK != DirectX::LoadFromWICFile(texPath, DirectX::WIC_FLAGS_NONE, &metadata, scratchImage))
+			__debugbreak();
+	}
+	else if (_wcsicmp(ext, L".dds") == 0)
+	{
+		if (S_OK != DirectX::LoadFromDDSFile(texPath, DirectX::DDS_FLAGS_NONE, &metadata, scratchImage))
+			__debugbreak();
+	}
+	else if (_wcsicmp(ext, L".tga") == 0)
+	{
+		if (S_OK != DirectX::LoadFromTGAFile(texPath, &metadata, scratchImage))
+			__debugbreak();
+	}
 	
+	ID3D11ShaderResourceView* pShaderResourceView = nullptr;
+	if(S_OK != DirectX::CreateShaderResourceView(m_pDevice,scratchImage.GetImages(),	scratchImage.GetImageCount(),	metadata,&pShaderResourceView))
+		__debugbreak();
+
+	m_textureList.insert({ texPath,pShaderResourceView });
 }
+
