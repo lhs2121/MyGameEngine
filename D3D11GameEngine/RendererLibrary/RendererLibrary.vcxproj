@@ -157,7 +157,6 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="typedef.h" />
     <ClInclude Include="D3DHelper.h" />
-    <ClInclude Include="MeshObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3DHelper.cpp" />
@@ -171,7 +170,6 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
-    <ClCompile Include="MeshObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

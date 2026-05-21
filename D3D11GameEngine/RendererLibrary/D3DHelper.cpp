@@ -75,66 +75,6 @@ void D3DHelper::Initialize(ID3D11Device* pDevice)
 	pRect2D = CreateVertexBuffer(pDevice, Rect2D, sizeof(Rect2D), sizeof(SimpleVertex));
 	pRect2DIndex = CreateIndexBuffer(pDevice, Rect2DIndex, sizeof(Rect2DIndex), sizeof(USHORT));
 
-	SimpleVertex Rect3D[] =
-	{
-		// front                     
-		{ float4(-0.5f,  0.5f, -0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f,  0.5f, -0.5f, 1.0f),  float2(1.0f, 0.0f) },
-		{ float4(0.5f, -0.5f, -0.5f, 1.0f),  float2(1.0f, 1.0f) },
-		{ float4(-0.5f, -0.5f, -0.5f, 1.0f), float2(0.0f, 1.0f) },
-		// back                
-		{ float4(-0.5f, -0.5f,  0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f, -0.5f,  0.5f, 1.0f),  float2(1.0f, 0.0f) },
-		{ float4(0.5f,  0.5f,  0.5f, 1.0f),  float2(1.0f, 1.0f) },
-		{ float4(-0.5f,  0.5f,  0.5f, 1.0f), float2(0.0f, 1.0f) },
-		// left                           
-		{ float4(-0.5f,  0.5f,  0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(-0.5f,  0.5f, -0.5f, 1.0f), float2(1.0f, 0.0f) },
-		{ float4(-0.5f, -0.5f, -0.5f, 1.0f), float2(1.0f, 1.0f) },
-		{ float4(-0.5f, -0.5f,  0.5f, 1.0f), float2(0.0f, 1.0f) },
-		// right                          
-		{ float4(0.5f,  0.5f, -0.5f, 1.0f),  float2(0.0f, 0.0f) },
-		{ float4(0.5f,  0.5f,  0.5f, 1.0f),  float2(1.0f, 0.0f) },
-		{ float4(0.5f, -0.5f,  0.5f, 1.0f),  float2(1.0f, 1.0f) },
-		{ float4(0.5f, -0.5f, -0.5f, 1.0f),  float2(0.0f, 1.0f) },
-		// top                            
-		{ float4(-0.5f,  0.5f,  0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f,  0.5f,  0.5f, 1.0f),  float2(1.0f, 0.0f) },
-		{ float4(0.5f,  0.5f, -0.5f, 1.0f),  float2(1.0f, 1.0f) },
-		{ float4(-0.5f,  0.5f, -0.5f, 1.0f), float2(0.0f, 1.0f) },
-		// bottom                         
-		{ float4(-0.5f, -0.5f, -0.5f, 1.0f), float2(0.0f, 0.0f) },
-		{ float4(0.5f, -0.5f, -0.5f, 1.0f),  float2(1.0f, 0.0f) },
-		{ float4(0.5f, -0.5f,  0.5f, 1.0f),  float2(1.0f, 1.0f) },
-		{ float4(-0.5f, -0.5f,  0.5f, 1.0f), float2(0.0f, 1.0f) }
-	};
-
-	USHORT Rect3DIndex[]
-	{
-		// front
-		0,1,2,
-		2,3,0,
-		// back
-		4,5,6,
-		6,7,4,
-		// left
-		8,9,10,
-		10,11,8,
-		// right
-		12,13,14,
-		14,15,12,
-		// top
-		16,17,18,
-		18,19,16,
-		// bottom
-		20,21,22,
-		22,23,20
-	};
-
-
-	pRect3D = CreateVertexBuffer(pDevice, Rect3D, sizeof(Rect3D), sizeof(SimpleVertex));
-	pRect3DIndex = CreateIndexBuffer(pDevice, Rect3DIndex, sizeof(Rect3DIndex), sizeof(USHORT));
-
 	{
 		D3D11_RASTERIZER_DESC desc = {};
 		desc.FillMode = D3D11_FILL_SOLID;

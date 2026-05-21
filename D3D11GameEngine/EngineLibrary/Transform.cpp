@@ -56,7 +56,6 @@ void Transform::TransformUpdate()
 		m_matWorld *= m_pParent->m_matWorld;
 	}
 
-	XMVECTOR unusedRotation;
 	XMVECTOR unusedQuaternion;
 	XMMatrixDecompose(&m_vecWorldScale, &unusedQuaternion, &m_vecWorldPosition, m_matWorld);
 	m_vecWorldRotation = m_vecLocalRotation;

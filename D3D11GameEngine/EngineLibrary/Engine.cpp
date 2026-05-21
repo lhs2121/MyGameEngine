@@ -56,7 +56,6 @@ void Engine::EngineUpdate()
 	m_pInputObject->UpdateKeyStates();
 	m_pCurScene->CheckDeath();
 	m_pRenderer->StartRender();
-	m_pCurScene->AllCollisionUpdate();
 	m_pCurScene->AllUpdate(deltaTime);
 
 	//if (sumDelta >= 1.0f)

@@ -1,8 +1,8 @@
 #pragma once
 #include "Transform.h"
+#include <string>
 
 class Scene;
-class Colider;
 class Object
 {
 public:
@@ -19,10 +19,6 @@ public:
 
 	virtual void Release() {}
 
-	virtual void OnCollisionEnter(Colider* _Other) {};
-	virtual void OnCollisionStay(Colider* _Other) {};
-	virtual void OnCollisionExit(Colider* _Other) {};
-
 	void         AllStart();
 		         
 	void         AllUpdate(float _deltaTime);
@@ -34,7 +30,7 @@ public:
 	void         Enable() { m_bEnable = true; }
 	void         Disenable() { m_bEnable = false; }
 
-	void         SetName(base::string _name) { m_name = _name; }
+	void         SetName(std::string _name) { m_name = _name; }
 
 	void         SetParent(Object* _m_pParent);
 
@@ -82,7 +78,7 @@ public:
 		return nullptr;
 	}
 
-	base::string m_name;
+	std::string m_name;
 	Transform m_transform;
 	IRenderer* m_pRenderer;
 	IInputObject* m_pInputObject;

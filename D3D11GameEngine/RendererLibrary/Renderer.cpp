@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Renderer.h"
-#include "MeshObject.h"
 
 struct SpriteTransformData
 {
@@ -147,25 +146,6 @@ void Renderer::EndRender()
 	m_pSwapChain->Present(0, 0);
 }
 
-IMeshObject* Renderer::CreateMeshObject()
-{
-	MeshObject* pMeshObject = new MeshObject;
-	pMeshObject->m_indexCount = 6;
-	pMeshObject->m_offset = 0;
-	pMeshObject->m_stride = sizeof(SimpleVertex);
-	pMeshObject->m_pBlend = m_pHelper->pAlpha;
-	pMeshObject->m_pDepthStencil = m_pHelper->pDepthEnabledState;
-	pMeshObject->m_pIndexBuffer = m_pHelper->pRect2DIndex;
-	pMeshObject->m_pVertexBuffer = m_pHelper->pRect2D;
-	pMeshObject->m_pInputLayout = m_pHelper->pLayout;
-	pMeshObject->m_pRasterizer = m_pHelper->pSolid;
-	pMeshObject->m_pSampler = m_pHelper->pPoint;
-	SpriteTransformData* transformData = new SpriteTransformData{ XMMatrixIdentity(), m_matView, m_matProjection };
-	pMeshObject->m_pTransformBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, transformData, sizeof(SpriteTransformData), 0, "vs");
-
-	return pMeshObject;
-}
-
 void Renderer::LoadTexture(const WCHAR* textureFile)
 {
 	m_pHelper->LoadTexture(m_pDevice, textureFile);
@@ -219,9 +199,5 @@ void Renderer::DrawFont(const wchar_t* text, float posX, float posY, float width
 {
 	if (m_pFontManager != nullptr)
 		m_pFontManager->FontRender(text, posX, posY, width, height);
-}
-
-void Renderer::DrawRibbon()
-{
 }
 

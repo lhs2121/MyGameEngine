@@ -30,10 +30,7 @@ if errorlevel 1 goto :BuildFailed
 call :BuildProject "RendererLibrary" "%ROOT%RendererLibrary\RendererLibrary.sln"
 if errorlevel 1 goto :BuildFailed
 
-call :BuildProject "CollisionLibrary" "%ROOT%CollisionLibrary\CollisionLibrary.sln"
-if errorlevel 1 goto :BuildFailed
-
-call :BuildProject "D3D11Game" "%ROOT%GameLibrary\GameLibrary.sln"
+call :BuildProject "Game" "%ROOT%Game\Game.sln"
 if errorlevel 1 goto :BuildFailed
 
 echo.

@@ -4,7 +4,7 @@
 #include <BaseLibrary/Interface.h>
 #include <RendererLibrary/Interface.h>
 #include <WindowLibrary/Interface.h>
-#include <GameLibrary/Interface.h>
+#include <Game/Interface.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,

@@ -155,22 +155,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Interface.h" />
-    <ClInclude Include="basestring.h" />
-    <ClInclude Include="EngineList.h" />
-    <ClInclude Include="EngineMap.h" />
     <ClInclude Include="EngineMath.h" />
-    <ClInclude Include="EngineStaticPool.h" />
     <ClInclude Include="TimeObject.h" />
-    <ClInclude Include="HashNode.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Interface.cpp" />
-    <ClCompile Include="basestring.cpp" />
     <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="EngineList.cpp" />
     <ClCompile Include="EngineMath.cpp" />
-    <ClCompile Include="EngineStaticPool.cpp" />
     <ClCompile Include="TimeObject.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

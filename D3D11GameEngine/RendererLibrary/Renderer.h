@@ -22,12 +22,10 @@ public:
 	void StartRender() override;
 	void EndRender() override;
 
-    IMeshObject* CreateMeshObject() override;
 	void LoadTexture(const WCHAR* textureFile) override;
 	ISpriteObject* CreateSpriteObject(const char* name, const WCHAR* textureFileName, int xCount, int yCount) override;
 	void DrawSprite(FXMMATRIX world, ISpriteObject* sprite) override;
 	void DrawFont(const wchar_t* text, float posX, float posY, float width, float height) override;
-	void DrawRibbon() override;
 
 private:
 	FontManager* m_pFontManager;

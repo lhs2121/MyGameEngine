@@ -17,9 +17,6 @@ public:
 	ID3D11Buffer* pRect2D;
 	ID3D11Buffer* pRect2DIndex;
 
-	ID3D11Buffer* pRect3D;
-	ID3D11Buffer* pRect3DIndex;
-
 	ID3D11RasterizerState* pSolid;
 	ID3D11RasterizerState* pWireFrame;
 	ID3D11InputLayout* pLayout;

@@ -8,7 +8,6 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="typedef.h" />
     <ClInclude Include="D3DHelper.h" />
-    <ClInclude Include="MeshObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConstantBuffer.cpp" />
@@ -17,6 +16,5 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="D3DHelper.cpp" />
-    <ClCompile Include="MeshObject.cpp" />
   </ItemGroup>
 </Project>
