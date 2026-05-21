@@ -2,8 +2,17 @@
 #include "Interface.h"
 #include "ConstantBuffer.h"
 #include "FontManager.h"
-#include "FBXLoader.h"
 #include "D3DHelper.h"
+#include <string>
+
+class SpriteObject : public ISpriteObject
+{
+public:
+	void UpdateAnimation(float deltaTime) override;
+
+	std::wstring textureName;
+	SpriteData spriteData;
+};
 
 class Renderer : public IRenderer
 {
@@ -14,9 +23,13 @@ public:
 	void EndRender() override;
 
     IMeshObject* CreateMeshObject() override;
+	void LoadTexture(const WCHAR* textureFile) override;
+	ISpriteObject* CreateSpriteObject(const char* name, const WCHAR* textureFileName, int xCount, int yCount) override;
+	void DrawSprite(FXMMATRIX world, ISpriteObject* sprite) override;
+	void DrawFont(const wchar_t* text, float posX, float posY, float width, float height) override;
+	void DrawRibbon() override;
 
 private:
-	FBXLoader* m_pFBXLoader;
 	FontManager* m_pFontManager;
 	D3DHelper* m_pHelper;
 

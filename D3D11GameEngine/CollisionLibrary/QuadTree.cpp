@@ -39,14 +39,6 @@ void CQuadTree::Insert(ICollision* pCol)
 
 void CQuadTree::DebugRender()
 {
-	for (CQuadNode* node : g_pDebugGreens)
-	{
-		node->m_pRenderer->DrawRect2(node->m_x, node->m_y, node->m_width, node->m_height, { 0,1,0,1 });
-	}
-	for (CQuadNode* node : g_pDebugReds)
-	{
-		node->m_pRenderer->DrawRect2(node->m_x, node->m_y, node->m_width, node->m_height, { 1,0,0,1 });
-	}
 }
 
 CQuadNode::~CQuadNode()
@@ -147,15 +139,6 @@ void CQuadNode::insert(ICollision* pCol)
 
 void CQuadNode::DebugRender()
 {
-	if (m_pCollisions.empty())
-	{
-		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 0,1,0,1 });
-	}
-	else
-	{
-		m_pRenderer->DrawRect2(m_x, m_y, m_width, m_height, { 1,0,0,1 });
-	}
-
 	if (m_pChilds[0] == nullptr)
 		return;
 

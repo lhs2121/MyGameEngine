@@ -2,6 +2,17 @@
 #include "Renderer.h"
 #include "MeshObject.h"
 
+struct SpriteTransformData
+{
+	XMMATRIX matWorld;
+	XMMATRIX matView;
+	XMMATRIX matProjection;
+};
+
+void SpriteObject::UpdateAnimation(float deltaTime)
+{
+}
+
 Renderer::~Renderer()
 {
 	m_pDeviceContext->Release();
@@ -121,9 +132,7 @@ void Renderer::Initialize(UINT winWidth, UINT winHeight, HWND& hwnd)
 
 	m_pFontManager = new FontManager;
 	m_pFontManager->Initialize(m_pDevice, pDXGISurface);
-
-	m_pFBXLoader = new FBXLoader;
-	m_pFBXLoader->Initialize(this);
+	pDXGISurface->Release();
 }
 
 void Renderer::StartRender()
@@ -143,6 +152,7 @@ IMeshObject* Renderer::CreateMeshObject()
 	MeshObject* pMeshObject = new MeshObject;
 	pMeshObject->m_indexCount = 6;
 	pMeshObject->m_offset = 0;
+	pMeshObject->m_stride = sizeof(SimpleVertex);
 	pMeshObject->m_pBlend = m_pHelper->pAlpha;
 	pMeshObject->m_pDepthStencil = m_pHelper->pDepthEnabledState;
 	pMeshObject->m_pIndexBuffer = m_pHelper->pRect2DIndex;
@@ -150,8 +160,68 @@ IMeshObject* Renderer::CreateMeshObject()
 	pMeshObject->m_pInputLayout = m_pHelper->pLayout;
 	pMeshObject->m_pRasterizer = m_pHelper->pSolid;
 	pMeshObject->m_pSampler = m_pHelper->pPoint;
-	pMeshObject->m_pTransformBuffer = m_pHelper->CreateConstantBuffer()
+	SpriteTransformData* transformData = new SpriteTransformData{ XMMatrixIdentity(), m_matView, m_matProjection };
+	pMeshObject->m_pTransformBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, transformData, sizeof(SpriteTransformData), 0, "vs");
 
 	return pMeshObject;
+}
+
+void Renderer::LoadTexture(const WCHAR* textureFile)
+{
+	m_pHelper->LoadTexture(m_pDevice, textureFile);
+}
+
+ISpriteObject* Renderer::CreateSpriteObject(const char* name, const WCHAR* textureFileName, int xCount, int yCount)
+{
+	SpriteObject* sprite = new SpriteObject;
+	sprite->textureName = textureFileName;
+	sprite->spriteData.ratio = { 1.0f / xCount, 1.0f / yCount };
+	sprite->spriteData.offset = { 0.0f, 0.0f };
+	return sprite;
+}
+
+void Renderer::DrawSprite(FXMMATRIX world, ISpriteObject* sprite)
+{
+	if (sprite == nullptr)
+		return;
+
+	SpriteObject* spriteObject = static_cast<SpriteObject*>(sprite);
+	ShaderData* shader = m_pHelper->pShaders[L"BasicSprite2DShader.hlsl"];
+	ID3D11ShaderResourceView* texture = m_pHelper->pTextures[spriteObject->textureName];
+
+	SpriteTransformData transformData{ world, m_matView, m_matProjection };
+	ConstantBuffer* transformBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &transformData, sizeof(SpriteTransformData), 0, "vs");
+	ConstantBuffer* spriteBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &spriteObject->spriteData, sizeof(SpriteData), 0, "ps");
+
+	UINT stride = sizeof(SimpleVertex);
+	UINT offset = 0;
+	m_pDeviceContext->IASetInputLayout(m_pHelper->pLayout);
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pDeviceContext->IASetVertexBuffers(0, 1, &m_pHelper->pRect2D, &stride, &offset);
+	m_pDeviceContext->IASetIndexBuffer(m_pHelper->pRect2DIndex, DXGI_FORMAT_R16_UINT, 0);
+	m_pDeviceContext->VSSetShader(shader->m_pVertexShader, nullptr, 0);
+	m_pDeviceContext->PSSetShader(shader->m_pPixelShader, nullptr, 0);
+	m_pDeviceContext->PSSetShaderResources(0, 1, &texture);
+	m_pDeviceContext->PSSetSamplers(0, 1, &m_pHelper->pPoint);
+	m_pDeviceContext->RSSetState(m_pHelper->pSolid);
+	m_pDeviceContext->OMSetBlendState(m_pHelper->pAlpha, nullptr, 0xFFFFFFFF);
+	m_pDeviceContext->OMSetDepthStencilState(m_pHelper->pDepthEnabledState, 0);
+
+	transformBuffer->Bind(m_pDeviceContext);
+	spriteBuffer->Bind(m_pDeviceContext);
+	m_pDeviceContext->DrawIndexed(6, 0, 0);
+
+	delete transformBuffer;
+	delete spriteBuffer;
+}
+
+void Renderer::DrawFont(const wchar_t* text, float posX, float posY, float width, float height)
+{
+	if (m_pFontManager != nullptr)
+		m_pFontManager->FontRender(text, posX, posY, width, height);
+}
+
+void Renderer::DrawRibbon()
+{
 }
 

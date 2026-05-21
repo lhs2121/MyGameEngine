@@ -18,12 +18,6 @@
 #include <shlwapi.h>
 #include <ThirdParty/DirectXTex2022/include/DirectXTex.h>
 #include <BaseLibrary/Interface.h>
-#pragma comment(lib,"BaseLibrary.lib")
-#pragma comment(lib,"d3d11.lib")
-#pragma comment(lib,"dxgi.lib")
-#pragma comment(lib,"d3dcompiler.lib")
-#pragma comment(lib, "Shlwapi.lib")
-#pragma comment(lib, "DirectXTex2022/DebugLib/DirectXTex.lib")
 
 #endif //PCH_H
  

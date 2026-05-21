@@ -25,7 +25,8 @@ ID3D11Buffer* D3DHelper::CreateIndexBuffer(ID3D11Device* pDevice, void* pList, U
 	return pResult;
 }
 
-ConstantBuffer* D3DHelper::CreateConstantBuffer(ID3D11Device* pDevice, void* pData, UINT size, int slot, const char* szShaderType)
+ConstantBuffer* D3DHelper::CreateConstantBuffer(ID3D11Device* pDevice, void* pData, UINT size,
+	int slot, const char* szShaderType)
 {
 	ConstantBuffer* pResult = new ConstantBuffer;
 
@@ -218,7 +219,7 @@ void D3DHelper::Initialize(ID3D11Device* pDevice)
 
 	LoadShader(pDevice, L"Assets\\Shaders\\BasicColorShader.hlsl");
 	LoadShader(pDevice, L"Assets\\Shaders\\BasicSprite2DShader.hlsl");
-	LoadTexture(pDevice, L"Assets\\Texture\\asdf.jpg");
+	LoadTexture(pDevice, L"Test.png");
 
 	D3D11_INPUT_ELEMENT_DESC iaDesc[] =
 	{
@@ -230,7 +231,7 @@ void D3DHelper::Initialize(ID3D11Device* pDevice)
 	ShaderData* pData = pShaders[L"BasicSprite2DShader.hlsl"];
 
 	ID3DBlob* pCompiledVertexShader = pData->m_pCompiledVertexShader;
-	if (S_OK != pDevice->CreateInputLayout(iaDesc, 3, pCompiledVertexShader->GetBufferPointer(), pCompiledVertexShader->GetBufferSize(), &pLayout))
+	if (S_OK != pDevice->CreateInputLayout(iaDesc, 2, pCompiledVertexShader->GetBufferPointer(), pCompiledVertexShader->GetBufferSize(), &pLayout))
 		__debugbreak();
 }
 
@@ -301,7 +302,7 @@ void D3DHelper::LoadShader(ID3D11Device* pDevice, const WCHAR* wszShaderFile)
 	ID3DBlob* pPixelShaderBlob = nullptr;
 	ID3DBlob* pErrorBlob = nullptr;
 
-	int flag;
+	int flag = 0;
 #ifdef _DEBUG
 	flag = D3DCOMPILE_DEBUG;
 #endif

@@ -19,7 +19,7 @@ void Player::Awake()
 	CreateCollision(&pCol);
 
 	GetScene()->m_pCollisionList.push_back(pCol);
-	pCol->UpdateTransform(&m_transform);
+	pCol->UpdateTransform(m_transform.GetScale(), m_transform.GetRotation(), m_transform.GetPosition());
 }
 
 void Player::Update(float _deltaTime)
@@ -27,7 +27,7 @@ void Player::Update(float _deltaTime)
 	float x = m_transform.m_vecWorldPosition.m128_f32[0];
 	float y = m_transform.m_vecWorldPosition.m128_f32[1];
 	m_pRenderer->DrawFont(L"ㅎㅇ난 게임엔진이야", x, y, 1000, 1000);
-	pCol->UpdateTransform(&m_transform);
+	pCol->UpdateTransform(m_transform.GetScale(), m_transform.GetRotation(), m_transform.GetPosition());
 
 	pSp->UpdateAnimation(_deltaTime);
 	m_pRenderer->DrawSprite(m_transform.m_matWorld, pSp);

@@ -5,13 +5,13 @@ void Ground::Awake()
 {	
 	SetName("Ground");
 	m_transform.SetLocalScale({ 64,64 });
-	m_pRenderer->LoadTexture(L"Assets\\Texture\\asdf.jpg");
-	pSp = m_pRenderer->CreateSpriteObject("asdf", L"asdf.jpg", 4, 4);
+	m_pRenderer->LoadTexture(L"Test.png");
+	pSp = m_pRenderer->CreateSpriteObject("test", L"Test.png", 4, 4);
 	m_transform.SetLocalPosition({ 0,0,});
 	m_transform.SetLocalScale({ 50,50 });
 	CreateCollision(&pCol);
 	GetScene()->m_pCollisionList.push_back(pCol);
-	pCol->UpdateTransform(&m_transform);
+	pCol->UpdateTransform(m_transform.GetScale(), m_transform.GetRotation(), m_transform.GetPosition());
 }
 
 void Ground::Update(float _deltaTime)
@@ -29,7 +29,7 @@ void Ground::Update(float _deltaTime)
 	
 	m_transform.AddLocalPosition({ x * 1000 * _deltaTime,0 });
 	m_transform.AddLocalPosition({ 0, -y * 1000 * _deltaTime });
-	pCol->UpdateTransform(&m_transform);
+	pCol->UpdateTransform(m_transform.GetScale(), m_transform.GetRotation(), m_transform.GetPosition());
 	pSp->UpdateAnimation(_deltaTime);
 	m_pRenderer->DrawSprite(m_transform.m_matWorld, pSp);
 }

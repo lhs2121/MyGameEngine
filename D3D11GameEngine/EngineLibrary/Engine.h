@@ -1,24 +1,24 @@
 #pragma once
 #include "Interface.h"
-#include "Level.h"
+#include "Scene.h"
 #include <unordered_map>
 
 class Engine : public IEngine
 {
 public:
 	template<typename T>
-	T* CreateLevel(const char* _name)
+	T* CreateScene(const char* _name)
 	{
-		Level* pLevel = new T();
-		pLevel->renderer = m_pRenderer;
-		pLevel->input = m_pInputObject;
-		pLevel->Awake();
+		Scene* newScene = new T();
+		newScene->m_pRenderer = m_pRenderer;
+		newScene->m_pInputObject = m_pInputObject;
+		newScene->Awake();
 
-		levelList.insert({ _name,newScene });
+		m_sceneMap.insert({ _name, newScene });
 
 		return (T*)newScene;
 	}
-	void LoadLevel(const char* _name);
+	void LoadScene(const char* _name);
 	void EngineStart(const char* szTitle, float x, float y, float width, float height, HINSTANCE hInstance, Initializer* pGameInit) override;
 	void EngineUpdate() override;
 	void EngineRelease() override;
@@ -27,10 +27,10 @@ private:
 	float m_interTime;
 	UINT m_maxFps = 40;
 	bool m_bFpsLimited = false;
-	Level* m_pCurLevel;
+	Scene* m_pCurScene = nullptr;
 	IRenderer* m_pRenderer;
 	ITimeObject* m_pTimeObject;
 	IWindowObject* m_pWindowObject;
 	IInputObject* m_pInputObject;
-	std::unordered_map<const char*, Level*> levelList;
+	std::unordered_map<const char*, Scene*> m_sceneMap;
 };

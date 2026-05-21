@@ -31,6 +31,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{518a7c1e-38ea-4198-997b-27b9883602f7}</ProjectGuid>
     <RootNamespace>GameLib</RootNamespace>
+    <ProjectName>D3D11Game</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -80,55 +81,44 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Build\EngineCommon.props" Label="EngineCommon" />
+    <Import Project="..\Build\GameDependencies.props" Label="GameDependencies" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Build\EngineCommon.props" Label="EngineCommon" />
+    <Import Project="..\Build\GameDependencies.props" Label="GameDependencies" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Build\EngineCommon.props" Label="EngineCommon" />
+    <Import Project="..\Build\GameDependencies.props" Label="GameDependencies" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Build\EngineCommon.props" Label="EngineCommon" />
+    <Import Project="..\Build\GameDependencies.props" Label="GameDependencies" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Build\EngineCommon.props" Label="EngineCommon" />
+    <Import Project="..\Build\GameDependencies.props" Label="GameDependencies" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Build\EngineCommon.props" Label="EngineCommon" />
+    <Import Project="..\Build\GameDependencies.props" Label="GameDependencies" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>..\;$(IncludePath)</IncludePath>
+  <PropertyGroup>
+    <TargetName>D3D11Game</TargetName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>..\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>..\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\Bin\x64\Debug\;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>..\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\Bin\x64\Debug;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>..\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <OutDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>..\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
+  
+  
+  
+  
+  
+  
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -240,6 +230,21 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Back.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="..\EngineLibrary\Engine.h">
+      <Visible>false</Visible>
+    </ClInclude>
+    <ClInclude Include="..\EngineLibrary\Interface.h">
+      <Visible>false</Visible>
+    </ClInclude>
+    <ClInclude Include="..\EngineLibrary\Object.h">
+      <Visible>false</Visible>
+    </ClInclude>
+    <ClInclude Include="..\EngineLibrary\Scene.h">
+      <Visible>false</Visible>
+    </ClInclude>
+    <ClInclude Include="..\EngineLibrary\Transform.h">
+      <Visible>false</Visible>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -255,6 +260,22 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Back.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="..\EngineLibrary\Engine.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Visible>false</Visible>
+    </ClCompile>
+    <ClCompile Include="..\EngineLibrary\Object.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Visible>false</Visible>
+    </ClCompile>
+    <ClCompile Include="..\EngineLibrary\Scene.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Visible>false</Visible>
+    </ClCompile>
+    <ClCompile Include="..\EngineLibrary\Transform.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Visible>false</Visible>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

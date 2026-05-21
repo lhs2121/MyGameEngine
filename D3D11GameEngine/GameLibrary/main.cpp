@@ -6,13 +6,6 @@
 #include <WindowLibrary/Interface.h>
 #include <GameLibrary/Interface.h>
 
-#pragma comment(lib, "BaseLibrary.lib")
-#pragma comment(lib, "InputLibrary.lib")
-#pragma comment(lib, "WindowLibrary.lib")
-#pragma comment(lib, "RendererLibrary.lib")
-#pragma comment(lib, "CollisionLibrary.lib")
-#pragma comment(lib, "EngineLibrary.lib")
-
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPWSTR    lpCmdLine,

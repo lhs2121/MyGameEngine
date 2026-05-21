@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "FontManager.h"
-#pragma comment(lib,"d2d1.lib")
-#pragma comment(lib,"dwrite.lib")
 
 FontManager::~FontManager()
 {
