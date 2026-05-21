@@ -1,5 +1,47 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "D3DHelper.h"
+
+D3DHelper::~D3DHelper()
+{
+	for (auto& texture : pTextures)
+	{
+		if (texture.second)
+			texture.second->Release();
+	}
+	pTextures.clear();
+
+	for (auto& shader : pShaders)
+	{
+		if (shader.second)
+		{
+			if (shader.second->m_pVertexShader)
+				shader.second->m_pVertexShader->Release();
+			if (shader.second->m_pPixelShader)
+				shader.second->m_pPixelShader->Release();
+			if (shader.second->m_pCompiledVertexShader)
+				shader.second->m_pCompiledVertexShader->Release();
+			delete shader.second;
+		}
+	}
+	pShaders.clear();
+
+	if (pAlpha)
+		pAlpha->Release();
+	if (pDepthEnabledState)
+		pDepthEnabledState->Release();
+	if (pPoint)
+		pPoint->Release();
+	if (pLayout)
+		pLayout->Release();
+	if (pWireFrame)
+		pWireFrame->Release();
+	if (pSolid)
+		pSolid->Release();
+	if (pRect2DIndex)
+		pRect2DIndex->Release();
+	if (pRect2D)
+		pRect2D->Release();
+}
 
 ID3D11Buffer* D3DHelper::CreateVertexBuffer(ID3D11Device* pDevice, void* pList, UINT size, UINT stride)
 {
@@ -79,7 +121,7 @@ void D3DHelper::Initialize(ID3D11Device* pDevice)
 		D3D11_RASTERIZER_DESC desc = {};
 		desc.FillMode = D3D11_FILL_SOLID;
 		desc.CullMode = D3D11_CULL_BACK;
-		desc.FrontCounterClockwise = false; //½Ã°è¹æÇâ
+		desc.FrontCounterClockwise = false; //ì‹œê³„ë°©í–¥
 		desc.DepthBias = 0;
 		desc.DepthBiasClamp = 0;
 		desc.SlopeScaledDepthBias = 0;
@@ -177,35 +219,77 @@ void D3DHelper::Initialize(ID3D11Device* pDevice)
 
 void D3DHelper::LoadTexture(ID3D11Device* pDevice, const WCHAR* wszTexFile)
 {
-	WCHAR* wszFullPath = new WCHAR[256];
-	GetCurrentDirectoryW(256, wszFullPath);
+	WCHAR* wszFullPath = new WCHAR[MAX_PATH];
+	GetCurrentDirectoryW(MAX_PATH, wszFullPath);
 	PathAppendW(wszFullPath, wszTexFile);
+
+	if (!PathFileExistsW(wszFullPath))
+	{
+		WCHAR wszModuleDir[MAX_PATH] = {};
+		GetModuleFileNameW(nullptr, wszModuleDir, MAX_PATH);
+		PathRemoveFileSpecW(wszModuleDir);
+		PathAppendW(wszModuleDir, L"..\\..\\..");
+		PathCanonicalizeW(wszFullPath, wszModuleDir);
+		PathAppendW(wszFullPath, wszTexFile);
+	}
+
+	if (!PathFileExistsW(wszFullPath))
+	{
+		OutputDebugStringW(L"Texture file was not found: ");
+		OutputDebugStringW(wszFullPath);
+		OutputDebugStringW(L"\n");
+		__debugbreak();
+		delete[] wszFullPath;
+		return;
+	}
 
 	WCHAR* wszFileName = PathFindFileNameW(wszTexFile);
 	WCHAR* wszExt = PathFindExtensionW(wszFileName);
 
+	if (pTextures.find(wszFileName) != pTextures.end())
+	{
+		delete[] wszFullPath;
+		return;
+	}
+
 	ID3D11ShaderResourceView* pSRV = nullptr;
 	TexMetadata metaData;
 	ScratchImage scratchImage;
+	HRESULT hr = E_FAIL;
 
 	if (wcscmp(wszExt, L".dds") == 0)
 	{
-		if (S_OK != DirectX::LoadFromDDSFile(wszFullPath, DirectX::DDS_FLAGS_NONE, &metaData, scratchImage))
-			__debugbreak();
+		hr = DirectX::LoadFromDDSFile(wszFullPath, DirectX::DDS_FLAGS_NONE, &metaData, scratchImage);
 	}
 	else if (wcscmp(wszExt, L".png") == 0 || wcscmp(wszExt, L".jpg") == 0 || wcscmp(wszExt, L".jpeg") == 0 || wcscmp(wszExt, L".gif") == 0 || wcscmp(wszExt, L".bmp") == 0)
 	{
-		if (S_OK != DirectX::LoadFromWICFile(wszFullPath, DirectX::WIC_FLAGS_NONE, &metaData, scratchImage))
-			__debugbreak();
+		hr = DirectX::LoadFromWICFile(wszFullPath, DirectX::WIC_FLAGS_NONE, &metaData, scratchImage);
 	}
 	else if (wcscmp(wszExt, L".tga") == 0)
 	{
-		if (S_OK != DirectX::LoadFromTGAFile(wszFullPath, &metaData, scratchImage))
-			__debugbreak();
+		hr = DirectX::LoadFromTGAFile(wszFullPath, &metaData, scratchImage);
 	}
 
-	if (S_OK != DirectX::CreateShaderResourceView(pDevice, scratchImage.GetImages(), scratchImage.GetImageCount(), metaData, &pSRV))
+	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"Texture load failed: ");
+		OutputDebugStringW(wszFullPath);
+		OutputDebugStringW(L"\n");
 		__debugbreak();
+		delete[] wszFullPath;
+		return;
+	}
+
+	hr = DirectX::CreateShaderResourceView(pDevice, scratchImage.GetImages(), scratchImage.GetImageCount(), metaData, &pSRV);
+	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"Texture shader resource view creation failed: ");
+		OutputDebugStringW(wszFullPath);
+		OutputDebugStringW(L"\n");
+		__debugbreak();
+		delete[] wszFullPath;
+		return;
+	}
 
 	pTextures.insert({ wszFileName,pSRV });
 
@@ -214,9 +298,25 @@ void D3DHelper::LoadTexture(ID3D11Device* pDevice, const WCHAR* wszTexFile)
 
 void D3DHelper::LoadShader(ID3D11Device* pDevice, const WCHAR* wszShaderFile)
 {
-	WCHAR* wszCurrentDir = new WCHAR[256];
-	GetCurrentDirectoryW(256, wszCurrentDir);
+	WCHAR* wszCurrentDir = new WCHAR[MAX_PATH];
+	GetCurrentDirectoryW(MAX_PATH, wszCurrentDir);
 	PathAppendW(wszCurrentDir, wszShaderFile);
+	if (!PathFileExistsW(wszCurrentDir))
+	{
+		WCHAR wszModuleDir[MAX_PATH] = {};
+		GetModuleFileNameW(nullptr, wszModuleDir, MAX_PATH);
+		PathRemoveFileSpecW(wszModuleDir);
+		PathAppendW(wszModuleDir, L"..\\..\\..");
+		PathCanonicalizeW(wszCurrentDir, wszModuleDir);
+		PathAppendW(wszCurrentDir, wszShaderFile);
+	}
+	if (!PathFileExistsW(wszCurrentDir))
+	{
+		OutputDebugStringW(L"Shader file was not found: ");
+		OutputDebugStringW(wszCurrentDir);
+		OutputDebugStringW(L"\n");
+		__debugbreak();
+	}
 
 	WCHAR* wszFileName = PathFindFileNameW(wszShaderFile);
 	char* szFileName = new char[256];
@@ -249,18 +349,44 @@ void D3DHelper::LoadShader(ID3D11Device* pDevice, const WCHAR* wszShaderFile)
 	flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 
 
-	if (S_OK != D3DCompileFromFile(wszCurrentDir, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, szMainName, "vs_5_0", flag, 0, &pVertexShaderBlob, &pErrorBlob))
+	HRESULT hr = D3DCompileFromFile(wszCurrentDir, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, szMainName, "vs_5_0", flag, 0, &pVertexShaderBlob, &pErrorBlob);
+	if (FAILED(hr))
 	{
-		char* error = static_cast<char*>(pErrorBlob->GetBufferPointer());
+		if (pErrorBlob)
+		{
+			char* error = static_cast<char*>(pErrorBlob->GetBufferPointer());
+			OutputDebugStringA(error);
+			pErrorBlob->Release();
+			pErrorBlob = nullptr;
+		}
+		else
+		{
+			OutputDebugStringW(L"Vertex shader compile failed, but no error blob was returned: ");
+			OutputDebugStringW(wszCurrentDir);
+			OutputDebugStringW(L"\n");
+		}
 		__debugbreak();
 	}
 	if (S_OK != pDevice->CreateVertexShader(pVertexShaderBlob->GetBufferPointer(), pVertexShaderBlob->GetBufferSize(), nullptr, &pVertexShader))
 		__debugbreak();
 
 	szMainName[len + 1] = 'P';
-	if (S_OK != D3DCompileFromFile(wszCurrentDir, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, szMainName, "ps_5_0", flag, 0, &pPixelShaderBlob, &pErrorBlob))
+	hr = D3DCompileFromFile(wszCurrentDir, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, szMainName, "ps_5_0", flag, 0, &pPixelShaderBlob, &pErrorBlob);
+	if (FAILED(hr))
 	{
-		char* error = static_cast<char*>(pErrorBlob->GetBufferPointer());
+		if (pErrorBlob)
+		{
+			char* error = static_cast<char*>(pErrorBlob->GetBufferPointer());
+			OutputDebugStringA(error);
+			pErrorBlob->Release();
+			pErrorBlob = nullptr;
+		}
+		else
+		{
+			OutputDebugStringW(L"Pixel shader compile failed, but no error blob was returned: ");
+			OutputDebugStringW(wszCurrentDir);
+			OutputDebugStringW(L"\n");
+		}
 		__debugbreak();
 	}
 	if (S_OK != pDevice->CreatePixelShader(pPixelShaderBlob->GetBufferPointer(), pPixelShaderBlob->GetBufferSize(), nullptr, &pPixelShader))

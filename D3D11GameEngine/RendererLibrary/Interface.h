@@ -13,6 +13,7 @@ using namespace DirectX;
 
 struct ISpriteObject
 {
+	virtual ~ISpriteObject() {}
 	virtual void UpdateAnimation(float deltaTime) = 0;
 };
 

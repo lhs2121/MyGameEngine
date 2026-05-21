@@ -6,6 +6,8 @@
 class D3DHelper
 {
 public:
+	~D3DHelper();
+
 	static ID3D11Buffer* CreateVertexBuffer(ID3D11Device* pDevice, void* pList, UINT size, UINT stride);
 	static ID3D11Buffer* CreateIndexBuffer(ID3D11Device* pDevice, void* pList, UINT size, UINT stride);
 	static ConstantBuffer* CreateConstantBuffer(ID3D11Device* pDevice, void* pData, UINT size, int slot, const char* szShaderType);
@@ -14,15 +16,15 @@ public:
 	void LoadTexture(ID3D11Device* pDevice, const WCHAR* wszTexFile);
 	void LoadShader(ID3D11Device* pDevice, const WCHAR* wszShaderFile);
 
-	ID3D11Buffer* pRect2D;
-	ID3D11Buffer* pRect2DIndex;
+	ID3D11Buffer* pRect2D = nullptr;
+	ID3D11Buffer* pRect2DIndex = nullptr;
 
-	ID3D11RasterizerState* pSolid;
-	ID3D11RasterizerState* pWireFrame;
-	ID3D11InputLayout* pLayout;
-	ID3D11SamplerState* pPoint;
-	ID3D11DepthStencilState* pDepthEnabledState;
-	ID3D11BlendState* pAlpha;
+	ID3D11RasterizerState* pSolid = nullptr;
+	ID3D11RasterizerState* pWireFrame = nullptr;
+	ID3D11InputLayout* pLayout = nullptr;
+	ID3D11SamplerState* pPoint = nullptr;
+	ID3D11DepthStencilState* pDepthEnabledState = nullptr;
+	ID3D11BlendState* pAlpha = nullptr;
 
 	std::unordered_map<std::wstring, ShaderData*> pShaders;
 	std::unordered_map<std::wstring, ID3D11ShaderResourceView*> pTextures;

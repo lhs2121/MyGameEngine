@@ -2,7 +2,22 @@
 setlocal
 
 set "ROOT=%~dp0"
-set "VS_MSBUILD_CMD=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsMSBuildCmd.bat"
+set "VS_INSTALLER=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer"
+set "VS_MSBUILD_CMD="
+
+pushd "%VS_INSTALLER%" >nul 2>nul
+if errorlevel 1 goto UseDefaultVsPath
+
+for /f "tokens=*" %%i in ('vswhere.exe -version [18.0^,19.0^) -requires Microsoft.Component.MSBuild -property installationPath') do (
+    set "VS_MSBUILD_CMD=%%i\Common7\Tools\VsMSBuildCmd.bat"
+)
+
+popd >nul
+
+:UseDefaultVsPath
+if "%VS_MSBUILD_CMD%"=="" (
+    set "VS_MSBUILD_CMD=C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\VsMSBuildCmd.bat"
+)
 
 if not exist "%VS_MSBUILD_CMD%" (
     echo Visual Studio build environment was not found:

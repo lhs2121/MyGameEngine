@@ -14,6 +14,12 @@ void SpriteObject::UpdateAnimation(float deltaTime)
 
 Renderer::~Renderer()
 {
+	delete m_pFontManager;
+	delete m_pHelper;
+
+	if (m_pDeviceContext)
+		m_pDeviceContext->ClearState();
+
 	m_pDeviceContext->Release();
 	m_pSwapChain->Release();
 	m_pRenderTargetBuffer->Release();
@@ -21,16 +27,16 @@ Renderer::~Renderer()
 	m_pDepthStencilView->Release();
 	m_pRenderTargetView->Release();
 
-//#if defined(DEBUG) || defined(_DEBUG)
-//	ID3D11Debug* dxgiDebug;
-//
-//	if (S_OK == m_pDevice->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
-//	{
-//		dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDOO_DETAIL);
-//		dxgiDebug = nullptr;
-//	}
-//#endif
-	delete m_pFontManager;
+#if defined(DEBUG) || defined(_DEBUG)
+	ID3D11Debug* dxgiDebug;
+
+	if (S_OK == m_pDevice->QueryInterface(IID_PPV_ARGS(&dxgiDebug)))
+	{
+		dxgiDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+		dxgiDebug->Release();
+	}
+#endif
+
 	m_pDevice->Release();
 }
 

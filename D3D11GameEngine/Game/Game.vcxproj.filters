@@ -10,6 +10,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>.cpp</Filter>
     </ClCompile>
+    <ClCompile Include="EngineBuild.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestScene.h">

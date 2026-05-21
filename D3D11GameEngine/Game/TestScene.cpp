@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "TestScene.h"
 
+TestScene::~TestScene()
+{
+	delete sprite;
+}
+
 void TestScene::Awake()
 {
 	m_transform.SetLocalPosition({ 0.0f, 0.0f, 0.0f });
