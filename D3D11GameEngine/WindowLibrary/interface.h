@@ -7,7 +7,11 @@
 #define WindowLibraryAPI __declspec(dllimport)
 #endif 
 
-struct IEngine;
+struct IEngine
+{
+	virtual void EngineUpdate() = 0;
+	virtual void EngineRelease() = 0;
+};
 
 struct IWindowObject
 {

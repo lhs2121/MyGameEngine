@@ -9,10 +9,4 @@
 #include <InputLibrary/Interface.h>
 #include <WindowLibrary/Interface.h>
 #include <RendererLibrary/Interface.h>
-#include <EngineLibrary/Interface.h>
-
-#include <EngineLibrary/Engine.h>
-#include <EngineLibrary/Transform.h>
-#include <EngineLibrary/Object.h>
-#include <EngineLibrary/Scene.h>
 		 

@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 #include "WindowObject.h"
-#include <EngineLibrary/Interface.h>
 
 CWindowObject* g_pWindowsObject = nullptr;
 

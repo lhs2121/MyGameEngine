@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Renderer.h"
 
+using namespace DirectX;
+
 struct SpriteTransformData
 {
 	XMMATRIX matWorld;
@@ -8,13 +10,8 @@ struct SpriteTransformData
 	XMMATRIX matProjection;
 };
 
-void SpriteObject::UpdateAnimation(float deltaTime)
-{
-}
-
 Renderer::~Renderer()
 {
-	delete m_pFontManager;
 	delete m_pHelper;
 
 	if (m_pDeviceContext)
@@ -130,24 +127,16 @@ void Renderer::Initialize(UINT winWidth, UINT winHeight, HWND& hwnd)
 	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_pDeviceContext->IASetInputLayout(m_pHelper->pLayout);
 
-	IDXGISurface* pDXGISurface = nullptr;
-	
-	if(S_OK != m_pSwapChain->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(&pDXGISurface)))
-		__debugbreak();
-
-	m_pFontManager = new FontManager;
-	m_pFontManager->Initialize(m_pDevice, pDXGISurface);
-	pDXGISurface->Release();
 }
 
-void Renderer::StartRender()
+void Renderer::BeginFrame()
 {
 	m_pDeviceContext->ClearRenderTargetView(m_pRenderTargetView, m_clearColor);
 	m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	m_pDeviceContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_pDepthStencilView);
 }
 
-void Renderer::EndRender()
+void Renderer::EndFrame()
 {
 	m_pSwapChain->Present(0, 0);
 }
@@ -157,27 +146,13 @@ void Renderer::LoadTexture(const WCHAR* textureFile)
 	m_pHelper->LoadTexture(m_pDevice, textureFile);
 }
 
-ISpriteObject* Renderer::CreateSpriteObject(const char* name, const WCHAR* textureFileName, int xCount, int yCount)
+void Renderer::DrawBlockGrid(const BlockGridDesc& desc)
 {
-	SpriteObject* sprite = new SpriteObject;
-	sprite->textureName = textureFileName;
-	sprite->spriteData.ratio = { 1.0f / xCount, 1.0f / yCount };
-	sprite->spriteData.offset = { 0.0f, 0.0f };
-	return sprite;
-}
-
-void Renderer::DrawSprite(FXMMATRIX world, ISpriteObject* sprite)
-{
-	if (sprite == nullptr)
+	if (desc.textureFile == nullptr || desc.tiles == nullptr || desc.width <= 0 || desc.height <= 0)
 		return;
 
-	SpriteObject* spriteObject = static_cast<SpriteObject*>(sprite);
 	ShaderData* shader = m_pHelper->pShaders[L"BasicSprite2DShader.hlsl"];
-	ID3D11ShaderResourceView* texture = m_pHelper->pTextures[spriteObject->textureName];
-
-	SpriteTransformData transformData{ world, m_matView, m_matProjection };
-	ConstantBuffer* transformBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &transformData, sizeof(SpriteTransformData), 0, "vs");
-	ConstantBuffer* spriteBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &spriteObject->spriteData, sizeof(SpriteData), 0, "ps");
+	ID3D11ShaderResourceView* texture = m_pHelper->pTextures[PathFindFileNameW(desc.textureFile)];
 
 	UINT stride = sizeof(SimpleVertex);
 	UINT offset = 0;
@@ -193,17 +168,41 @@ void Renderer::DrawSprite(FXMMATRIX world, ISpriteObject* sprite)
 	m_pDeviceContext->OMSetBlendState(m_pHelper->pAlpha, nullptr, 0xFFFFFFFF);
 	m_pDeviceContext->OMSetDepthStencilState(m_pHelper->pDepthEnabledState, 0);
 
-	transformBuffer->Bind(m_pDeviceContext);
-	spriteBuffer->Bind(m_pDeviceContext);
-	m_pDeviceContext->DrawIndexed(6, 0, 0);
+	const int atlasColumns = desc.atlasColumns > 0 ? desc.atlasColumns : 1;
+	const int atlasRows = desc.atlasRows > 0 ? desc.atlasRows : 1;
+	const float uvWidth = 1.0f / atlasColumns;
+	const float uvHeight = 1.0f / atlasRows;
 
-	delete transformBuffer;
-	delete spriteBuffer;
-}
+	for (int y = 0; y < desc.height; ++y)
+	{
+		for (int x = 0; x < desc.width; ++x)
+		{
+			const BlockTile& tile = desc.tiles[y * desc.width + x];
+			if (!tile.visible)
+				continue;
 
-void Renderer::DrawFont(const wchar_t* text, float posX, float posY, float width, float height)
-{
-	if (m_pFontManager != nullptr)
-		m_pFontManager->FontRender(text, posX, posY, width, height);
+			const int tileX = tile.tileIndex % atlasColumns;
+			const int tileY = tile.tileIndex / atlasColumns;
+
+			SpriteData spriteData;
+			spriteData.ratio = { uvWidth, uvHeight };
+			spriteData.offset = { tileX * uvWidth, tileY * uvHeight };
+
+			const float posX = desc.originX + x * desc.tileSize;
+			const float posY = desc.originY - y * desc.tileSize;
+			XMMATRIX world = XMMatrixScaling(desc.tileSize, desc.tileSize, 1.0f) * XMMatrixTranslation(posX, posY, 0.0f);
+
+			SpriteTransformData transformData{ world, m_matView, m_matProjection };
+			ConstantBuffer* transformBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &transformData, sizeof(SpriteTransformData), 0, "vs");
+			ConstantBuffer* spriteBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &spriteData, sizeof(SpriteData), 0, "ps");
+
+			transformBuffer->Bind(m_pDeviceContext);
+			spriteBuffer->Bind(m_pDeviceContext);
+			m_pDeviceContext->DrawIndexed(6, 0, 0);
+
+			delete transformBuffer;
+			delete spriteBuffer;
+		}
+	}
 }
 

@@ -1,5 +1,4 @@
 #pragma once
-#include <DirectXMath.h>
 #include "d3d11.h"
 #include "Windows.h"
 
@@ -9,25 +8,35 @@
 #define RENDERERLIBRARY_API __declspec(dllimport)
 #endif 
 
-using namespace DirectX;
-
-struct ISpriteObject
+struct BlockTile
 {
-	virtual ~ISpriteObject() {}
-	virtual void UpdateAnimation(float deltaTime) = 0;
+	unsigned short tileIndex = 0;
+	unsigned char visible = 1;
+	unsigned char reserved = 0;
+};
+
+struct BlockGridDesc
+{
+	const WCHAR* textureFile = nullptr;
+	const BlockTile* tiles = nullptr;
+	int width = 0;
+	int height = 0;
+	int atlasColumns = 1;
+	int atlasRows = 1;
+	float tileSize = 16.0f;
+	float originX = 0.0f;
+	float originY = 0.0f;
 };
 
 struct IRenderer
 {
 	virtual void Initialize(UINT winSizeX, UINT winSizeY, HWND& hwnd) = 0;
 
-	virtual void StartRender() = 0;
-	virtual void EndRender() = 0;
+	virtual void BeginFrame() = 0;
+	virtual void EndFrame() = 0;
 
 	virtual void LoadTexture(const WCHAR* textureFile) = 0;
-	virtual ISpriteObject* CreateSpriteObject(const char* name, const WCHAR* textureFileName, int xCount, int yCount) = 0;
-	virtual void DrawSprite(FXMMATRIX world, ISpriteObject* sprite) = 0;
-	virtual void DrawFont(const wchar_t* text, float posX, float posY, float width, float height) = 0;
+	virtual void DrawBlockGrid(const BlockGridDesc& desc) = 0;
 };
 
 extern "C" RENDERERLIBRARY_API void CreateRenderer(IRenderer** ppRenderer);

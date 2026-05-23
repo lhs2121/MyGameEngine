@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "D3DHelper.h"
 
+using namespace DirectX;
+
 D3DHelper::~D3DHelper()
 {
 	for (auto& texture : pTextures)
