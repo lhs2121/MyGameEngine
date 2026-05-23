@@ -12,7 +12,7 @@ struct SpriteTransformData
 
 Renderer::~Renderer()
 {
-	delete m_pHelper;
+	ReleasePipeline();
 
 	if (m_pDeviceContext)
 		m_pDeviceContext->ClearState();
@@ -121,11 +121,10 @@ void Renderer::Initialize(UINT winWidth, UINT winHeight, HWND& hwnd)
 	m_matView = XMMatrixLookToLH(m_CameraPosition, m_CameraEyeDirection, m_CameraUpDirection);
 	m_matProjection = XMMatrixPerspectiveFovLH(m_degFovY * Deg2Rad, (float)winWidth / (float)winHeight, m_near, m_far);
 
-	m_pHelper = new D3DHelper;
-	m_pHelper->Initialize(m_pDevice);
+	InitializePipeline();
 
 	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDeviceContext->IASetInputLayout(m_pHelper->pLayout);
+	m_pDeviceContext->IASetInputLayout(m_pipeline.pInputLayout);
 
 }
 
@@ -141,9 +140,245 @@ void Renderer::EndFrame()
 	m_pSwapChain->Present(0, 0);
 }
 
+void Renderer::InitializePipeline()
+{
+	SimpleVertex Rect2D[] =
+	{
+		{ float4(-0.5f, 0.5f, 0.0f, 1.0f), float2(0.0f, 0.0f) },
+		{ float4(0.5f, 0.5f, 0.0f, 1.0f), float2(1.0f, 0.0f) },
+		{ float4(0.5f,-0.5f, 0.0f, 1.0f), float2(1.0f, 1.0f) },
+		{ float4(-0.5f,-0.5f, 0.0f, 1.0f), float2(0.0f, 1.0f) }
+	};
+
+	USHORT Rect2DIndex[]
+	{
+		0,1,2,
+		0,2,3
+	};
+
+	m_pipeline.pQuadVertexBuffer = d3d::CreateVertexBuffer(m_pDevice, Rect2D, sizeof(Rect2D), sizeof(SimpleVertex));
+	m_pipeline.pQuadIndexBuffer = d3d::CreateIndexBuffer(m_pDevice, Rect2DIndex, sizeof(Rect2DIndex), sizeof(USHORT));
+	m_pipeline.pRasterizer = d3d::CreateRasterizerState(m_pDevice);
+	m_pipeline.pSampler = d3d::CreateSamplerState(m_pDevice);
+	m_pipeline.pBlendState = d3d::CreateBlendState(m_pDevice);
+	m_pipeline.pDepthStencilState = d3d::CreateDepthStencilState(m_pDevice);
+
+	LoadPipelineShader(L"Assets\\Shaders\\BasicSprite2DShader.hlsl");
+	LoadTexture(L"Test.png");
+
+	D3D11_INPUT_ELEMENT_DESC iaDesc[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,16,D3D11_INPUT_PER_VERTEX_DATA,0 },
+		{ "NORMAL",0,DXGI_FORMAT_R32G32B32A32_FLOAT,0,24,D3D11_INPUT_PER_VERTEX_DATA,0 },
+	};
+
+	if (S_OK != m_pDevice->CreateInputLayout(iaDesc, 2, m_pVertexShaderBlob->GetBufferPointer(), m_pVertexShaderBlob->GetBufferSize(), &m_pipeline.pInputLayout))
+		__debugbreak();
+
+	m_pVertexShaderBlob->Release();
+	m_pVertexShaderBlob = nullptr;
+}
+
+void Renderer::ReleasePipeline()
+{
+	if (m_pipeline.pTexture)
+		m_pipeline.pTexture->Release();
+	if (m_pipeline.pPixelShader)
+		m_pipeline.pPixelShader->Release();
+	if (m_pipeline.pVertexShader)
+		m_pipeline.pVertexShader->Release();
+	if (m_pVertexShaderBlob)
+		m_pVertexShaderBlob->Release();
+	if (m_pipeline.pBlendState)
+		m_pipeline.pBlendState->Release();
+	if (m_pipeline.pDepthStencilState)
+		m_pipeline.pDepthStencilState->Release();
+	if (m_pipeline.pSampler)
+		m_pipeline.pSampler->Release();
+	if (m_pipeline.pInputLayout)
+		m_pipeline.pInputLayout->Release();
+	if (m_pipeline.pRasterizer)
+		m_pipeline.pRasterizer->Release();
+	if (m_pipeline.pQuadIndexBuffer)
+		m_pipeline.pQuadIndexBuffer->Release();
+	if (m_pipeline.pQuadVertexBuffer)
+		m_pipeline.pQuadVertexBuffer->Release();
+}
+
 void Renderer::LoadTexture(const WCHAR* textureFile)
 {
-	m_pHelper->LoadTexture(m_pDevice, textureFile);
+	WCHAR* wszFullPath = new WCHAR[MAX_PATH];
+	GetCurrentDirectoryW(MAX_PATH, wszFullPath);
+	PathAppendW(wszFullPath, textureFile);
+
+	if (!PathFileExistsW(wszFullPath))
+	{
+		WCHAR wszModuleDir[MAX_PATH] = {};
+		GetModuleFileNameW(nullptr, wszModuleDir, MAX_PATH);
+		PathRemoveFileSpecW(wszModuleDir);
+		PathAppendW(wszModuleDir, L"..\\..\\..");
+		PathCanonicalizeW(wszFullPath, wszModuleDir);
+		PathAppendW(wszFullPath, textureFile);
+	}
+
+	if (!PathFileExistsW(wszFullPath))
+	{
+		OutputDebugStringW(L"Texture file was not found: ");
+		OutputDebugStringW(wszFullPath);
+		OutputDebugStringW(L"\n");
+		__debugbreak();
+		delete[] wszFullPath;
+		return;
+	}
+
+	WCHAR* wszExt = PathFindExtensionW(textureFile);
+
+	ID3D11ShaderResourceView* pSRV = nullptr;
+	TexMetadata metaData;
+	ScratchImage scratchImage;
+	HRESULT hr = E_FAIL;
+
+	if (wcscmp(wszExt, L".dds") == 0)
+	{
+		hr = DirectX::LoadFromDDSFile(wszFullPath, DirectX::DDS_FLAGS_NONE, &metaData, scratchImage);
+	}
+	else if (wcscmp(wszExt, L".png") == 0 || wcscmp(wszExt, L".jpg") == 0 || wcscmp(wszExt, L".jpeg") == 0 || wcscmp(wszExt, L".gif") == 0 || wcscmp(wszExt, L".bmp") == 0)
+	{
+		hr = DirectX::LoadFromWICFile(wszFullPath, DirectX::WIC_FLAGS_NONE, &metaData, scratchImage);
+	}
+	else if (wcscmp(wszExt, L".tga") == 0)
+	{
+		hr = DirectX::LoadFromTGAFile(wszFullPath, &metaData, scratchImage);
+	}
+
+	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"Texture load failed: ");
+		OutputDebugStringW(wszFullPath);
+		OutputDebugStringW(L"\n");
+		__debugbreak();
+		delete[] wszFullPath;
+		return;
+	}
+
+	hr = DirectX::CreateShaderResourceView(m_pDevice, scratchImage.GetImages(), scratchImage.GetImageCount(), metaData, &pSRV);
+	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"Texture shader resource view creation failed: ");
+		OutputDebugStringW(wszFullPath);
+		OutputDebugStringW(L"\n");
+		__debugbreak();
+		delete[] wszFullPath;
+		return;
+	}
+
+	if (m_pipeline.pTexture)
+		m_pipeline.pTexture->Release();
+	m_pipeline.pTexture = pSRV;
+
+	delete[] wszFullPath;
+}
+
+void Renderer::LoadPipelineShader(const WCHAR* shaderFile)
+{
+	WCHAR* wszCurrentDir = new WCHAR[MAX_PATH];
+	GetCurrentDirectoryW(MAX_PATH, wszCurrentDir);
+	PathAppendW(wszCurrentDir, shaderFile);
+	if (!PathFileExistsW(wszCurrentDir))
+	{
+		WCHAR wszModuleDir[MAX_PATH] = {};
+		GetModuleFileNameW(nullptr, wszModuleDir, MAX_PATH);
+		PathRemoveFileSpecW(wszModuleDir);
+		PathAppendW(wszModuleDir, L"..\\..\\..");
+		PathCanonicalizeW(wszCurrentDir, wszModuleDir);
+		PathAppendW(wszCurrentDir, shaderFile);
+	}
+	if (!PathFileExistsW(wszCurrentDir))
+	{
+		OutputDebugStringW(L"Shader file was not found: ");
+		OutputDebugStringW(wszCurrentDir);
+		OutputDebugStringW(L"\n");
+		__debugbreak();
+	}
+
+	WCHAR* wszFileName = PathFindFileNameW(shaderFile);
+	char* szFileName = new char[256];
+	WideCharToMultiByte(CP_UTF8, 0, wszFileName, -1, szFileName, 256, NULL, NULL);
+
+	char* szMainName = new char[256];
+	int len = 0;
+	char* pExtention = szFileName;
+	while (*pExtention != '.')
+	{
+		len++;
+		pExtention++;
+	}
+	memcpy_s(szMainName, len, szFileName, len);
+	szMainName[len] = '_';
+	szMainName[len + 1] = 'V';
+	szMainName[len + 2] = 'S';
+	szMainName[len + 3] = '\0';
+
+	ID3DBlob* pVertexShaderBlob = nullptr;
+	ID3DBlob* pPixelShaderBlob = nullptr;
+	ID3DBlob* pErrorBlob = nullptr;
+
+	int flag = 0;
+#ifdef _DEBUG
+	flag = D3DCOMPILE_DEBUG;
+#endif
+	flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
+
+	HRESULT hr = D3DCompileFromFile(wszCurrentDir, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, szMainName, "vs_5_0", flag, 0, &pVertexShaderBlob, &pErrorBlob);
+	if (FAILED(hr))
+	{
+		if (pErrorBlob)
+		{
+			char* error = static_cast<char*>(pErrorBlob->GetBufferPointer());
+			OutputDebugStringA(error);
+			pErrorBlob->Release();
+			pErrorBlob = nullptr;
+		}
+		else
+		{
+			OutputDebugStringW(L"Vertex shader compile failed, but no error blob was returned: ");
+			OutputDebugStringW(wszCurrentDir);
+			OutputDebugStringW(L"\n");
+		}
+		__debugbreak();
+	}
+	if (S_OK != m_pDevice->CreateVertexShader(pVertexShaderBlob->GetBufferPointer(), pVertexShaderBlob->GetBufferSize(), nullptr, &m_pipeline.pVertexShader))
+		__debugbreak();
+
+	szMainName[len + 1] = 'P';
+	hr = D3DCompileFromFile(wszCurrentDir, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, szMainName, "ps_5_0", flag, 0, &pPixelShaderBlob, &pErrorBlob);
+	if (FAILED(hr))
+	{
+		if (pErrorBlob)
+		{
+			char* error = static_cast<char*>(pErrorBlob->GetBufferPointer());
+			OutputDebugStringA(error);
+			pErrorBlob->Release();
+			pErrorBlob = nullptr;
+		}
+		else
+		{
+			OutputDebugStringW(L"Pixel shader compile failed, but no error blob was returned: ");
+			OutputDebugStringW(wszCurrentDir);
+			OutputDebugStringW(L"\n");
+		}
+		__debugbreak();
+	}
+	if (S_OK != m_pDevice->CreatePixelShader(pPixelShaderBlob->GetBufferPointer(), pPixelShaderBlob->GetBufferSize(), nullptr, &m_pipeline.pPixelShader))
+		__debugbreak();
+
+	m_pVertexShaderBlob = pVertexShaderBlob;
+
+	pPixelShaderBlob->Release();
+	delete[] szMainName;
+	delete[] szFileName;
+	delete[] wszCurrentDir;
 }
 
 void Renderer::DrawBlockGrid(const BlockGridDesc& desc)
@@ -151,22 +386,23 @@ void Renderer::DrawBlockGrid(const BlockGridDesc& desc)
 	if (desc.textureFile == nullptr || desc.tiles == nullptr || desc.width <= 0 || desc.height <= 0)
 		return;
 
-	ShaderData* shader = m_pHelper->pShaders[L"BasicSprite2DShader.hlsl"];
-	ID3D11ShaderResourceView* texture = m_pHelper->pTextures[PathFindFileNameW(desc.textureFile)];
+	ID3D11ShaderResourceView* texture = m_pipeline.pTexture;
+	if (m_pipeline.pVertexShader == nullptr || m_pipeline.pPixelShader == nullptr || texture == nullptr)
+		return;
 
 	UINT stride = sizeof(SimpleVertex);
 	UINT offset = 0;
-	m_pDeviceContext->IASetInputLayout(m_pHelper->pLayout);
+	m_pDeviceContext->IASetInputLayout(m_pipeline.pInputLayout);
 	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pDeviceContext->IASetVertexBuffers(0, 1, &m_pHelper->pRect2D, &stride, &offset);
-	m_pDeviceContext->IASetIndexBuffer(m_pHelper->pRect2DIndex, DXGI_FORMAT_R16_UINT, 0);
-	m_pDeviceContext->VSSetShader(shader->m_pVertexShader, nullptr, 0);
-	m_pDeviceContext->PSSetShader(shader->m_pPixelShader, nullptr, 0);
+	m_pDeviceContext->IASetVertexBuffers(0, 1, &m_pipeline.pQuadVertexBuffer, &stride, &offset);
+	m_pDeviceContext->IASetIndexBuffer(m_pipeline.pQuadIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
+	m_pDeviceContext->VSSetShader(m_pipeline.pVertexShader, nullptr, 0);
+	m_pDeviceContext->PSSetShader(m_pipeline.pPixelShader, nullptr, 0);
 	m_pDeviceContext->PSSetShaderResources(0, 1, &texture);
-	m_pDeviceContext->PSSetSamplers(0, 1, &m_pHelper->pPoint);
-	m_pDeviceContext->RSSetState(m_pHelper->pSolid);
-	m_pDeviceContext->OMSetBlendState(m_pHelper->pAlpha, nullptr, 0xFFFFFFFF);
-	m_pDeviceContext->OMSetDepthStencilState(m_pHelper->pDepthEnabledState, 0);
+	m_pDeviceContext->PSSetSamplers(0, 1, &m_pipeline.pSampler);
+	m_pDeviceContext->RSSetState(m_pipeline.pRasterizer);
+	m_pDeviceContext->OMSetBlendState(m_pipeline.pBlendState, nullptr, 0xFFFFFFFF);
+	m_pDeviceContext->OMSetDepthStencilState(m_pipeline.pDepthStencilState, 0);
 
 	const int atlasColumns = desc.atlasColumns > 0 ? desc.atlasColumns : 1;
 	const int atlasRows = desc.atlasRows > 0 ? desc.atlasRows : 1;
@@ -193,15 +429,15 @@ void Renderer::DrawBlockGrid(const BlockGridDesc& desc)
 			XMMATRIX world = XMMatrixScaling(desc.tileSize, desc.tileSize, 1.0f) * XMMatrixTranslation(posX, posY, 0.0f);
 
 			SpriteTransformData transformData{ world, m_matView, m_matProjection };
-			ConstantBuffer* transformBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &transformData, sizeof(SpriteTransformData), 0, "vs");
-			ConstantBuffer* spriteBuffer = D3DHelper::CreateConstantBuffer(m_pDevice, &spriteData, sizeof(SpriteData), 0, "ps");
+			ID3D11Buffer* transformBuffer = d3d::CreateConstantBuffer(m_pDevice, &transformData, sizeof(SpriteTransformData));
+			ID3D11Buffer* spriteBuffer = d3d::CreateConstantBuffer(m_pDevice, &spriteData, sizeof(SpriteData));
 
-			transformBuffer->Bind(m_pDeviceContext);
-			spriteBuffer->Bind(m_pDeviceContext);
+			d3d::BindVertexConstantBuffer(m_pDeviceContext, transformBuffer, &transformData, sizeof(SpriteTransformData), 0);
+			d3d::BindPixelConstantBuffer(m_pDeviceContext, spriteBuffer, &spriteData, sizeof(SpriteData), 0);
 			m_pDeviceContext->DrawIndexed(6, 0, 0);
 
-			delete transformBuffer;
-			delete spriteBuffer;
+			transformBuffer->Release();
+			spriteBuffer->Release();
 		}
 	}
 }

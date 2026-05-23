@@ -1,10 +1,24 @@
 #pragma once
 #include "Interface.h"
-#include "ConstantBuffer.h"
-#include "D3DHelper.h"
+#include "d3d.h"
+#include "d3dcompiler.h"
 #include <string>
 
 using namespace DirectX;
+
+struct RenderPipeline
+{
+	ID3D11Buffer* pQuadVertexBuffer = nullptr;
+	ID3D11Buffer* pQuadIndexBuffer = nullptr;
+	ID3D11InputLayout* pInputLayout = nullptr;
+	ID3D11SamplerState* pSampler = nullptr;
+	ID3D11RasterizerState* pRasterizer = nullptr;
+	ID3D11DepthStencilState* pDepthStencilState = nullptr;
+	ID3D11BlendState* pBlendState = nullptr;
+	ID3D11VertexShader* pVertexShader = nullptr;
+	ID3D11PixelShader* pPixelShader = nullptr;
+	ID3D11ShaderResourceView* pTexture = nullptr;
+};
 
 class Renderer : public IRenderer
 {
@@ -18,7 +32,9 @@ public:
 	void DrawBlockGrid(const BlockGridDesc& desc) override;
 
 private:
-	D3DHelper* m_pHelper;
+	void InitializePipeline();
+	void ReleasePipeline();
+	void LoadPipelineShader(const WCHAR* shaderFile);
 
 	ID3D11Device* m_pDevice;
 	ID3D11DeviceContext* m_pDeviceContext;
@@ -27,6 +43,8 @@ private:
 	ID3D11Texture2D* m_pDepthStencilBuffer;
 	ID3D11DepthStencilView* m_pDepthStencilView;
 	ID3D11RenderTargetView* m_pRenderTargetView;
+	ID3DBlob* m_pVertexShaderBlob = nullptr;
+	RenderPipeline m_pipeline;
 
 	FLOAT m_clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
@@ -37,6 +55,6 @@ private:
 	XMVECTOR m_CameraEyeDirection = { 0.0f ,0.0f, 1.0f, 1.0f };
 	XMVECTOR m_CameraUpDirection = { 0.0f ,1.0f, 0.0f, 1.0f };
 	float m_degFovY = 60.0f;
-	float m_near = 0.3f;
+	float m_near = 0.3f;	
 	float m_far = 1000.0f;
 };

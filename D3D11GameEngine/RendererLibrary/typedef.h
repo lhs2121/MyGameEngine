@@ -8,13 +8,6 @@ struct SimpleVertex
 	float2 TEXCOORD;
 };
 
-struct ShaderData
-{
-	ID3D11VertexShader* m_pVertexShader;
-	ID3D11PixelShader* m_pPixelShader;
-	ID3DBlob* m_pCompiledVertexShader;
-};
-
 struct SpriteData
 {
 	float2 ratio = { 1.0f, 1.0f };
